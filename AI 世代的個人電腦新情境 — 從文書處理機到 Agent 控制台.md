@@ -93,7 +93,17 @@ Google 帳戶在本課程中扮演三個角色：
 升級完成後，你可以在網頁版對話介面的左下角看到你的帳號名稱，旁邊會出現「Pro」的標示。
 或者：點選右上角的帳號頭像 → 「Settings」 → 「Billing」，確認方案顯示為「Claude Pro」。
 
-#### 前置準備完成
+#### Step 5：預先下載三個工具的安裝檔
+
+課堂上會逐步安裝以下工具。請在上課前先下載安裝檔，存放在桌面或下載資料夾即可，**不需要現在安裝**。
+
+| 工具 | 下載來源 | 備註 |
+|------|---------|------|
+| VS Code | [code.visualstudio.com](https://code.visualstudio.com) | 選 Windows / Mac 對應版本 |
+| Node.js | [nodejs.org](https://nodejs.org) | 選 LTS 版本 |
+| Git | [git-scm.com/downloads](https://git-scm.com/downloads) | 選 Windows / Mac 對應版本 |
+
+> 課堂網路環境不一定穩定，提前下載可以讓安裝過程更順暢。
 
 ---
 
