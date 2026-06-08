@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神經網路演示</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0a0c14;
+  --bg2:     #111420;
+  --surface: #1e2438;
+  --surface2:#252c42;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text:    #e8eaf0;
+  --text2:   #8f96b0;
+  --text3:   #5c6280;
+  --accent:  #6c8ef5;
+  --accent2: #a78bfa;
+  --green:   #34d399;
+  --orange:  #f97316;
+  --amber:   #fbbf24;
+  --font:    'Noto Sans TC', sans-serif;
+  --mono:    'DM Mono', monospace;
+  --r: 10px;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ── Full-viewport shell ── */
+.shell {
+  display: grid;
+  height: 100vh;
+  /* col: header | canvas | right-panel */
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 260px;
+  grid-template-areas:
+    "topbar  topbar"
+    "canvas  right";
+  gap: 0;
+  padding: 12px;
+  column-gap: 12px;
+  row-gap: 10px;
+}
+
+/* ── Top bar ── */
+.topbar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+.topbar-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.topbar-title h1 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(120deg,#e8eaf0 30%,#a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.topbar-title .eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.topbar-stats {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+.stat-item { min-width: 70px; }
+.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; }
+.stat-val   { font-family: var(--mono); font-size: 16px; color: var(--text); line-height: 1.3; }
+.topbar-btns { display: flex; gap: 8px; flex-shrink: 0; }
+.btn {
+  padding: 7px 14px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 7px;
+  cursor: pointer;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--text);
+  transition: background .15s, border-color .15s, transform .1s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
+.btn:active { transform: scale(0.97); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: #849cf7; border-color: #849cf7; color:#fff; }
+
+/* ── Canvas area ── */
+.canvas-area {
+  grid-area: canvas;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+#nn-canvas {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Right panel ── */
+.right {
+  grid-area: right;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+/* Card */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.card.grow { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text2);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.dot { width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0; }
+.dot.green  { background: var(--green); }
+.dot.amber  { background: var(--amber); }
+
+/* Controls */
+.ctrl-body { padding: 12px 14px; }
+.ctrl-row  { margin-bottom: 12px; }
+.ctrl-row:last-child { margin-bottom: 0; }
+.ctrl-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 6px;
+}
+.ctrl-label span:last-child { font-family: var(--mono); color: var(--accent); font-size: 10px; }
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: var(--surface2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(108,142,245,.5);
+}
+.divider { height:1px; background:var(--border); margin:10px 0; }
+
+/* Legend */
+.legend { padding: 10px 14px; }
+.legend-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text2);
+  margin-bottom: 8px;
+}
+.legend-row:last-child { margin-bottom:0; }
+.lswatch { width:22px;height:4px;border-radius:2px;flex-shrink:0; }
+
+/* Steps panel */
+.steps-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface2) transparent;
+}
+.step {
+  display: flex;
+  gap: 10px;
+  padding: 9px 8px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .15s;
+  border-radius: 6px;
+  border-left: 2px solid transparent;
+}
+.step:last-child { border-bottom:none; }
+.step:hover { background: var(--surface); }
+.step.active { background: var(--surface); border-left-color: var(--accent); }
+.step-num {
+  width:22px;height:22px;border-radius:50%;
+  background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-family:var(--mono);color:var(--text3);
+  flex-shrink:0;margin-top:1px;
+  transition:background .2s,color .2s;
+}
+.step.active .step-num { background:var(--accent);color:#fff; }
+.step-title { font-size:12px;font-weight:500;margin-bottom:3px; }
+.step-desc  { font-size:11px;color:var(--text2);line-height:1.55; }
+
+/* ── Prompt pill ── */
+.prompt-pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  padding: 6px 12px;
+  min-width: 0;
+  overflow: hidden;
+}
+.prompt-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.prompt-text {
+  font-family: var(--font);
+  font-size: 11.5px;
+  color: var(--text2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.5;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Tooltip */
+#tooltip {
+  position:fixed;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:8px;padding:7px 11px;font-size:11px;pointer-events:none;
+  z-index:999;display:none;max-width:160px;line-height:1.5;
+}
+#tooltip strong { color:var(--accent);display:block;margin-bottom:2px; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-title">
+      <span class="eyebrow">互動演示</span>
+      <h1>神經網路運作方式</h1>
+    </div>
+    <div class="topbar-stats">
+      <div class="stat-item">
+        <div class="stat-label">節點</div>
+        <div class="stat-val" id="stat-nodes">—</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">連結</div>
+        <div class="stat-val" id="stat-conns">—</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">層數</div>
+        <div class="stat-val" id="stat-layers">—</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">訊號</div>
+        <div class="stat-val" id="stat-signal">—</div>
+      </div>
+    </div>
+    <div class="prompt-pill">
+      <span class="prompt-label">提示詞</span>
+      <span class="prompt-text">請提供一個單一 html 檔：演示神經網路 (Neural Network)，數以億計的「節點 (Node)」組成，每個節點就像一位小小的投票者，輸入一個問題後，訊號會層層傳遞，每一層都在萃取不同層次的特徵，最終匯整出答案。</span>
+    </div>
+    <div class="topbar-btns">
+      <button class="btn primary" id="btn-fire">▶ 發送訊號</button>
+      <button class="btn" id="btn-reset">重置</button>
+    </div>
+  </header>
+
+  <!-- Canvas -->
+  <div class="canvas-area">
+    <canvas id="nn-canvas"></canvas>
+  </div>
+
+  <!-- Right panel -->
+  <aside class="right">
+
+    <!-- Controls -->
+    <div class="card">
+      <div class="card-header"><div class="dot amber"></div>參數設定</div>
+      <div class="ctrl-body">
+        <div class="ctrl-row">
+          <div class="ctrl-label"><span>輸入節點</span><span id="lbl-input">4</span></div>
+          <input type="range" id="sl-input" min="2" max="8" value="4">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label"><span>隱藏層數</span><span id="lbl-hidden">2</span></div>
+          <input type="range" id="sl-hidden" min="1" max="4" value="2">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label"><span>每層節點</span><span id="lbl-nodes">5</span></div>
+          <input type="range" id="sl-nodes" min="2" max="8" value="5">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label"><span>輸出節點</span><span id="lbl-output">3</span></div>
+          <input type="range" id="sl-output" min="1" max="6" value="3">
+        </div>
+        <div class="divider"></div>
+        <div class="ctrl-row">
+          <div class="ctrl-label"><span>訊號速度</span><span id="lbl-speed">2×</span></div>
+          <input type="range" id="sl-speed" min="1" max="5" value="2">
+        </div>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="card grow">
+      <div class="card-header"><div class="dot green"></div>訊號傳遞流程</div>
+      <div class="steps-scroll" id="steps-list"></div>
+    </div>
+
+  </aside>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+const canvas = document.getElementById('nn-canvas');
+const ctx = canvas.getContext('2d');
+
+let config = { inputs:4, hidden:2, nodesPerHidden:5, outputs:3, speed:2 };
+let layers=[], connections=[], signals=[];
+let animFrame, firing=false, activeStep=-1;
+
+const STEPS = [
+  { title:'① 輸入層接收資料',   desc:'問題被轉換成數字向量，每個輸入節點代表一個特徵，例如像素、詞語或感測器值。' },
+  { title:'② 加權連結傳遞訊號', desc:'每條連結有一個「權重」，決定訊號強弱。越亮的線代表越重要的連結路徑。' },
+  { title:'③ 隱藏層萃取特徵',   desc:'神經元將輸入加總後通過激活函數（如 ReLU），決定是否「點亮」並繼續前傳。越深的隱藏層所組合的特徵越抽象——從邊緣到形狀，再到語意概念。' },
+  { title:'④ 輸出層匯整答案',   desc:'最後一層每個節點代表一個候選答案，激活值最高的節點即為模型的預測結果。' },
+];
+
+function buildSteps() {
+  document.getElementById('steps-list').innerHTML = STEPS.map((s,i)=>`
+    <div class="step" id="step-${i}" onclick="highlightStep(${i})">
+      <div class="step-num">${i+1}</div>
+      <div>
+        <div class="step-title">${s.title}</div>
+        <div class="step-desc">${s.desc}</div>
+      </div>
+    </div>`).join('');
+}
+
+function highlightStep(i) {
+  document.querySelectorAll('.step').forEach((el,j)=>el.classList.toggle('active',j===i));
+  activeStep=i;
+  document.querySelectorAll('.step')[i]?.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+
+function buildNetwork() {
+  layers=[]; connections=[]; signals=[];
+  const W = canvas.offsetWidth || 600;
+  const H = canvas.offsetHeight || 400;
+  canvas.width=W; canvas.height=H;
+
+  const sizes=[config.inputs,...Array(config.hidden).fill(config.nodesPerHidden),config.outputs];
+  const n=sizes.length, px=52, py=44;
+
+  sizes.forEach((sz,li)=>{
+    const x=px+(li/(n-1))*(W-px*2);
+    const arr=[];
+    for(let ni=0;ni<sz;ni++){
+      const y=py+(sz===1?((H-py*2)/2):(ni/(sz-1))*(H-py*2));
+      arr.push({x,y,activation:0});
+    }
+    layers.push(arr);
+  });
+  for(let li=0;li<layers.length-1;li++){
+    layers[li].forEach(a=>layers[li+1].forEach(b=>{
+      connections.push({from:a,to:b,weight:Math.random()*.85+.15,active:0});
+    }));
+  }
+  updateStats();
+}
+
+function updateStats(){
+  document.getElementById('stat-nodes').textContent=layers.reduce((s,l)=>s+l.length,0);
+  document.getElementById('stat-conns').textContent=connections.length;
+  document.getElementById('stat-layers').textContent=layers.length;
+  document.getElementById('stat-signal').textContent='100%';
+}
+
+function draw(){
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  connections.forEach(c=>{
+    const al=c.active>0?0.08+c.weight*.55*c.active:0.03+c.weight*.06;
+    const lw=c.active>0?.5+c.weight*2.2*c.active:.4+c.weight*.8;
+    ctx.beginPath(); ctx.moveTo(c.from.x,c.from.y); ctx.lineTo(c.to.x,c.to.y);
+    ctx.strokeStyle=c.active>0?`rgba(108,142,245,${al})`:`rgba(255,255,255,${al})`;
+    ctx.lineWidth=lw; ctx.stroke();
+    if(c.active>0)c.active=Math.max(0,c.active-.015);
+  });
+
+  signals.forEach(s=>{
+    const px2=s.from.x+(s.to.x-s.from.x)*s.progress;
+    const py2=s.from.y+(s.to.y-s.from.y)*s.progress;
+    const r=3+s.weight*2;
+    const g=ctx.createRadialGradient(px2,py2,0,px2,py2,r*2.5);
+    g.addColorStop(0,`rgba(180,210,255,${.9*s.alpha})`);
+    g.addColorStop(.4,`rgba(108,142,245,${.7*s.alpha})`);
+    g.addColorStop(1,'rgba(108,142,245,0)');
+    ctx.beginPath();ctx.arc(px2,py2,r*2.5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    ctx.beginPath();ctx.arc(px2,py2,r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(220,235,255,${s.alpha})`;ctx.fill();
+  });
+
+  layers.forEach((layer,li)=>{
+    const isIn=li===0,isOut=li===layers.length-1;
+    const base=isIn?[52,211,153]:isOut?[249,115,22]:[108,142,245];
+    const idle=[30,36,60];
+    layer.forEach(nd=>{
+      const a=nd.activation;
+      const rc=[idle[0]+( base[0]-idle[0])*a,idle[1]+(base[1]-idle[1])*a,idle[2]+(base[2]-idle[2])*a];
+      const rad=10+a*4;
+      if(a>.05){
+        const g=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,rad*4);
+        g.addColorStop(0,`rgba(${rc[0]|0},${rc[1]|0},${rc[2]|0},${a*.45})`);
+        g.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.beginPath();ctx.arc(nd.x,nd.y,rad*4,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+      }
+      ctx.beginPath();ctx.arc(nd.x,nd.y,rad,0,Math.PI*2);
+      ctx.fillStyle=`rgb(${rc[0]|0},${rc[1]|0},${rc[2]|0})`;ctx.fill();
+      ctx.beginPath();ctx.arc(nd.x,nd.y,rad,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(${(rc[0]+40)|0},${(rc[1]+40)|0},${(rc[2]+40)|0},${.3+a*.6})`;
+      ctx.lineWidth=1.2;ctx.stroke();
+      if(nd.activation>0)nd.activation=Math.max(0,nd.activation-.008);
+    });
+  });
+
+  // Layer labels
+  const names=['輸入層',...Array(config.hidden).fill('隱藏層'),'輸出層'];
+  layers.forEach((layer,li)=>{
+    ctx.fillStyle=li===0?'rgba(52,211,153,.7)':li===layers.length-1?'rgba(249,115,22,.7)':'rgba(108,142,245,.5)';
+    ctx.font='11px "Noto Sans TC",sans-serif';ctx.textAlign='center';
+    ctx.fillText(names[li]+(li>0&&li<layers.length-1&&config.hidden>1?` ${li}`:''),layer[0].x,canvas.height-10);
+    ctx.fillStyle='rgba(140,148,180,.4)';ctx.font='10px "DM Mono",monospace';
+    ctx.fillText(layer.length,layer[0].x,14);
+  });
+
+  animFrame=requestAnimationFrame(draw);
+}
+
+function clamp(v,mn,mx){return Math.min(mx,Math.max(mn,v));}
+
+function fireSignal(){
+  if(firing)return; firing=true;
+  const ms=[800,500,320,200,120][config.speed-1];
+  function activateLayer(li){
+    if(li>=layers.length){
+      firing=false;
+      // 動畫結束 → 停留在第 5 步（輸出層匯整答案）
+      highlightStep(STEPS.length-1);
+      return;
+    }
+    // 到達最後一層時直接 highlight 第 5 步，否則依層次對應
+    const stepIdx = li===layers.length-1 ? STEPS.length-1 : Math.min(li, STEPS.length-2);
+    highlightStep(stepIdx);
+    layers[li].forEach(nd=>{
+      const d=Math.random()*80;
+      setTimeout(()=>{
+        nd.activation=.7+Math.random()*.3;
+        if(li<layers.length-1){
+          connections.filter(c=>c.from===nd).forEach(c=>{
+            setTimeout(()=>{c.active=c.weight;signals.push({from:c.from,to:c.to,progress:0,weight:c.weight,alpha:1});},d+80);
+          });
+        }
+      },d);
+    });
+    document.getElementById('stat-signal').textContent=Math.round((1-li/(layers.length-1))*100)+'%';
+    setTimeout(()=>activateLayer(li+1),ms);
+  }
+  activateLayer(0);
+}
+
+(function tick(){
+  signals.forEach(s=>{
+    s.progress+=.025*config.speed;
+    if(s.progress>.9)s.alpha=Math.max(0,1-(s.progress-.9)*10);
+  });
+  signals=signals.filter(s=>s.progress<=1.05);
+  setTimeout(tick,16);
+})();
+
+function bindSlider(id,lblId,key,fmt){
+  const sl=document.getElementById(id),lb=document.getElementById(lblId);
+  sl.addEventListener('input',()=>{
+    const v=parseInt(sl.value); config[key]=v;
+    lb.textContent=fmt?fmt(v):v;
+    if(key!=='speed'){cancelAnimationFrame(animFrame);buildNetwork();requestAnimationFrame(draw);}
+  });
+}
+bindSlider('sl-input','lbl-input','inputs');
+bindSlider('sl-hidden','lbl-hidden','hidden');
+bindSlider('sl-nodes','lbl-nodes','nodesPerHidden');
+bindSlider('sl-output','lbl-output','outputs');
+bindSlider('sl-speed','lbl-speed','speed',v=>v+'×');
+
+document.getElementById('btn-fire').addEventListener('click',fireSignal);
+document.getElementById('btn-reset').addEventListener('click',()=>{
+  layers.forEach(l=>l.forEach(n=>n.activation=0));
+  connections.forEach(c=>c.active=0);
+  signals=[];firing=false;
+  document.getElementById('stat-signal').textContent='100%';
+  document.querySelectorAll('.step').forEach(el=>el.classList.remove('active'));
+  activeStep=-1;
+});
+
+canvas.addEventListener('mousemove',e=>{
+  const r=canvas.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  const tip=document.getElementById('tooltip'); let found=false;
+  layers.forEach((layer,li)=>layer.forEach((nd,ni)=>{
+    if(Math.hypot(nd.x-mx,nd.y-my)<16){
+      const lname=li===0?'輸入層':li===layers.length-1?'輸出層':`隱藏層 ${li}`;
+      tip.style.display='block';tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-8)+'px';
+      tip.innerHTML=`<strong>節點 ${li}-${ni}</strong>${lname}<br>激活值：${nd.activation.toFixed(3)}`;
+      found=true;
+    }
+  }));
+  if(!found)tip.style.display='none';
+});
+canvas.addEventListener('mouseleave',()=>{document.getElementById('tooltip').style.display='none';});
+canvas.addEventListener('click',e=>{
+  const r=canvas.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  layers.forEach(l=>l.forEach(n=>{if(Math.hypot(n.x-mx,n.y-my)<16)n.activation=1;}));
+});
+
+// Resize: rebuild when canvas container changes size
+const ro=new ResizeObserver(()=>{
+  cancelAnimationFrame(animFrame);
+  buildNetwork();
+  requestAnimationFrame(draw);
+});
+ro.observe(canvas);
+
+buildSteps();
+buildNetwork();
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

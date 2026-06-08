@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer vs LLM Agent Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #f5f0e8;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 32px;
+}
+
+/* ── Title row ── */
+.title-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 1fr;
+  width: 100%;
+  max-width: 860px;
+  margin-bottom: 6px;
+  align-items: end;
+}
+.col-title {
+  text-align: center;
+}
+.col-title h1 {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(26px, 3.8vw, 42px);
+  font-weight: 700;
+  color: #2d3a5c;
+  line-height: 1.1;
+}
+.col-title .sub {
+  font-size: clamp(11px, 1.4vw, 14px);
+  color: #7a869a;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+/* ── Stack grid ── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: 1fr 120px 1fr;
+  gap: 7px 0;
+  width: 100%;
+  max-width: 860px;
+  align-items: center;
+}
+
+/* ── Row item ── */
+.stack-row {
+  display: contents;
+}
+
+.box {
+  border-radius: 14px;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 16px;
+  font-size: clamp(12px, 1.5vw, 15px);
+  font-weight: 500;
+  color: #2d3a5c;
+  height: clamp(44px, 7vh, 62px);
+  transition: transform .15s, box-shadow .15s;
+  cursor: default;
+  line-height: 1.3;
+}
+.box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Colors matching original */
+.c-blue   { background: #d6eaf8; border-color: #7fb3d3; }
+.c-yellow { background: #fdebd0; border-color: #e6a817; }
+.c-green  { background: #d5f5e3; border-color: #7dcea0; }
+.c-purple { background: #e8daef; border-color: #b98fd1; }
+.c-red    { background: #fadbd8; border-color: #e07070; }
+.c-orange { background: #fde8d0; border-color: #e8964d; }
+
+/* Key layer highlight */
+.box.key {
+  border-width: 2.5px;
+  font-weight: 700;
+}
+
+/* ── Middle connector column ── */
+.mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(44px, 7vh, 62px);
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: #8a97b0;
+  position: relative;
+}
+
+/* Arrow row (key layer) */
+.mid.arrow-row {
+  flex-direction: column;
+  gap: 0;
+}
+.arrow-label {
+  font-size: clamp(9px, 1vw, 11px);
+  color: #5a6a85;
+  white-space: nowrap;
+  margin-bottom: 2px;
+  font-style: italic;
+}
+.arrow-svg {
+  width: clamp(44px, 6vw, 64px);
+  height: 20px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Titles -->
+  <div class="title-row">
+    <div class="col-title">
+      <h1>Computer</h1>
+      <div class="sub">Traditional Stack</div>
+    </div>
+    <div></div>
+    <div class="col-title">
+      <h1>LLM Agent</h1>
+      <div class="sub">AI System Stack</div>
+    </div>
+  </div>
+
+  <!-- Stack -->
+  <div class="stack-grid">
+
+    <!-- Application / Agent -->
+    <div class="box c-blue">Application</div>
+    <div class="mid">≈</div>
+    <div class="box c-blue">Agent (emergent behavior)</div>
+
+    <!-- OS / Agent Harness — KEY LAYER -->
+    <div class="box c-yellow key">Operating System (core layer)</div>
+    <div class="mid arrow-row">
+      <span class="arrow-label">This is the key layer</span>
+      <svg class="arrow-svg" viewBox="0 0 64 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="4" y1="10" x2="52" y2="10" stroke="#2d3a5c" stroke-width="2.2" stroke-linecap="round"/>
+        <polyline points="44,4 54,10 44,16" stroke="#2d3a5c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="box c-yellow key">Agent Harness (orchestration layer)</div>
+
+    <!-- Device Drivers / Tool Integrations -->
+    <div class="box c-green">Device Drivers</div>
+    <div class="mid">≈</div>
+    <div class="box c-green">Tool Integrations</div>
+
+    <!-- Hard Disk / Vector DB -->
+    <div class="box c-purple">Hard Disk</div>
+    <div class="mid">≈</div>
+    <div class="box c-purple">Vector DB (Long-term Storage)</div>
+
+    <!-- RAM / Context Window -->
+    <div class="box c-red">RAM</div>
+    <div class="mid">≈</div>
+    <div class="box c-red">Context Window</div>
+
+    <!-- CPU / LLM -->
+    <div class="box c-orange">CPU</div>
+    <div class="mid">≈</div>
+    <div class="box c-orange">LLM (model weights)</div>
+
+  </div>
+</div>
+</body>
+</html>
