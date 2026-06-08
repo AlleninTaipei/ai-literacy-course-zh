@@ -25,13 +25,9 @@
 
 AI 基礎概念的白話版講解：神經網路、預訓練、對齊、微調、推論、MoE、Token、無狀態與多輪對話、系統提示、工具呼叫、多模態。
 
-附互動展示：[neural_network_demo.html](neural_network_demo.html)
-
 ### Part 2 — 個人電腦新情境
 
 建立現代 AI 工作環境：VS Code、Markdown、Marp、Claude Code、Git、Agentic Coding。
-
-附互動展示：[llm_agent_stack.html](llm_agent_stack.html)
 
 ### Part 3 — 啟動 JARVIS 模式
 
