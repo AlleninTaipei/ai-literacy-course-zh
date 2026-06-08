@@ -1,5 +1,12 @@
 # AI 素質養成課程
 
+![banner](assets/banner.svg)
+
+![Made with Marp](https://img.shields.io/badge/Made%20with-Marp-1a1a1a?style=flat&logo=markdown&logoColor=D97757&labelColor=1a1a1a&color=D97757)
+![Language](https://img.shields.io/badge/語言-繁體中文-D97757?style=flat&labelColor=1a1a1a)
+![License](https://img.shields.io/badge/License-CC%20BY--SA%204.0-D97757?style=flat&labelColor=1a1a1a)
+![Last Commit](https://img.shields.io/github/last-commit/AlleninTaipei/ai-literacy-course-zh?style=flat&labelColor=1a1a1a&color=D97757)
+
 **為白領上班族設計的三部曲 AI 實戰課程**
 
 這套課程以 Marp 簡報格式製作，目標是讓每一位每天在電腦前工作的人，都能真正把 AI 當成自己的工作夥伴——不需要寫程式，不需要技術背景。

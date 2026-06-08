@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1A1A"/>
+      <stop offset="100%" style="stop-color:#2A1F1A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="280" fill="url(#bg)" rx="12"/>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="6" height="280" fill="#D97757" rx="3"/>
+
+  <!-- Decorative dots grid -->
+  <g opacity="0.08">
+    <circle cx="820" cy="60" r="2" fill="#D97757"/>
+    <circle cx="840" cy="60" r="2" fill="#D97757"/>
+    <circle cx="860" cy="60" r="2" fill="#D97757"/>
+    <circle cx="880" cy="60" r="2" fill="#D97757"/>
+    <circle cx="900" cy="60" r="2" fill="#D97757"/>
+    <circle cx="820" cy="80" r="2" fill="#D97757"/>
+    <circle cx="840" cy="80" r="2" fill="#D97757"/>
+    <circle cx="860" cy="80" r="2" fill="#D97757"/>
+    <circle cx="880" cy="80" r="2" fill="#D97757"/>
+    <circle cx="900" cy="80" r="2" fill="#D97757"/>
+    <circle cx="820" cy="100" r="2" fill="#D97757"/>
+    <circle cx="840" cy="100" r="2" fill="#D97757"/>
+    <circle cx="860" cy="100" r="2" fill="#D97757"/>
+    <circle cx="880" cy="100" r="2" fill="#D97757"/>
+    <circle cx="900" cy="100" r="2" fill="#D97757"/>
+    <circle cx="820" cy="120" r="2" fill="#D97757"/>
+    <circle cx="840" cy="120" r="2" fill="#D97757"/>
+    <circle cx="860" cy="120" r="2" fill="#D97757"/>
+    <circle cx="880" cy="120" r="2" fill="#D97757"/>
+    <circle cx="900" cy="120" r="2" fill="#D97757"/>
+  </g>
+
+  <!-- Main title -->
+  <text x="48" y="96" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="40" font-weight="700" fill="#F5F0E8">AI 素質養成課程</text>
+
+  <!-- Subtitle -->
+  <text x="50" y="140" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="20" fill="#D97757">為白領上班族設計的三部曲 AI 實戰課程</text>
+
+  <!-- Divider line -->
+  <line x1="50" y1="164" x2="700" y2="164" stroke="#D97757" stroke-width="1" opacity="0.4"/>
+
+  <!-- Part tags -->
+  <!-- Part 1 -->
+  <rect x="50" y="182" width="170" height="52" fill="#D97757" opacity="0.12" rx="6"/>
+  <rect x="50" y="182" width="3" height="52" fill="#D97757" rx="2"/>
+  <text x="63" y="204" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="11" fill="#D97757" font-weight="600">PART 1</text>
+  <text x="63" y="223" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8">認識你的工作夥伴</text>
+
+  <!-- Part 2 -->
+  <rect x="238" y="182" width="170" height="52" fill="#D97757" opacity="0.12" rx="6"/>
+  <rect x="238" y="182" width="3" height="52" fill="#D97757" rx="2"/>
+  <text x="251" y="204" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="11" fill="#D97757" font-weight="600">PART 2</text>
+  <text x="251" y="223" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8">個人電腦新情境</text>
+
+  <!-- Part 3 -->
+  <rect x="426" y="182" width="170" height="52" fill="#D97757" opacity="0.12" rx="6"/>
+  <rect x="426" y="182" width="3" height="52" fill="#D97757" rx="2"/>
+  <text x="439" y="204" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="11" fill="#D97757" font-weight="600">PART 3</text>
+  <text x="439" y="223" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8">啟動 JARVIS 模式</text>
+
+  <!-- Bottom tag line -->
+  <text x="50" y="264" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8" opacity="0.4">Powered by Marp · Claude Code · VS Code</text>
+</svg>
