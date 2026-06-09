@@ -1,8 +1,8 @@
 --- 
 marp: true
 theme: default
-backgroundColor: #1C1917
-color: #E88A65
+backgroundColor: #1A1A1A
+color: #F5F0E8
 paginate: true
 ---
 
@@ -14,19 +14,19 @@ table {
   border-collapse: collapse;
 }
 th {
-  background-color: #E88A65;
+  background-color: #D97757;
   color: white;
 }
 td {
-  background-color: #1C1917;
+  background-color: #1A1A1A;
 }
 blockquote {
-  background-color: #FAF9F7;
-  border-left: 8px solid #E88A65;
+  background-color: #1A1A1A;
+  border-left: 8px solid #D97757;
   padding: 1.5rem;
   border-radius: 4px;
   font-style: italic;
-  color: #102a43;
+  color: #F5E0E8;
 }
 </style>
 
@@ -109,7 +109,6 @@ MCP 是 Claude 連接外部世界的標準協定。學會 MCP，就能讓 Claude
 
 ---
 
-> 先取得 Anthropic 官方合作夥伴認證。
-> 先實作、後修課。有了動手的體感，課程內容吸收效果更好。
-> 你不只是「會用 Claude Code 的人」——你是通過官方認證的合作夥伴。
-> 當你的整合成果開始被問「你怎麼做到的」，這條學習路徑讓你的方法有出處、有說服力。
+> 這條路徑的四門課程，不是每一門都適合每一個人——白領工作者與技術人員各有側重。
+> 白領工作者從 Agent Skills 與 Claude Code 出發；技術人員則可以深入 API 與 MCP，把 Claude 的能力真正嵌進產品與流程。
+> 無論哪個角色，帶著實作體感來修、拿到 Anthropic 官方認證，你對 AI 的理解就不只是「我感覺它能用」——而是有根據、有框架、有出處。
