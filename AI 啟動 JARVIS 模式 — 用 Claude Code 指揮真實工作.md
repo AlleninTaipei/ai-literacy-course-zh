@@ -840,7 +840,76 @@ YouTube Data API 的金鑰必須放在前端頁面裡，因為這是純靜態網
 
 ---
 
-八個案例，到這裡完整。從整理 Excel、做個人 App、建稽核系統、開發 AI 影片工具、學習資料庫、建立自動化管線、理解協定，到考量部署限制的靜態網站——任務性質、技術複雜度、開發動機都不同，但驅動每一次有效協作的，始終是同一套溝通節奏。
+---
+
+第九個案例，這次換一個角度：使用者是在設計給別人學的東西——把 API 文件變成三種可學習的格式。
+
+---
+
+對話一（Spec-First）
+
+```
+我想做一個教人使用 Claude API 的學習套件。
+學習者需要三種不同深度的接觸方式：
+1. 一份可以印出來查閱的參考文件（Markdown）
+2. 一個在瀏覽器裡可以互動操作的視覺化工具（HTML，不需要伺服器）
+3. 可以直接跑的 Python 範例程式碼
+
+三種格式要涵蓋相同的概念，但各自以最適合的方式呈現。
+請先說明整體結構，再開始動手。
+```
+
+三種交付物在動手前就定義清楚。這讓 Claude Code 知道：同一個概念要被設計三次，每次適應不同的學習情境——而不是做完一個再問「還要加什麼」。
+
+---
+
+對話二（Atomic Tasking）
+
+```
+HTML 視覺化工具，先只做第一個章節：API 請求生命週期。
+動畫流程：client → server → Claude API → server → client，
+每個步驟暫停，讓學習者看清楚再繼續。
+做完這個讓我確認效果，再繼續做下一個章節。
+```
+
+視覺化工具有八個章節，每次只做一個，確認效果後再繼續。git 記錄了每個章節獨立 commit——temperature slider、multi-turn conversation、streaming、tool use……一個一個疊上去。
+
+---
+
+對話三（Context Engineering）
+
+```
+Phase 1 要做兩個版本：
+A：直接呼叫 API，沒有 server layer（demo_claude_api.py）
+B：加入 server layer，API Key 只放在 server 端（server.py + client.py）
+
+設計重點不是功能，而是讓學習者「看到差異」——
+為什麼 client 不能直接拿著 API Key 呼叫？
+程式碼的結構和輸出訊息都要能清楚說明這一點。
+```
+
+A 和 B 功能完全相同，但學習目的不同。這段話讓 Claude Code 知道設計優先順序是「說得清楚」而不是「寫得簡潔」——server.py 的啟動訊息要明確印出「API Key is loaded — client will never see it.」，這是教學設計的一部分。
+
+---
+
+對話四（Review-and-Iterate）
+
+```
+Phase 2 多供應商版本做完之後，我想加一個架構結論進文件：
+OpenAI SDK 格式已經是本地模型的事實標準——
+Ollama、LM Studio 都實作了 OpenAI 相容的 endpoint；
+但 Anthropic 和 Google 的 SDK 沒有對應的路徑。
+含義是：如果之後要把計算遷移到本地模型，
+用 OpenAI SDK 格式（即使呼叫 Claude 也透過 proxy）
+會讓切換成本最低。
+請把這個洞察整理成獨立章節，加進 Markdown 和 HTML 兩個版本。
+```
+
+Phase 2 做完之後才看清楚的架構含義——不是修正錯誤，而是把實作過程裡得到的洞察回饋進文件，讓整個學習套件更完整。這是 Review-and-Iterate 的另一種形式。
+
+---
+
+九個案例，到這裡完整。從整理 Excel、做個人 App、建稽核系統、開發 AI 影片工具、學習資料庫、建立自動化管線、理解協定、考量部署限制的靜態網站，到設計給別人學的教材——任務性質、技術複雜度、開發動機都不同，但驅動每一次有效協作的，始終是同一套溝通節奏。
 
 ---
 
