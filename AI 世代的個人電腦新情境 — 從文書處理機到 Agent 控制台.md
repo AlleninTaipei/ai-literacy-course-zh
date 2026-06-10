@@ -402,7 +402,7 @@ git push -u origin main
 
 ---
 
-#### 第一次 push 的 GitHub 驗證
+#### 補充：第一次 push 遇到 GitHub 驗證怎麼辦
 
 第一次 push 時，Git 需要確認你有權限寫入那個 GitHub repo。Windows 和 Mac 的處理方式不同：
 
