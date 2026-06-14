@@ -46,18 +46,7 @@ Anthropic 官方免費學習平台
 
 ---
 
-## 找到你的學習路徑
-
-| 你是誰 | 推薦起點 |
-|--------|----------|
-| 初次接觸 AI | Claude 101 → AI Fluency: Framework & Foundations |
-| 職場工作者 | AI Fluency for Small Businesses → Claude 101 |
-| 開發者 | Claude Platform 101 → Building with the Claude API |
-| 教育工作者 | AI Fluency for educators → Teaching AI Fluency |
-
----
-
-## 完整課程地圖
+## 完整課程地圖 - 找到你的學習路徑
 
 - 入門：Claude 101、AI Capabilities and Limitations、AI Fluency: Framework & Foundations
 - 職場應用：AI Fluency（Small Businesses、Nonprofits）、Introduction to Claude Cowork
