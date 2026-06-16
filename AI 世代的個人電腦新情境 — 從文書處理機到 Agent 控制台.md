@@ -157,7 +157,7 @@ Claude Code 讀取當前專案的上下文（Context Window）
 推上 GitHub，你得到的遠不只是備份：
 
 1. 雲端備份 — 電腦壞了，工作還在
-2. 跨裝置存取 — 在任何地方 `git pull`，拿到最新版本
+2. 跨裝置存取 — 新電腦用 `git clone` 複製整個 repo，之後 `git pull` 拿最新版本
 3. 連結即分享 — 把 repo 網址給同事，他們立刻能看到你的工作
 4. GitHub Pages — 把 Marp 匯出的 HTML 發布上線，一個連結就能分享簡報
 5. GitHub Actions — 固定時間自動執行腳本，不需要開電腦
