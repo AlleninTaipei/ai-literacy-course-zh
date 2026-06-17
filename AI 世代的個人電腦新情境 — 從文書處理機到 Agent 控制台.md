@@ -50,6 +50,10 @@ blockquote {
 
 ---
 
+#### 動手做：Bookmark 三個供應商的 Chatbot
+
+---
+
 #### 動手做：安裝 Claude Code
 
 1. 開啟 [nodejs.org](https://nodejs.org)，下載並安裝 LTS 版
