@@ -49,7 +49,7 @@ blockquote {
 
 > 神經網路的命名和設計靈感直接來自人腦。
 
-[Neural Network Demo](neural_network_demo.html)
+[Neural Network Demo](neural-network-demo.html)
 
 ---
 

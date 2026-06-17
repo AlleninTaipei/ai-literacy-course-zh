@@ -37,7 +37,7 @@ blockquote {
 > 以前，電腦是你的工具。
 > 現在，電腦是你的辦公室——而 AI Agent，是在裡面替你工作的員工。
 
-[LLM Agent Stack](llm_agent_stack.html)
+[LLM Agent Stack](llm-agent-stack.html)
 
 ---
 
