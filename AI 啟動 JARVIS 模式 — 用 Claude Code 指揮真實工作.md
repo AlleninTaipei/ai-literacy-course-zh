@@ -67,10 +67,13 @@ blockquote {
 #### 全域 CLAUDE.md
 
 Windows
+
 ```
 C:\Users\<使用者名稱>\.claude\CLAUDE.md
 ```
+
 Mac
+
 ```
 ~/.claude/CLAUDE.md
 ```
@@ -109,8 +112,6 @@ Mac
 #### 時間數字持續增加、spinner 還在轉，就代表它在跑
 
 #### 連按兩次 `Escape` 中斷，再重新描述任務
-
-#### 某些操作 Claude Code 會暫停並詢問你是否允許
 
 ```
 Claude Code wants to execute a bash command:
@@ -157,7 +158,15 @@ Claude code 可以用 "/" 下 指令, 請幫我用 markdown 方式製表, 列出
 Skills 是 Claude Code 提供的專項能力模組（例如程式碼審查、安全性分析）。
 在對話框輸入 `/` 後，下拉選單會列出目前可用的所有 Skills，直接點選即可啟用。
 
-> 自訂指令讓你把重複的工作流程變成一個指令；Skills 讓 AI 在特定任務上展現更深的專業能力。
+#### 自訂指令 vs Skills
+
+| 項目 | 自訂指令 | Skills |
+|-----|---------|--------|
+| 建立方式 | 自己寫一個 .md 檔案，放進 commands 資料夾 | Claude Code 內建或由外部提供的能力模組 |
+| 呼叫方式 | 輸入自己命名的 /指令名稱 | 在 / 選單中列出，直接點選啟用 |
+| 適合情境 | 把重複出現的固定流程存成捷徑 | 需要更深專業判斷的任務（例如程式碼審查、安全性分析） |
+
+> 自訂指令讓你把重複的工作流程變成一個指令。
 
 ---
 
