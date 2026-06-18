@@ -215,12 +215,13 @@ git config --global user.email "your.email@example.com"
 
 點選左側「Extensions」→ 搜尋套件名稱 → 點選 Install。
 
-| 套件名稱 | 發布者 | 功能說明 |
+| 套件名稱 | 功能說明 |
 |---------|--------|---------|
-| Chinese (Traditional) Language Pack | Microsoft | 將 VS Code 介面切換為繁體中文 |
-| markdownlint | David Anson | 自動檢查 Markdown 語法規範，提示格式錯誤 |
-| Marp for VS Code | marp-team | 將 Markdown 渲染成投影片，支援即時預覽與匯出 |
-| Material Icon Theme | Philipp Kief | 以直覺圖示區分不同類型的檔案與資料夾 |
+| Chinese (Traditional) Language Pack | 將 VS Code 介面切換為繁體中文 |
+| markdownlint | 自動檢查 Markdown 語法規範，提示格式錯誤 |
+| Markdown Preview Enhanced | 即時預覽 Markdown，並可匯出整頁捲動式 HTML |
+| Marp for VS Code | 將 Markdown 渲染成投影片，支援即時預覽與匯出 |
+| Material Icon Theme | 以直覺圖示區分不同類型的檔案與資料夾 |
 
 ---
 
