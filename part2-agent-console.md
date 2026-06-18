@@ -205,18 +205,13 @@ git config --global user.email "your.email@example.com"
 
 ---
 
-#### 動手做：安裝 VS Code
+#### 動手做：安裝 VS Code 和 延伸套件
 
-開啟 [code.visualstudio.com](https://code.visualstudio.com)，下載對應平台的安裝程式，安裝過程中所有選項保持預設即可。
-
----
-
-#### 動手做：安裝 VS Code 延伸套件
-
-點選左側「Extensions」→ 搜尋套件名稱 → 點選 Install。
+- [code.visualstudio.com](https://code.visualstudio.com)
+- 點選左側「Extensions」→ 搜尋套件名稱 → 點選 Install。
 
 | 套件名稱 | 功能說明 |
-|---------|--------|---------|
+|---------|--------|
 | Chinese (Traditional) Language Pack | 將 VS Code 介面切換為繁體中文 |
 | markdownlint | 自動檢查 Markdown 語法規範，提示格式錯誤 |
 | Markdown Preview Enhanced | 即時預覽 Markdown，並可匯出整頁捲動式 HTML |
@@ -225,9 +220,11 @@ git config --global user.email "your.email@example.com"
 
 ---
 
-#### Markdown
+#### Markdown 和 AI 說同一種語言
 
-語法只有十幾個符號，`#` 代表標題、`**` 代表粗體、`-` 代表清單、`>` 代表引言，其餘都是普通文字。
+如果你的工作筆記本來就是 Markdown，就等於你和 AI 之間不需要格式翻譯。
+
+提示詞、輸出、儲存，都在同一個格式生態裡流轉。
 
 ```markdown
 # 這是標題
@@ -239,14 +236,6 @@ git config --global user.email "your.email@example.com"
 
 > 這是引言區塊
 ```
-
----
-
-#### Markdown 和 AI 說同一種語言
-
-如果你的工作筆記本來就是 Markdown，就等於你和 AI 之間不需要格式翻譯。
-
-提示詞、輸出、儲存，都在同一個格式生態裡流轉。
 
 > 這份投影片本身，就是用 Markdown 寫成的。
 
@@ -278,36 +267,29 @@ paginate: true
 
 ---
 
-#### 傳統簡報工具和 Marp 的差異
+#### 動手做：完整工具鏈閉環
 
-| 比較項目 | PowerPoint | Marp |
-|---------|---------------------|------|
-| 製作方式 | 拖拉排版 | 純文字撰寫 |
-| AI 可生成 | 需要外掛或手動輸入 | AI 直接輸出完整 .md |
-| 跨平台播放 | 需要對應軟體 | 匯出 HTML，任何瀏覽器皆可開 |
-| 主題切換 | 逐頁調整 | 改一行 frontmatter，全部更新 |
+> AI 生成 → 本機編輯 → Git 版控 → 雲端備份。
 
 ---
 
-#### 動手做：讓 AI 幫你生成簡報
+## 小結：Part 2 概念關係總覽
 
-```
-請用 Marp 格式製作一份 8 頁簡報，主題是：
-「為什麼我們的團隊需要 AI 工具」
-聽眾：主管，不懂技術，重視成本
-風格：每頁不超過 5 個重點，繁體中文
-請直接輸出完整的 .md 檔案內容，包含 frontmatter
-```
-
----
-
-#### 動手做：push 到 GitHub
-
-> 完整工具鏈閉環：AI 生成 → 本機編輯 → Git 版控 → 雲端備份。
+| 主題 | 是什麼 | 關鍵認識 |
+|------|-------|---------|
+| Claude Code | 在你電腦裡工作的 AI Agent | Human-in-the-Loop：人始終在決策圈內 |
+| Git | 版本控制（Repo / Commit / Remote）| 版本記錄讓每一次操作都可以回溯，push 讓工作不綁在單一台電腦上 |
+| GitHub | 雲端存放平台 | 備份、跨裝置存取、連結分享、網頁發布、定時自動執行 |
+| VS Code / Markdown / Marp | 工作環境與文件格式 | Agent 的操作空間，人與 AI 共讀的原生格式 |
 
 ---
 
-#### 補充：第一次 push 遇到 GitHub 驗證怎麼辦
+> 恭喜你。你已經理解新的工作方式。你安裝了工具、下了指令、把成果推上了 GitHub。
+> 從這一刻起，AI 不再只是你聽說過的東西，而是坐在你旁邊、等你開口的同事。
+
+---
+
+## 補充：第一次 push 遇到 GitHub 驗證怎麼辦
 
 | 平台 | 驗證機制 | 你需要做什麼 |
 |------|---------|------------|
@@ -325,19 +307,3 @@ git push -u origin main
 ```
 
 Mac 用戶：`brew` 是 macOS 的套件管理工具（Homebrew），如果還沒安裝，先前往 [brew.sh](https://brew.sh) 安裝，再執行上述指令。
-
----
-
-## 小結：Part 2 概念關係總覽
-
-| 主題 | 是什麼 | 關鍵認識 |
-|------|-------|---------|
-| Claude Code | 在你電腦裡工作的 AI Agent | Human-in-the-Loop：人始終在決策圈內 |
-| Git | 版本控制（Repo / Commit / Remote）| 版本記錄讓每一次操作都可以回溯，push 讓工作不綁在單一台電腦上 |
-| GitHub | 雲端存放平台 | 備份、跨裝置存取、連結分享、網頁發布、定時自動執行 |
-| VS Code / Markdown / Marp | 工作環境與文件格式 | Agent 的操作空間，人與 AI 共讀的原生格式 |
-
----
-
-> 恭喜你。你已經理解新的工作方式。你安裝了工具、下了指令、把成果推上了 GitHub。
-> 從這一刻起，AI 不再只是你聽說過的東西，而是坐在你旁邊、等你開口的同事。
