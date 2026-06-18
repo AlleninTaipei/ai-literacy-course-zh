@@ -221,7 +221,7 @@ GitHub 在本課程中扮演兩個角色：
 
 #### Step 3：建立 Anthropic 帳號
 
-[claude.ai](https://claude.ai), 推薦 Google 的登入方式
+[claude.ai](https://claude.ai)，推薦 Google 的登入方式
 
 #### Step 4：升級為 Pro 用戶
 

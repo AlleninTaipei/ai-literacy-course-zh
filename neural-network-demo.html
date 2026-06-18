@@ -11,20 +11,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:      #0a0c14;
-  --bg2:     #111420;
-  --surface: #1e2438;
-  --surface2:#252c42;
-  --border:  rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.13);
-  --text:    #e8eaf0;
-  --text2:   #8f96b0;
-  --text3:   #5c6280;
-  --accent:  #6c8ef5;
+  --bg:      #1A1A1A;
+  --bg2:     #212020;
+  --surface: #2A2928;
+  --surface2:#353332;
+  --border:  rgba(245,240,232,0.08);
+  --border2: rgba(245,240,232,0.16);
+  --text:    #F5F0E8;
+  --text2:   #B0A89C;
+  --text3:   #73695C;
+  --accent:  #D97757;
   --accent2: #a78bfa;
-  --green:   #34d399;
+  --green:   #8A9A5B;
   --orange:  #f97316;
-  --amber:   #fbbf24;
+  --amber:   #D9A05B;
   --font:    'Noto Sans TC', sans-serif;
   --mono:    'DM Mono', monospace;
   --r: 10px;
@@ -76,7 +76,7 @@ html, body {
   font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  background: linear-gradient(120deg,#e8eaf0 30%,#a78bfa);
+  background: linear-gradient(120deg,#F5F0E8 30%,#D97757);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -113,7 +113,7 @@ html, body {
 .btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
 .btn:active { transform: scale(0.97); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn.primary:hover { background: #849cf7; border-color: #849cf7; color:#fff; }
+.btn.primary:hover { background: #E2906E; border-color: #E2906E; color:#fff; }
 
 /* ── Canvas area ── */
 .canvas-area {
@@ -197,7 +197,7 @@ input[type=range]::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--accent);
   cursor: pointer;
-  box-shadow: 0 0 6px rgba(108,142,245,.5);
+  box-shadow: 0 0 6px rgba(217,119,87,.5);
 }
 .divider { height:1px; background:var(--border); margin:10px 0; }
 
@@ -284,7 +284,8 @@ input[type=range]::-webkit-slider-thumb {
       </div>
     </div>
     <div class="topbar-btns">
-      <button class="btn primary" id="btn-fire">▶ 發送訊號</button>
+      <button class="btn" id="btn-finetune">⇄ 微調</button>
+      <button class="btn" id="btn-fire">▶ 推論</button>
       <button class="btn" id="btn-reset">重置</button>
     </div>
   </header>
@@ -339,20 +340,29 @@ input[type=range]::-webkit-slider-thumb {
 <script>
 const canvas = document.getElementById('nn-canvas');
 const ctx = canvas.getContext('2d');
+const btnFire = document.getElementById('btn-fire');
+const btnFineTune = document.getElementById('btn-finetune');
 
 let config = { inputs:4, hidden:2, nodesPerHidden:5, outputs:3, speed:2 };
 let layers=[], connections=[], signals=[];
 let animFrame, firing=false, activeStep=-1;
 
-const STEPS = [
+const STEPS_INFER = [
   { title:'① 輸入層接收資料',   desc:'問題被轉換成數字向量，每個輸入節點代表一個特徵，例如像素、詞語或感測器值。' },
   { title:'② 加權連結傳遞訊號', desc:'每條連結有一個「權重」，決定訊號強弱。越亮的線代表越重要的連結路徑。' },
   { title:'③ 隱藏層萃取特徵',   desc:'神經元將輸入加總後通過激活函數（如 ReLU），決定是否「點亮」並繼續前傳。越深的隱藏層所組合的特徵越抽象——從邊緣到形狀，再到語意概念。' },
   { title:'④ 輸出層匯整答案',   desc:'最後一層每個節點代表一個候選答案，激活值最高的節點即為模型的預測結果。' },
 ];
 
-function buildSteps() {
-  document.getElementById('steps-list').innerHTML = STEPS.map((s,i)=>`
+const STEPS_FT = [
+  { title:'① 正向傳播 (Forward Pass)',  desc:'用目前的權重跑一次推論，從輸入層到輸出層產生預測結果，過程與「推論」的訊號流程相同。' },
+  { title:'② 計算誤差 (Loss)',          desc:'比對預測結果與正確答案的差距，算出這次預測的誤差大小。' },
+  { title:'③ 反向傳播 (Backward Pass)', desc:'誤差訊號從輸出層往輸入層逐層回傳，計算每條連結對誤差的「貢獻」。' },
+  { title:'④ 更新權重 (Weight Update)', desc:'根據回傳的誤差微調每條連結的權重，讓模型下一次的預測更準確——這就是「微調」的核心。' },
+];
+
+function buildSteps(stepsArr) {
+  document.getElementById('steps-list').innerHTML = stepsArr.map((s,i)=>`
     <div class="step" id="step-${i}" onclick="highlightStep(${i})">
       <div class="step-num">${i+1}</div>
       <div>
@@ -409,7 +419,7 @@ function draw(){
     const al=c.active>0?0.08+c.weight*.55*c.active:0.03+c.weight*.06;
     const lw=c.active>0?.5+c.weight*2.2*c.active:.4+c.weight*.8;
     ctx.beginPath(); ctx.moveTo(c.from.x,c.from.y); ctx.lineTo(c.to.x,c.to.y);
-    ctx.strokeStyle=c.active>0?`rgba(108,142,245,${al})`:`rgba(255,255,255,${al})`;
+    ctx.strokeStyle=c.active>0?`rgba(217,119,87,${al})`:`rgba(245,240,232,${al})`;
     ctx.lineWidth=lw; ctx.stroke();
     if(c.active>0)c.active=Math.max(0,c.active-.015);
   });
@@ -419,9 +429,9 @@ function draw(){
     const py2=s.from.y+(s.to.y-s.from.y)*s.progress;
     const r=3+s.weight*2;
     const g=ctx.createRadialGradient(px2,py2,0,px2,py2,r*2.5);
-    g.addColorStop(0,`rgba(180,210,255,${.9*s.alpha})`);
-    g.addColorStop(.4,`rgba(108,142,245,${.7*s.alpha})`);
-    g.addColorStop(1,'rgba(108,142,245,0)');
+    g.addColorStop(0,`rgba(255,232,214,${.9*s.alpha})`);
+    g.addColorStop(.4,`rgba(217,119,87,${.7*s.alpha})`);
+    g.addColorStop(1,'rgba(217,119,87,0)');
     ctx.beginPath();ctx.arc(px2,py2,r*2.5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
     ctx.beginPath();ctx.arc(px2,py2,r,0,Math.PI*2);
     ctx.fillStyle=`rgba(220,235,255,${s.alpha})`;ctx.fill();
@@ -429,8 +439,8 @@ function draw(){
 
   layers.forEach((layer,li)=>{
     const isIn=li===0,isOut=li===layers.length-1;
-    const base=isIn?[52,211,153]:isOut?[249,115,22]:[108,142,245];
-    const idle=[30,36,60];
+    const base=isIn?[138,154,91]:isOut?[217,160,91]:[217,119,87];
+    const idle=[40,40,40];
     layer.forEach(nd=>{
       const a=nd.activation;
       const rc=[idle[0]+( base[0]-idle[0])*a,idle[1]+(base[1]-idle[1])*a,idle[2]+(base[2]-idle[2])*a];
@@ -453,10 +463,10 @@ function draw(){
   // Layer labels
   const names=['輸入層',...Array(config.hidden).fill('隱藏層'),'輸出層'];
   layers.forEach((layer,li)=>{
-    ctx.fillStyle=li===0?'rgba(52,211,153,.7)':li===layers.length-1?'rgba(249,115,22,.7)':'rgba(108,142,245,.5)';
+    ctx.fillStyle=li===0?'rgba(138,154,91,.7)':li===layers.length-1?'rgba(217,160,91,.7)':'rgba(217,119,87,.5)';
     ctx.font='11px "Noto Sans TC",sans-serif';ctx.textAlign='center';
     ctx.fillText(names[li]+(li>0&&li<layers.length-1&&config.hidden>1?` ${li}`:''),layer[0].x,canvas.height-10);
-    ctx.fillStyle='rgba(140,148,180,.4)';ctx.font='10px "DM Mono",monospace';
+    ctx.fillStyle='rgba(184,176,164,.4)';ctx.font='10px "DM Mono",monospace';
     ctx.fillText(layer.length,layer[0].x,14);
   });
 
@@ -467,16 +477,19 @@ function clamp(v,mn,mx){return Math.min(mx,Math.max(mn,v));}
 
 function fireSignal(){
   if(firing)return; firing=true;
+  btnFire.classList.add('primary');
+  buildSteps(STEPS_INFER);
   const ms=[800,500,320,200,120][config.speed-1];
   function activateLayer(li){
     if(li>=layers.length){
       firing=false;
+      btnFire.classList.remove('primary');
       // 動畫結束 → 停留在第 5 步（輸出層匯整答案）
-      highlightStep(STEPS.length-1);
+      highlightStep(STEPS_INFER.length-1);
       return;
     }
     // 到達最後一層時直接 highlight 第 5 步，否則依層次對應
-    const stepIdx = li===layers.length-1 ? STEPS.length-1 : Math.min(li, STEPS.length-2);
+    const stepIdx = li===layers.length-1 ? STEPS_INFER.length-1 : Math.min(li, STEPS_INFER.length-2);
     highlightStep(stepIdx);
     layers[li].forEach(nd=>{
       const d=Math.random()*80;
@@ -493,6 +506,58 @@ function fireSignal(){
     setTimeout(()=>activateLayer(li+1),ms);
   }
   activateLayer(0);
+}
+
+function fireFineTune(){
+  if(firing)return; firing=true;
+  btnFineTune.classList.add('primary');
+  buildSteps(STEPS_FT);
+  const ms=[800,500,320,200,120][config.speed-1];
+
+  function forwardLayer(li){
+    if(li>=layers.length){
+      highlightStep(1); // 計算誤差
+      setTimeout(()=>backwardLayer(layers.length-1),ms);
+      return;
+    }
+    highlightStep(0); // 正向傳播
+    layers[li].forEach(nd=>{
+      const d=Math.random()*80;
+      setTimeout(()=>{
+        nd.activation=.7+Math.random()*.3;
+        if(li<layers.length-1){
+          connections.filter(c=>c.from===nd).forEach(c=>{
+            setTimeout(()=>{c.active=c.weight;signals.push({from:c.from,to:c.to,progress:0,weight:c.weight,alpha:1});},d+80);
+          });
+        }
+      },d);
+    });
+    setTimeout(()=>forwardLayer(li+1),ms);
+  }
+
+  function backwardLayer(li){
+    if(li<0){
+      firing=false;
+      btnFineTune.classList.remove('primary');
+      highlightStep(3); // 更新權重
+      return;
+    }
+    highlightStep(2); // 反向傳播
+    layers[li].forEach(nd=>{
+      const d=Math.random()*80;
+      setTimeout(()=>{
+        nd.activation=.7+Math.random()*.3;
+        if(li>0){
+          connections.filter(c=>c.to===nd).forEach(c=>{
+            setTimeout(()=>{c.active=c.weight;signals.push({from:c.to,to:c.from,progress:0,weight:c.weight,alpha:1});},d+80);
+          });
+        }
+      },d);
+    });
+    setTimeout(()=>backwardLayer(li-1),ms);
+  }
+
+  forwardLayer(0);
 }
 
 (function tick(){
@@ -518,13 +583,16 @@ bindSlider('sl-nodes','lbl-nodes','nodesPerHidden');
 bindSlider('sl-output','lbl-output','outputs');
 bindSlider('sl-speed','lbl-speed','speed',v=>v+'×');
 
-document.getElementById('btn-fire').addEventListener('click',fireSignal);
+btnFire.addEventListener('click',fireSignal);
+btnFineTune.addEventListener('click',fireFineTune);
 document.getElementById('btn-reset').addEventListener('click',()=>{
   layers.forEach(l=>l.forEach(n=>n.activation=0));
   connections.forEach(c=>c.active=0);
   signals=[];firing=false;
+  btnFire.classList.remove('primary');
+  btnFineTune.classList.remove('primary');
   document.getElementById('stat-signal').textContent='100%';
-  document.querySelectorAll('.step').forEach(el=>el.classList.remove('active'));
+  buildSteps(STEPS_INFER);
   activeStep=-1;
 });
 
@@ -555,7 +623,7 @@ const ro=new ResizeObserver(()=>{
 });
 ro.observe(canvas);
 
-buildSteps();
+buildSteps(STEPS_INFER);
 buildNetwork();
 requestAnimationFrame(draw);
 </script>

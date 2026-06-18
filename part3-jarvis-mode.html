@@ -45,49 +45,44 @@ blockquote {
   color: #F5E0E8;
 }
 </style>
-<h1 id="ai-啟動-jarvis-模式--用-claude-code-指揮真實工作" ebook-toc-level-1="" heading="AI 啟動 JARVIS 模式 — 用 Claude Code 指揮真實工作 ">AI 啟動 JARVIS 模式 — 用 Claude Code 指揮真實工作 </h1>
-<h2 id="part-3--claude-code" ebook-toc-level-2="" heading="Part 3 : Claude Code ">Part 3 : Claude Code </h2>
+<h1 id="ai-啟動-jarvis-模式--用-claude-code-指揮真實工作">AI 啟動 JARVIS 模式 — 用 Claude Code 指揮真實工作 </h1>
+<h2 id="part-3--claude-code">Part 3 : Claude Code </h2>
 <blockquote>
-<p>不是學如何寫程式，而是學會「指揮」AI 完成真實工作任務</p>
+<p>不是學如何寫程式, 而是學會「指揮」AI 完成真實工作任務</p>
 </blockquote>
 <hr>
-<h3 id="3-1-claudemd--給-ai-的工作說明書" ebook-toc-level-3="" heading="3-1 <a href=&quot;http://CLAUDE.md&quot;>CLAUDE.md</a> — 給 AI 的工作說明書 ">3-1 <a href="http://CLAUDE.md">CLAUDE.md</a> — 給 AI 的工作說明書 </h3>
-<h4 id="工作資料夾根目錄只影響該專案" ebook-toc-level-4="" heading="工作資料夾根目錄只影響該專案 ">工作資料夾根目錄只影響該專案 </h4>
+<h3 id="3-1-claudemd--給-ai-的工作說明書">3-1 <a href="http://CLAUDE.md">CLAUDE.md</a> — 給 AI 的工作說明書 </h3>
+<h4 id="工作資料夾根目錄只影響該專案">工作資料夾根目錄只影響該專案 </h4>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> 工作環境說明</span>
 
 <span class="token title important"><span class="token punctuation">##</span> 專案背景</span>
 公司週報與客戶簡報的製作資料夾。
-所有對外文件需經主管審閱後才能定稿。
 
 <span class="token title important"><span class="token punctuation">##</span> 輸出規範</span>
-<span class="token list punctuation">-</span> 語言：繁體中文，不摻英文術語（需要時加括號標注）
-<span class="token list punctuation">-</span> 投影片：Marp 格式，每頁不超過 5 個重點
-<span class="token list punctuation">-</span> 文件：H2 為最高標題層級
+<span class="token list punctuation">-</span> 預設語言：繁體中文, 專業英文術語（需要時加括號標注）
 
 <span class="token title important"><span class="token punctuation">##</span> 禁止動作</span>
-<span class="token list punctuation">-</span> 不修改 final/ 資料夾內的任何檔案
 <span class="token list punctuation">-</span> 不要刪除任何檔案
 </code></pre><blockquote>
-<p><a href="http://CLAUDE.md">CLAUDE.md</a> 可以隨時修改——直接用 VS Code 開啟編輯即可。<br>
-你會不斷發現哪些規則值得加進去。</p>
+<p><a href="http://CLAUDE.md">CLAUDE.md</a> 可以隨時修改——直接用 VS Code 開啟編輯即可。</p>
 </blockquote>
 <hr>
-<h4 id="全域-claudemd" ebook-toc-level-4="" heading="全域 <a href=&quot;http://CLAUDE.md&quot;>CLAUDE.md</a> ">全域 <a href="http://CLAUDE.md">CLAUDE.md</a> </h4>
+<h4 id="全域-claudemd">全域 <a href="http://CLAUDE.md">CLAUDE.md</a> </h4>
 <p>Windows</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>C:\Users\&lt;使用者名稱&gt;\.claude\CLAUDE.md
 </code></pre><p>Mac</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>~/.claude/CLAUDE.md
 </code></pre><blockquote>
 <p>全域設定適合放「不管在哪個專案都成立」的規範。<br>
-專案級設定會覆蓋全域設定，讓每個資料夾可以有自己的例外。</p>
+專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外。</p>
 </blockquote>
 <hr>
-<h3 id="3-2-掌握你的夥伴正在做什麼" ebook-toc-level-3="" heading="3-2 掌握你的夥伴正在做什麼 ">3-2 掌握你的夥伴正在做什麼 </h3>
-<p>任務執行中，對話區會出現類似這樣的文字：</p>
+<h3 id="3-2-掌握你的夥伴正在做什麼">3-2 掌握你的夥伴正在做什麼 </h3>
+<p>任務執行中, 對話區會出現類似這樣的文字：</p>
 <p>格式是：動作 (已花時間 · 消耗的 token 數量)</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>⠸ Reading… (8s · ↑2k tokens)
-</code></pre><p>這代表 Claude Code 現在「正在讀取某個檔案」，已經跑了 8 秒，用了約 2,000 個 tokens。</p>
-<h4 id="畫面底部狀態列" ebook-toc-level-4="" heading="畫面底部：狀態列 ">畫面底部：狀態列 </h4>
+</code></pre><p>這代表 Claude Code 現在「正在讀取某個檔案」, 已經跑了 8 秒, 用了約 2,000 個 tokens。</p>
+<h4 id="畫面底部狀態列">畫面底部：狀態列 </h4>
 <p>按 <code>Shift + Tab</code> 可循環切換三種執行模式：</p>
 <table>
 <thead>
@@ -106,26 +101,25 @@ blockquote {
 <tr>
 <td>自動模式</td>
 <td><code>⏵⏵ auto mode on</code></td>
-<td>所有操作自動執行，不再詢問</td>
+<td>所有操作自動執行, 不再詢問</td>
 </tr>
 <tr>
 <td>接受編輯</td>
 <td><code>⏵⏵ accept edits on</code></td>
-<td>僅檔案編輯自動執行，終端指令仍需確認</td>
+<td>僅檔案編輯自動執行, 終端指令仍需確認</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h3 id="3-3-判斷原則" ebook-toc-level-3="" heading="3-3 判斷原則 ">3-3 判斷原則 </h3>
-<h4 id="時間數字持續增加-spinner-還在轉就代表它在跑" ebook-toc-level-4="" heading="時間數字持續增加、spinner 還在轉，就代表它在跑 ">時間數字持續增加、spinner 還在轉，就代表它在跑 </h4>
-<h4 id="連按兩次-escape-中斷再重新描述任務" ebook-toc-level-4="" heading="連按兩次 <code>Escape</code> 中斷，再重新描述任務 ">連按兩次 <code>Escape</code> 中斷，再重新描述任務 </h4>
+<h3 id="3-3-判斷原則">3-3 判斷原則 </h3>
+<h4 id="時間數字持續增加-spinner-還在轉-就代表它在跑">時間數字持續增加、spinner 還在轉, 就代表它在跑 </h4>
+<h4 id="連按兩次-escape-中斷-再重新描述任務">連按兩次 <code>Escape</code> 中斷, 再重新描述任務 </h4>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>Claude Code wants to execute a bash command:
   git push origin main
 
 1. Yes
 2. Yes, always
 3. No
-4. Explain
 </code></pre><table>
 <thead>
 <tr>
@@ -137,7 +131,7 @@ blockquote {
 <tbody>
 <tr>
 <td>Yes（本次同意）</td>
-<td>這次允許，下次再問</td>
+<td>這次允許, 下次再問</td>
 <td>第一次嘗試某個操作</td>
 </tr>
 <tr>
@@ -147,24 +141,16 @@ blockquote {
 </tr>
 <tr>
 <td>No（拒絕）</td>
-<td>不執行，Claude Code 會尋找替代方案</td>
+<td>不執行, Claude Code 會尋找替代方案</td>
 <td>不確定這個操作是否正確</td>
-</tr>
-<tr>
-<td>Explain（說明）</td>
-<td>讓 Claude Code 解釋它為什麼要這樣做</td>
-<td>看不懂它在做什麼時</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h3 id="3-4-commands" ebook-toc-level-3="" heading="3-4 Commands ">3-4 Commands </h3>
-<p>在對話框輸入 <code>/</code> 開頭的指令，可以快速控制 Claude Code 的行為</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>Claude code 可以用 "/" 下 指令, 請幫我用 markdown 方式製表, 列出所有內建的指令和它的功用說明, 將 markdown 檔案置放於桌面.
-</code></pre><hr>
-<h3 id="3-5-自訂指令user-commands" ebook-toc-level-3="" heading="3-5 自訂指令（User Commands） ">3-5 自訂指令（User Commands） </h3>
-<p>把常用的工作流程存成一個 <code>.md</code> 檔，放在以下位置，就能用 <code>/檔案名稱</code> 一鍵呼叫：</p>
-<table>
+<h3 id="3-4-commands-and-skills">3-4 Commands and Skills </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>請幫我用 markdown 方式製表, 列出所有內建的 Commands 和它的功用說明, 轉存於桌面.
+</code></pre><pre data-role="codeBlock" data-info="" class="language-text"><code>請幫我用 markdown 方式製表, 列出所有內建的 Skill 和它的功用說明, 轉存於桌面.
+</code></pre><table>
 <thead>
 <tr>
 <th>範圍</th>
@@ -185,54 +171,11 @@ blockquote {
 </tr>
 </tbody>
 </table>
-<hr>
-<h3 id="3-6-skills" ebook-toc-level-3="" heading="3-6 Skills ">3-6 Skills </h3>
-<p>Skills 是 Claude Code 提供的專項能力模組（例如程式碼審查、安全性分析）。<br>
-在對話框輸入 <code>/</code> 後，下拉選單會列出目前可用的所有 Skills，直接點選即可啟用。</p>
-<h4 id="自訂指令-vs-skills" ebook-toc-level-4="" heading="自訂指令 vs Skills ">自訂指令 vs Skills </h4>
-<table>
-<thead>
-<tr>
-<th>項目</th>
-<th>自訂指令</th>
-<th>Skills</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>建立方式</td>
-<td>自己寫一個 .md 檔案，放進 commands 資料夾</td>
-<td>Claude Code 內建或由外部提供的能力模組</td>
-</tr>
-<tr>
-<td>呼叫方式</td>
-<td>輸入自己命名的 /指令名稱</td>
-<td>在 / 選單中列出，直接點選啟用</td>
-</tr>
-<tr>
-<td>適合情境</td>
-<td>把重複出現的固定流程存成捷徑</td>
-<td>需要更深專業判斷的任務（例如程式碼審查、安全性分析）</td>
-</tr>
-</tbody>
-</table>
 <blockquote>
-<p>自訂指令讓你把重複的工作流程變成一個指令。</p>
+<p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令。</p>
 </blockquote>
 <hr>
-<h3 id="3-7-學會把自己的需求說清楚" ebook-toc-level-3="" heading="3-7 學會把自己的需求說清楚 ">3-7 學會把自己的需求說清楚 </h3>
-<ul>
-<li>需求是否清楚</li>
-<li>任務是否拆解</li>
-<li>資訊是否完整</li>
-<li>工作流程是否合理</li>
-<li>結果是否經過驗證</li>
-</ul>
-<blockquote>
-<p>與 AI 協作，像是帶領一位能力很強但需要明確指引的數位助理。</p>
-</blockquote>
-<hr>
-<h4 id="五個溝通紀律" ebook-toc-level-4="" heading="五個溝通紀律 ">五個溝通紀律 </h4>
+<h3 id="3-5-核心工作模式">3-5 核心工作模式 </h3>
 <table>
 <thead>
 <tr>
@@ -269,164 +212,167 @@ blockquote {
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>與 AI 協作, 像是帶領一位能力很強但需要明確指引的數位助理。</p>
+</blockquote>
 <hr>
-<h3 id="3-8-完整對話示範" ebook-toc-level-3="" heading="3-8 完整對話示範 ">3-8 完整對話示範 </h3>
-<h4 id="多份產品規格-excel-檔案彙整成一份" ebook-toc-level-4="" heading="多份產品規格 Excel 檔案彙整成一份 ">多份產品規格 Excel 檔案彙整成一份 </h4>
+<h3 id="3-6-完整對話示範">3-6 完整對話示範 </h3>
+<h4 id="多份產品規格-excel-檔案彙整成一份">多份產品規格 Excel 檔案彙整成一份 </h4>
 <p>對話一（Spec-First）</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>只有一個 Worksheet tab 叫 Specifications。
-A 欄位是空白；B1 是機種名稱；B2 往下是規格名稱（CPU、Chipset…）；C2 往下是對應說明。
-並非每個 B 欄位都有資訊——例如 B21 是 Memory，C21 到 C26 是它的說明，B22 到 B26 空白，B27 才是下一個規格名稱。
+A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱（CPU、Chipset…）; C2 往下是對應說明。
+並非每個 B 欄位都有資訊——例如 B21 是 Memory, C21 到 C26 是它的說明, B22 到 B26 空白, B27 才是下一個規格名稱。
 
-以上描述你是否了解？
-</code></pre><p>在動手之前，先把資料結構說清楚，確保後續每一步都建立在正確的理解上。</p>
+以上描述你是否了解 ?
+</code></pre><p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上。</p>
 <hr>
 <p>對話二（Spec-First + Atomic Tasking）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>有一堆這樣的 Excel 檔案，一個檔案就是一個機種。
-開一個新的 Excel 彙整所有機種：B1 = "Model"，C1 = 機種名稱，後續機種依序放 D、E… 欄。
-困難在於每個舊檔案中，相同規格佔的列數可能不一樣。
+<pre data-role="codeBlock" data-info="" class="language-text"><code>有一堆這樣的 Excel 檔案, 一個檔案就是一個機種。
+開一個新的 Excel 彙整所有機種：B1 = "Model", C1 = 機種名稱, 後續機種依序放 D、E… 欄。
+困難在於每個舊檔案中, 相同規格佔的列數可能不一樣。
 
-這個用 Python 可以做嗎？以上描述你是否了解？
-</code></pre><p>需求說完了，再確認一次理解，然後才問「可不可以做」。這是把「描述問題」和「請求執行」拆開成兩個步驟。</p>
+這個用 Python 可以做嗎 ? 以上描述你是否了解 ?
+</code></pre><p>需求說完了, 再確認一次理解, 然後才問「可不可以做」。這是把「描述問題」和「請求執行」拆開成兩個步驟。</p>
 <p>對話三（Scaffold-and-Fill）</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑。
-請你檢視一下後，再整理你的 actions。
-</code></pre><p>讓 AI 說明它需要什麼（測試檔案放哪）、報告它打算怎麼做，確認方向正確後再執行。這就是先對齊框架，再開始填內容。</p>
+請你檢視一下後, 再整理你的 actions。
+</code></pre><p>讓 AI 說明它需要什麼（測試檔案放哪）、報告它打算怎麼做, 確認方向正確後再執行。這就是先對齊框架, 再開始填內容。</p>
 <hr>
 <p>對話四（Context Engineering）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>我想做到讓 PM 不需要安裝 Python 或其他任何套件，只需要 consolidate_specs.exe 即可使用，有方法嗎？
-</code></pre><p>提供關鍵的現實背景：最終使用者是 PM，而不是工程師。Claude Code 因此知道不能只交付 Python 腳本，而需要產出一支單獨的執行檔，PM 雙擊就能用，不需要安裝任何東西。讓 AI 根據你的實際工作情境思考，而不是給出通用答案。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎 ?
+</code></pre><p>提供關鍵的現實背景：最終使用者是 PM, 而不是工程師。Claude Code 因此知道不能只交付 Python 腳本, 而需要產出一支單獨的執行檔, PM 雙擊就能用, 不需要安裝任何東西。讓 AI 根據你的實際工作情境思考, 而不是給出通用答案。</p>
 <blockquote>
 <p>在開始之前定義清楚（Spec-First）、一次只推進一件事（Atomic Tasking）、確認架構再執行（Scaffold-and-Fill）、提供使用者背景讓 AI 給出真正可用的答案（Context Engineering）。</p>
 </blockquote>
 <hr>
-<h4 id="打造一個英文單字學習-app" ebook-toc-level-4="" heading="打造一個英文單字學習 App ">打造一個英文單字學習 App </h4>
+<h4 id="打造一個英文單字學習-app">打造一個英文單字學習 App </h4>
 <p>對話一（Spec-First）</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>我想做一個英文單字學習的 App。
-我有 HTML/CSS/JS 的基礎，但沒有後端經驗。
+我有 HTML/CSS/JS 的基礎, 但沒有後端經驗。
 功能：輸入單字 → AI 生成中文解釋和例句 → 存起來建立個人字典 → 閃示卡複習。
-做成網頁版可行嗎？技術上需要什麼？
-</code></pre><p>在要求動手之前，先說清楚三件事：自己的程度、想要的功能、希望的形式。Claude Code 因此給出符合「有基礎的新手」的技術選擇，而不是直接生出一個複雜架構。</p>
+做成網頁版可行嗎 ? 技術上需要什麼 ?
+</code></pre><p>在要求動手之前, 先說清楚三件事：自己的程度、想要的功能、希望的形式。Claude Code 因此給出符合「有基礎的新手」的技術選擇, 而不是直接生出一個複雜架構。</p>
 <p>對話二（Atomic Tasking）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>好，先幫我把專案結構和所有套件裝好。
-資料夾、package.json、需要的 npm 套件——這步做完讓我看，
+<pre data-role="codeBlock" data-info="" class="language-text"><code>好, 先幫我把專案結構和所有套件裝好。
+資料夾、package.json、需要的 npm 套件——這步做完讓我看, 
 確認沒問題再繼續寫功能邏輯。
-</code></pre><p>把「建立環境」和「寫邏輯」拆成兩個步驟，第一步做完確認後才繼續。不讓錯誤的結構帶著錯誤的邏輯一起跑。</p>
+</code></pre><p>把「建立環境」和「寫邏輯」拆成兩個步驟, 第一步做完確認後才繼續。不讓錯誤的結構帶著錯誤的邏輯一起跑。</p>
 <hr>
 <p>對話三（Context Engineering）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>我想在查單字的時候，順便顯示這次用了多少 token、花了多少錢。
-原因是：我剛開始用 API，想親眼看到每次查詢消耗了什麼，
+<pre data-role="codeBlock" data-info="" class="language-text"><code>我想在查單字的時候, 順便顯示這次用了多少 token、花了多少錢。
+原因是：我剛開始用 API, 想親眼看到每次查詢消耗了什麼, 
 幫助我理解 token 計費的運作方式。
-</code></pre><p>這個請求看起來普通，但「原因是」那句話改變了一切。有了這個背景，Claude Code 知道不只是加一個數字顯示，還需要把「帳戶 → API 呼叫 → token 消耗 → 扣款」的完整脈絡呈現出來。說明你的真實目的，AI 才能給出真正有用的東西。</p>
+</code></pre><p>這個請求看起來普通, 但「原因是」那句話改變了一切。有了這個背景, Claude Code 知道不只是加一個數字顯示, 還需要把「帳戶 → API 呼叫 → token 消耗 → 扣款」的完整脈絡呈現出來。說明你的真實目的, AI 才能給出真正有用的東西。</p>
 <blockquote>
 <p>每一段都在給 AI 一個明確的起跑點。</p>
 </blockquote>
 <hr>
-<h4 id="從-prd-到完整-ai-影片錄製工具" ebook-toc-level-4="" heading="從 PRD 到完整 AI 影片錄製工具 ">從 PRD 到完整 AI 影片錄製工具 </h4>
+<h4 id="從-prd-到完整-ai-影片錄製工具">從 PRD 到完整 AI 影片錄製工具 </h4>
 <p>對話一（Spec-First）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>在開始寫任何程式之前，我想先把需求整理清楚。
-核心功能是：使用者對著鏡頭說話，AI 即時回覆，
-回覆的文字要作為字幕「燒進」影片裡——不是疊加在上面，
-而是永久成為影片畫面的一部分，不需要後製。
-這份 PRD 是完整需求，請閱讀後告訴我技術上是否可行、
+<pre data-role="codeBlock" data-info="" class="language-text"><code>在開始寫任何程式之前, 我想先把需求整理清楚。
+核心功能是：使用者對著鏡頭說話, AI 即時回覆, 
+回覆的文字要作為字幕「燒進」影片裡——不是疊加在上面, 
+而是永久成為影片畫面的一部分, 不需要後製。
+這份 PRD 是完整需求, 請閱讀後告訴我技術上是否可行、
 建議的架構是什麼、開發步驟怎麼拆。
-</code></pre><p>一份完整的 PRD 在第一行程式碼之前就寫好了。這不只是說清楚「要做什麼」，還把問題、目標使用者、功能優先級都定義好——讓 Claude Code 在設計架構時就知道哪些是核心、哪些可以之後再做。</p>
+</code></pre><p>一份完整的 PRD 在第一行程式碼之前就寫好了。這不只是說清楚「要做什麼」, 還把問題、目標使用者、功能優先級都定義好——讓 Claude Code 在設計架構時就知道哪些是核心、哪些可以之後再做。</p>
 <hr>
 <p>對話二（Context Engineering）</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>這個 App 計劃分三個階段開發：
-Phase 1（現在）：說話 → AI 回覆 → 字幕顯示，基礎流程跑通
-Phase 2（之後）：多個 AI 人格，不同系統提示
-Phase 3（更之後）：劇本模式，使用者照稿念，AI 提供即時教練回饋
+Phase 1（現在）：說話 → AI 回覆 → 字幕顯示, 基礎流程跑通
+Phase 2（之後）：多個 AI 人格, 不同系統提示
+Phase 3（更之後）：劇本模式, 使用者照稿念, AI 提供即時教練回饋
 
 資料結構請按照三個階段的需求設計。
-Phase 2/3 現在不實作，但型別定義和狀態機要能支撐得住，
+Phase 2/3 現在不實作, 但型別定義和狀態機要能支撐得住, 
 避免之後需要大幅重寫。
-</code></pre><p>這段話決定了整個程式的地基。因為知道三個階段的規劃，Claude Code 在 Phase 1 就在型別定義裡埋下了人格設定、劇本模式旗標、帶時間戳的字幕結構。看起來「現在用不到」，但 Phase 2、3 要加功能時是延伸，不是重寫。沒有這個背景，AI 只會做剛好夠用的設計。</p>
+</code></pre><p>這段話決定了整個程式的地基。因為知道三個階段的規劃, Claude Code 在 Phase 1 就在型別定義裡埋下了人格設定、劇本模式旗標、帶時間戳的字幕結構。看起來「現在用不到」, 但 Phase 2、3 要加功能時是延伸, 不是重寫。沒有這個背景, AI 只會做剛好夠用的設計。</p>
 <hr>
 <p>對話三（Scaffold-and-Fill）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>對話流程的狀態機先獨立寫成純函式，不要急著跟 UI 連結。
+<pre data-role="codeBlock" data-info="" class="language-text"><code>對話流程的狀態機先獨立寫成純函式, 不要急著跟 UI 連結。
 狀態：idle → ready → listening → thinking → ai_streaming → turn_done
-每個狀態只接受有效的事件，非法的轉換直接忽略。
-加上 console log，讓每次狀態轉換都印出來，
-確認路徑正確之後，再來接 React 元件。
-</code></pre><p>先把邏輯寫對，再跟介面連接。狀態機是純函式，可以獨立驗證，不需要開瀏覽器、不需要點按鈕——框架驗證正確後，填入細節才安全。</p>
+每個狀態只接受有效的事件, 非法的轉換直接忽略。
+加上 console log, 讓每次狀態轉換都印出來, 
+確認路徑正確之後, 再來接 React 元件。
+</code></pre><p>先把邏輯寫對, 再跟介面連接。狀態機是純函式, 可以獨立驗證, 不需要開瀏覽器、不需要點按鈕——框架驗證正確後, 填入細節才安全。</p>
 <hr>
 <p>對話四（Atomic Tasking）</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>Phase 0 的基礎建設做完了。
 接下來先只做提詞機模式：
-使用者說話，文字即時顯示在畫面上，AI 不回應。
-這個做完讓我測試，確認字幕顯示和錄影都正常，
+使用者說話, 文字即時顯示在畫面上, AI 不回應。
+這個做完讓我測試, 確認字幕顯示和錄影都正常, 
 再繼續做 AI 人格選擇。
-</code></pre><p>整個 App 分五個功能，每次只交辦一個，做完測試確認沒問題再繼續。提詞機、無鏡頭模式、AI 人格、金鑰管理、劇本模式，一個一個疊上去。</p>
+</code></pre><p>整個 App 分五個功能, 每次只交辦一個, 做完測試確認沒問題再繼續。提詞機、無鏡頭模式、AI 人格、金鑰管理、劇本模式, 一個一個疊上去。</p>
 <blockquote>
-<p>一個完整的產品從零到可用，一步確認完再走下一步的節奏。</p>
+<p>一個完整的產品從零到可用, 一步確認完再走下一步的節奏。</p>
 </blockquote>
 <hr>
-<h3 id="3-9-工作流程範例" ebook-toc-level-3="" heading="3-9 工作流程範例 ">3-9 工作流程範例 </h3>
+<h3 id="3-7-工作流程範例">3-7 工作流程範例 </h3>
 <blockquote>
-<p><a href="http://Claude.ai">Claude.ai</a> 在瀏覽器裡運作，碰不到你電腦的檔案系統。<br>
-Claude Code 在你的電腦上運作，可以讀、寫、移動、執行任何本地檔案。</p>
+<p><a href="http://Claude.ai">Claude.ai</a> 在瀏覽器裡運作, 碰不到你電腦的檔案系統。<br>
+Claude Code 在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案。</p>
 </blockquote>
 <hr>
-<h4 id="工作流程一批次掃描多檔-自動命名-同步更新彙整索引" ebook-toc-level-4="" heading="工作流程一：批次掃描多檔、自動命名、同步更新彙整索引 ">工作流程一：批次掃描多檔、自動命名、同步更新彙整索引 </h4>
+<h4 id="工作流程一批次掃描多檔-自動命名-同步更新彙整索引">工作流程一：批次掃描多檔、自動命名、同步更新彙整索引 </h4>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>掃描 recordings/ 資料夾內所有本週新增的 .txt 通話／會議錄音稿
 對每一份檔案：
 1. 萃取通話日期與對象（客戶名稱或會議出席者）
 2. 整理成：決議事項（標注負責人）、待辦清單（按優先級）、待確認問題
-3. 以 YYYYMMDD_meeting.md 命名，存入 minutes/ 資料夾
+3. 以 YYYYMMDD_meeting.md 命名, 存入 minutes/ 資料夾
 4. 在 weekly_summary.md 最後追加一行摘要索引
-</code></pre><h4 id="工作流程二掃描資料夾-重新命名-移動檔案" ebook-toc-level-4="" heading="工作流程二：掃描資料夾、重新命名、移動檔案 ">工作流程二：掃描資料夾、重新命名、移動檔案 </h4>
+</code></pre><h4 id="工作流程二掃描資料夾-重新命名-移動檔案">工作流程二：掃描資料夾、重新命名、移動檔案 </h4>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>掃描 receipts/ 資料夾
 把所有 .jpg 和 .pdf 的收據／發票：
 - 依日期重新命名為 YYYYMMDD_店家名稱
-- 移入對應月份子資料夾（例如 2026-06/，沒有就建立）
-- 把總金額與明細彙整輸出到 monthly_expense.csv，方便報稅或記帳
+- 移入對應月份子資料夾（例如 2026-06/, 沒有就建立）
+- 把總金額與明細彙整輸出到 monthly_expense.csv, 方便報稅或記帳
 </code></pre><hr>
-<h4 id="工作流程三同時讀取多份本地檔案-交叉比對後生成" ebook-toc-level-4="" heading="工作流程三：同時讀取多份本地檔案、交叉比對後生成 ">工作流程三：同時讀取多份本地檔案、交叉比對後生成 </h4>
+<h4 id="工作流程三同時讀取多份本地檔案-交叉比對後生成">工作流程三：同時讀取多份本地檔案、交叉比對後生成 </h4>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>同時讀取 data/ 資料夾內的三份檔案：
 - this_month.csv（本月各平台實際收入：蝦皮、官網、IG）
-- last_month.csv（上月收入，作對比）
+- last_month.csv（上月收入, 作對比）
 - target.csv（自己設定的本月目標）
 
 計算：各平台達成率、與上月相比的成長或衰退幅度
-生成一份 Marp 投影片，給自己每月檢討用：
-- 6 頁，每頁不超過 5 個重點，自動帶入三份數據的對比數字
-- 語氣：給自己看的檢討報告，誠實但不需要正式
+生成一份 Marp 投影片, 給自己每月檢討用：
+- 6 頁, 每頁不超過 5 個重點, 自動帶入三份數據的對比數字
+- 語氣：給自己看的檢討報告, 誠實但不需要正式
 - 存為 monthly_review.md
-</code></pre><h4 id="工作流程四感知資料夾狀態-判斷哪些待處理-批次輸出" ebook-toc-level-4="" heading="工作流程四：感知資料夾狀態、判斷哪些待處理、批次輸出 ">工作流程四：感知資料夾狀態、判斷哪些待處理、批次輸出 </h4>
+</code></pre><h4 id="工作流程四感知資料夾狀態-判斷哪些待處理-批次輸出">工作流程四：感知資料夾狀態、判斷哪些待處理、批次輸出 </h4>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>掃描 quotes/ 資料夾
 找出所有符合以下條件的報價單：
 - 檔案修改時間超過 5 天
 - 同資料夾內尚未存在對應的 follow_up_*.md
 
 為每份報價單起草一封跟進信：
-- 表示理解，不施壓；簡要重申方案的兩個核心優勢
-- 繁體中文，200 字以內
-- 存為 follow_up_YYYYMMDD_客戶名.md，方便直接複製貼上寄出
+- 表示理解, 不施壓; 簡要重申方案的兩個核心優勢
+- 繁體中文, 200 字以內
+- 存為 follow_up_YYYYMMDD_客戶名.md, 方便直接複製貼上寄出
 </code></pre><hr>
-<h4 id="工作流程五比對時間戳-只補差異-追加更新現有檔案" ebook-toc-level-4="" heading="工作流程五：比對時間戳、只補差異、追加更新現有檔案 ">工作流程五：比對時間戳、只補差異、追加更新現有檔案 </h4>
+<h4 id="工作流程五比對時間戳-只補差異-追加更新現有檔案">工作流程五：比對時間戳、只補差異、追加更新現有檔案 </h4>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>讀取 index.md 的最後更新時間
-掃描 notes/ 資料夾，找出所有在此時間之後新增或修改的讀書／工作筆記 .md 檔案
+掃描 notes/ 資料夾, 找出所有在此時間之後新增或修改的讀書／工作筆記 .md 檔案
 對這些檔案：
 1. 萃取主題關鍵字
 2. 將新條目追加至 index.md（不覆蓋現有條目）
 3. 輸出變更摘要：「本次新增 X 篇、更新 Y 個關鍵字索引」
 </code></pre><blockquote>
-<p>讀懂資料夾狀態、跨檔案比對、批次輸出，這些都是在瀏覽器裡無法完成的動作。</p>
+<p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作。</p>
 </blockquote>
 <hr>
-<h2 id="小結part-3-概念關係總覽" ebook-toc-level-2="" heading="小結：Part 3 概念關係總覽 ">小結：Part 3 概念關係總覽 </h2>
+<h2 id="小結part-3-概念關係總覽">小結：Part 3 概念關係總覽 </h2>
 <p>| 主題 | 說明 |<br>
 |-----|-------|------|<br>
-| <a href="http://CLAUDE.md">CLAUDE.md</a> | 全域 / 專案 - 讓 AI 認識你的工作環境；持久化的工作規範與背景說明 |<br>
-| 執行中 | 讀懂動態指示器，知道 AI 在做什麼；還在動？時間正常？需要按鍵回應？ |<br>
-| 權限系統 | 你的信任邊界，由你決定 |<br>
-| Slash 指令 / 自訂指令 / Skills |  控制與擴充 Claude Code 的行為 |<br>
-| 完整對話示範 | Spec-first / Atomic / Context / Scaffold / Review；跨案例實例，展示 Pattern 在真實任務中的串用 |<br>
+| <a href="http://CLAUDE.md">CLAUDE.md</a> | 全域 / 專案 - 讓 AI 認識你的工作環境; 持久化的工作規範與背景說明 |<br>
+| 執行中 | 讀懂動態指示器, 知道 AI 在做什麼; 還在動 ? 時間正常 ? 需要按鍵回應 ? |<br>
+| 權限系統 | 你的信任邊界, 由你決定 |<br>
+| Commands and Skills |  控制與擴充 Claude Code 的行為 |<br>
+| 完整對話示範 | Spec-first / Atomic / Context / Scaffold / Review; 跨案例實例, 展示 Pattern 在真實任務中的串用 |<br>
 | 工作流程範例 | 批次掃描自動命名 / 歸檔搬移檔案 / 跨檔比對生成 / 感知狀態批次輸出 / 增量比對追加更新 |</p>
 <hr>
 <blockquote>
-<p>恭喜你，你已經學會了這個時代最重要的能力之一：把意圖說清楚，讓 AI 替你完成真實的工作。<br>
-從這裡開始，每一次交辦，都是你重新定義「工作」這兩個字的機會。</p>
+<p>恭喜你, 你已經學會了這個時代最重要的能力之一：把意圖說清楚, 讓 AI 替你完成真實的工作。<br>
+從這裡開始, 每一次交辦, 都是你重新定義「工作」這兩個字的機會。</p>
 </blockquote>
 </div></body></html>
     </div>
