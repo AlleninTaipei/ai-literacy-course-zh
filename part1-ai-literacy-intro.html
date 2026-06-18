@@ -99,7 +99,7 @@ blockquote {
 <p><a href="https://platform.openai.com/tokenizer">OpenAI/Platfom/Tokenzier</a></p>
 <hr>
 <h3 id="1-6-思維鏈-chain-of-thought" ebook-toc-level-3="" heading="1-6 思維鏈 (Chain of Thought) ">1-6 思維鏈 (Chain of Thought) </h3>
-<p>2022 年，研究人員發現一個有趣的現象：只要在 Prompt 中加入「請一步一步思考（Let's think step by step）」等引導語，模型在數學計算、邏輯推理與常識判斷等任務上的表現便能明顯提升。</p>
+<p>2022 年，研究人員發現只要在 Prompt 中加入「請一步一步思考（Let's think step by step）」等引導語，模型在數學計算、邏輯推理與常識判斷等任務上的表現便能明顯提升。</p>
 <p>早期的 CoT 是一種 Prompt Engineering 技巧，需要由使用者主動觸發；而自 2024 年起，許多先進模型已將推理能力內建於模型架構中，能自動進行多步驟思考。</p>
 <blockquote>
 <p>CoT 產生的推理 Token 會消耗額外運算資源，因此在部分模型或服務中，這些 Token 也會納入計費或用量統計。</p>
@@ -110,7 +110,7 @@ blockquote {
 <p>模型一次能「看到」的 Token 數量是有上限的，稱為上下文視窗 (Context Window)。</p>
 <p>超過這個上限，AI 就會「忘記」對話最前面的內容。</p>
 <blockquote>
-<p>開始一段長工作前，先在對話開頭貼上「背景摘要」，確保每次它重新讀取時，關鍵資訊都在視窗最顯眼的位置。</p>
+<p>開始一段長工作前，先在對話開頭貼上「背景摘要」。</p>
 </blockquote>
 <hr>
 <h3 id="1-8-系統提示-system-prompt" ebook-toc-level-3="" heading="1-8 系統提示 (System Prompt) ">1-8 系統提示 (System Prompt) </h3>
@@ -122,7 +122,7 @@ blockquote {
 <hr>
 <h3 id="1-9-工具呼叫-tool-use" ebook-toc-level-3="" heading="1-9 工具呼叫 (Tool Use) ">1-9 工具呼叫 (Tool Use) </h3>
 <p>早期的大型語言模型只能根據訓練資料生成文字；而現代 AI 助理則能在需要時主動使用工具，取得即時資訊、執行計算，甚至操作外部系統。</p>
-<p>以「整理某公司的歷年融資紀錄並製作趨勢圖」為例，AI 可能會依序完成以下流程：</p>
+<p>以「整理某公司的歷年融資紀錄並製作趨勢圖」為例，AI 會依序完成以下流程：</p>
 <table>
 <thead>
 <tr>
@@ -234,18 +234,13 @@ blockquote {
 </tr>
 <tr>
 <td style="text-align:left">推論</td>
-<td style="text-align:left">Context Window</td>
-<td style="text-align:left">模型每次能「看到」的內容上限</td>
-</tr>
-<tr>
-<td style="text-align:left">推論</td>
 <td style="text-align:left">思維鏈</td>
 <td style="text-align:left">引導逐步推理，複雜任務表現更佳</td>
 </tr>
 <tr>
 <td style="text-align:left">使用</td>
 <td style="text-align:left">無狀態 + 多輪對話</td>
-<td style="text-align:left">對話歷史由介面管理，模型本身不記憶</td>
+<td style="text-align:left">Context Window：模型每次能「看到」的內容上限</td>
 </tr>
 <tr>
 <td style="text-align:left">使用</td>
@@ -394,7 +389,7 @@ blockquote {
 </tbody>
 </table>
 <blockquote>
-<p>課堂示範統一使用 Claude Code，若你使用其他工具，操作邏輯完全相同，可平行對照。Node.js、Git、VS Code 的安裝步驟對三種工具都適用。</p>
+<p>課堂示範統一使用 Claude Code，若你使用其他工具，操作邏輯完全相同。</p>
 </blockquote>
 <hr>
 <h4 id="step-7預先下載三個工具的安裝檔" ebook-toc-level-4="" heading="Step 7：預先下載三個工具的安裝檔 ">Step 7：預先下載三個工具的安裝檔 </h4>
@@ -426,7 +421,7 @@ blockquote {
 </tbody>
 </table>
 <blockquote>
-<p>課堂網路環境不一定穩定，提前下載可以讓安裝過程更順暢。安裝步驟將於課堂中逐一進行，講師會全程在場協助，不需要自己摸索。</p>
+<p>課堂網路環境不一定穩定，提前下載可以讓安裝過程更順暢。安裝步驟將於課堂中逐一進行，講師會在場協助。</p>
 </blockquote>
 </div></body></html>
     </div>
