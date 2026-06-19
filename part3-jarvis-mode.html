@@ -356,18 +356,16 @@ Phase 2/3 現在不實作, 但型別定義和狀態機要能支撐得住,
 <pre data-role="codeBlock" data-info="text" class="language-text text"><code>我們公司的碳排報告需要符合 ISAE 3410 稽核標準.
 現在的做法是截圖存證, 但稽核員說截圖有人工編輯的風險, 不夠可信.
 我想建一個系統, 從出貨部門提交的 Excel &gt;&gt; 自動計算碳排 &gt;&gt; 產生可供稽核員查驗的介面.
-關鍵是要能證明數據從採集到計算全程沒有人工干預.
-這個方向可行嗎？
+關鍵是要能證明數據從採集到計算全程沒有人工干預.這個方向可行嗎？
 </code></pre><blockquote>
-<p>提供了真實背景（Context Engineering）.「符合 ISAE 3410」和「稽核員說截圖有風險」, 讓 Claude Code 知道要設計成能被第三方稽核的系統, 這個背景直接決定了架構方向.</p>
+<p>提供了真實情境, 讓 Claude Code 設計正確的架構和方向.</p>
 </blockquote>
-<hr>
 <p>對話二（Atomic Tasking）</p>
 <pre data-role="codeBlock" data-info="text" class="language-text text"><code>先從產生測試資料開始.
 我需要 120 筆假的出貨運單, 但資料要刻意設計成有問題的, 
 這樣才能測試後面的清洗邏輯夠不夠強. 先做這步, 完成後再繼續.
 </code></pre><blockquote>
-<p>測試資料都事先設計好. 這是 Atomic Tasking 的延伸, 不只是拆步驟, 連每一步的驗收條件都想清楚了再交辦.</p>
+<p>不只是拆步驟, 連每一步的驗收條件都想清楚了再交辦.</p>
 </blockquote>
 <hr>
 <p>對話三（Scaffold-and-Fill）</p>
@@ -378,7 +376,6 @@ Phase 2/3 現在不實作, 但型別定義和狀態機要能支撐得住,
 </code></pre><blockquote>
 <p>先定介面, 再實作兩個 provider. 框架對齊後, 填入內容才不會跑偏.</p>
 </blockquote>
-<hr>
 <p>對話四（Review-and-Iterate）</p>
 <pre data-role="codeBlock" data-info="text" class="language-text text"><code>等一下, 我剛才說的 Google TIM API 好像不對.
 我查了一下, TIM 是 Travel Impact Model, 只做航班碳排, 不做公路運輸.
