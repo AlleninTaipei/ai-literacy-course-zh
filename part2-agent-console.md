@@ -239,7 +239,7 @@ git config --global user.email "your.email@example.com"
 
 #### Marp（Markdown Presentation Ecosystem）
 
-「這份投影片本身, 就是用 Markdown 寫成的.」更精確地說, 是用 Marp 製作的.
+「這份投影片本身, 就是用 Markdown 寫成的.」, 「 簡報模式」是用 Marp 製作的.
 
 在 `.md` 檔案開頭加上 frontmatter 宣告, 三條橫線 `---` 就是換頁.
 
