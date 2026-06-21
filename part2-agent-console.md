@@ -35,7 +35,7 @@ blockquote {
 ## Part 2 : 什麼是 Agent ？
 
 > 以前, 電腦是你的工具.
-> 現在, 電腦是你的辦公室——而 AI Agent, 是在裡面替你工作的員工.
+> 現在, 電腦是你的辦公室, 而 AI Agent, 是在裡面替你工作的員工.
 
 [LLM Agent Stack](llm-agent-stack.html)
 
@@ -43,7 +43,7 @@ blockquote {
 
 ### 2-1 Claude Code
 
-如果 ChatGPT 是你的電話顧問——你打過去問, 它給建議, 但它看不到你桌上的東西、也不能幫你動手
+如果 ChatGPT 是你的電話顧問, 你打過去問, 它給建議, 但它看不到你桌上的東西、也不能幫你動手
 那麼 Claude Code 就是坐在你旁邊的同事, 你的螢幕它看得到, 鍵盤它也能打.
 
 > 一個讓 AI 真正在你的電腦上工作的工具
@@ -51,6 +51,8 @@ blockquote {
 ---
 
 #### 動手做: Bookmark 三個供應商的 Chatbot
+
+[ChatGPT](https://chatgpt.com/), [Claude](https://claude.ai/), [Gemini](https://gemini.google.com/app)
 
 #### 動手做: 安裝 Claude Code
 
