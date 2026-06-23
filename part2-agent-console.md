@@ -347,12 +347,7 @@ git clone https://github.com/你的帳號/ai-literacy-course-zh.git
 
 ---
 
-## 補充: 第一次 push 遇到 GitHub 驗證怎麼辦
-
-| 平台 | 驗證機制 | 你需要做什麼 |
-|------|---------|------------|
-| Windows | Git Credential Manager（Git for Windows 內建）| 第一次 push 自動開啟瀏覽器 → 登入 GitHub → 授權完成, 憑證存入系統 |
-| Mac | 需要先安裝 GitHub CLI | 在終端機執行 `brew install gh`, 再執行 `gh auth login`, 依提示在瀏覽器完成授權 |
+## 補充: Windows 第一次 push
 
 ```bash
 git remote add origin https://github.com/你的帳號/repo名稱.git
@@ -364,4 +359,14 @@ git push -u origin main
 
 `-u` 的作用是「記住這條上傳路徑」, 之後直接 `git push` 就能推到同一個地方.
 
-Mac 用戶: `brew` 是 macOS 的套件管理工具（Homebrew）, 如果還沒安裝, 先前往 [brew.sh](https://brew.sh) 安裝, 再執行上述指令.
+---
+
+## 補充: Mac 第一次 push
+
+```bash
+brew install gh
+```
+
+```bash
+gh auth login
+```

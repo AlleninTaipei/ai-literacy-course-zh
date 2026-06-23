@@ -51,7 +51,7 @@ blockquote {
 <p>以前, 電腦是你的工具.<br>
 現在, 電腦是你的辦公室, 而 AI Agent, 是在裡面替你工作的員工.</p>
 </blockquote>
-<p><a href="llm-agent-stack.html">LLM Agent Stack</a></p>
+<p><a href="file:///d:\ai-literacy-course-zh\llm-agent-stack.html">LLM Agent Stack</a></p>
 <hr>
 <h3 id="2-1-claude-code">2-1 Claude Code </h3>
 <p>如果 ChatGPT 是你的電話顧問, 你打過去問, 它給建議, 但它看不到你桌上的東西、也不能幫你動手<br>
@@ -430,33 +430,15 @@ paginate: true</span>
 從這一刻起, AI 不再只是你聽說過的東西, 而是坐在你旁邊、等你開口的同事.</p>
 </blockquote>
 <hr>
-<h2 id="補充-第一次-push-遇到-github-驗證怎麼辦">補充: 第一次 push 遇到 GitHub 驗證怎麼辦 </h2>
-<table>
-<thead>
-<tr>
-<th>平台</th>
-<th>驗證機制</th>
-<th>你需要做什麼</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Windows</td>
-<td>Git Credential Manager（Git for Windows 內建）</td>
-<td>第一次 push 自動開啟瀏覽器 → 登入 GitHub → 授權完成, 憑證存入系統</td>
-</tr>
-<tr>
-<td>Mac</td>
-<td>需要先安裝 GitHub CLI</td>
-<td>在終端機執行 <code>brew install gh</code>, 再執行 <code>gh auth login</code>, 依提示在瀏覽器完成授權</td>
-</tr>
-</tbody>
-</table>
+<h2 id="補充-windows-第一次-push">補充: Windows 第一次 push </h2>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> remote <span class="token function">add</span> origin https://github.com/你的帳號/repo名稱.git
 </code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main
 </code></pre><p><code>-u</code> 的作用是「記住這條上傳路徑」, 之後直接 <code>git push</code> 就能推到同一個地方.</p>
-<p>Mac 用戶: <code>brew</code> 是 macOS 的套件管理工具（Homebrew）, 如果還沒安裝, 先前往 <a href="https://brew.sh">brew.sh</a> 安裝, 再執行上述指令.</p>
-</div></body></html>
+<hr>
+<h2 id="補充-mac-第一次-push">補充: Mac 第一次 push </h2>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>brew <span class="token function">install</span> gh
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>gh auth login
+</code></pre></div></body></html>
     </div>
   </body>
 </html>

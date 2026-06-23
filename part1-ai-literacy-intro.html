@@ -59,7 +59,7 @@ blockquote {
 <blockquote>
 <p>神經網路的命名和設計靈感直接來自人腦.</p>
 </blockquote>
-<p><a href="neural-network-demo.html">Neural Network Demo</a></p>
+<p><a href="file:///d:\ai-literacy-course-zh\neural-network-demo.html">Neural Network Demo</a></p>
 <hr>
 <h3 id="1-2-預訓練-pre-training" ebook-toc-level-3="" heading="1-2 預訓練 (Pre-training) ">1-2 預訓練 (Pre-training) </h3>
 <ul>
@@ -420,7 +420,17 @@ blockquote {
 </tr>
 </tbody>
 </table>
-</div></body></html>
+<hr>
+<h4 id="step-8-mac-only" ebook-toc-level-4="" heading="Step 8: Mac Only ">Step 8: Mac Only </h4>
+<blockquote>
+<p>Homebrew 安裝較花時間, 建議提前在家完成, 上課當天才不會卡在等待安裝.</p>
+</blockquote>
+<p>Xcode Command Line Tools 是後續安裝工具的基礎環境, Homebrew 則是 macOS 的套件管理工具, Part 2 設定 GitHub 驗證時會用到.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>xcode-select <span class="token parameter variable">--install</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>/bin/bash <span class="token parameter variable">-c</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="token variable">)</span></span>"</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">echo</span> <span class="token string">'eval "$(/opt/homebrew/bin/brew shellenv 2&gt;/dev/null || /usr/local/bin/brew shellenv)"'</span> <span class="token operator">&gt;&gt;</span> ~/.zprofile
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">eval</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>/opt/homebrew/bin/brew shellenv <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null <span class="token operator">||</span> /usr/local/bin/brew shellenv<span class="token variable">)</span></span>"</span>
+</code></pre></div></body></html>
     </div>
   </body>
 </html>
