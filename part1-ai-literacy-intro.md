@@ -239,7 +239,19 @@ GitHub 在本課程中扮演兩個角色:
 升級完成後, 你可以在網頁版對話介面的左下角看到你的帳號名稱, 旁邊會出現「Pro」的標示.
 或者: 點選右上角的帳號頭像 → 「Settings」 → 「Billing」, 確認方案顯示為「Claude Pro」.
 
-#### Step 6: 已有其他供應商訂閱？確認替代工具
+#### Step 6: 預先下載三個工具的安裝檔
+
+請在上課前先下載安裝檔, 存放在桌面或下載資料夾即可, 課堂上會逐步安裝以下工具.
+
+| 工具 | 下載來源 | 備註 |
+|------|---------|------|
+| Node.js | [nodejs.org](https://nodejs.org) | 選 LTS 版本, 用途是安裝 Claude Code |
+| Git | [git-scm.com/downloads](https://git-scm.com/downloads) | 選 Windows / Mac 對應版本 |
+| VS Code | [Visual Studio Code](https://code.visualstudio.com) | 選 Windows / Mac 對應版本 |
+
+---
+
+#### Step 7: 已有其他供應商訂閱？確認替代工具
 
 如果你已有 ChatGPT Plus 或 Gemini Advanced 的付費訂閱, 不需要另外訂閱 Claude Pro.三家供應商都有對應的 CLI 工具, 功能定位相同:
 
@@ -250,18 +262,6 @@ GitHub 在本課程中扮演兩個角色:
 | Google 帳號 / Gemini Advanced | Gemini CLI | `npm install -g @google/gemini-cli` |
 
 > 課堂示範統一使用 Claude Code, 若你使用其他工具, 操作邏輯完全相同.
-
----
-
-#### Step 7: 預先下載三個工具的安裝檔
-
-請在上課前先下載安裝檔, 存放在桌面或下載資料夾即可, 課堂上會逐步安裝以下工具.
-
-| 工具 | 下載來源 | 備註 |
-|------|---------|------|
-| Node.js | [nodejs.org](https://nodejs.org) | 選 LTS 版本, 用途是安裝 Claude Code |
-| Git | [git-scm.com/downloads](https://git-scm.com/downloads) | 選 Windows / Mac 對應版本 |
-| VS Code | [Visual Studio Code](https://code.visualstudio.com) | 選 Windows / Mac 對應版本 |
 
 ---
 
