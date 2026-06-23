@@ -1,466 +1,624 @@
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>no title</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    .markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-details{margin:0;padding:0;border:none}.markdown-preview .md-toc summary.md-toc-link-wrapper{cursor:pointer;list-style-position:outside}.markdown-preview .md-toc summary.md-toc-link-wrapper::marker{font-size:.85em}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='0']{margin-left:12px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='1']{margin-left:28px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='2']{margin-left:44px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='3']{margin-left:60px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='4']{margin-left:76px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='5']{margin-left:80px}.markdown-preview a.tag,.markdown-preview a.tag:active,.markdown-preview a.tag:link,.markdown-preview a.tag:visited,.markdown-preview span.tag:not(.token){display:inline-block;background-color:var(--vscode-badge-background,rgba(127,127,127,.18));color:var(--vscode-badge-foreground,currentColor);border-radius:2em;font-size:.85em;font-weight:500;padding:.05em .55em;line-height:1.5;white-space:nowrap;text-decoration:none;text-shadow:none;box-shadow:none;transition:background-color .12s ease,opacity .12s ease}.markdown-preview a.tag{cursor:pointer}.markdown-preview a.tag:focus,.markdown-preview a.tag:hover{background-color:var(--vscode-badge-background,rgba(127,127,127,.32));color:var(--vscode-badge-foreground,currentColor);opacity:.85;text-decoration:none;outline:0}.markdown-preview .wikilink-embed-content{border-left:3px solid var(--vscode-textBlockQuote-border,rgba(128,128,128,.3));background:var(--vscode-textBlockQuote-background,rgba(128,128,128,.05));margin:.5em 0;padding:.5em .75em;border-radius:0 3px 3px 0}.markdown-preview .wikilink-embed-content.wikilink-embed-error{border-left-color:var(--vscode-errorForeground,#cf222e);color:var(--vscode-errorForeground,#cf222e);font-style:italic;opacity:.8}.markdown-preview .wikilink-embed-content h1:first-child,.markdown-preview .wikilink-embed-content h2:first-child,.markdown-preview .wikilink-embed-content h3:first-child,.markdown-preview .wikilink-embed-content h4:first-child,.markdown-preview .wikilink-embed-content h5:first-child,.markdown-preview .wikilink-embed-content h6:first-child{margin-top:.25em}.markdown-preview .wikilink-embed-content .wikilink-embed-content{margin:.25em 0;padding:.25em .5em}.markdown-preview .block-id{display:none}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));border:4px solid var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));background-clip:content-box}.scrollbar-style::-webkit-scrollbar-thumb:hover{background-color:var(--vscode-scrollbarSlider-hoverBackground,rgba(120,120,120,.66))}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));border:4px solid var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb:hover{background-color:var(--vscode-scrollbarSlider-hoverBackground,rgba(120,120,120,.66))}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-details{margin:0;padding:0;border:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='0']{padding-left:0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='1']{padding-left:16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='2']{padding-left:32px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='3']{padding-left:48px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='4']{padding-left:64px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='5']{padding-left:80px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}pre{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;padding:1em;margin:.5em 0;overflow:auto;line-height:1.5;tab-size:4;hyphens:none;color:#aab1bf;background-color:#30353f!important;border:#4b5261;border-radius:3px}pre[class*=language-]{padding:1em}code[class*=language-] .token.cdata,code[class*=language-] .token.comment,code[class*=language-] .token.doctype,code[class*=language-] .token.prolog,pre[class*=language-] .token.cdata,pre[class*=language-] .token.comment,pre[class*=language-] .token.doctype,pre[class*=language-] .token.prolog{color:#5b6270}code[class*=language-] .namespace,pre[class*=language-] .namespace{opacity:.7}code[class*=language-] .token.constant,pre[class*=language-] .token.constant{color:#d19965}code[class*=language-] .token.boolean,code[class*=language-] .token.function-name,code[class*=language-] .token.number,pre[class*=language-] .token.boolean,pre[class*=language-] .token.function-name,pre[class*=language-] .token.number{color:#d19965}code[class*=language-] .token.tag,pre[class*=language-] .token.tag{color:#df6b75}code[class*=language-] .token.symbol,pre[class*=language-] .token.symbol{color:#56b5c2}code[class*=language-] .token.selector,pre[class*=language-] .token.selector{color:#c578dd}code[class*=language-] .token.attr-name,pre[class*=language-] .token.attr-name{color:#d19965}code[class*=language-] .token.string,pre[class*=language-] .token.string{color:#97c279}code[class*=language-] .token.char,pre[class*=language-] .token.char{color:#56b5c2}code[class*=language-] .token.url,pre[class*=language-] .token.url{color:#56b5c2}code[class*=language-] .token.operator,pre[class*=language-] .token.operator{color:#aab1bf}code[class*=language-] .token.atrule,code[class*=language-] .token.attr-value,code[class*=language-] .token.keyword,pre[class*=language-] .token.atrule,pre[class*=language-] .token.attr-value,pre[class*=language-] .token.keyword{color:#c578dd}code[class*=language-] .token.function,pre[class*=language-] .token.function{color:#61afef}code[class*=language-] .token.class-name,pre[class*=language-] .token.class-name{color:#e4bf7a}code[class*=language-] .token.variable,pre[class*=language-] .token.variable{color:#d19965}code[class*=language-] .token.regex,pre[class*=language-] .token.regex{color:#56b5c2}code[class*=language-] .token.important,pre[class*=language-] .token.important{color:#df6b75}code[class*=language-] .token.bold,code[class*=language-] .token.important,pre[class*=language-] .token.bold,pre[class*=language-] .token.important{font-weight:700}code[class*=language-] .token.italic,pre[class*=language-] .token.italic{font-style:italic}code[class*=language-] .token.entity,pre[class*=language-] .token.entity{cursor:help}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}.emoji{height:.8em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#aab1bf;background-color:#272b33;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#fff}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#7c869c}html body strong{color:#fff}html body del{color:#7c869c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#56b6c2;text-decoration:none}html body a:hover{color:#74c3cd;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#7c869c;background-color:#393f4a;border-left:4px solid #4b5261}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#4b5261;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#fff}html body table td,html body table th{border:1px solid #4b5261;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#fff;background-color:#393f4a;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#4b5261;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#fff;border:1px solid #4b5261;border-bottom:2px solid #3e4450;padding:2px 4px;background-color:#393f4a;border-radius:3px}@media print{html body{background-color:#272b33}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#fff;page-break-after:avoid}html body blockquote{color:#7c869c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}
-    /* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 啟動 JARVIS 模式 — Part 3</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           background: #f0f4f8; color: #1a202c; line-height: 1.7; }
 
-    </style>
-    
-    <!-- The content below will be included at the end of the <head> element. -->
-<script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script>
-  </head>
-  <body for="html-export">
-    <div class="crossnote markdown-preview">
-    <html><head></head><body><div>
-<style>
-section {
-  font-size: 24px;
-}
-table {
-  border-collapse: collapse;
-}
-th {
-  background-color: #D97757;
-  color: white;
-}
-td {
-  background-color: #1A1A1A;
-}
-blockquote {
-  background-color: #1A1A1A;
-  border-left: 8px solid #D97757;
-  padding: 1.5rem;
-  border-radius: 4px;
-  font-style: italic;
-  color: #F5E0E8;
-}
-</style>
-<h1 id="ai-啟動-jarvis-模式--用-claude-code-指揮真實工作">AI 啟動 JARVIS 模式 — 用 Claude Code 指揮真實工作 </h1>
-<h2 id="part-3--claude-code">Part 3 : Claude Code </h2>
-<blockquote>
-<p>不是學如何寫程式, 而是學會「指揮」AI 完成真實工作任務</p>
-</blockquote>
-<hr>
-<h3 id="3-1-claudemd">3-1 <a href="http://CLAUDE.md">CLAUDE.md</a> </h3>
-<h4 id="工作資料夾根目錄只影響該專案">工作資料夾根目錄只影響該專案 </h4>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> 工作環境說明</span>
+    header { background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
+             border-bottom: 1px solid #bfdbfe; padding: 48px 24px 40px; text-align: center; }
+    header h1 { font-size: 2.2rem; font-weight: 700; color: #1e3a5f; }
+    header p  { margin-top: 10px; color: #4a5568; font-size: 1.05rem;
+                max-width: 600px; margin-inline: auto; }
 
-<span class="token title important"><span class="token punctuation">##</span> 專案背景</span>
+    main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+    section { margin-bottom: 52px; }
+    h2 { font-size: 1.4rem; font-weight: 600; color: #1e40af;
+         border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 20px; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: #1a202c; margin: 28px 0 8px; }
+    p  { color: #4a5568; margin-bottom: 12px; }
+    a  { color: #2563eb; }
+    code { background: #eef2f7; padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85em; color: #b45309; }
+
+    .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
+      padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
+      overflow-x: auto; margin-top: 14px; line-height: 1.7; white-space: pre; }
+    .kw  { color: #7c3aed; }
+    .fn  { color: #16a34a; }
+    .str { color: #d97706; }
+    .cmt { color: #94a3b8; font-style: italic; }
+    .key { color: #2563eb; }
+
+    .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 10px;
+      padding: 16px 20px; margin-top: 14px; }
+    .info-box .tag { display: inline-block; background: #3b82f6; color: #fff;
+      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      margin-bottom: 10px; letter-spacing: 0.05em; }
+    .info-box p { color: #1e3a5f; font-size: 0.88rem; margin: 0 0 6px; }
+    .info-box p:last-child { margin-bottom: 0; }
+
+    .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+      border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0 0 6px; }
+    .takeaway p:last-child { margin-bottom: 0; }
+
+    .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
+    .field .name { font-family: monospace; font-size: 0.85rem; color: #16a34a; font-weight: 600; }
+    .field .desc { font-size: 0.82rem; color: #4a5568; margin-top: 4px; }
+
+    .response-box { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
+      padding: 20px; margin-top: 16px; }
+    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
+    .response-field:last-child { border-bottom: none; }
+    .rf-key { font-family: monospace; font-size: 0.82rem; color: #d97706; width: 160px; flex-shrink: 0; }
+    .rf-val { font-size: 0.85rem; color: #374151; }
+
+    .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+    .btn-primary:disabled { background: #cbd5e0; color: #9ca3af; cursor: default; }
+    .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
+    .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
+    .btn-ghost:disabled { opacity: 0.4; cursor: default; }
+    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
+    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
+
+    .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
+    .stage-tab.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
+    .stage-tab.done   { background: #166534; border-color: #4ade80; color: #dcfce7; }
+
+    .demo-panel { display: none; }
+    .demo-panel.visible { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+    .col-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 16px 18px; }
+    .col-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
+    .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
+    .col-card p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 640px) {
+      .api-fields, .two-col { grid-template-columns: 1fr; }
+    }
+
+    #themeToggle { position: fixed; top: 16px; right: 16px; z-index: 9999;
+      padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; border: 1px solid #cbd5e0; background: #fff; color: #1a202c;
+      transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.12); letter-spacing: 0.03em; }
+    #themeToggle:hover { border-color: #2563eb; color: #2563eb; }
+
+    body.dark { background: #0f1117; color: #e2e8f0; }
+    body.dark header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom-color: #2d3748; }
+    body.dark header h1 { color: #f7fafc; }
+    body.dark header p  { color: #a0aec0; }
+    body.dark h2 { color: #90cdf4; border-left-color: #4299e1; }
+    body.dark h3 { color: #e2e8f0; }
+    body.dark p  { color: #a0aec0; }
+    body.dark a  { color: #63b3ed; }
+    body.dark code { background: #1a202c; color: #f6ad55; }
+    body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
+    body.dark .kw  { color: #9f7aea; }
+    body.dark .fn  { color: #68d391; }
+    body.dark .str { color: #f6ad55; }
+    body.dark .cmt { color: #4a5568; }
+    body.dark .key { color: #63b3ed; }
+    body.dark .info-box { background: #1a202c; border-color: #2a4a6a; }
+    body.dark .info-box .tag { background: #2a4a6a; color: #90cdf4; }
+    body.dark .info-box p { color: #a0aec0; }
+    body.dark .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c); border-color: #276749; }
+    body.dark .takeaway p { color: #c6f6d5; }
+    body.dark .field { background: #1a202c; border-color: #2d3748; }
+    body.dark .field .name { color: #68d391; }
+    body.dark .field .desc { color: #718096; }
+    body.dark .response-box { background: #1a202c; border-color: #2d3748; }
+    body.dark .response-field { border-bottom-color: #2d3748; }
+    body.dark .rf-key { color: #f6ad55; }
+    body.dark .rf-val { color: #a0aec0; }
+    body.dark .btn-primary { background: #2b6cb0; }
+    body.dark .btn-primary:hover:not(:disabled) { background: #3182ce; }
+    body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
+    body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
+    body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
+    body.dark .step-indicator { color: #718096; }
+    body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
+    body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
+    body.dark .col-card { background: #1a202c; border-color: #2d3748; }
+    body.dark .col-card-title { color: #4a5568; }
+    body.dark .col-card p { color: #a0aec0; }
+    body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
+  </style>
+</head>
+<body>
+
+<button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
+
+<header>
+  <h1>AI 啟動 JARVIS 模式</h1>
+  <p>用 Claude Code 指揮真實工作, 不是學如何寫程式, 而是學會「指揮」AI 完成真實工作任務.</p>
+</header>
+
+<main>
+<section>
+  <h2>3-1 CLAUDE.md</h2>
+
+  <h3>工作資料夾根目錄只影響該專案</h3>
+  <pre class="code-block"># 工作環境說明
+
+## 專案背景
 公司週報與客戶簡報的製作資料夾.
 
-<span class="token title important"><span class="token punctuation">##</span> 輸出規範</span>
-<span class="token list punctuation">-</span> 預設語言: 繁體中文, 專業英文術語（需要時加括號標注）
+## 輸出規範
+- 預設語言: 繁體中文, 專業英文術語(需要時加括號標注)
 
-<span class="token title important"><span class="token punctuation">##</span> 禁止動作</span>
-<span class="token list punctuation">-</span> 不要刪除任何檔案
-</code></pre><blockquote>
-<p>給 AI 的工作說明書, <a href="http://CLAUDE.md">CLAUDE.md</a> 是可以隨時修改的.</p>
-</blockquote>
-<hr>
-<h4 id="全域-claudemd">全域 <a href="http://CLAUDE.md">CLAUDE.md</a> </h4>
-<p>Windows</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>C:\Users\&lt;使用者名稱&gt;\.claude\CLAUDE.md
-</code></pre><p>Mac</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>~/.claude/CLAUDE.md
-</code></pre><blockquote>
-<p>全域設定適合放「不管在哪個專案都成立」的規範.<br>
-專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.</p>
-</blockquote>
-<hr>
-<h3 id="3-2-掌握你的夥伴正在做什麼">3-2 掌握你的夥伴正在做什麼 </h3>
-<p>任務執行中, 對話區會出現類似這樣的文字:</p>
-<p>格式是: 動作 (已花時間 · 消耗的 token 數量)</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>⠸ Reading… (8s · ↑2k tokens)
-</code></pre><p>這代表 Claude Code 現在「正在讀取某個檔案」, 已經跑了 8 秒, 用了約 2,000 個 tokens.</p>
-<h4 id="畫面底部-狀態列">畫面底部: 狀態列 </h4>
-<p>按 <code>Shift + Tab</code> 可循環切換三種執行模式:</p>
-<table>
-<thead>
-<tr>
-<th>模式</th>
-<th>畫面顯示</th>
-<th>說明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>手動確認</td>
-<td>（無標示）</td>
-<td>每個操作都需要你逐一批准</td>
-</tr>
-<tr>
-<td>自動模式</td>
-<td><code>⏵⏵ auto mode on</code></td>
-<td>所有操作自動執行, 不再詢問</td>
-</tr>
-<tr>
-<td>接受編輯</td>
-<td><code>⏵⏵ accept edits on</code></td>
-<td>僅檔案編輯自動執行, 終端指令仍需確認</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h3 id="3-3-判斷原則">3-3 判斷原則 </h3>
-<h4 id="時間數字持續增加-spinner-還在轉-就代表它在跑">時間數字持續增加、spinner 還在轉, 就代表它在跑 </h4>
-<h4 id="連按兩次-escape-中斷-再重新描述任務">連按兩次 <code>Escape</code> 中斷, 再重新描述任務 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>Claude Code wants to execute a bash command:
+## 禁止動作
+- 不要刪除任何檔案</pre>
+  <div class="takeaway">
+    <p>給 AI 的工作說明書, CLAUDE.md 是可以隨時修改的.</p>
+  </div>
+
+  <h3>全域 CLAUDE.md</h3>
+  <div class="response-box">
+    <div class="response-field"><span class="rf-key">Windows</span><span class="rf-val"><code>C:\Users\&lt;使用者名稱&gt;\.claude\CLAUDE.md</code></span></div>
+    <div class="response-field"><span class="rf-key">Mac</span><span class="rf-val"><code>~/.claude/CLAUDE.md</code></span></div>
+  </div>
+  <div class="takeaway">
+    <p>全域設定適合放「不管在哪個專案都成立」的規範. 專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.</p>
+  </div>
+</section>
+
+<section>
+  <h2>3-2 掌握你的夥伴正在做什麼</h2>
+  <p>任務執行中, 對話區會出現類似這樣的文字, 格式是: 動作(已花時間 · 消耗的 token 數量)</p>
+  <pre class="code-block">⠸ Reading… (8s · ↑2k tokens)</pre>
+  <div class="info-box">
+    <span class="tag">解讀</span>
+    <p>這代表 Claude Code 現在「正在讀取某個檔案」, 已經跑了 8 秒, 用了約 2,000 個 tokens.</p>
+  </div>
+
+  <h3>畫面底部: 狀態列</h3>
+  <p>按 <code>Shift + Tab</code> 可循環切換三種執行模式:</p>
+  <div class="api-fields">
+    <div class="field"><span class="name">手動確認</span><div class="desc">(無標示), 每個操作都需要你逐一批准.</div></div>
+    <div class="field"><span class="name">自動模式</span><div class="desc"><code>⏵⏵ auto mode on</code>, 所有操作自動執行, 不再詢問.</div></div>
+    <div class="field"><span class="name">接受編輯</span><div class="desc"><code>⏵⏵ accept edits on</code>, 僅檔案編輯自動執行, 終端指令仍需確認.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>3-3 判斷原則</h2>
+  <div class="info-box">
+    <span class="tag">判斷依據</span>
+    <p>時間數字持續增加、spinner 還在轉, 就代表它在跑.</p>
+  </div>
+  <div class="info-box">
+    <span class="tag">中斷方式</span>
+    <p>連按兩次 <code>Escape</code> 中斷, 再重新描述任務.</p>
+  </div>
+  <pre class="code-block">Claude Code wants to execute a bash command:
   git push origin main
 
 1. Yes
 2. Yes, always
-3. No
-</code></pre><table>
-<thead>
-<tr>
-<th>選項</th>
-<th>意義</th>
-<th>適合時機</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Yes（本次同意）</td>
-<td>這次允許, 下次再問</td>
-<td>第一次嘗試某個操作</td>
-</tr>
-<tr>
-<td>Yes, always（永遠同意）</td>
-<td>這類操作以後不再詢問</td>
-<td>你已確認這個操作安全</td>
-</tr>
-<tr>
-<td>No（拒絕）</td>
-<td>不執行, Claude Code 會尋找替代方案</td>
-<td>不確定這個操作是否正確</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h3 id="3-4-commands-and-skills">3-4 Commands and Skills </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>請幫我用 markdown 方式製表, 列出所有內建的 Commands 和它的功用說明, 轉存於桌面.
-</code></pre><pre data-role="codeBlock" data-info="" class="language-text"><code>請幫我用 markdown 方式製表, 列出所有內建的 Skill 和它的功用說明, 轉存於桌面.
-</code></pre><table>
-<thead>
-<tr>
-<th>範圍</th>
-<th>Windows</th>
-<th>Mac / Linux</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>全域（所有專案）</td>
-<td><code>C:\Users\&lt;名稱&gt;\.claude\commands\</code></td>
-<td><code>~/.claude/commands/</code></td>
-</tr>
-<tr>
-<td>專案（只限當前）</td>
-<td><code>.claude\commands\</code>（放在資料夾根目錄）</td>
-<td><code>.claude/commands/</code></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
-</blockquote>
-<hr>
-<h3 id="3-5-工作流程範例">3-5 工作流程範例 </h3>
-<blockquote>
-<p><a href="http://Claude.ai">Claude.ai</a> 在瀏覽器裡運作, 碰不到你電腦的檔案系統.<br>
-Claude Code 在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.</p>
-</blockquote>
-<hr>
-<h4 id="工作流程一-批次掃描多檔-自動命名-同步更新彙整索引">工作流程一: 批次掃描多檔、自動命名、同步更新彙整索引 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>掃描 recordings/ 資料夾內所有本週新增的 .txt 通話／會議錄音稿
-對每一份檔案: 
-1. 萃取通話日期與對象（客戶名稱或會議出席者）
-2. 整理成: 決議事項（標注負責人）、待辦清單（按優先級）、待確認問題
+3. No</pre>
+  <div class="api-fields">
+    <div class="field"><span class="name">Yes(本次同意)</span><div class="desc">這次允許, 下次再問. 適合第一次嘗試某個操作.</div></div>
+    <div class="field"><span class="name">Yes, always(永遠同意)</span><div class="desc">這類操作以後不再詢問. 適合你已確認這個操作安全.</div></div>
+    <div class="field"><span class="name">No(拒絕)</span><div class="desc">不執行, Claude Code 會尋找替代方案. 適合不確定這個操作是否正確.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>3-4 Commands and Skills</h2>
+  <pre class="code-block">請幫我用 markdown 方式製表, 列出所有內建的 Commands 和它的功用說明, 轉存於桌面.</pre>
+  <pre class="code-block">請幫我用 markdown 方式製表, 列出所有內建的 Skill 和它的功用說明, 轉存於桌面.</pre>
+  <div class="response-box">
+    <div class="response-field"><span class="rf-key">全域(所有專案)</span><span class="rf-val">Windows <code>C:\Users\&lt;名稱&gt;\.claude\commands\</code>, Mac/Linux <code>~/.claude/commands/</code></span></div>
+    <div class="response-field"><span class="rf-key">專案(只限當前)</span><span class="rf-val">Windows <code>.claude\commands\</code>, Mac/Linux <code>.claude/commands/</code></span></div>
+  </div>
+  <div class="takeaway">
+    <p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
+  </div>
+</section>
+
+<section>
+  <h2>3-5 工作流程範例</h2>
+  <div class="two-col">
+    <div class="col-card">
+      <div class="col-card-title">Claude.ai</div>
+      <p>在瀏覽器裡運作, 碰不到你電腦的檔案系統.</p>
+    </div>
+    <div class="col-card">
+      <div class="col-card-title">Claude Code</div>
+      <p>在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.</p>
+    </div>
+  </div>
+
+  <div class="stage-tabs">
+    <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">流程一 · 批次掃描命名</div>
+    <div class="wf-tab stage-tab" onclick="wfGoTo(1)">流程二 · 重新命名搬移</div>
+    <div class="wf-tab stage-tab" onclick="wfGoTo(2)">流程三 · 交叉比對生成</div>
+    <div class="wf-tab stage-tab" onclick="wfGoTo(3)">流程四 · 感知狀態輸出</div>
+    <div class="wf-tab stage-tab" onclick="wfGoTo(4)">流程五 · 增量追加更新</div>
+  </div>
+  <div class="wf-panel demo-panel visible" id="wf-p0">
+    <p>批次掃描多檔、自動命名、同步更新彙整索引:</p>
+    <pre class="code-block">掃描 recordings/ 資料夾內所有本週新增的 .txt 通話/會議錄音稿
+對每一份檔案:
+1. 萃取通話日期與對象(客戶名稱或會議出席者)
+2. 整理成: 決議事項(標注負責人)、待辦清單(按優先級)、待確認問題
 3. 以 YYYYMMDD_meeting.md 命名, 存入 minutes/ 資料夾
-4. 在 weekly_summary.md 最後追加一行摘要索引
-</code></pre><h4 id="工作流程二-掃描資料夾-重新命名-移動檔案">工作流程二: 掃描資料夾、重新命名、移動檔案 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>掃描 receipts/ 資料夾
-把所有 .jpg 和 .pdf 的收據／發票: 
+4. 在 weekly_summary.md 最後追加一行摘要索引</pre>
+  </div>
+  <div class="wf-panel demo-panel" id="wf-p1">
+    <p>掃描資料夾、重新命名、移動檔案:</p>
+    <pre class="code-block">掃描 receipts/ 資料夾
+把所有 .jpg 和 .pdf 的收據/發票:
 - 依日期重新命名為 YYYYMMDD_店家名稱
-- 移入對應月份子資料夾（例如 2026-06/, 沒有就建立）
-- 把總金額與明細彙整輸出到 monthly_expense.csv, 方便報稅或記帳
-</code></pre><hr>
-<h4 id="工作流程三-同時讀取多份本地檔案-交叉比對後生成">工作流程三: 同時讀取多份本地檔案、交叉比對後生成 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>同時讀取 data/ 資料夾內的三份檔案: 
-- this_month.csv（本月各平台實際收入: 蝦皮、官網、IG）
-- last_month.csv（上月收入, 作對比）
-- target.csv（自己設定的本月目標）
+- 移入對應月份子資料夾(例如 2026-06/, 沒有就建立)
+- 把總金額與明細彙整輸出到 monthly_expense.csv, 方便報稅或記帳</pre>
+  </div>
+  <div class="wf-panel demo-panel" id="wf-p2">
+    <p>同時讀取多份本地檔案、交叉比對後生成:</p>
+    <pre class="code-block">同時讀取 data/ 資料夾內的三份檔案:
+- this_month.csv(本月各平台實際收入: 蝦皮、官網、IG)
+- last_month.csv(上月收入, 作對比)
+- target.csv(自己設定的本月目標)
 
 計算: 各平台達成率、與上月相比的成長或衰退幅度
-生成一份 Marp 投影片, 給自己每月檢討用: 
+生成一份 Marp 投影片, 給自己每月檢討用:
 - 6 頁, 每頁不超過 5 個重點, 自動帶入三份數據的對比數字
 - 語氣: 給自己看的檢討報告, 誠實但不需要正式
-- 存為 monthly_review.md
-</code></pre><h4 id="工作流程四-感知資料夾狀態-判斷哪些待處理-批次輸出">工作流程四: 感知資料夾狀態、判斷哪些待處理、批次輸出 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>掃描 quotes/ 資料夾
-找出所有符合以下條件的報價單: 
+- 存為 monthly_review.md</pre>
+  </div>
+  <div class="wf-panel demo-panel" id="wf-p3">
+    <p>感知資料夾狀態、判斷哪些待處理、批次輸出:</p>
+    <pre class="code-block">掃描 quotes/ 資料夾
+找出所有符合以下條件的報價單:
 - 檔案修改時間超過 5 天
 - 同資料夾內尚未存在對應的 follow_up_*.md
 
-為每份報價單起草一封跟進信: 
+為每份報價單起草一封跟進信:
 - 表示理解, 不施壓; 簡要重申方案的兩個核心優勢
 - 繁體中文, 200 字以內
-- 存為 follow_up_YYYYMMDD_客戶名.md, 方便直接複製貼上寄出
-</code></pre><hr>
-<h4 id="工作流程五-比對時間戳-只補差異-追加更新現有檔案">工作流程五: 比對時間戳、只補差異、追加更新現有檔案 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>讀取 index.md 的最後更新時間
-掃描 notes/ 資料夾, 找出所有在此時間之後新增或修改的讀書／工作筆記 .md 檔案
-對這些檔案: 
+- 存為 follow_up_YYYYMMDD_客戶名.md, 方便直接複製貼上寄出</pre>
+  </div>
+  <div class="wf-panel demo-panel" id="wf-p4">
+    <p>比對時間戳、只補差異、追加更新現有檔案:</p>
+    <pre class="code-block">讀取 index.md 的最後更新時間
+掃描 notes/ 資料夾, 找出所有在此時間之後新增或修改的讀書/工作筆記 .md 檔案
+對這些檔案:
 1. 萃取主題關鍵字
-2. 將新條目追加至 index.md（不覆蓋現有條目）
-3. 輸出變更摘要: 「本次新增 X 篇、更新 Y 個關鍵字索引」
-</code></pre><blockquote>
-<p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作.</p>
-</blockquote>
-<hr>
-<h3 id="3-6-核心工作模式">3-6 核心工作模式 </h3>
-<table>
-<thead>
-<tr>
-<th>Pattern</th>
-<th>概念</th>
-<th>管理的重點</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Spec-first</td>
-<td>動手前先把需求寫下來</td>
-<td>管理目標</td>
-</tr>
-<tr>
-<td>Atomic tasking</td>
-<td>一次只交辦一件事</td>
-<td>管理複雜度</td>
-</tr>
-<tr>
-<td>Context engineering</td>
-<td>讓 AI 每次都知道背景</td>
-<td>管理資訊</td>
-</tr>
-<tr>
-<td>Scaffold-and-fill</td>
-<td>先確認架構再填細節</td>
-<td>管理流程</td>
-</tr>
-<tr>
-<td>Review-and-iterate</td>
-<td>像審稿一樣看 AI 的輸出</td>
-<td>管理品質</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>與 AI 協作, 像是帶領一位能力很強但需要明確指引的數位助理.</p>
-</blockquote>
-<hr>
-<h3 id="3-7-完整對話示範">3-7 完整對話示範 </h3>
-<h4 id="多份產品規格-excel-檔案彙整成一份">多份產品規格 Excel 檔案彙整成一份 </h4>
-<p>對話一（Spec-First）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>只有一個 Worksheet tab 叫 Specifications.
-A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱（CPU、Chipset…）; C2 往下是對應說明.
+2. 將新條目追加至 index.md(不覆蓋現有條目)
+3. 輸出變更摘要: 「本次新增 X 篇、更新 Y 個關鍵字索引」</pre>
+  </div>
+  <div class="demo-controls">
+    <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一個</button>
+    <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一個 →</button>
+    <span class="step-indicator" id="wfIndicator">流程 1 / 5</span>
+  </div>
+
+  <div class="takeaway">
+    <p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作.</p>
+  </div>
+</section>
+
+<section>
+  <h2>3-6 核心工作模式</h2>
+  <div class="api-fields">
+    <div class="field"><span class="name">Spec-first</span><div class="desc">動手前先把需求寫下來. 管理目標.</div></div>
+    <div class="field"><span class="name">Atomic tasking</span><div class="desc">一次只交辦一件事. 管理複雜度.</div></div>
+    <div class="field"><span class="name">Context engineering</span><div class="desc">讓 AI 每次都知道背景. 管理資訊.</div></div>
+    <div class="field"><span class="name">Scaffold-and-fill</span><div class="desc">先確認架構再填細節. 管理流程.</div></div>
+    <div class="field"><span class="name">Review-and-iterate</span><div class="desc">像審稿一樣看 AI 的輸出. 管理品質.</div></div>
+  </div>
+  <div class="takeaway">
+    <p>與 AI 協作, 像是帶領一位能力很強但需要明確指引的數位助理.</p>
+  </div>
+</section>
+
+<section>
+  <h2>3-7 完整對話示範</h2>
+
+  <div class="stage-tabs">
+    <div class="pj-tab stage-tab active" onclick="pjGoTo(0)">規格彙整 Excel</div>
+    <div class="pj-tab stage-tab" onclick="pjGoTo(1)">單字學習 App</div>
+    <div class="pj-tab stage-tab" onclick="pjGoTo(2)">影片錄製工具</div>
+    <div class="pj-tab stage-tab" onclick="pjGoTo(3)">碳排系統</div>
+    <div class="pj-tab stage-tab" onclick="pjGoTo(4)">主機板情報工具</div>
+    <div class="pj-tab stage-tab" onclick="pjGoTo(5)">台股追蹤工具</div>
+    <div class="pj-tab stage-tab" onclick="pjGoTo(6)">MCP 協定</div>
+  </div>
+
+  <div class="pj-panel demo-panel visible" id="pj-p0">
+    <h3>多份產品規格 Excel 檔案彙整成一份</h3>
+
+    <div class="info-box">
+      <span class="tag">對話一 · Spec-First</span>
+      <pre class="code-block">只有一個 Worksheet tab 叫 Specifications.
+A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…); C2 往下是對應說明.
 並非每個 B 欄位都有資訊, 例如 B21 是 Memory, C21 到 C26 是它的說明, B22 到 B26 空白, B27 才是下一個規格名稱.
-以上描述你是否了解 ?
-</code></pre><p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
-<p>對話二（Spec-First + Atomic Tasking）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
+以上描述你是否了解?</pre>
+      <p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話二 · Spec-First + Atomic Tasking</span>
+      <pre class="code-block">有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
 開一個新的 Excel 彙整所有機種: B1 = "Model", C1 = 機種名稱, 後續機種依序放 D、E… 欄.
 困難在於每個舊檔案中, 相同規格佔的列數可能不一樣.
 
-這個用 Python 可以做嗎 ? 以上描述你是否了解 ?
-</code></pre><p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
-<hr>
-<p>對話三（Scaffold-and-Fill）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
-請你檢視一下後, 再整理你的 actions.
-</code></pre><p>讓 AI 說明它需要什麼（測試檔案放哪）、報告它打算怎麼做, 確認方向正確後再執行.</p>
-<p>對話四（Context Engineering）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎 ?
-</code></pre><p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
-<blockquote>
-<p>在開始之前定義清楚（Spec-First）、一次只推進一件事（Atomic Tasking）、確認架構再執行（Scaffold-and-Fill）、提供使用者背景讓 AI 給出真正可用的答案（Context Engineering）.</p>
-</blockquote>
-<hr>
-<h4 id="打造一個英文單字學習-app">打造一個英文單字學習 App </h4>
-<p>對話一（Spec-First）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>我想做一個英文單字學習的 App.
+這個用 Python 可以做嗎? 以上描述你是否了解?</pre>
+      <p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話三 · Scaffold-and-Fill</span>
+      <pre class="code-block">請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
+請你檢視一下後, 再整理你的 actions.</pre>
+      <p>讓 AI 說明它需要什麼(測試檔案放哪)、報告它打算怎麼做, 確認方向正確後再執行.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話四 · Context Engineering</span>
+      <pre class="code-block">我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎?</pre>
+      <p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
+    </div>
+
+    <div class="takeaway">
+      <p>在開始之前定義清楚(Spec-First)、一次只推進一件事(Atomic Tasking)、確認架構再執行(Scaffold-and-Fill)、提供使用者背景讓 AI 給出真正可用的答案(Context Engineering).</p>
+    </div>
+  </div>
+
+  <div class="pj-panel demo-panel" id="pj-p1">
+    <h3>打造一個英文單字學習 App</h3>
+
+    <div class="info-box">
+      <span class="tag">對話一 · Spec-First</span>
+      <pre class="code-block">我想做一個英文單字學習的 App.
 我有 HTML/CSS/JS 的基礎, 但沒有後端經驗.
 功能: 輸入單字, AI 生成中文解釋和例句, 存起來建立個人字典, 複習卡片功能.
-做成網頁版可行嗎 ? 技術上需要什麼 ?
-</code></pre><p>在要求動手之前, 先說清楚三件事: 自己的程度、想要的功能、希望的形式.</p>
-<p>Claude Code 因此給出符合「有基礎的新手」的技術選擇, 而不是直接生出一個複雜架構.</p>
-<p>對話二（Atomic Tasking）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>好, 先幫我把專案結構和所有套件裝好.
-資料夾、package.json、需要的 npm 套件, 做完讓我看, 確認沒問題再繼續寫功能邏輯.
-</code></pre><p>不讓錯誤的結構帶著錯誤的邏輯一起跑.</p>
-<hr>
-<p>對話三（Context Engineering）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>我想在查單字的時候, 順便顯示這次用了多少 token、花了多少錢.
-原因是: 我剛開始用 API, 想親眼看到每次查詢消耗了什麼, 
-幫助我理解 token 計費的運作方式.
-</code></pre><blockquote>
-<p>說明你的真實目的, AI 才能給出真正有用的東西.<br>
-每一段都在給 AI 一個明確的起跑點.</p>
-</blockquote>
-<hr>
-<h4 id="從-prd-到完整-ai-影片錄製工具">從 PRD 到完整 AI 影片錄製工具 </h4>
-<p>對話一（Spec-First）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>在開始寫任何程式之前, 我想先把需求整理清楚.
-核心功能是: 使用者對著鏡頭說話, AI 即時回覆, 回覆的文字要作為字幕燒進影片裡, 不是疊加在上面, 
+做成網頁版可行嗎? 技術上需要什麼?</pre>
+      <p>在要求動手之前, 先說清楚三件事: 自己的程度、想要的功能、希望的形式. Claude Code 因此給出符合「有基礎的新手」的技術選擇, 而不是直接生出一個複雜架構.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話二 · Atomic Tasking</span>
+      <pre class="code-block">好, 先幫我把專案結構和所有套件裝好.
+資料夾、package.json、需要的 npm 套件, 做完讓我看, 確認沒問題再繼續寫功能邏輯.</pre>
+      <p>不讓錯誤的結構帶著錯誤的邏輯一起跑.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話三 · Context Engineering</span>
+      <pre class="code-block">我想在查單字的時候, 順便顯示這次用了多少 token、花了多少錢.
+原因是: 我剛開始用 API, 想親眼看到每次查詢消耗了什麼,
+幫助我理解 token 計費的運作方式.</pre>
+    </div>
+
+    <div class="takeaway">
+      <p>說明你的真實目的, AI 才能給出真正有用的東西. 每一段都在給 AI 一個明確的起跑點.</p>
+    </div>
+  </div>
+
+  <div class="pj-panel demo-panel" id="pj-p2">
+    <h3>從 PRD 到完整 AI 影片錄製工具</h3>
+
+    <div class="info-box">
+      <span class="tag">對話一 · Spec-First</span>
+      <pre class="code-block">在開始寫任何程式之前, 我想先把需求整理清楚.
+核心功能是: 使用者對著鏡頭說話, AI 即時回覆, 回覆的文字要作為字幕燒進影片裡, 不是疊加在上面,
 而是永久成為影片畫面的一部分, 不需要後製.
-這份 PRD 是完整需求, 請閱讀後告訴我技術上是否可行, 建議的架構是什麼, 開發步驟怎麼拆.
-</code></pre><p>讓 Claude Code 在設計架構時就知道哪些是核心、哪些可以之後再做.</p>
-<p>對話二（Context Engineering）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>這個 App 計劃分三個階段開發: 
-Phase 1（現在）: 說話 &gt;&gt; AI 回覆 &gt;&gt; 字幕顯示, 基礎流程跑通
-Phase 2（之後）: 多個 AI 人格, 不同系統提示
-Phase 3（更之後）: 劇本模式, 使用者照稿念, AI 提供即時教練回饋
+這份 PRD 是完整需求, 請閱讀後告訴我技術上是否可行, 建議的架構是什麼, 開發步驟怎麼拆.</pre>
+      <p>讓 Claude Code 在設計架構時就知道哪些是核心、哪些可以之後再做.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話二 · Context Engineering</span>
+      <pre class="code-block">這個 App 計劃分三個階段開發:
+Phase 1(現在): 說話 &gt;&gt; AI 回覆 &gt;&gt; 字幕顯示, 基礎流程跑通
+Phase 2(之後): 多個 AI 人格, 不同系統提示
+Phase 3(更之後): 劇本模式, 使用者照稿念, AI 提供即時教練回饋
 
 資料結構請按照三個階段的需求設計.
-Phase 2/3 現在不實作, 但型別定義和狀態機要能支撐得住, 
-避免之後需要大幅重寫.
-</code></pre><p>沒有這個背景, AI 只會做剛好夠用的設計.</p>
-<hr>
-<p>對話三（Scaffold-and-Fill）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>對話流程的狀態機先獨立寫成純函式, 不要急著跟 UI 連結.
+Phase 2/3 現在不實作, 但型別定義和狀態機要能支撐得住,
+避免之後需要大幅重寫.</pre>
+      <p>沒有這個背景, AI 只會做剛好夠用的設計.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話三 · Scaffold-and-Fill</span>
+      <pre class="code-block">對話流程的狀態機先獨立寫成純函式, 不要急著跟 UI 連結.
 狀態: idle &gt;&gt; ready &gt;&gt; listening &gt;&gt; thinking &gt;&gt; ai_streaming &gt;&gt; turn_done
 每個狀態只接受有效的事件, 非法的轉換直接忽略.
-加上 console log, 讓每次狀態轉換都印出來, 
-確認路徑正確之後, 再來接 React 元件.
-</code></pre><p>框架驗證正確後, 填入細節才安全.</p>
-<p>對話四（Atomic Tasking）</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>Phase 0 的基礎建設做完了.
+加上 console log, 讓每次狀態轉換都印出來,
+確認路徑正確之後, 再來接 React 元件.</pre>
+      <p>框架驗證正確後, 填入細節才安全.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話四 · Atomic Tasking</span>
+      <pre class="code-block">Phase 0 的基礎建設做完了.
 接下來先只做提詞機模式: 使用者說話, 文字即時顯示在畫面上, AI 不回應.
-這個做完讓我測試, 確認字幕顯示和錄影都正常, 再繼續做 AI 人格選擇.
-</code></pre><blockquote>
-<p>一個完整的產品從零到可用, 一步確認完再走下一步的節奏.</p>
-</blockquote>
-<hr>
-<h4 id="從零建立一套需要符合國際稽核標準的碳排系統">從零建立一套需要符合國際稽核標準的碳排系統 </h4>
-<p>對話一（Spec-First + Context Engineering）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>我們公司的碳排報告需要符合 ISAE 3410 稽核標準.
+這個做完讓我測試, 確認字幕顯示和錄影都正常, 再繼續做 AI 人格選擇.</pre>
+    </div>
+
+    <div class="takeaway">
+      <p>一個完整的產品從零到可用, 一步確認完再走下一步的節奏.</p>
+    </div>
+  </div>
+
+  <div class="pj-panel demo-panel" id="pj-p3">
+    <h3>從零建立一套需要符合國際稽核標準的碳排系統</h3>
+
+    <div class="info-box">
+      <span class="tag">對話一 · Spec-First + Context Engineering</span>
+      <pre class="code-block">我們公司的碳排報告需要符合 ISAE 3410 稽核標準.
 現在的做法是截圖存證, 但稽核員說截圖有人工編輯的風險, 不夠可信.
 我想建一個系統, 從出貨部門提交的 Excel &gt;&gt; 自動計算碳排 &gt;&gt; 產生可供稽核員查驗的介面.
-關鍵是要能證明數據從採集到計算全程沒有人工干預.這個方向可行嗎？
-</code></pre><blockquote>
-<p>提供了真實情境, 讓 Claude Code 設計正確的架構和方向.</p>
-</blockquote>
-<p>對話二（Atomic Tasking）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>先從產生測試資料開始.
-我需要 120 筆假的出貨運單, 但資料要刻意設計成有問題的, 
-這樣才能測試後面的清洗邏輯夠不夠強. 先做這步, 完成後再繼續.
-</code></pre><blockquote>
-<p>不只是拆步驟, 連每一步的驗收條件都想清楚了再交辦.</p>
-</blockquote>
-<hr>
-<p>對話三（Scaffold-and-Fill）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>路線計算這段, 我想同時支援兩種模式, 
-開發測試時用 mock (不需要網路, 估算就好) ; 正式展示時切換成 Google Routes API 取真實路網.
+關鍵是要能證明數據從採集到計算全程沒有人工干預. 這個方向可行嗎?</pre>
+      <p>提供了真實情境, 讓 Claude Code 設計正確的架構和方向.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話二 · Atomic Tasking</span>
+      <pre class="code-block">先從產生測試資料開始.
+我需要 120 筆假的出貨運單, 但資料要刻意設計成有問題的,
+這樣才能測試後面的清洗邏輯夠不夠強. 先做這步, 完成後再繼續.</pre>
+      <p>不只是拆步驟, 連每一步的驗收條件都想清楚了再交辦.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話三 · Scaffold-and-Fill</span>
+      <pre class="code-block">路線計算這段, 我想同時支援兩種模式,
+開發測試時用 mock(不需要網路, 估算就好); 正式展示時切換成 Google Routes API 取真實路網.
 設計成用一個環境變數切換, 兩種模式對外介面要完全一樣, 切換時不需要改任何其他程式.
-把這個架構先定好, 再實作細節.
-</code></pre><blockquote>
-<p>先定介面, 再實作兩個 provider. 框架對齊後, 填入內容才不會跑偏.</p>
-</blockquote>
-<p>對話四（Review-and-Iterate）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>等一下, 我剛才說的 Google TIM API 好像不對.
+把這個架構先定好, 再實作細節.</pre>
+      <p>先定介面, 再實作兩個 provider. 框架對齊後, 填入內容才不會跑偏.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話四 · Review-and-Iterate</span>
+      <pre class="code-block">等一下, 我剛才說的 Google TIM API 好像不對.
 我查了一下, TIM 是 Travel Impact Model, 只做航班碳排, 不做公路運輸.
-公路距離應該用 Google Routes API v2 對嗎 ? 請確認後調整計畫.
-</code></pre><blockquote>
-<p>需求說錯了, 在執行前抓出來修正, 比讓錯誤跑進程式碼再回頭改要省力得多.</p>
-</blockquote>
-<hr>
-<h4 id="主機板市場情報工具">主機板市場情報工具 </h4>
-<p>對話一（Atomic Tasking + Scaffold-and-Fill）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>做一個主機板市場分析工具, 流程固定是三步, 抓資料 &gt;&gt; 生成 HTML Dashboard &gt;&gt; 寄信.
+公路距離應該用 Google Routes API v2 對嗎? 請確認後調整計畫.</pre>
+      <p>需求說錯了, 在執行前抓出來修正, 比讓錯誤跑進程式碼再回頭改要省力得多.</p>
+    </div>
+  </div>
+
+  <div class="pj-panel demo-panel" id="pj-p4">
+    <h3>主機板市場情報工具</h3>
+
+    <div class="info-box">
+      <span class="tag">對話一 · Atomic Tasking + Scaffold-and-Fill</span>
+      <pre class="code-block">做一個主機板市場分析工具, 流程固定是三步, 抓資料 &gt;&gt; 生成 HTML Dashboard &gt;&gt; 寄信.
 每一步各自獨立, 輸出格式統一用 JSON.
-先只做北美市場（Newegg）的版本, 三步都跑通、Dashboard 確認沒問題, 再來擴展其他市場.
-</code></pre><p>流程架構先定好, 再實作第一個市場. 因為骨架固定, 日本、韓國版本之後只需要填入各自的資料來源, 不需要重新設計流程.</p>
-<p>對話二（Context Engineering）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>Newegg 版本確認了, 接下來擴展到日本 Kakaku 和韓國 Danawa.
-每個市場的 Dashboard 要用各自適合的指標呈現, 不要把 Newegg 的評分格式硬套到沒有評分的市場.
-</code></pre><p>三個市場表面上做的是一樣的事, 但背後的數據結構不同.</p>
-<hr>
-<p>對話三（Review-and-Iterate）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>Danawa 的資料有問題: 產品被歸到錯誤的品牌.
-例如 ASUS 的主機板出現在 MSI 的資料裡. 
-請檢查 danawa_scraper.py 的品牌判斷邏輯, 找出原因, 修正後重新抓一次, 確認四個品牌的資料都正確.
-</code></pre><p>測試後發現問題、回頭修正邏輯.</p>
-<p>對話四（Spec-First + Context Engineering）</p>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>這個工具需要自動執行, 不能靠手動觸發.
+先只做北美市場(Newegg)的版本, 三步都跑通、Dashboard 確認沒問題, 再來擴展其他市場.</pre>
+      <p>流程架構先定好, 再實作第一個市場. 因為骨架固定, 日本、韓國版本之後只需要填入各自的資料來源, 不需要重新設計流程.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話二 · Context Engineering</span>
+      <pre class="code-block">Newegg 版本確認了, 接下來擴展到日本 Kakaku 和韓國 Danawa.
+每個市場的 Dashboard 要用各自適合的指標呈現, 不要把 Newegg 的評分格式硬套到沒有評分的市場.</pre>
+      <p>三個市場表面上做的是一樣的事, 但背後的數據結構不同.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話三 · Review-and-Iterate</span>
+      <pre class="code-block">Danawa 的資料有問題: 產品被歸到錯誤的品牌.
+例如 ASUS 的主機板出現在 MSI 的資料裡.
+請檢查 danawa_scraper.py 的品牌判斷邏輯, 找出原因, 修正後重新抓一次, 確認四個品牌的資料都正確.</pre>
+      <p>測試後發現問題、回頭修正邏輯.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="tag">對話四 · Spec-First + Context Engineering</span>
+      <pre class="code-block">這個工具需要自動執行, 不能靠手動觸發.
 需求:
-1. 每週一早上九點(台灣時間) 自動跑全部三個市場,
+1. 每週一早上九點(台灣時間)自動跑全部三個市場,
 2. API 金鑰和收件人 email 不能寫進程式碼,
 3. 三個市場可以寄給不同的收件人, 每個市場要有獨立的收件人變數,
-4. 任何一個市場失敗, 要在 log 裡明確標出是哪個市場出錯
-</code></pre><p>自動化的需求在動手之前一次說清楚, 排程時間、秘密管理方式、收件人分離、失敗通知. 這些細節任何一個沒說, 都可能在第一次自動執行時才發現問題.</p>
-<hr>
-<h4 id="台股損益追蹤工具">台股損益追蹤工具 </h4>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>我想做一個個人台股損益追蹤工具, 我想藉這個專案真正學懂 PostgreSQL, 
-</code></pre><p>Claude Code 知道 README 不能只寫安裝步驟, 每個用到的 SQL 功能都要對應說明它在這個專案裡解決了什麼問題.</p>
-<h4 id="透過實作理解-mcp-協定">透過實作理解 MCP 協定 </h4>
-<pre data-role="codeBlock" data-info="text" class="language-text text"><code>我想透過實作來真正理解 MCP (Model Context Protocol) 的運作方式.
-在開始寫任何程式之前, 請先說明建議的架構分層, 我確認方向後再動手.
-</code></pre><blockquote>
-<p>換一個角度, 這次的主角不是任務本身, 而是學習目標.<br>
-同樣的功能, 學習目標不同, 交付物就完全不同.</p>
-</blockquote>
-<hr>
-<h2 id="小結-part-3-概念關係總覽">小結: Part 3 概念關係總覽 </h2>
-<table>
-<thead>
-<tr>
-<th>主題</th>
-<th>說明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="http://CLAUDE.md">CLAUDE.md</a></td>
-<td>全域 / 專案 - 讓 AI 認識你的工作環境; 持久化的工作規範與背景說明</td>
-</tr>
-<tr>
-<td>執行中</td>
-<td>讀懂動態指示器, 知道 AI 在做什麼; 還在動 ? 時間正常 ? 需要按鍵回應 ?</td>
-</tr>
-<tr>
-<td>權限系統</td>
-<td>你的信任邊界, 由你決定</td>
-</tr>
-<tr>
-<td>Commands and Skills</td>
-<td>控制與擴充 Claude Code 的行為</td>
-</tr>
-<tr>
-<td>工作流程範例</td>
-<td>批次掃描自動命名 / 歸檔搬移檔案 / 跨檔比對生成 / 感知狀態批次輸出 / 增量比對追加更新</td>
-</tr>
-<tr>
-<td>Spec-first / Atomic / Context / Scaffold / Review</td>
-<td>任務性質、技術複雜度、開發動機都不同, 但驅動每一次有效協作的, 始終是同一套溝通節奏</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<blockquote>
-<p>恭喜你, 你已經學會了這個時代最重要的能力之一: 把意圖說清楚, 讓 AI 替你完成真實的工作.<br>
-從這裡開始, 每一次交辦, 都是你重新定義「工作」這兩個字的機會, 帶著你手邊正在進行的專案, 我們下次見面繼續討論.</p>
-</blockquote>
-</div></body></html>
+4. 任何一個市場失敗, 要在 log 裡明確標出是哪個市場出錯</pre>
+      <p>自動化的需求在動手之前一次說清楚, 排程時間、秘密管理方式、收件人分離、失敗通知. 這些細節任何一個沒說, 都可能在第一次自動執行時才發現問題.</p>
     </div>
-  </body>
+  </div>
+
+  <div class="pj-panel demo-panel" id="pj-p5">
+    <h3>台股損益追蹤工具</h3>
+    <div class="info-box">
+      <pre class="code-block">我想做一個個人台股損益追蹤工具, 我想藉這個專案真正學懂 PostgreSQL.</pre>
+      <p>Claude Code 知道 README 不能只寫安裝步驟, 每個用到的 SQL 功能都要對應說明它在這個專案裡解決了什麼問題.</p>
+    </div>
+  </div>
+
+  <div class="pj-panel demo-panel" id="pj-p6">
+    <h3>透過實作理解 MCP 協定</h3>
+    <div class="info-box">
+      <pre class="code-block">我想透過實作來真正理解 MCP(Model Context Protocol)的運作方式.
+在開始寫任何程式之前, 請先說明建議的架構分層, 我確認方向後再動手.</pre>
+    </div>
+    <div class="takeaway">
+      <p>換一個角度, 這次的主角不是任務本身, 而是學習目標. 同樣的功能, 學習目標不同, 交付物就完全不同.</p>
+    </div>
+  </div>
+
+  <div class="demo-controls">
+    <button class="btn btn-ghost" id="pjPrev" disabled onclick="pjGoTo(pjStep-1)">← 上一個</button>
+    <button class="btn btn-primary" id="pjNext" onclick="pjGoTo(pjStep+1)">下一個 →</button>
+    <span class="step-indicator" id="pjIndicator">案例 1 / 7</span>
+  </div>
+</section>
+
+<section>
+  <h2>小結: Part 3 概念關係總覽</h2>
+  <div class="response-box">
+    <div class="response-field"><span class="rf-key">CLAUDE.md</span><span class="rf-val">全域 / 專案, 讓 AI 認識你的工作環境; 持久化的工作規範與背景說明</span></div>
+    <div class="response-field"><span class="rf-key">執行中</span><span class="rf-val">讀懂動態指示器, 知道 AI 在做什麼; 還在動? 時間正常? 需要按鍵回應?</span></div>
+    <div class="response-field"><span class="rf-key">權限系統</span><span class="rf-val">你的信任邊界, 由你決定</span></div>
+    <div class="response-field"><span class="rf-key">Commands and Skills</span><span class="rf-val">控制與擴充 Claude Code 的行為</span></div>
+    <div class="response-field"><span class="rf-key">工作流程範例</span><span class="rf-val">批次掃描自動命名 / 歸檔搬移檔案 / 跨檔比對生成 / 感知狀態批次輸出 / 增量比對追加更新</span></div>
+    <div class="response-field"><span class="rf-key">五種核心工作模式</span><span class="rf-val">任務性質、技術複雜度、開發動機都不同, 但驅動每一次有效協作的, 始終是同一套溝通節奏</span></div>
+  </div>
+  <div class="takeaway">
+    <p>恭喜你, 你已經學會了這個時代最重要的能力之一: 把意圖說清楚, 讓 AI 替你完成真實的工作. 從這裡開始, 每一次交辦, 都是你重新定義「工作」這兩個字的機會, 帶著你手邊正在進行的專案, 我們下次見面繼續討論.</p>
+  </div>
+</section>
+</main>
+
+<script>
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
+}
+
+let wfStep = 0;
+const WF_MAX = 4;
+function wfGoTo(n) {
+  wfStep = Math.max(0, Math.min(WF_MAX, n));
+  document.querySelectorAll('.wf-panel').forEach((el, i) =>
+    el.classList.toggle('visible', i === wfStep));
+  document.querySelectorAll('.wf-tab').forEach((t, i) => {
+    t.classList.remove('active', 'done');
+    if (i === wfStep) t.classList.add('active');
+    else if (i < wfStep) t.classList.add('done');
+  });
+  document.getElementById('wfPrev').disabled = wfStep === 0;
+  const wfNext = document.getElementById('wfNext');
+  wfNext.disabled = wfStep === WF_MAX;
+  wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一個 →';
+  document.getElementById('wfIndicator').textContent = `流程 ${wfStep + 1} / ${WF_MAX + 1}`;
+}
+wfGoTo(0);
+
+let pjStep = 0;
+const PJ_MAX = 6;
+function pjGoTo(n) {
+  pjStep = Math.max(0, Math.min(PJ_MAX, n));
+  document.querySelectorAll('.pj-panel').forEach((el, i) =>
+    el.classList.toggle('visible', i === pjStep));
+  document.querySelectorAll('.pj-tab').forEach((t, i) => {
+    t.classList.remove('active', 'done');
+    if (i === pjStep) t.classList.add('active');
+    else if (i < pjStep) t.classList.add('done');
+  });
+  document.getElementById('pjPrev').disabled = pjStep === 0;
+  const pjNext = document.getElementById('pjNext');
+  pjNext.disabled = pjStep === PJ_MAX;
+  pjNext.textContent = pjStep === PJ_MAX ? '完成 ✓' : '下一個 →';
+  document.getElementById('pjIndicator').textContent = `案例 ${pjStep + 1} / ${PJ_MAX + 1}`;
+}
+pjGoTo(0);
+</script>
+</body>
 </html>

@@ -1,260 +1,383 @@
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>no title</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    .markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-details{margin:0;padding:0;border:none}.markdown-preview .md-toc summary.md-toc-link-wrapper{cursor:pointer;list-style-position:outside}.markdown-preview .md-toc summary.md-toc-link-wrapper::marker{font-size:.85em}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='0']{margin-left:12px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='1']{margin-left:28px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='2']{margin-left:44px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='3']{margin-left:60px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='4']{margin-left:76px}.markdown-preview .md-toc .md-toc-link-wrapper[data-level='5']{margin-left:80px}.markdown-preview a.tag,.markdown-preview a.tag:active,.markdown-preview a.tag:link,.markdown-preview a.tag:visited,.markdown-preview span.tag:not(.token){display:inline-block;background-color:var(--vscode-badge-background,rgba(127,127,127,.18));color:var(--vscode-badge-foreground,currentColor);border-radius:2em;font-size:.85em;font-weight:500;padding:.05em .55em;line-height:1.5;white-space:nowrap;text-decoration:none;text-shadow:none;box-shadow:none;transition:background-color .12s ease,opacity .12s ease}.markdown-preview a.tag{cursor:pointer}.markdown-preview a.tag:focus,.markdown-preview a.tag:hover{background-color:var(--vscode-badge-background,rgba(127,127,127,.32));color:var(--vscode-badge-foreground,currentColor);opacity:.85;text-decoration:none;outline:0}.markdown-preview .wikilink-embed-content{border-left:3px solid var(--vscode-textBlockQuote-border,rgba(128,128,128,.3));background:var(--vscode-textBlockQuote-background,rgba(128,128,128,.05));margin:.5em 0;padding:.5em .75em;border-radius:0 3px 3px 0}.markdown-preview .wikilink-embed-content.wikilink-embed-error{border-left-color:var(--vscode-errorForeground,#cf222e);color:var(--vscode-errorForeground,#cf222e);font-style:italic;opacity:.8}.markdown-preview .wikilink-embed-content h1:first-child,.markdown-preview .wikilink-embed-content h2:first-child,.markdown-preview .wikilink-embed-content h3:first-child,.markdown-preview .wikilink-embed-content h4:first-child,.markdown-preview .wikilink-embed-content h5:first-child,.markdown-preview .wikilink-embed-content h6:first-child{margin-top:.25em}.markdown-preview .wikilink-embed-content .wikilink-embed-content{margin:.25em 0;padding:.25em .5em}.markdown-preview .block-id{display:none}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));border:4px solid var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));background-clip:content-box}.scrollbar-style::-webkit-scrollbar-thumb:hover{background-color:var(--vscode-scrollbarSlider-hoverBackground,rgba(120,120,120,.66))}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));border:4px solid var(--vscode-scrollbarSlider-background,rgba(150,150,150,.66));background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb:hover{background-color:var(--vscode-scrollbarSlider-hoverBackground,rgba(120,120,120,.66))}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-details{margin:0;padding:0;border:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='0']{padding-left:0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='1']{padding-left:16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='2']{padding-left:32px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='3']{padding-left:48px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='4']{padding-left:64px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper[data-level='5']{padding-left:80px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}pre{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;padding:1em;margin:.5em 0;overflow:auto;line-height:1.5;tab-size:4;hyphens:none;color:#f8f8f2;background-color:#323232!important;border:#515151;border-radius:3px}pre[class*=language-]{padding:1em}code[class*=language-] .token.cdata,code[class*=language-] .token.comment,code[class*=language-] .token.doctype,code[class*=language-] .token.prolog,pre[class*=language-] .token.cdata,pre[class*=language-] .token.comment,pre[class*=language-] .token.doctype,pre[class*=language-] .token.prolog{color:#75715e}code[class*=language-] .token.punctuation,pre[class*=language-] .token.punctuation{color:inherit}code[class*=language-] .namespace,pre[class*=language-] .namespace{opacity:.7}code[class*=language-] .token.boolean,code[class*=language-] .token.constant,code[class*=language-] .token.deleted,code[class*=language-] .token.function-name,code[class*=language-] .token.number,code[class*=language-] .token.property,code[class*=language-] .token.symbol,code[class*=language-] .token.tag,pre[class*=language-] .token.boolean,pre[class*=language-] .token.constant,pre[class*=language-] .token.deleted,pre[class*=language-] .token.function-name,pre[class*=language-] .token.number,pre[class*=language-] .token.property,pre[class*=language-] .token.symbol,pre[class*=language-] .token.tag{color:#ae81ff}code[class*=language-] .token.attr-name,code[class*=language-] .token.builtin,code[class*=language-] .token.char,code[class*=language-] .token.inserted,code[class*=language-] .token.selector,code[class*=language-] .token.string,pre[class*=language-] .token.attr-name,pre[class*=language-] .token.builtin,pre[class*=language-] .token.char,pre[class*=language-] .token.inserted,pre[class*=language-] .token.selector,pre[class*=language-] .token.string{color:#e6db74}code[class*=language-] .token.entity,pre[class*=language-] .token.entity{color:#ae81ff}code[class*=language-] .token.url,pre[class*=language-] .token.url{color:#ccc}code[class*=language-] .token.operator,pre[class*=language-] .token.operator{color:#f92672}code[class*=language-] .token.atrule,code[class*=language-] .token.attr-value,code[class*=language-] .token.keyword,pre[class*=language-] .token.atrule,pre[class*=language-] .token.attr-value,pre[class*=language-] .token.keyword{color:#66d9ef}code[class*=language-] .token.function,pre[class*=language-] .token.function{color:#a6e22e}code[class*=language-] .token.class-name,pre[class*=language-] .token.class-name{color:#a6e22e}code[class*=language-] .token.regex,pre[class*=language-] .token.regex{color:#ae81ff}code[class*=language-] .token.important,code[class*=language-] .token.variable,pre[class*=language-] .token.important,pre[class*=language-] .token.variable{color:#a6e22e}code[class*=language-] .token.bold,code[class*=language-] .token.important,pre[class*=language-] .token.bold,pre[class*=language-] .token.important{font-weight:700}code[class*=language-] .token.italic,pre[class*=language-] .token.italic{font-style:italic}code[class*=language-] .token.entity,pre[class*=language-] .token.entity{cursor:help}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}.emoji{height:.8em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#f8f8f2;background-color:#282828;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#fff}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#dbdbbd}html body strong{color:#fff}html body del{color:#dbdbbd}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#dbdbbd;background-color:#3c3c3c;border-left:4px solid #515151}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#515151;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#fff}html body table td,html body table th{border:1px solid #515151;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#fff;background-color:#3c3c3c;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#515151;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#fff;border:1px solid #515151;border-bottom:2px solid #424242;padding:2px 4px;background-color:#3c3c3c;border-radius:3px}@media print{html body{background-color:#282828}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#fff;page-break-after:avoid}html body blockquote{color:#dbdbbd}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}
-    /* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>公司 AI 使用政策</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           background: #f0f4f8; color: #1a202c; line-height: 1.7; }
 
-    </style>
-    
-    <!-- The content below will be included at the end of the <head> element. -->
-<script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script>
-  </head>
-  <body for="html-export">
-    <div class="crossnote markdown-preview">
-    <html><head></head><body><div>
-<style>
-section {
-  font-size: 24px;
-}
-table {
-  border-collapse: collapse;
-}
-th {
-  background-color: #D97757;
-  color: white;
-}
-td {
-  background-color: #1A1A1A;
-}
-blockquote {
-  background-color: #1A1A1A;
-  border-left: 8px solid #D97757;
-  padding: 1.5rem;
-  border-radius: 4px;
-  font-style: italic;
-  color: #F5E0E8;
-}
-</style>
-<h1 id="公司-ai-使用政策" ebook-toc-level-1="" heading="公司 AI 使用政策 ">公司 AI 使用政策 </h1>
-<h2 id="1-政策目的" ebook-toc-level-2="" heading="1. 政策目的 ">1. 政策目的 </h2>
-<p>人工智慧（Artificial Intelligence, AI）工具能有效提升工作效率、創造力與決策品質。為協助員工安全、合法且負責任地使用 AI 技術，並保護公司、客戶、合作夥伴及員工的權益，特制定本政策作為全體同仁使用 AI 工具之基本規範。</p>
-<p>本政策適用於所有員工、約聘人員、實習生、顧問及其他經授權使用公司資訊系統之人員。</p>
-<hr>
-<h2 id="2-ai-使用原則" ebook-toc-level-2="" heading="2. AI 使用原則 ">2. AI 使用原則 </h2>
-<h3 id="原則一保護機密資訊" ebook-toc-level-3="" heading="原則一：保護機密資訊 ">原則一：保護機密資訊 </h3>
-<p>未經授權，不得將下列資訊輸入任何外部 AI 服務：</p>
-<ul>
-<li>客戶個人資料</li>
-<li>員工個人資料</li>
-<li>公司未公開財務資訊</li>
-<li>原始碼、韌體、演算法</li>
-<li>產品設計圖、規格文件</li>
-<li>研發路線圖（Roadmap）</li>
-<li>商業策略與市場規劃</li>
-<li>合約內容及法律文件</li>
-<li>其他屬於公司機密資訊之內容</li>
-</ul>
-<p>如需利用 AI 協助處理相關工作，應優先使用公司核准之 AI 平台，並進行適當匿名化或去識別化處理。</p>
-<hr>
-<h3 id="原則二資訊正確性由使用者負責" ebook-toc-level-3="" heading="原則二：資訊正確性由使用者負責 ">原則二：資訊正確性由使用者負責 </h3>
-<p>AI 產生之內容可能包含錯誤、過時資訊或虛構內容（Hallucination）。</p>
-<p>員工不得直接引用 AI 輸出作為：</p>
-<ul>
-<li>對外公告</li>
-<li>客戶報告</li>
-<li>技術文件</li>
-<li>法律文件</li>
-<li>財務分析</li>
-<li>管理決策依據</li>
-</ul>
-<p>所有 AI 產生內容均須由使用者自行驗證與審核後方可使用。</p>
-<p>最終責任仍由內容提交者承擔。</p>
-<hr>
-<h3 id="原則三尊重智慧財產權" ebook-toc-level-3="" heading="原則三：尊重智慧財產權 ">原則三：尊重智慧財產權 </h3>
-<p>使用 AI 工具時應遵守相關智慧財產權規範。</p>
-<p>不得：</p>
-<ul>
-<li>使用未授權資料訓練模型</li>
-<li>抄襲或冒用他人作品</li>
-<li>移除著作權標示</li>
-<li>將第三方受保護內容視為公司原創成果</li>
-</ul>
-<p>如 AI 生成內容將用於商業用途，應確認相關授權條件與使用限制。</p>
-<hr>
-<h3 id="原則四維持專業判斷" ebook-toc-level-3="" heading="原則四：維持專業判斷 ">原則四：維持專業判斷 </h3>
-<p>AI 為輔助工具，而非決策者。</p>
-<p>涉及以下事項時，必須由人員進行獨立判斷與核准：</p>
-<ul>
-<li>人事決策</li>
-<li>招募評估</li>
-<li>績效考核</li>
-<li>採購決策</li>
-<li>財務決策</li>
-<li>法律判斷</li>
-<li>客戶承諾</li>
-<li>產品安全相關決策</li>
-</ul>
-<p>不得將最終決策完全交由 AI 自動完成。</p>
-<hr>
-<h3 id="原則五透明與可追溯" ebook-toc-level-3="" heading="原則五：透明與可追溯 ">原則五：透明與可追溯 </h3>
-<p>使用 AI 產生之成果應保持適當透明度。</p>
-<p>以下情況建議揭露 AI 參與程度：</p>
-<ul>
-<li>對外公開文件</li>
-<li>行銷內容</li>
-<li>客戶提案</li>
-<li>研究報告</li>
-<li>技術文件</li>
-</ul>
-<p>必要時應保留：</p>
-<ul>
-<li>使用之 AI 工具</li>
-<li>Prompt（提示詞）</li>
-<li>重要輸出結果</li>
-<li>人工修改紀錄</li>
-</ul>
-<p>以利後續追溯與稽核。</p>
-<hr>
-<h2 id="3-核准使用之-ai-工具" ebook-toc-level-2="" heading="3. 核准使用之 AI 工具 ">3. 核准使用之 AI 工具 </h2>
-<p>員工僅得使用公司資訊部門、AI Center 或相關主管單位核准之 AI 工具。</p>
-<p>未經核准不得：</p>
-<ul>
-<li>上傳公司資料至未知 AI 平台</li>
-<li>使用來源不明之 AI 外掛程式</li>
-<li>使用未經安全評估之 AI Agent</li>
-<li>將公司資料同步至個人 AI 帳號</li>
-</ul>
-<p>公司保留定期評估與調整核准工具名單之權利。</p>
-<hr>
-<h2 id="4-禁止事項" ebook-toc-level-2="" heading="4. 禁止事項 ">4. 禁止事項 </h2>
-<p>下列行為嚴格禁止：</p>
-<h3 id="41-機密資料外洩" ebook-toc-level-3="" heading="4.1 機密資料外洩 ">4.1 機密資料外洩 </h3>
-<p>將公司機密資訊輸入未經授權之 AI 平台。</p>
-<h3 id="42-偽造與冒名" ebook-toc-level-3="" heading="4.2 偽造與冒名 ">4.2 偽造與冒名 </h3>
-<p>利用 AI：</p>
-<ul>
-<li>偽造主管指示</li>
-<li>偽造客戶訊息</li>
-<li>偽造簽名文件</li>
-<li>冒用他人身份</li>
-</ul>
-<hr>
-<h3 id="43-散布不實資訊" ebook-toc-level-3="" heading="4.3 散布不實資訊 ">4.3 散布不實資訊 </h3>
-<p>未經查證即發布 AI 產生之資訊，造成：</p>
-<ul>
-<li>客戶誤解</li>
-<li>公司損失</li>
-<li>法律風險</li>
-<li>品牌傷害</li>
-</ul>
-<hr>
-<h3 id="44-生成違法或不當內容" ebook-toc-level-3="" heading="4.4 生成違法或不當內容 ">4.4 生成違法或不當內容 </h3>
-<p>不得利用 AI 生成：</p>
-<ul>
-<li>歧視言論</li>
-<li>騷擾內容</li>
-<li>仇恨言論</li>
-<li>違法資訊</li>
-<li>惡意程式碼</li>
-<li>網路攻擊工具</li>
-</ul>
-<hr>
-<h3 id="45-規避公司管理機制" ebook-toc-level-3="" heading="4.5 規避公司管理機制 ">4.5 規避公司管理機制 </h3>
-<p>不得利用 AI 工具繞過：</p>
-<ul>
-<li>資安控管</li>
-<li>權限管理</li>
-<li>稽核機制</li>
-<li>合規要求</li>
-</ul>
-<hr>
-<h2 id="5-ai-使用分級管理" ebook-toc-level-2="" heading="5. AI 使用分級管理 ">5. AI 使用分級管理 </h2>
-<p>依資料敏感程度區分如下：</p>
-<table>
-<thead>
-<tr>
-<th>資料類型</th>
-<th>是否可輸入 AI</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>公開資訊</td>
-<td>可</td>
-</tr>
-<tr>
-<td>一般內部資訊</td>
-<td>限核准平台</td>
-</tr>
-<tr>
-<td>機密資訊</td>
-<td>原則上禁止</td>
-</tr>
-<tr>
-<td>客戶資料</td>
-<td>禁止</td>
-</tr>
-<tr>
-<td>個人資料</td>
-<td>禁止</td>
-</tr>
-<tr>
-<td>原始碼與研發文件</td>
-<td>依公司規範執行</td>
-</tr>
-</tbody>
-</table>
-<p>如有疑問，應先向主管、資訊部門或 AI Center 確認。</p>
-<hr>
-<h2 id="6-員工自我檢查清單" ebook-toc-level-2="" heading="6. 員工自我檢查清單 ">6. 員工自我檢查清單 </h2>
-<p>在使用 AI 前，請確認：</p>
-<ul>
-<li>是否包含公司機密資訊？</li>
-<li>是否包含客戶或員工個資？</li>
-<li>是否使用公司核准之 AI 工具？</li>
-<li>AI 產出內容是否已完成驗證？</li>
-<li>是否涉及智慧財產權問題？</li>
-<li>是否需要主管審核？</li>
-</ul>
-<p>若任一項目無法確認，請暫停使用並尋求協助。</p>
-<hr>
-<h2 id="7-違規處理" ebook-toc-level-2="" heading="7. 違規處理 ">7. 違規處理 </h2>
-<p>違反本政策者，公司得視情節採取以下措施：</p>
-<ul>
-<li>教育訓練</li>
-<li>書面警告</li>
-<li>權限停用</li>
-<li>紀律處分</li>
-<li>法律追訴</li>
-</ul>
-<p>若因違規行為導致公司損害，相關責任由行為人依法承擔。</p>
-<hr>
-<h2 id="8-政策維護" ebook-toc-level-2="" heading="8. 政策維護 ">8. 政策維護 </h2>
-<p>本政策將依據：</p>
-<ul>
-<li>AI 技術發展</li>
-<li>法規要求</li>
-<li>資訊安全需求</li>
-<li>公司營運需求</li>
-</ul>
-<p>定期檢討與更新。</p>
-<p>全體同仁應持續關注最新版本並遵循相關規範。</p>
-<hr>
-<h2 id="ai-使用守則一句話" ebook-toc-level-2="" heading="AI 使用守則一句話 ">AI 使用守則一句話 </h2>
-<blockquote>
-<p>善用 AI 提升效率，但最終責任仍由人負責；保護機密、驗證事實、維持判斷，才是負責任的 AI 使用方式。</p>
-</blockquote>
-</div></body></html>
+    header { background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
+             border-bottom: 1px solid #bfdbfe; padding: 48px 24px 40px; text-align: center; }
+    header h1 { font-size: 2.2rem; font-weight: 700; color: #1e3a5f; }
+    header p  { margin-top: 10px; color: #4a5568; font-size: 1.05rem;
+                max-width: 600px; margin-inline: auto; }
+
+    main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+    section { margin-bottom: 52px; }
+    h2 { font-size: 1.4rem; font-weight: 600; color: #1e40af;
+         border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 20px; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: #1a202c; margin: 20px 0 8px; }
+    p  { color: #4a5568; margin-bottom: 12px; }
+
+    .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
+      padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
+      overflow-x: auto; margin-top: 14px; line-height: 1.7; white-space: pre; }
+    .kw  { color: #7c3aed; }
+    .fn  { color: #16a34a; }
+    .str { color: #d97706; }
+    .cmt { color: #94a3b8; font-style: italic; }
+    .key { color: #2563eb; }
+
+    .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 10px;
+      padding: 16px 20px; margin-top: 14px; }
+    .info-box .tag { display: inline-block; background: #3b82f6; color: #fff;
+      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      margin-bottom: 10px; letter-spacing: 0.05em; }
+    .info-box p { color: #1e3a5f; font-size: 0.88rem; margin: 0; }
+
+    .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+      border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0; }
+
+    .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
+    .field .name { font-family: monospace; font-size: 0.85rem; color: #16a34a; font-weight: 600; }
+    .field .desc { font-size: 0.82rem; color: #4a5568; margin-top: 4px; }
+
+    .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .event-item { background: #fff; border: 1px solid #cbd5e0; border-radius: 6px;
+      padding: 9px 14px; display: flex; gap: 14px; align-items: baseline; }
+    .event-name { font-family: monospace; font-size: 0.82rem; color: #16a34a;
+      min-width: 90px; flex-shrink: 0; }
+    .event-desc { font-size: 0.82rem; color: #4a5568; }
+
+    .response-box { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
+      padding: 20px; margin-top: 16px; }
+    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #e2e8f0; align-items: center; }
+    .response-field:last-child { border-bottom: none; }
+    .rf-key { font-family: monospace; font-size: 0.82rem; color: #d97706; width: 160px; flex-shrink: 0; }
+    .rf-val { font-size: 0.85rem; color: #374151; }
+
+    .perm-badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
+    .perm-ok      { background: #dcfce7; color: #166534; }
+    .perm-limited { background: #fef3c7; color: #92400e; }
+    .perm-no      { background: #fee2e2; color: #991b1b; }
+    .perm-cond    { background: #dbeafe; color: #1e40af; }
+
+    .checklist { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .checklist label { display: flex; align-items: center; gap: 10px; background: #fff;
+      border: 1px solid #cbd5e0; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem;
+      color: #374151; cursor: pointer; }
+    .checklist input[type="checkbox"] { width: 16px; height: 16px; accent-color: #2563eb; cursor: pointer; }
+
+    .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+    .btn-primary:disabled { background: #cbd5e0; color: #9ca3af; cursor: default; }
+    .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
+    .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
+    .btn-ghost:disabled { opacity: 0.4; cursor: default; }
+    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
+    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
+
+    .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
+    .stage-tab.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
+    .stage-tab.done   { background: #166534; border-color: #4ade80; color: #dcfce7; }
+
+    .demo-panel { display: none; }
+    .demo-panel.visible { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+    .col-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 16px 18px; }
+    .col-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
+    .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
+    .col-card p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 640px) {
+      .api-fields, .two-col { grid-template-columns: 1fr; }
+    }
+
+    #themeToggle { position: fixed; top: 16px; right: 16px; z-index: 9999;
+      padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; border: 1px solid #cbd5e0; background: #fff; color: #1a202c;
+      transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.12); letter-spacing: 0.03em; }
+    #themeToggle:hover { border-color: #2563eb; color: #2563eb; }
+
+    body.dark { background: #0f1117; color: #e2e8f0; }
+    body.dark header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom-color: #2d3748; }
+    body.dark header h1 { color: #f7fafc; }
+    body.dark header p  { color: #a0aec0; }
+    body.dark h2 { color: #90cdf4; border-left-color: #4299e1; }
+    body.dark h3 { color: #e2e8f0; }
+    body.dark p  { color: #a0aec0; }
+    body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
+    body.dark .kw  { color: #9f7aea; }
+    body.dark .fn  { color: #68d391; }
+    body.dark .str { color: #f6ad55; }
+    body.dark .cmt { color: #4a5568; }
+    body.dark .key { color: #63b3ed; }
+    body.dark .info-box { background: #1a202c; border-color: #2a4a6a; }
+    body.dark .info-box .tag { background: #2a4a6a; color: #90cdf4; }
+    body.dark .info-box p { color: #a0aec0; }
+    body.dark .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c); border-color: #276749; }
+    body.dark .takeaway p { color: #c6f6d5; }
+    body.dark .field { background: #1a202c; border-color: #2d3748; }
+    body.dark .field .name { color: #68d391; }
+    body.dark .field .desc { color: #718096; }
+    body.dark .event-item { background: #1a202c; border-color: #2d3748; }
+    body.dark .event-name { color: #68d391; }
+    body.dark .event-desc { color: #718096; }
+    body.dark .response-box { background: #1a202c; border-color: #2d3748; }
+    body.dark .response-field { border-bottom-color: #2d3748; }
+    body.dark .rf-key { color: #f6ad55; }
+    body.dark .rf-val { color: #a0aec0; }
+    body.dark .perm-ok      { background: #1a3a28; color: #68d391; }
+    body.dark .perm-limited { background: #3a2a10; color: #f6ad55; }
+    body.dark .perm-no      { background: #3a1a1a; color: #fca5a5; }
+    body.dark .perm-cond    { background: #1e3a5f; color: #90cdf4; }
+    body.dark .checklist label { background: #1a202c; border-color: #2d3748; color: #a0aec0; }
+    body.dark .btn-primary { background: #2b6cb0; }
+    body.dark .btn-primary:hover:not(:disabled) { background: #3182ce; }
+    body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
+    body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
+    body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
+    body.dark .step-indicator { color: #718096; }
+    body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
+    body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
+    body.dark .col-card { background: #1a202c; border-color: #2d3748; }
+    body.dark .col-card-title { color: #4a5568; }
+    body.dark .col-card p { color: #a0aec0; }
+    body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
+  </style>
+</head>
+<body>
+
+<button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
+
+<header>
+  <h1>公司 AI 使用政策</h1>
+  <p>為協助全體同仁安全、合法且負責任地使用 AI 工具, 並保護公司、客戶、合作夥伴及員工的權益所制定的使用規範.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. 政策目的</h2>
+  <div class="info-box">
+    <span class="tag">目的</span>
+    <p>人工智慧(AI)工具能有效提升工作效率、創造力與決策品質. 為協助員工安全、合法且負責任地使用 AI 技術, 並保護公司、客戶、合作夥伴及員工的權益, 特制定本政策作為全體同仁使用 AI 工具之基本規範.</p>
+  </div>
+  <p style="margin-top:14px">本政策適用於所有員工、約聘人員、實習生、顧問及其他經授權使用公司資訊系統之人員.</p>
+</section>
+
+<section>
+  <h2>2. AI 使用原則</h2>
+
+  <div class="stage-tabs">
+    <div class="pr-tab stage-tab active" onclick="prGoTo(0)">原則一 · 保護機密資訊</div>
+    <div class="pr-tab stage-tab" onclick="prGoTo(1)">原則二 · 資訊正確性</div>
+    <div class="pr-tab stage-tab" onclick="prGoTo(2)">原則三 · 智慧財產權</div>
+    <div class="pr-tab stage-tab" onclick="prGoTo(3)">原則四 · 專業判斷</div>
+    <div class="pr-tab stage-tab" onclick="prGoTo(4)">原則五 · 透明可追溯</div>
+  </div>
+
+  <div class="pr-panel demo-panel visible" id="pr-p0">
+    <p>未經授權, 不得將下列資訊輸入任何外部 AI 服務:</p>
+    <div class="event-list">
+      <div class="event-item"><span class="event-name">客戶</span><span class="event-desc">客戶個人資料</span></div>
+      <div class="event-item"><span class="event-name">員工</span><span class="event-desc">員工個人資料</span></div>
+      <div class="event-item"><span class="event-name">財務</span><span class="event-desc">公司未公開財務資訊</span></div>
+      <div class="event-item"><span class="event-name">技術</span><span class="event-desc">原始碼、韌體、演算法</span></div>
+      <div class="event-item"><span class="event-name">產品</span><span class="event-desc">產品設計圖、規格文件</span></div>
+      <div class="event-item"><span class="event-name">策略</span><span class="event-desc">研發路線圖、商業策略與市場規劃</span></div>
+      <div class="event-item"><span class="event-name">法務</span><span class="event-desc">合約內容及法律文件</span></div>
     </div>
-  </body>
+    <div class="takeaway">
+      <p>如需利用 AI 協助處理相關工作, 應優先使用公司核准之 AI 平台, 並進行適當匿名化或去識別化處理.</p>
+    </div>
+  </div>
+
+  <div class="pr-panel demo-panel" id="pr-p1">
+    <p>AI 產生之內容可能包含錯誤、過時資訊或虛構內容(Hallucination). 員工不得直接引用 AI 輸出作為:</p>
+    <div class="event-list">
+      <div class="event-item"><span class="event-name">對外</span><span class="event-desc">對外公告</span></div>
+      <div class="event-item"><span class="event-name">客戶</span><span class="event-desc">客戶報告</span></div>
+      <div class="event-item"><span class="event-name">技術</span><span class="event-desc">技術文件</span></div>
+      <div class="event-item"><span class="event-name">法律</span><span class="event-desc">法律文件</span></div>
+      <div class="event-item"><span class="event-name">財務</span><span class="event-desc">財務分析</span></div>
+      <div class="event-item"><span class="event-name">管理</span><span class="event-desc">管理決策依據</span></div>
+    </div>
+    <div class="takeaway">
+      <p>所有 AI 產生內容均須由使用者自行驗證與審核後方可使用, 最終責任仍由內容提交者承擔.</p>
+    </div>
+  </div>
+
+  <div class="pr-panel demo-panel" id="pr-p2">
+    <p>使用 AI 工具時應遵守相關智慧財產權規範, 不得:</p>
+    <div class="event-list">
+      <div class="event-item"><span class="event-name">訓練</span><span class="event-desc">使用未授權資料訓練模型</span></div>
+      <div class="event-item"><span class="event-name">抄襲</span><span class="event-desc">抄襲或冒用他人作品</span></div>
+      <div class="event-item"><span class="event-name">標示</span><span class="event-desc">移除著作權標示</span></div>
+      <div class="event-item"><span class="event-name">原創</span><span class="event-desc">將第三方受保護內容視為公司原創成果</span></div>
+    </div>
+    <div class="takeaway">
+      <p>如 AI 生成內容將用於商業用途, 應確認相關授權條件與使用限制.</p>
+    </div>
+  </div>
+
+  <div class="pr-panel demo-panel" id="pr-p3">
+    <p>AI 為輔助工具, 而非決策者. 涉及以下事項時, 必須由人員進行獨立判斷與核准:</p>
+    <div class="event-list">
+      <div class="event-item"><span class="event-name">人事</span><span class="event-desc">人事決策、招募評估、績效考核</span></div>
+      <div class="event-item"><span class="event-name">財務</span><span class="event-desc">採購決策、財務決策</span></div>
+      <div class="event-item"><span class="event-name">法律</span><span class="event-desc">法律判斷、客戶承諾</span></div>
+      <div class="event-item"><span class="event-name">安全</span><span class="event-desc">產品安全相關決策</span></div>
+    </div>
+    <div class="takeaway">
+      <p>不得將最終決策完全交由 AI 自動完成.</p>
+    </div>
+  </div>
+
+  <div class="pr-panel demo-panel" id="pr-p4">
+    <p>使用 AI 產生之成果應保持適當透明度. 以下情況建議揭露 AI 參與程度: 對外公開文件、行銷內容、客戶提案、研究報告、技術文件.</p>
+    <p style="margin-top:14px">必要時應保留: 使用之 AI 工具、Prompt(提示詞)、重要輸出結果、人工修改紀錄, 以利後續追溯與稽核.</p>
+  </div>
+
+  <div class="demo-controls">
+    <button class="btn btn-ghost" id="prPrev" disabled onclick="prGoTo(prStep-1)">← 上一原則</button>
+    <button class="btn btn-primary" id="prNext" onclick="prGoTo(prStep+1)">下一原則 →</button>
+    <span class="step-indicator" id="prIndicator">原則 1 / 5</span>
+  </div>
+</section>
+
+<section>
+  <h2>3. 核准使用之 AI 工具</h2>
+  <p>員工僅得使用公司資訊部門、AI Center 或相關主管單位核准之 AI 工具. 未經核准不得:</p>
+  <div class="event-list">
+    <div class="event-item"><span class="event-name">未知平台</span><span class="event-desc">上傳公司資料至未知 AI 平台</span></div>
+    <div class="event-item"><span class="event-name">外掛</span><span class="event-desc">使用來源不明之 AI 外掛程式</span></div>
+    <div class="event-item"><span class="event-name">Agent</span><span class="event-desc">使用未經安全評估之 AI Agent</span></div>
+    <div class="event-item"><span class="event-name">個人帳號</span><span class="event-desc">將公司資料同步至個人 AI 帳號</span></div>
+  </div>
+  <div class="takeaway">
+    <p>公司保留定期評估與調整核准工具名單之權利.</p>
+  </div>
+</section>
+
+<section>
+  <h2>4. 禁止事項</h2>
+  <p>下列行為嚴格禁止:</p>
+  <div class="api-fields">
+    <div class="field"><span class="name">4.1 機密資料外洩</span><div class="desc">將公司機密資訊輸入未經授權之 AI 平台.</div></div>
+    <div class="field"><span class="name">4.2 偽造與冒名</span><div class="desc">偽造主管指示、偽造客戶訊息、偽造簽名文件、冒用他人身份.</div></div>
+    <div class="field"><span class="name">4.3 散布不實資訊</span><div class="desc">未經查證即發布 AI 產生之資訊, 造成客戶誤解、公司損失、法律風險、品牌傷害.</div></div>
+    <div class="field"><span class="name">4.4 生成違法或不當內容</span><div class="desc">歧視言論、騷擾內容、仇恨言論、違法資訊、惡意程式碼、網路攻擊工具.</div></div>
+    <div class="field"><span class="name">4.5 規避公司管理機制</span><div class="desc">利用 AI 工具繞過資安控管、權限管理、稽核機制、合規要求.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>5. AI 使用分級管理</h2>
+  <p>依資料敏感程度區分如下:</p>
+  <div class="response-box">
+    <div class="response-field"><span class="rf-key">公開資訊</span><span class="rf-val"><span class="perm-badge perm-ok">可</span></span></div>
+    <div class="response-field"><span class="rf-key">一般內部資訊</span><span class="rf-val"><span class="perm-badge perm-limited">限核准平台</span></span></div>
+    <div class="response-field"><span class="rf-key">機密資訊</span><span class="rf-val"><span class="perm-badge perm-no">原則上禁止</span></span></div>
+    <div class="response-field"><span class="rf-key">客戶資料</span><span class="rf-val"><span class="perm-badge perm-no">禁止</span></span></div>
+    <div class="response-field"><span class="rf-key">個人資料</span><span class="rf-val"><span class="perm-badge perm-no">禁止</span></span></div>
+    <div class="response-field"><span class="rf-key">原始碼與研發文件</span><span class="rf-val"><span class="perm-badge perm-cond">依公司規範執行</span></span></div>
+  </div>
+  <div class="takeaway">
+    <p>如有疑問, 應先向主管、資訊部門或 AI Center 確認.</p>
+  </div>
+</section>
+
+<section>
+  <h2>6. 員工自我檢查清單</h2>
+  <p>在使用 AI 前, 請確認:</p>
+  <div class="checklist">
+    <label><input type="checkbox" /> 是否包含公司機密資訊?</label>
+    <label><input type="checkbox" /> 是否包含客戶或員工個資?</label>
+    <label><input type="checkbox" /> 是否使用公司核准之 AI 工具?</label>
+    <label><input type="checkbox" /> AI 產出內容是否已完成驗證?</label>
+    <label><input type="checkbox" /> 是否涉及智慧財產權問題?</label>
+    <label><input type="checkbox" /> 是否需要主管審核?</label>
+  </div>
+  <div class="takeaway">
+    <p>若任一項目無法確認, 請暫停使用並尋求協助.</p>
+  </div>
+</section>
+
+<section>
+  <h2>7. 違規處理</h2>
+  <p>違反本政策者, 公司得視情節採取以下措施:</p>
+  <div class="event-list">
+    <div class="event-item"><span class="event-name">第一級</span><span class="event-desc">教育訓練</span></div>
+    <div class="event-item"><span class="event-name">第二級</span><span class="event-desc">書面警告</span></div>
+    <div class="event-item"><span class="event-name">第三級</span><span class="event-desc">權限停用</span></div>
+    <div class="event-item"><span class="event-name">第四級</span><span class="event-desc">紀律處分</span></div>
+    <div class="event-item"><span class="event-name">第五級</span><span class="event-desc">法律追訴</span></div>
+  </div>
+  <div class="takeaway">
+    <p>若因違規行為導致公司損害, 相關責任由行為人依法承擔.</p>
+  </div>
+</section>
+
+<section>
+  <h2>8. 政策維護</h2>
+  <p>本政策將依據以下因素定期檢討與更新:</p>
+  <div class="api-fields">
+    <div class="field"><span class="name">技術發展</span><div class="desc">AI 技術發展</div></div>
+    <div class="field"><span class="name">法規要求</span><div class="desc">法規要求</div></div>
+    <div class="field"><span class="name">資安需求</span><div class="desc">資訊安全需求</div></div>
+    <div class="field"><span class="name">營運需求</span><div class="desc">公司營運需求</div></div>
+  </div>
+  <p style="margin-top:14px">全體同仁應持續關注最新版本並遵循相關規範.</p>
+</section>
+
+<section>
+  <h2>AI 使用守則一句話</h2>
+  <div class="takeaway">
+    <p>善用 AI 提升效率, 但最終責任仍由人負責; 保護機密、驗證事實、維持判斷, 才是負責任的 AI 使用方式.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
+}
+
+let prStep = 0;
+const PR_MAX = 4;
+function prGoTo(n) {
+  prStep = Math.max(0, Math.min(PR_MAX, n));
+  document.querySelectorAll('.pr-panel').forEach((el, i) =>
+    el.classList.toggle('visible', i === prStep));
+  document.querySelectorAll('.pr-tab').forEach((t, i) => {
+    t.classList.remove('active', 'done');
+    if (i === prStep) t.classList.add('active');
+    else if (i < prStep) t.classList.add('done');
+  });
+  document.getElementById('prPrev').disabled = prStep === 0;
+  const prNext = document.getElementById('prNext');
+  prNext.disabled = prStep === PR_MAX;
+  prNext.textContent = prStep === PR_MAX ? '完成 ✓' : '下一原則 →';
+  document.getElementById('prIndicator').textContent = `原則 ${prStep + 1} / ${PR_MAX + 1}`;
+}
+prGoTo(0);
+</script>
+</body>
 </html>
