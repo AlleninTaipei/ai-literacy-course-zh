@@ -63,8 +63,11 @@ blockquote {
 
 [Claude Code DOC Quick Start](https://code.claude.com/docs/zh-TW/quickstart)
 
-> 如果 `node --version` 沒有輸出, 關掉終端機重新開啟再試一次.
-> Mac 找不到 Claude 的路徑, 將終端機裡的訊息貼進 AI Chatbot 問 AI.
+Mac 找不到 Claude 的路徑
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
 
 ---
 
@@ -72,7 +75,7 @@ blockquote {
 
 Claude Code 的運作邏輯:
 
-```
+```markdown
 你的指令（Prompt）
     ↓
 Claude Code 讀取當前專案的上下文（Context Window）
@@ -108,7 +111,7 @@ Claude Code 讀取當前專案的上下文（Context Window）
 
 你有沒有這樣的資料夾:
 
-```
+```markdown
 報告_最終版.docx
 報告_最終版_修改後.docx
 報告_最終版_修改後_確認版.docx
@@ -160,7 +163,7 @@ git --version
 
 本機的 repo 只活在你的電腦裡. Remote 是在 GitHub 建立一份備份.
 
-```
+```markdown
 你的電腦（本機 repo）
     ^
     |  pull: 把雲端的最新變更拉回本機
