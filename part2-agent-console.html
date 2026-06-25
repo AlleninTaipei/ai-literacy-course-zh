@@ -419,6 +419,13 @@ paginate: true
     <div class="event-item"><span class="event-name">5. Git 版控</span><span class="event-desc">記錄每一次變更</span></div>
     <div class="event-item"><span class="event-name">6. 雲端備份</span><span class="event-desc">推送到 GitHub</span></div>
   </div>
+  <div class="info-box">
+    <span class="tag">Windows 疑難排解</span>
+    <p>VS Code 終端機打不開 Claude Code, 在 PowerShell 執行:</p>
+    <pre class="code-block"><span class="fn">Set-ExecutionPolicy</span> <span class="key">-Scope</span> <span class="key">CurrentUser</span> <span class="key">RemoteSigned</span></pre>
+    <p>重新開啟 VS Code 終端機再試一次. 若仍無法解決, 改用備案指令:</p>
+    <pre class="code-block"><span class="fn">Set-ExecutionPolicy</span> <span class="key">-Scope</span> <span class="key">CurrentUser</span> <span class="key">RemoteSigned</span> <span class="key">-Force</span></pre>
+  </div>
 </section>
 
 <section>

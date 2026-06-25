@@ -329,6 +329,22 @@ git clone https://github.com/你的帳號/ai-literacy-course-zh.git
 
 > 新資料夾 → AI 生成 → VS Code 編輯 → New Repo → Git 版控 → 雲端備份.
 
+Windows VS Code 終端機打不開 Claude Code
+
+powershell 指令
+
+```bash
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+要重新開 VS Code terminal 再試
+
+備案
+
+```bash
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force
+```
+
 ---
 
 ## 小結: Part 2 概念關係總覽
