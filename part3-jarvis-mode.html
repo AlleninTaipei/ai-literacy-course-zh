@@ -334,6 +334,44 @@
   <div class="takeaway">
     <p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作.</p>
   </div>
+
+  <h3>真實對話示範: 多份產品規格 Excel 檔案彙整成一份</h3>
+
+  <div class="info-box">
+    <span class="tag">對話一 · Spec-First</span>
+    <pre class="code-block">只有一個 Worksheet tab 叫 Specifications.
+A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…); C2 往下是對應說明.
+並非每個 B 欄位都有資訊, 例如 B21 是 Memory, C21 到 C26 是它的說明, B22 到 B26 空白, B27 才是下一個規格名稱.
+以上描述你是否了解?</pre>
+    <p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
+  </div>
+
+  <div class="info-box">
+    <span class="tag">對話二 · Spec-First + Atomic Tasking</span>
+    <pre class="code-block">有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
+開一個新的 Excel 彙整所有機種: B1 = "Model", C1 = 機種名稱, 後續機種依序放 D、E… 欄.
+困難在於每個舊檔案中, 相同規格佔的列數可能不一樣.
+
+這個用 Python 可以做嗎? 以上描述你是否了解?</pre>
+    <p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
+  </div>
+
+  <div class="info-box">
+    <span class="tag">對話三 · Scaffold-and-Fill</span>
+    <pre class="code-block">請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
+請你檢視一下後, 再整理你的 actions.</pre>
+    <p>讓 AI 說明它需要什麼(測試檔案放哪)、報告它打算怎麼做, 確認方向正確後再執行.</p>
+  </div>
+
+  <div class="info-box">
+    <span class="tag">對話四 · Context Engineering</span>
+    <pre class="code-block">我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎?</pre>
+    <p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
+  </div>
+
+  <div class="takeaway">
+    <p>在開始之前定義清楚(Spec-First)、一次只推進一件事(Atomic Tasking)、確認架構再執行(Scaffold-and-Fill)、提供使用者背景讓 AI 給出真正可用的答案(Context Engineering).</p>
+  </div>
 </section>
 
 <section>
@@ -351,51 +389,7 @@
 </section>
 
 <section>
-  <h2>3-7 完整對話示範</h2>
-
-  <div id="pj-p0">
-    <h3>多份產品規格 Excel 檔案彙整成一份</h3>
-
-    <div class="info-box">
-      <span class="tag">對話一 · Spec-First</span>
-      <pre class="code-block">只有一個 Worksheet tab 叫 Specifications.
-A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…); C2 往下是對應說明.
-並非每個 B 欄位都有資訊, 例如 B21 是 Memory, C21 到 C26 是它的說明, B22 到 B26 空白, B27 才是下一個規格名稱.
-以上描述你是否了解?</pre>
-      <p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
-    </div>
-
-    <div class="info-box">
-      <span class="tag">對話二 · Spec-First + Atomic Tasking</span>
-      <pre class="code-block">有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
-開一個新的 Excel 彙整所有機種: B1 = "Model", C1 = 機種名稱, 後續機種依序放 D、E… 欄.
-困難在於每個舊檔案中, 相同規格佔的列數可能不一樣.
-
-這個用 Python 可以做嗎? 以上描述你是否了解?</pre>
-      <p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
-    </div>
-
-    <div class="info-box">
-      <span class="tag">對話三 · Scaffold-and-Fill</span>
-      <pre class="code-block">請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
-請你檢視一下後, 再整理你的 actions.</pre>
-      <p>讓 AI 說明它需要什麼(測試檔案放哪)、報告它打算怎麼做, 確認方向正確後再執行.</p>
-    </div>
-
-    <div class="info-box">
-      <span class="tag">對話四 · Context Engineering</span>
-      <pre class="code-block">我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎?</pre>
-      <p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
-    </div>
-
-    <div class="takeaway">
-      <p>在開始之前定義清楚(Spec-First)、一次只推進一件事(Atomic Tasking)、確認架構再執行(Scaffold-and-Fill)、提供使用者背景讓 AI 給出真正可用的答案(Context Engineering).</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>3-8 AI 時代的數位資產</h2>
+  <h2>3-7 AI 時代的數位資產</h2>
   <table class="compare-table">
     <thead>
       <tr>

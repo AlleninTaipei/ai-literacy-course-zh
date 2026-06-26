@@ -238,7 +238,7 @@ git clone https://github.com/你的帳號/one_day_one_ai.git
 
 ---
 
-### 真實對話示範: 多份產品規格 Excel 檔案彙整成一份
+#### 真實對話示範: 多份產品規格 Excel 檔案彙整成一份
 
 對話一（Spec-First）
 
