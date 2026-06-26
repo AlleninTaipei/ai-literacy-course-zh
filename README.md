@@ -20,7 +20,7 @@
 |------|------|----------|------|
 | **Part 1** | 認識你的工作夥伴 | AI 基礎概念 | `part1-ai-literacy-intro.md` |
 | **Part 2** | 個人電腦新情境 | 從文書處理機到 Agent 控制台 | `part2-agent-console.md` |
-| **Part 3** | 啟動 JARVIS 模式 | 用 Claude Code 指揮真實工作 | `part3-jarvis-mode.md` |
+| **Part 3** | 啟動 JARVIS 模式 | 指揮 AI Agent | `part3-jarvis-mode.md` |
 
 ### Part 1 — 認識你的工作夥伴
 

@@ -1,172 +1,678 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI 啟動 JARVIS 模式 — Part 3</title>
+  <title>啟動 JARVIS 模式 — Part 3</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-           background: #f0f4f8; color: #1a202c; line-height: 1.7; }
-
-    header { background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
-             border-bottom: 1px solid #bfdbfe; padding: 48px 24px 40px; text-align: center; }
-    header h1 { font-size: 2.2rem; font-weight: 700; color: #1e3a5f; }
-    header p  { margin-top: 10px; color: #4a5568; font-size: 1.05rem;
-                max-width: 600px; margin-inline: auto; }
-
-    main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
-    section { margin-bottom: 52px; }
-    h2 { font-size: 1.4rem; font-weight: 600; color: #1e40af;
-         border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 20px; }
-    h3 { font-size: 1.05rem; font-weight: 600; color: #1a202c; margin: 28px 0 8px; }
-    p  { color: #4a5568; margin-bottom: 12px; }
-    a  { color: #2563eb; }
-    code { background: #eef2f7; padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85em; color: #b45309; }
-    ol { color: #4a5568; padding-left: 22px; margin-bottom: 12px; }
-    li { margin-bottom: 4px; }
-
-    .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
-      padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
-      overflow-x: auto; margin-top: 14px; line-height: 1.7; white-space: pre; }
-    .kw  { color: #7c3aed; }
-    .fn  { color: #16a34a; }
-    .str { color: #d97706; }
-    .cmt { color: #94a3b8; font-style: italic; }
-    .key { color: #2563eb; }
-
-    .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 10px;
-      padding: 16px 20px; margin-top: 14px; }
-    .info-box .tag { display: inline-block; background: #3b82f6; color: #fff;
-      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-      margin-bottom: 10px; letter-spacing: 0.05em; }
-    .info-box p { color: #1e3a5f; font-size: 0.88rem; margin: 0 0 6px; }
-    .info-box p:last-child { margin-bottom: 0; }
-
-    .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
-      border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
-    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0 0 6px; }
-    .takeaway p:last-child { margin-bottom: 0; }
-
-    .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-    .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
-    .field .name { font-family: monospace; font-size: 0.85rem; color: #16a34a; font-weight: 600; }
-    .field .desc { font-size: 0.82rem; color: #4a5568; margin-top: 4px; }
-
-    .response-box { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
-      padding: 20px; margin-top: 16px; }
-    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
-    .response-field:last-child { border-bottom: none; }
-    .rf-key { font-family: monospace; font-size: 0.82rem; color: #d97706; width: 160px; flex-shrink: 0; }
-    .rf-val { font-size: 0.85rem; color: #374151; }
-
-    .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; border: none; transition: all 0.2s; }
-    .btn-primary { background: #2563eb; color: #fff; }
-    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
-    .btn-primary:disabled { background: #cbd5e0; color: #9ca3af; cursor: default; }
-    .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
-    .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
-    .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
-    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
-
-    .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-    .stage-tab.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
-    .stage-tab.done   { background: #166534; border-color: #4ade80; color: #dcfce7; }
-
-    .demo-panel { display: none; }
-    .demo-panel.visible { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
-
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
-    .col-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 16px 18px; }
-    .col-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
-    .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
-    .col-card p:last-child { margin-bottom: 0; }
-
-    @media (max-width: 640px) {
-      .api-fields, .two-col { grid-template-columns: 1fr; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    #themeToggle { position: fixed; top: 16px; right: 16px; z-index: 9999;
-      padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #fff; color: #1a202c;
-      transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.12); letter-spacing: 0.03em; }
-    #themeToggle:hover { border-color: #2563eb; color: #2563eb; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      line-height: 1.7;
+    }
 
-    body.dark { background: #0f1117; color: #e2e8f0; }
-    body.dark header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom-color: #2d3748; }
-    body.dark header h1 { color: #f7fafc; }
-    body.dark header p  { color: #a0aec0; }
-    body.dark h2 { color: #90cdf4; border-left-color: #4299e1; }
-    body.dark h3 { color: #e2e8f0; }
-    body.dark p  { color: #a0aec0; }
-    body.dark a  { color: #63b3ed; }
-    body.dark ol { color: #a0aec0; }
-    .compare-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.85rem; }
-    .compare-table th { background: #2563eb; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
-    .compare-table td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #4a5568; vertical-align: top; }
-    .compare-table tr:last-child td { border-bottom: none; }
-    .compare-table td:first-child { font-weight: 600; color: #1a202c; white-space: nowrap; }
-    .compare-table tbody tr:nth-child(even) { background: #f8fafc; }
-    body.dark .compare-table th { background: #2b6cb0; }
-    body.dark .compare-table td { border-bottom-color: #2d3748; color: #a0aec0; }
-    body.dark .compare-table td:first-child { color: #e2e8f0; }
-    body.dark .compare-table tbody tr:nth-child(even) { background: #161b27; }
-    body.dark code { background: #1a202c; color: #f6ad55; }
-    body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
-    body.dark .kw  { color: #9f7aea; }
-    body.dark .fn  { color: #68d391; }
-    body.dark .str { color: #f6ad55; }
-    body.dark .cmt { color: #4a5568; }
-    body.dark .key { color: #63b3ed; }
-    body.dark .info-box { background: #1a202c; border-color: #2a4a6a; }
-    body.dark .info-box .tag { background: #2a4a6a; color: #90cdf4; }
-    body.dark .info-box p { color: #a0aec0; }
-    body.dark .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c); border-color: #276749; }
-    body.dark .takeaway p { color: #c6f6d5; }
-    body.dark .field { background: #1a202c; border-color: #2d3748; }
-    body.dark .field .name { color: #68d391; }
-    body.dark .field .desc { color: #718096; }
-    body.dark .response-box { background: #1a202c; border-color: #2d3748; }
-    body.dark .response-field { border-bottom-color: #2d3748; }
-    body.dark .rf-key { color: #f6ad55; }
-    body.dark .rf-val { color: #a0aec0; }
-    body.dark .btn-primary { background: #2b6cb0; }
-    body.dark .btn-primary:hover:not(:disabled) { background: #3182ce; }
-    body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
-    body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
-    body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
-    body.dark .step-indicator { color: #718096; }
-    body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
-    body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
-    body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
-    body.dark .col-card { background: #1a202c; border-color: #2d3748; }
-    body.dark .col-card-title { color: #4a5568; }
-    body.dark .col-card p { color: #a0aec0; }
-    body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-    body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
+    header {
+      background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
+      border-bottom: 1px solid #bfdbfe;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #4a5568;
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    section {
+      margin-bottom: 52px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1e40af;
+      border-left: 4px solid #3b82f6;
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 28px 0 8px;
+    }
+
+    p {
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
+
+    a {
+      color: #2563eb;
+    }
+
+    code {
+      background: #eef2f7;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85em;
+      color: #b45309;
+    }
+
+    ol {
+      color: #4a5568;
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .code-block {
+      background: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #1a202c;
+      overflow-x: auto;
+      margin-top: 14px;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .kw {
+      color: #7c3aed;
+    }
+
+    .fn {
+      color: #16a34a;
+    }
+
+    .str {
+      color: #d97706;
+    }
+
+    .cmt {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .key {
+      color: #2563eb;
+    }
+
+    .info-box {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 14px;
+    }
+
+    .info-box .tag {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .info-box p {
+      color: #1e3a5f;
+      font-size: 0.88rem;
+      margin: 0 0 6px;
+    }
+
+    .info-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .takeaway {
+      background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+      border: 1px solid #4ade80;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+
+    .takeaway p {
+      color: #166534;
+      font-size: 0.9rem;
+      margin: 0 0 6px;
+    }
+
+    .takeaway p:last-child {
+      margin-bottom: 0;
+    }
+
+    .api-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .field {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .field .name {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .field .desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+      margin-top: 4px;
+    }
+
+    .response-box {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .response-field {
+      display: flex;
+      gap: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .response-field:last-child {
+      border-bottom: none;
+    }
+
+    .rf-key {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #d97706;
+      width: 160px;
+      flex-shrink: 0;
+    }
+
+    .rf-val {
+      font-size: 0.85rem;
+      color: #374151;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e0;
+      color: #9ca3af;
+      cursor: default;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: #4a5568;
+      border: 1px solid #cbd5e0;
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      color: #1a202c;
+      border-color: #6b7280;
+    }
+
+    .btn-ghost:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .step-indicator {
+      color: #6b7280;
+      font-size: 0.82rem;
+      margin-left: auto;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stage-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stage-tab {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .stage-tab.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+
+    .stage-tab.done {
+      background: #166534;
+      border-color: #4ade80;
+      color: #dcfce7;
+    }
+
+    .demo-panel {
+      display: none;
+    }
+
+    .demo-panel.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .col-card {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .col-card-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .col-card p {
+      font-size: 0.83rem;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .col-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 640px) {
+
+      .api-fields,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #fff;
+      color: #1a202c;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      letter-spacing: 0.03em;
+    }
+
+    #themeToggle:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    body.dark {
+      background: #0f1117;
+      color: #e2e8f0;
+    }
+
+    body.dark header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark header h1 {
+      color: #f7fafc;
+    }
+
+    body.dark header p {
+      color: #a0aec0;
+    }
+
+    body.dark h2 {
+      color: #90cdf4;
+      border-left-color: #4299e1;
+    }
+
+    body.dark h3 {
+      color: #e2e8f0;
+    }
+
+    body.dark p {
+      color: #a0aec0;
+    }
+
+    body.dark a {
+      color: #63b3ed;
+    }
+
+    body.dark ol {
+      color: #a0aec0;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.85rem;
+    }
+
+    .compare-table th {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .compare-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #4a5568;
+      vertical-align: top;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table td:first-child {
+      font-weight: 600;
+      color: #1a202c;
+      white-space: nowrap;
+    }
+
+    .compare-table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    body.dark .compare-table th {
+      background: #2b6cb0;
+    }
+
+    body.dark .compare-table td {
+      border-bottom-color: #2d3748;
+      color: #a0aec0;
+    }
+
+    body.dark .compare-table td:first-child {
+      color: #e2e8f0;
+    }
+
+    body.dark .compare-table tbody tr:nth-child(even) {
+      background: #161b27;
+    }
+
+    body.dark code {
+      background: #1a202c;
+      color: #f6ad55;
+    }
+
+    body.dark .code-block {
+      background: #0d1117;
+      border-color: #2d3748;
+      color: #e2e8f0;
+    }
+
+    body.dark .kw {
+      color: #9f7aea;
+    }
+
+    body.dark .fn {
+      color: #68d391;
+    }
+
+    body.dark .str {
+      color: #f6ad55;
+    }
+
+    body.dark .cmt {
+      color: #4a5568;
+    }
+
+    body.dark .key {
+      color: #63b3ed;
+    }
+
+    body.dark .info-box {
+      background: #1a202c;
+      border-color: #2a4a6a;
+    }
+
+    body.dark .info-box .tag {
+      background: #2a4a6a;
+      color: #90cdf4;
+    }
+
+    body.dark .info-box p {
+      color: #a0aec0;
+    }
+
+    body.dark .takeaway {
+      background: linear-gradient(135deg, #1a2a1a, #1a202c);
+      border-color: #276749;
+    }
+
+    body.dark .takeaway p {
+      color: #c6f6d5;
+    }
+
+    body.dark .field {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .field .name {
+      color: #68d391;
+    }
+
+    body.dark .field .desc {
+      color: #718096;
+    }
+
+    body.dark .response-box {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .response-field {
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark .rf-key {
+      color: #f6ad55;
+    }
+
+    body.dark .rf-val {
+      color: #a0aec0;
+    }
+
+    body.dark .btn-primary {
+      background: #2b6cb0;
+    }
+
+    body.dark .btn-primary:hover:not(:disabled) {
+      background: #3182ce;
+    }
+
+    body.dark .btn-primary:disabled {
+      background: #2d3748;
+      color: #4a5568;
+    }
+
+    body.dark .btn-ghost {
+      background: transparent;
+      color: #718096;
+      border-color: #2d3748;
+    }
+
+    body.dark .btn-ghost:hover:not(:disabled) {
+      color: #e2e8f0;
+      border-color: #4a5568;
+    }
+
+    body.dark .step-indicator {
+      color: #718096;
+    }
+
+    body.dark .stage-tab {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .stage-tab.active {
+      background: #2b6cb0;
+      border-color: #4299e1;
+      color: #fff;
+    }
+
+    body.dark .stage-tab.done {
+      background: #276749;
+      border-color: #48bb78;
+      color: #c6f6d5;
+    }
+
+    body.dark .col-card {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .col-card-title {
+      color: #4a5568;
+    }
+
+    body.dark .col-card p {
+      color: #a0aec0;
+    }
+
+    body.dark #themeToggle {
+      background: #1a202c;
+      color: #e2e8f0;
+      border-color: #4a5568;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark #themeToggle:hover {
+      border-color: #90cdf4;
+      color: #90cdf4;
+    }
   </style>
 </head>
+
 <body>
 
-<button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
+  <button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
 
-<header>
-  <h1>AI 啟動 JARVIS 模式</h1>
-  <p>用 Claude Code 指揮真實工作, 不是學如何寫程式, 而是學會「指揮」AI 完成真實工作任務.</p>
-</header>
+  <header>
+    <h1>啟動 JARVIS 模式</h1>
+    <p>指揮 AI Agent, 不是學如何寫程式, 而是學會「指揮」AI 完成真實工作任務.</p>
+  </header>
 
-<main>
-<section>
-  <h2>3-1 CLAUDE.md</h2>
+  <main>
+    <section>
+      <h2>3-1 CLAUDE.md</h2>
 
-  <h3>工作資料夾根目錄只影響該專案</h3>
-  <pre class="code-block"># 工作環境說明
+      <h3>工作資料夾根目錄只影響該專案</h3>
+      <pre class="code-block"># 工作環境說明
 
 ## 專案背景
 公司週報與客戶簡報的製作資料夾.
@@ -176,124 +682,141 @@
 
 ## 禁止動作
 - 不要刪除任何檔案</pre>
-  <div class="takeaway">
-    <p>給 AI 的工作說明書, CLAUDE.md 是可以隨時修改的.</p>
-  </div>
+      <div class="takeaway">
+        <p>給 AI 的工作說明書, CLAUDE.md 是可以隨時修改的.</p>
+      </div>
 
-  <h3>全域 CLAUDE.md</h3>
-  <div class="response-box">
-    <div class="response-field"><span class="rf-key">Windows</span><span class="rf-val"><code>C:\Users\&lt;使用者名稱&gt;\.claude\CLAUDE.md</code></span></div>
-    <div class="response-field"><span class="rf-key">Mac</span><span class="rf-val"><code>~/.claude/CLAUDE.md</code></span></div>
-  </div>
-  <div class="takeaway">
-    <p>全域設定適合放「不管在哪個專案都成立」的規範. 專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.</p>
-  </div>
-</section>
+      <h3>全域 CLAUDE.md</h3>
+      <div class="response-box">
+        <div class="response-field"><span class="rf-key">Windows</span><span
+            class="rf-val"><code>C:\Users\&lt;使用者名稱&gt;\.claude\CLAUDE.md</code></span></div>
+        <div class="response-field"><span class="rf-key">Mac</span><span
+            class="rf-val"><code>~/.claude/CLAUDE.md</code></span></div>
+      </div>
+      <div class="takeaway">
+        <p>全域設定適合放「不管在哪個專案都成立」的規範. 專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.</p>
+      </div>
+    </section>
 
-<section>
-  <h2>3-2 掌握你的夥伴正在做什麼</h2>
-  <p>任務執行中, 對話區會出現類似這樣的文字, 格式是: 動作(已花時間 · 消耗的 token 數量)</p>
-  <pre class="code-block">⠸ Reading… (8s · ↑2k tokens)</pre>
-  <div class="info-box">
-    <span class="tag">解讀</span>
-    <p>這代表 Claude Code 現在「正在讀取某個檔案」, 已經跑了 8 秒, 用了約 2,000 個 tokens.</p>
-  </div>
+    <section>
+      <h2>3-2 掌握你的夥伴正在做什麼</h2>
+      <p>任務執行中, 對話區會出現類似這樣的文字, 格式是: 動作(已花時間 · 消耗的 token 數量)</p>
+      <pre class="code-block">⠸ Reading… (8s · ↑2k tokens)</pre>
+      <div class="info-box">
+        <span class="tag">解讀</span>
+        <p>這代表 Claude Code 現在「正在讀取某個檔案」, 已經跑了 8 秒, 用了約 2,000 個 tokens.</p>
+      </div>
 
-  <h3>畫面底部: 狀態列</h3>
-  <p>按 <code>Shift + Tab</code> 可循環切換三種執行模式:</p>
-  <div class="api-fields">
-    <div class="field"><span class="name">手動確認</span><div class="desc">(無標示), 每個操作都需要你逐一批准.</div></div>
-    <div class="field"><span class="name">自動模式</span><div class="desc"><code>⏵⏵ auto mode on</code>, 所有操作自動執行, 不再詢問.</div></div>
-    <div class="field"><span class="name">接受編輯</span><div class="desc"><code>⏵⏵ accept edits on</code>, 僅檔案編輯自動執行, 終端指令仍需確認.</div></div>
-  </div>
-</section>
+      <h3>畫面底部: 狀態列</h3>
+      <p>按 <code>Shift + Tab</code> 可循環切換三種執行模式:</p>
+      <div class="api-fields">
+        <div class="field"><span class="name">手動確認</span>
+          <div class="desc">(無標示), 每個操作都需要你逐一批准.</div>
+        </div>
+        <div class="field"><span class="name">自動模式</span>
+          <div class="desc"><code>⏵⏵ auto mode on</code>, 所有操作自動執行, 不再詢問.</div>
+        </div>
+        <div class="field"><span class="name">接受編輯</span>
+          <div class="desc"><code>⏵⏵ accept edits on</code>, 僅檔案編輯自動執行, 終端指令仍需確認.</div>
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h2>3-3 判斷原則</h2>
-  <div class="info-box">
-    <span class="tag">判斷依據</span>
-    <p>時間數字持續增加、spinner 還在轉, 就代表它在跑.</p>
-  </div>
-  <pre class="code-block">Claude Code wants to execute a bash command:
+    <section>
+      <h2>3-3 判斷原則</h2>
+      <div class="info-box">
+        <span class="tag">判斷依據</span>
+        <p>時間數字持續增加、spinner 還在轉, 就代表它在跑.</p>
+      </div>
+      <pre class="code-block">Claude Code wants to execute a bash command:
   git push origin main
 
 1. Yes
 2. Yes, always
 3. No</pre>
-  <div class="api-fields">
-    <div class="field"><span class="name">Yes(本次同意)</span><div class="desc">這次允許, 下次再問. 適合第一次嘗試某個操作.</div></div>
-    <div class="field"><span class="name">Yes, always(永遠同意)</span><div class="desc">這類操作以後不再詢問. 適合你已確認這個操作安全.</div></div>
-    <div class="field"><span class="name">No(拒絕)</span><div class="desc">不執行, Claude Code 會尋找替代方案. 適合不確定這個操作是否正確.</div></div>
-  </div>
-</section>
+      <div class="api-fields">
+        <div class="field"><span class="name">Yes(本次同意)</span>
+          <div class="desc">這次允許, 下次再問. 適合第一次嘗試某個操作.</div>
+        </div>
+        <div class="field"><span class="name">Yes, always(永遠同意)</span>
+          <div class="desc">這類操作以後不再詢問. 適合你已確認這個操作安全.</div>
+        </div>
+        <div class="field"><span class="name">No(拒絕)</span>
+          <div class="desc">不執行, Claude Code 會尋找替代方案. 適合不確定這個操作是否正確.</div>
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h2>3-4 Commands and Skills</h2>
-  <pre class="code-block">請幫我用 markdown 方式製表, 列出所有內建的 Commands 和它的功用說明, 轉存於桌面.</pre>
-  <pre class="code-block">請幫我用 markdown 方式製表, 列出所有內建的 Skill 和它的功用說明, 轉存於桌面.</pre>
-  <div class="response-box">
-    <div class="response-field"><span class="rf-key">全域(所有專案)</span><span class="rf-val">Windows <code>C:\Users\&lt;名稱&gt;\.claude\commands\</code>, Mac/Linux <code>~/.claude/commands/</code></span></div>
-    <div class="response-field"><span class="rf-key">專案(只限當前)</span><span class="rf-val">Windows <code>.claude\commands\</code>, Mac/Linux <code>.claude/commands/</code></span></div>
-  </div>
-  <div class="takeaway">
-    <p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
-  </div>
+    <section>
+      <h2>3-4 Commands and Skills</h2>
+      <pre class="code-block">請幫我用 markdown 方式製表, 列出所有內建的 Commands 和它的功用說明, 轉存於桌面.</pre>
+      <pre class="code-block">請幫我用 markdown 方式製表, 列出所有內建的 Skill 和它的功用說明, 轉存於桌面.</pre>
+      <div class="response-box">
+        <div class="response-field"><span class="rf-key">全域(所有專案)</span><span class="rf-val">Windows
+            <code>C:\Users\&lt;名稱&gt;\.claude\commands\</code>, Mac/Linux <code>~/.claude/commands/</code></span></div>
+        <div class="response-field"><span class="rf-key">專案(只限當前)</span><span class="rf-val">Windows
+            <code>.claude\commands\</code>, Mac/Linux <code>.claude/commands/</code></span></div>
+      </div>
+      <div class="takeaway">
+        <p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
+      </div>
 
-  <h3>動手做: 專案級 CLAUDE.md 範例</h3>
-  <ol>
-    <li>開啟 <a href="https://github.com/AlleninTaipei/one_day_one_ai" target="_blank">一天一AI 文章摘要索引</a>, 點擊右上角的 Fork</li>
-    <li>Fork 完成後, 網址會變成 <code>github.com/你的帳號/one_day_one_ai</code>, 這是你自己的副本</li>
-    <li>點擊綠色的 Code 按鈕, 複製 HTTPS 網址</li>
-    <li>VS Code 開啟資料夾 (你置放專案的資料夾)</li>
-    <li>在終端機執行:</li>
-  </ol>
-  <pre class="code-block">git clone https://github.com/你的帳號/one_day_one_ai.git</pre>
-  <p>再開啟 <code>one_day_one_ai</code> 資料夾</p>
-  <p><code>CLAUDE.md</code>: OpenAI 用戶請複製一份為 <code>AGENT.md</code>; Gemini 用戶請複製一份為 <code>GEMENI.md</code></p>
-  <p>在終端機啟動 Claude Code</p>
-  <pre class="code-block">請更新</pre>
-</section>
+      <h3>動手做: 專案級 CLAUDE.md 範例</h3>
+      <ol>
+        <li>開啟 <a href="https://github.com/AlleninTaipei/one_day_one_ai" target="_blank">一天一AI 文章摘要索引</a>, 點擊右上角的 Fork
+        </li>
+        <li>Fork 完成後, 網址會變成 <code>github.com/你的帳號/one_day_one_ai</code>, 這是你自己的副本</li>
+        <li>點擊綠色的 Code 按鈕, 複製 HTTPS 網址</li>
+        <li>VS Code 開啟資料夾 (你置放專案的資料夾)</li>
+        <li>在終端機執行:</li>
+      </ol>
+      <pre class="code-block">git clone https://github.com/你的帳號/one_day_one_ai.git</pre>
+      <p>再開啟 <code>one_day_one_ai</code> 資料夾</p>
+      <p><code>CLAUDE.md</code>: OpenAI 用戶請複製一份為 <code>AGENT.md</code>; Gemini 用戶請複製一份為 <code>GEMENI.md</code></p>
+      <p>在終端機啟動 Claude Code</p>
+      <pre class="code-block">請更新</pre>
+    </section>
 
-<section>
-  <h2>3-5 工作流程範例</h2>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">Claude.ai</div>
-      <p>在瀏覽器裡運作, 碰不到你電腦的檔案系統.</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">Claude Code</div>
-      <p>在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.</p>
-    </div>
-  </div>
+    <section>
+      <h2>3-5 工作流程範例</h2>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">Claude.ai</div>
+          <p>在瀏覽器裡運作, 碰不到你電腦的檔案系統.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">Claude Code</div>
+          <p>在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.</p>
+        </div>
+      </div>
 
-  <div class="stage-tabs">
-    <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">流程一 · 批次掃描命名</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(1)">流程二 · 重新命名搬移</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(2)">流程三 · 交叉比對生成</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(3)">流程四 · 感知狀態輸出</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(4)">流程五 · 增量追加更新</div>
-  </div>
-  <div class="wf-panel demo-panel visible" id="wf-p0">
-    <p>批次掃描多檔、自動命名、同步更新彙整索引:</p>
-    <pre class="code-block">掃描 recordings/ 資料夾內所有本週新增的 .txt 通話/會議錄音稿
+      <div class="stage-tabs">
+        <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">流程一 · 批次掃描命名</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(1)">流程二 · 重新命名搬移</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(2)">流程三 · 交叉比對生成</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(3)">流程四 · 感知狀態輸出</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(4)">流程五 · 增量追加更新</div>
+      </div>
+      <div class="wf-panel demo-panel visible" id="wf-p0">
+        <p>批次掃描多檔、自動命名、同步更新彙整索引:</p>
+        <pre class="code-block">掃描 recordings/ 資料夾內所有本週新增的 .txt 通話/會議錄音稿
 對每一份檔案:
 1. 萃取通話日期與對象(客戶名稱或會議出席者)
 2. 整理成: 決議事項(標注負責人)、待辦清單(按優先級)、待確認問題
 3. 以 YYYYMMDD_meeting.md 命名, 存入 minutes/ 資料夾
 4. 在 weekly_summary.md 最後追加一行摘要索引</pre>
-  </div>
-  <div class="wf-panel demo-panel" id="wf-p1">
-    <p>掃描資料夾、重新命名、移動檔案:</p>
-    <pre class="code-block">掃描 receipts/ 資料夾
+      </div>
+      <div class="wf-panel demo-panel" id="wf-p1">
+        <p>掃描資料夾、重新命名、移動檔案:</p>
+        <pre class="code-block">掃描 receipts/ 資料夾
 把所有 .jpg 和 .pdf 的收據/發票:
 - 依日期重新命名為 YYYYMMDD_店家名稱
 - 移入對應月份子資料夾(例如 2026-06/, 沒有就建立)
 - 把總金額與明細彙整輸出到 monthly_expense.csv, 方便報稅或記帳</pre>
-  </div>
-  <div class="wf-panel demo-panel" id="wf-p2">
-    <p>同時讀取多份本地檔案、交叉比對後生成:</p>
-    <pre class="code-block">同時讀取 data/ 資料夾內的三份檔案:
+      </div>
+      <div class="wf-panel demo-panel" id="wf-p2">
+        <p>同時讀取多份本地檔案、交叉比對後生成:</p>
+        <pre class="code-block">同時讀取 data/ 資料夾內的三份檔案:
 - this_month.csv(本月各平台實際收入: 蝦皮、官網、IG)
 - last_month.csv(上月收入, 作對比)
 - target.csv(自己設定的本月目標)
@@ -303,10 +826,10 @@
 - 6 頁, 每頁不超過 5 個重點, 自動帶入三份數據的對比數字
 - 語氣: 給自己看的檢討報告, 誠實但不需要正式
 - 存為 monthly_review.md</pre>
-  </div>
-  <div class="wf-panel demo-panel" id="wf-p3">
-    <p>感知資料夾狀態、判斷哪些待處理、批次輸出:</p>
-    <pre class="code-block">掃描 quotes/ 資料夾
+      </div>
+      <div class="wf-panel demo-panel" id="wf-p3">
+        <p>感知資料夾狀態、判斷哪些待處理、批次輸出:</p>
+        <pre class="code-block">掃描 quotes/ 資料夾
 找出所有符合以下條件的報價單:
 - 檔案修改時間超過 5 天
 - 同資料夾內尚未存在對應的 follow_up_*.md
@@ -315,142 +838,185 @@
 - 表示理解, 不施壓; 簡要重申方案的兩個核心優勢
 - 繁體中文, 200 字以內
 - 存為 follow_up_YYYYMMDD_客戶名.md, 方便直接複製貼上寄出</pre>
-  </div>
-  <div class="wf-panel demo-panel" id="wf-p4">
-    <p>比對時間戳、只補差異、追加更新現有檔案:</p>
-    <pre class="code-block">讀取 index.md 的最後更新時間
+      </div>
+      <div class="wf-panel demo-panel" id="wf-p4">
+        <p>比對時間戳、只補差異、追加更新現有檔案:</p>
+        <pre class="code-block">讀取 index.md 的最後更新時間
 掃描 notes/ 資料夾, 找出所有在此時間之後新增或修改的讀書/工作筆記 .md 檔案
 對這些檔案:
 1. 萃取主題關鍵字
 2. 將新條目追加至 index.md(不覆蓋現有條目)
 3. 輸出變更摘要: 「本次新增 X 篇、更新 Y 個關鍵字索引」</pre>
-  </div>
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一個</button>
-    <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一個 →</button>
-    <span class="step-indicator" id="wfIndicator">流程 1 / 5</span>
-  </div>
+      </div>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一個</button>
+        <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一個 →</button>
+        <span class="step-indicator" id="wfIndicator">流程 1 / 5</span>
+      </div>
 
-  <div class="takeaway">
-    <p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作.</p>
-  </div>
+      <div class="takeaway">
+        <p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作.</p>
+      </div>
 
-  <h3>真實對話示範: 多份產品規格 Excel 檔案彙整成一份</h3>
+      <h3>真實需求: 多份產品規格 Excel 檔案彙整成一份</h3>
 
-  <div class="info-box">
-    <span class="tag">對話一 · Spec-First</span>
-    <pre class="code-block">只有一個 Worksheet tab 叫 Specifications.
+      <div class="info-box">
+        <span class="tag">對話一 · Spec-First</span>
+        <pre class="code-block">只有一個 Worksheet tab 叫 Specifications.
 A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…); C2 往下是對應說明.
 並非每個 B 欄位都有資訊, 例如 B21 是 Memory, C21 到 C26 是它的說明, B22 到 B26 空白, B27 才是下一個規格名稱.
 以上描述你是否了解?</pre>
-    <p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
-  </div>
+        <p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
+      </div>
 
-  <div class="info-box">
-    <span class="tag">對話二 · Spec-First + Atomic Tasking</span>
-    <pre class="code-block">有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
+      <div class="info-box">
+        <span class="tag">對話二 · Spec-First + Atomic Tasking</span>
+        <pre class="code-block">有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
 開一個新的 Excel 彙整所有機種: B1 = "Model", C1 = 機種名稱, 後續機種依序放 D、E… 欄.
 困難在於每個舊檔案中, 相同規格佔的列數可能不一樣.
 
 這個用 Python 可以做嗎? 以上描述你是否了解?</pre>
-    <p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
-  </div>
+        <p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
+      </div>
 
-  <div class="info-box">
-    <span class="tag">對話三 · Scaffold-and-Fill</span>
-    <pre class="code-block">請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
+      <div class="info-box">
+        <span class="tag">對話三 · Scaffold-and-Fill</span>
+        <pre class="code-block">請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
 請你檢視一下後, 再整理你的 actions.</pre>
-    <p>讓 AI 說明它需要什麼(測試檔案放哪)、報告它打算怎麼做, 確認方向正確後再執行.</p>
-  </div>
+        <p>讓 AI 說明它需要什麼(測試檔案放哪)、報告它打算怎麼做, 確認方向正確後再執行.</p>
+      </div>
 
-  <div class="info-box">
-    <span class="tag">對話四 · Context Engineering</span>
-    <pre class="code-block">我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎?</pre>
-    <p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
-  </div>
+      <div class="info-box">
+        <span class="tag">對話四 · Context Engineering</span>
+        <pre class="code-block">我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎?</pre>
+        <p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
+      </div>
 
-  <div class="takeaway">
-    <p>在開始之前定義清楚(Spec-First)、一次只推進一件事(Atomic Tasking)、確認架構再執行(Scaffold-and-Fill)、提供使用者背景讓 AI 給出真正可用的答案(Context Engineering).</p>
-  </div>
-</section>
+      <div class="takeaway">
+        <p>在開始之前定義清楚(Spec-First)、一次只推進一件事(Atomic Tasking)、確認架構再執行(Scaffold-and-Fill)、提供使用者背景讓 AI 給出真正可用的答案(Context
+          Engineering).</p>
+      </div>
+    </section>
 
-<section>
-  <h2>3-6 核心工作模式</h2>
-  <div class="api-fields">
-    <div class="field"><span class="name">Spec-first</span><div class="desc">動手前先把需求寫下來. 管理目標.</div></div>
-    <div class="field"><span class="name">Atomic tasking</span><div class="desc">一次只交辦一件事. 管理複雜度.</div></div>
-    <div class="field"><span class="name">Context engineering</span><div class="desc">讓 AI 每次都知道背景. 管理資訊.</div></div>
-    <div class="field"><span class="name">Scaffold-and-fill</span><div class="desc">先確認架構再填細節. 管理流程.</div></div>
-    <div class="field"><span class="name">Review-and-iterate</span><div class="desc">像審稿一樣看 AI 的輸出. 管理品質.</div></div>
-  </div>
-  <div class="takeaway">
-    <p>與 AI 協作, 像是帶領一位能力很強但需要明確指引的數位助理.</p>
-  </div>
-</section>
+    <section>
+      <h2>3-6 核心工作模式</h2>
+      <div class="api-fields">
+        <div class="field"><span class="name">Spec-first</span>
+          <div class="desc">動手前先把需求寫下來. 管理目標.</div>
+        </div>
+        <div class="field"><span class="name">Atomic tasking</span>
+          <div class="desc">一次只交辦一件事. 管理複雜度.</div>
+        </div>
+        <div class="field"><span class="name">Context engineering</span>
+          <div class="desc">讓 AI 每次都知道背景. 管理資訊.</div>
+        </div>
+        <div class="field"><span class="name">Scaffold-and-fill</span>
+          <div class="desc">先確認架構再填細節. 管理流程.</div>
+        </div>
+        <div class="field"><span class="name">Review-and-iterate</span>
+          <div class="desc">像審稿一樣看 AI 的輸出. 管理品質.</div>
+        </div>
+      </div>
+      <div class="takeaway">
+        <p>與 AI 協作, 像是帶領一位能力很強但需要明確指引的數位助理.</p>
+      </div>
+    </section>
 
-<section>
-  <h2>3-7 AI 時代的數位資產</h2>
-  <table class="compare-table">
-    <thead>
-      <tr>
-        <th>類型</th>
-        <th>AI-Assisted Development</th>
-        <th>AI-Native Assets</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>AI 扮演角色</td><td>Developer</td><td>Agent</td></tr>
-      <tr><td>最終交付</td><td>可執行工具 (exe、網站、Script)</td><td>Workflow、Agent</td></tr>
-      <tr><td>使用者需要 AI 嗎？</td><td>不需要</td><td>需要</td></tr>
-      <tr><td>更新方式</td><td>作者重新發布版本</td><td>使用者重新執行 AI</td></tr>
-      <tr><td>擴充性</td><td>功能固定</td><td>可持續演化</td></tr>
-      <tr><td>適合對象</td><td>全公司、RD、PM、Sales、行政</td><td>開發者（具備 Agentic Coding Environment）</td></tr>
-    </tbody>
-  </table>
-</section>
+    <section>
+      <h2>3-7 AI 時代的數位資產</h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>類型</th>
+            <th>AI-Assisted Development</th>
+            <th>AI-Native Assets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI 扮演角色</td>
+            <td>Developer</td>
+            <td>Agent</td>
+          </tr>
+          <tr>
+            <td>最終交付</td>
+            <td>可執行工具 (exe、網站、Script)</td>
+            <td>Workflow、Agent</td>
+          </tr>
+          <tr>
+            <td>使用者需要 AI 嗎？</td>
+            <td>不需要</td>
+            <td>需要</td>
+          </tr>
+          <tr>
+            <td>更新方式</td>
+            <td>作者重新發布版本</td>
+            <td>使用者重新執行 AI</td>
+          </tr>
+          <tr>
+            <td>擴充性</td>
+            <td>功能固定</td>
+            <td>可持續演化</td>
+          </tr>
+          <tr>
+            <td>適合對象</td>
+            <td>全公司、RD、PM、Sales、行政</td>
+            <td>開發者（具備 Agentic Coding Environment）</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-<section>
-  <h2>小結: Part 3 概念關係總覽</h2>
-  <div class="response-box">
-    <div class="response-field"><span class="rf-key">CLAUDE.md</span><span class="rf-val">全域 / 專案, 讓 AI 認識你的工作環境; 持久化的工作規範與背景說明</span></div>
-    <div class="response-field"><span class="rf-key">執行中</span><span class="rf-val">讀懂動態指示器, 知道 AI 在做什麼; 還在動? 時間正常? 需要按鍵回應?</span></div>
-    <div class="response-field"><span class="rf-key">權限系統</span><span class="rf-val">你的信任邊界, 由你決定</span></div>
-    <div class="response-field"><span class="rf-key">Commands and Skills</span><span class="rf-val">控制與擴充 Claude Code 的行為</span></div>
-    <div class="response-field"><span class="rf-key">工作流程範例</span><span class="rf-val">批次掃描自動命名 / 歸檔搬移檔案 / 跨檔比對生成 / 感知狀態批次輸出 / 增量比對追加更新; 真實示範: 多份 Excel 彙整成一份</span></div>
-    <div class="response-field"><span class="rf-key">核心工作模式</span><span class="rf-val">Spec-first / Atomic / Context / Scaffold / Review - 任務性質、技術複雜度、開發動機都不同, 但驅動每一次有效協作的, 始終是同一套溝通節奏</span></div>
-    <div class="response-field"><span class="rf-key">AI 時代的數位資產</span><span class="rf-val">AI-Assisted Development（AI 是 Developer）vs AI-Native Assets（AI 是 Agent）; 前者交付可執行工具, 後者交付 Workflow / Agent</span></div>
-  </div>
-  <div class="takeaway">
-    <p>恭喜你, 你已經學會了這個時代最重要的能力之一: 把意圖說清楚, 讓 AI 替你完成真實的工作. 從這裡開始, 每一次交辦, 都是你重新定義「工作」這兩個字的機會, 帶著你手邊正在進行的專案, 我們下次見面繼續討論.</p>
-  </div>
-</section>
-</main>
+    <section>
+      <h2>小結: Part 3 概念關係總覽</h2>
+      <div class="response-box">
+        <div class="response-field"><span class="rf-key">CLAUDE.md</span><span class="rf-val">全域 / 專案, 讓 AI 認識你的工作環境;
+            持久化的工作規範與背景說明</span></div>
+        <div class="response-field"><span class="rf-key">執行中</span><span class="rf-val">讀懂動態指示器, 知道 AI 在做什麼; 還在動? 時間正常?
+            需要按鍵回應?</span></div>
+        <div class="response-field"><span class="rf-key">權限系統</span><span class="rf-val">你的信任邊界, 由你決定</span></div>
+        <div class="response-field"><span class="rf-key">Commands and Skills</span><span class="rf-val">控制與擴充 Claude
+            Code 的行為</span></div>
+        <div class="response-field"><span class="rf-key">工作流程範例</span><span class="rf-val">批次掃描自動命名 / 歸檔搬移檔案 / 跨檔比對生成 /
+            感知狀態批次輸出 / 增量比對追加更新; 真實需求: 多份 Excel 彙整成一份</span></div>
+        <div class="response-field"><span class="rf-key">核心工作模式</span><span class="rf-val">Spec-first / Atomic / Context
+            / Scaffold / Review - 任務性質、技術複雜度、開發動機都不同, 但驅動每一次有效協作的, 始終是同一套溝通節奏</span></div>
+        <div class="response-field"><span class="rf-key">AI 時代的數位資產</span><span class="rf-val">AI-Assisted
+            Development（AI 是 Developer）vs AI-Native Assets（AI 是 Agent）; 前者交付可執行工具, 後者交付 Workflow / Agent</span></div>
+      </div>
+      <div class="takeaway">
+        <p>恭喜你, 你已經學會了這個時代最重要的能力之一: 把意圖說清楚, 讓 AI 替你完成真實的工作. 從這裡開始, 每一次交辦, 都是你重新定義「工作」這兩個字的機會, 帶著你手邊正在進行的專案, 我們下次見面繼續討論.
+        </p>
+      </div>
+    </section>
+  </main>
 
-<script>
-function toggleTheme() {
-  const isDark = document.body.classList.toggle('dark');
-  document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
-}
+  <script>
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
+    }
 
-let wfStep = 0;
-const WF_MAX = 4;
-function wfGoTo(n) {
-  wfStep = Math.max(0, Math.min(WF_MAX, n));
-  document.querySelectorAll('.wf-panel').forEach((el, i) =>
-    el.classList.toggle('visible', i === wfStep));
-  document.querySelectorAll('.wf-tab').forEach((t, i) => {
-    t.classList.remove('active', 'done');
-    if (i === wfStep) t.classList.add('active');
-    else if (i < wfStep) t.classList.add('done');
-  });
-  document.getElementById('wfPrev').disabled = wfStep === 0;
-  const wfNext = document.getElementById('wfNext');
-  wfNext.disabled = wfStep === WF_MAX;
-  wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一個 →';
-  document.getElementById('wfIndicator').textContent = `流程 ${wfStep + 1} / ${WF_MAX + 1}`;
-}
-wfGoTo(0);
+    let wfStep = 0;
+    const WF_MAX = 4;
+    function wfGoTo(n) {
+      wfStep = Math.max(0, Math.min(WF_MAX, n));
+      document.querySelectorAll('.wf-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === wfStep));
+      document.querySelectorAll('.wf-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === wfStep) t.classList.add('active');
+        else if (i < wfStep) t.classList.add('done');
+      });
+      document.getElementById('wfPrev').disabled = wfStep === 0;
+      const wfNext = document.getElementById('wfNext');
+      wfNext.disabled = wfStep === WF_MAX;
+      wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一個 →';
+      document.getElementById('wfIndicator').textContent = `流程 ${wfStep + 1} / ${WF_MAX + 1}`;
+    }
+    wfGoTo(0);
 
-</script>
+  </script>
 </body>
+
 </html>

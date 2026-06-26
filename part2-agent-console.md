@@ -30,7 +30,7 @@ blockquote {
 }
 </style>
 
-# AI 世代的個人電腦新情境 — 從文書處理機到 Agent 控制台
+# 個人電腦新情境 — 從文書處理機到 Agent 控制台
 
 ## Part 2 : 什麼是 Agent ？
 
