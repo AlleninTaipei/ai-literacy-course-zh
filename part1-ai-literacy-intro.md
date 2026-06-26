@@ -257,9 +257,9 @@ GitHub 在本課程中扮演兩個角色:
 
 | 你已有的訂閱 | 對應工具 | 安裝指令 |
 |------------|---------|---------|
-| Claude Pro(Anthropic)| Claude Code | `npm install -g @anthropic-ai/claude-code` |
-| ChatGPT Plus(OpenAI)| Codex CLI | `npm install -g @openai/codex` |
-| Google 帳號 / Gemini Advanced | Gemini CLI | `npm install -g @google/gemini-cli` |
+| Claude Pro| Claude Code | `npm install -g @anthropic-ai/claude-code` |
+| ChatGPT Plus| Codex CLI | `npm install -g @openai/codex` |
+| Gemini Advanced | Gemini CLI | `npm install -g @google/gemini-cli` |
 
 > 課堂示範統一使用 Claude Code, 若你使用其他工具, 操作邏輯完全相同.
 

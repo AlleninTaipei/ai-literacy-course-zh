@@ -272,9 +272,11 @@ paginate: true
 
 開啟資料夾, 建立新檔案
 
-| Windows | Mac / Linux |
-|---------|-------------|
-| `C:\Users\<名稱>\.claude\` | `~/.claude/` |
+| 訂閱 | Windows | Mac  |
+|:-|:-|:-|
+| Claude Pro| `C:\Users\<名稱>\.claude\CLAUDE.md` | `~/.claude/CLAUDE.md` |
+| ChatGPT Plus| `C:\Users\<名稱>\.codex\AGENT.md` | `~/.codex/AGENT.md` |
+| Gemini Advanced | `C:\Users\<名稱>\.gemini\GEMINI.md` | `~/.gemini/GEMINI.md` |
 
 ```markdown
 # 全域偏好設定

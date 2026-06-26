@@ -92,6 +92,13 @@
     .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
     .col-card p:last-child { margin-bottom: 0; }
 
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.82rem; }
+    .data-table th { background: #e2e8f0; border: 1px solid #cbd5e0; padding: 9px 12px;
+      text-align: left; color: #4a5568; font-weight: 600; }
+    .data-table td { border: 1px solid #cbd5e0; padding: 9px 12px; color: #374151; background: #fff; }
+    body.dark .data-table th { background: #1a202c; border-color: #2d3748; color: #718096; }
+    body.dark .data-table td { border-color: #2d3748; color: #a0aec0; background: #0d1117; }
+
     @media (max-width: 640px) {
       .api-fields, .two-col { grid-template-columns: 1fr; }
     }
@@ -354,11 +361,27 @@ paginate: true
 用三條橫線分隔每一頁</pre>
 
   <h3>動手做: VS code 基本操作</h3>
-  <p>開啟資料夾, 建立新檔案:</p>
-  <div class="response-box">
-    <div class="response-field"><span class="rf-key">Windows</span><span class="rf-val"><code>C:\Users\&lt;名稱&gt;\.claude\</code></span></div>
-    <div class="response-field"><span class="rf-key">Mac / Linux</span><span class="rf-val"><code>~/.claude/</code></span></div>
-  </div>
+  <p>開啟資料夾, 建立新檔案</p>
+  <table class="data-table">
+    <thead><tr><th>訂閱</th><th>Windows</th><th>Mac</th></tr></thead>
+    <tbody>
+      <tr><td>Claude Pro</td><td><code>C:\Users\&lt;名稱&gt;\.claude\CLAUDE.md</code></td><td><code>~/.claude/CLAUDE.md</code></td></tr>
+      <tr><td>ChatGPT Plus</td><td><code>C:\Users\&lt;名稱&gt;\.codex\AGENT.md</code></td><td><code>~/.codex/AGENT.md</code></td></tr>
+      <tr><td>Gemini Advanced</td><td><code>C:\Users\&lt;名稱&gt;\.gemini\GEMINI.md</code></td><td><code>~/.gemini/GEMINI.md</code></td></tr>
+    </tbody>
+  </table>
+  <pre class="code-block"><span class="cmt"># 全域偏好設定</span>
+
+- 在未指定專案目錄的一般對話中（例如當前工作目錄不屬於任何特定專案）, 除非使用者明確要求, 否則只以模型知識為基礎協作, 不主動探索或讀取當前工作目錄以外的任何檔案或專案.
+- 不主動觸發任何 custom skill.即使當下對話情境符合某個 skill 的描述, 也不得自行判斷並調用.Skill 的使用必須由使用者明確以 slash command 發起.
+
+<span class="cmt">## Markdown 生成慣例</span>
+
+- 預設不使用粗體（`**text**`）. 若需強調, 優先改用標題層級、條列結構或程式碼區塊來呈現層次, 而非加粗文字.
+- 預設不使用 emoji.除非使用者明確要求, 否則所有回應與檔案內容均不得包含表情符號.
+- 預設不使用破折號（— 或 --）.若需連接、轉折或補充說明, 優先改用逗號、句號分句.
+- 逗號、句號、分號、冒號統一使用半形（, . ; :）, 其餘標點符號（問號、驚嘆號、括號、引號等）維持全形.
+- 半形標點與中文字直接相鄰時, 後方加一個半形空格, 避免視覺擠在一起.</pre>
 
   <h3>動手做: 拿到一份你自己的副本</h3>
   <div class="two-col">
