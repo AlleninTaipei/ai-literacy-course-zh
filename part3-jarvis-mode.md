@@ -106,8 +106,6 @@ Mac
 
 #### 時間數字持續增加、spinner 還在轉, 就代表它在跑
 
-#### 連按兩次 `Escape` 中斷, 再重新描述任務
-
 ```
 Claude Code wants to execute a bash command:
   git push origin main
@@ -141,6 +139,30 @@ Claude Code wants to execute a bash command:
 | 專案（只限當前） | `.claude\commands\`（放在資料夾根目錄） | `.claude/commands/` |
 
 > 你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.
+
+---
+
+#### 動手做: 專案級 CLAUDE.md 範例
+
+1. 開啟 [一天一AI — 文章摘要索引](https://github.com/AlleninTaipei/one_day_one_ai), 點擊右上角的 Fork
+2. Fork 完成後, 網址會變成 `github.com/你的帳號/one_day_one_ai`, 這是你自己的副本
+3. 點擊綠色的 Code 按鈕, 複製 HTTPS 網址
+4. VS code 開啟資料夾 (你置放專案的資料夾)
+5. 在終端機執行:
+
+```bash
+git clone https://github.com/你的帳號/one_day_one_ai.git
+```
+
+再開啟 `one_day_one_ai` 資料夾
+
+`CLAUDE.md`: OpenAI 用戶請複製一份為 `AGENT.md`; Gemini 用戶請複製一份為 `GEMENI.md`
+
+在終端機啟動 Claue code
+
+```bash
+請更新
+```
 
 ---
 

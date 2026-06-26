@@ -23,6 +23,8 @@
     p  { color: #4a5568; margin-bottom: 12px; }
     a  { color: #2563eb; }
     code { background: #eef2f7; padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85em; color: #b45309; }
+    ol { color: #4a5568; padding-left: 22px; margin-bottom: 12px; }
+    li { margin-bottom: 4px; }
 
     .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
       padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
@@ -104,6 +106,7 @@
     body.dark h3 { color: #e2e8f0; }
     body.dark p  { color: #a0aec0; }
     body.dark a  { color: #63b3ed; }
+    body.dark ol { color: #a0aec0; }
     body.dark code { background: #1a202c; color: #f6ad55; }
     body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
     body.dark .kw  { color: #9f7aea; }
@@ -201,10 +204,6 @@
     <span class="tag">判斷依據</span>
     <p>時間數字持續增加、spinner 還在轉, 就代表它在跑.</p>
   </div>
-  <div class="info-box">
-    <span class="tag">中斷方式</span>
-    <p>連按兩次 <code>Escape</code> 中斷, 再重新描述任務.</p>
-  </div>
   <pre class="code-block">Claude Code wants to execute a bash command:
   git push origin main
 
@@ -229,6 +228,20 @@
   <div class="takeaway">
     <p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
   </div>
+
+  <h3>動手做: 專案級 CLAUDE.md 範例</h3>
+  <ol>
+    <li>開啟 <a href="https://github.com/AlleninTaipei/one_day_one_ai" target="_blank">一天一AI 文章摘要索引</a>, 點擊右上角的 Fork</li>
+    <li>Fork 完成後, 網址會變成 <code>github.com/你的帳號/one_day_one_ai</code>, 這是你自己的副本</li>
+    <li>點擊綠色的 Code 按鈕, 複製 HTTPS 網址</li>
+    <li>VS Code 開啟資料夾 (你置放專案的資料夾)</li>
+    <li>在終端機執行:</li>
+  </ol>
+  <pre class="code-block">git clone https://github.com/你的帳號/one_day_one_ai.git</pre>
+  <p>再開啟 <code>one_day_one_ai</code> 資料夾</p>
+  <p><code>CLAUDE.md</code>: OpenAI 用戶請複製一份為 <code>AGENT.md</code>; Gemini 用戶請複製一份為 <code>GEMENI.md</code></p>
+  <p>在終端機啟動 Claude Code</p>
+  <pre class="code-block">請更新</pre>
 </section>
 
 <section>
