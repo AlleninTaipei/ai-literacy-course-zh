@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#1A1A1A"/>
@@ -7,63 +7,84 @@
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="280" fill="url(#bg)" rx="12"/>
+  <rect width="1200" height="630" fill="url(#bg)"/>
 
   <!-- Left accent bar -->
-  <rect x="0" y="0" width="6" height="280" fill="#D97757" rx="3"/>
+  <rect x="0" y="0" width="6" height="630" fill="#D97757" rx="3"/>
 
   <!-- Decorative dots grid -->
   <g opacity="0.08">
-    <circle cx="820" cy="60" r="2" fill="#D97757"/>
-    <circle cx="840" cy="60" r="2" fill="#D97757"/>
-    <circle cx="860" cy="60" r="2" fill="#D97757"/>
-    <circle cx="880" cy="60" r="2" fill="#D97757"/>
-    <circle cx="900" cy="60" r="2" fill="#D97757"/>
-    <circle cx="820" cy="80" r="2" fill="#D97757"/>
-    <circle cx="840" cy="80" r="2" fill="#D97757"/>
-    <circle cx="860" cy="80" r="2" fill="#D97757"/>
-    <circle cx="880" cy="80" r="2" fill="#D97757"/>
-    <circle cx="900" cy="80" r="2" fill="#D97757"/>
-    <circle cx="820" cy="100" r="2" fill="#D97757"/>
-    <circle cx="840" cy="100" r="2" fill="#D97757"/>
-    <circle cx="860" cy="100" r="2" fill="#D97757"/>
-    <circle cx="880" cy="100" r="2" fill="#D97757"/>
-    <circle cx="900" cy="100" r="2" fill="#D97757"/>
-    <circle cx="820" cy="120" r="2" fill="#D97757"/>
-    <circle cx="840" cy="120" r="2" fill="#D97757"/>
-    <circle cx="860" cy="120" r="2" fill="#D97757"/>
-    <circle cx="880" cy="120" r="2" fill="#D97757"/>
-    <circle cx="900" cy="120" r="2" fill="#D97757"/>
+    <circle cx="940" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="965" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="990" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="1015" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="1040" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="1065" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="1090" cy="60" r="2.5" fill="#D97757"/>
+    <circle cx="940" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="965" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="990" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="1015" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="1040" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="1065" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="1090" cy="85" r="2.5" fill="#D97757"/>
+    <circle cx="940" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="965" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="990" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="1015" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="1040" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="1065" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="1090" cy="110" r="2.5" fill="#D97757"/>
+    <circle cx="940" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="965" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="990" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="1015" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="1040" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="1065" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="1090" cy="135" r="2.5" fill="#D97757"/>
+    <circle cx="940" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="965" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="990" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="1015" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="1040" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="1065" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="1090" cy="160" r="2.5" fill="#D97757"/>
+    <circle cx="940" cy="185" r="2.5" fill="#D97757"/>
+    <circle cx="965" cy="185" r="2.5" fill="#D97757"/>
+    <circle cx="990" cy="185" r="2.5" fill="#D97757"/>
+    <circle cx="1015" cy="185" r="2.5" fill="#D97757"/>
+    <circle cx="1040" cy="185" r="2.5" fill="#D97757"/>
+    <circle cx="1065" cy="185" r="2.5" fill="#D97757"/>
+    <circle cx="1090" cy="185" r="2.5" fill="#D97757"/>
   </g>
 
   <!-- Main title -->
-  <text x="48" y="96" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="40" font-weight="700" fill="#F5F0E8">好好用 AI</text>
+  <text x="60" y="238" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="72" font-weight="700" fill="#F5F0E8">好好用 AI</text>
 
   <!-- Subtitle -->
-  <text x="50" y="140" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="20" fill="#D97757">帶你一步步上手 AI 的三部曲課程</text>
+  <text x="62" y="295" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="26" fill="#D97757">帶你一步步上手 AI 的三部曲課程</text>
 
   <!-- Divider line -->
-  <line x1="50" y1="164" x2="700" y2="164" stroke="#D97757" stroke-width="1" opacity="0.4"/>
+  <line x1="60" y1="325" x2="1140" y2="325" stroke="#D97757" stroke-width="1" opacity="0.4"/>
 
-  <!-- Part tags -->
   <!-- Part 1 -->
-  <rect x="50" y="182" width="170" height="52" fill="#D97757" opacity="0.12" rx="6"/>
-  <rect x="50" y="182" width="3" height="52" fill="#D97757" rx="2"/>
-  <text x="63" y="204" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="11" fill="#D97757" font-weight="600">PART 1</text>
-  <text x="63" y="223" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8">認識你的工作夥伴</text>
+  <rect x="60" y="352" width="346" height="92" fill="#D97757" opacity="0.12" rx="6"/>
+  <rect x="60" y="352" width="3" height="92" fill="#D97757" rx="2"/>
+  <text x="75" y="382" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#D97757" font-weight="600">PART 1</text>
+  <text x="75" y="412" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="17" fill="#F5F0E8">認識你的工作夥伴</text>
 
   <!-- Part 2 -->
-  <rect x="238" y="182" width="170" height="52" fill="#D97757" opacity="0.12" rx="6"/>
-  <rect x="238" y="182" width="3" height="52" fill="#D97757" rx="2"/>
-  <text x="251" y="204" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="11" fill="#D97757" font-weight="600">PART 2</text>
-  <text x="251" y="223" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8">個人電腦新情境</text>
+  <rect x="423" y="352" width="346" height="92" fill="#D97757" opacity="0.12" rx="6"/>
+  <rect x="423" y="352" width="3" height="92" fill="#D97757" rx="2"/>
+  <text x="438" y="382" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#D97757" font-weight="600">PART 2</text>
+  <text x="438" y="412" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="17" fill="#F5F0E8">個人電腦新情境</text>
 
   <!-- Part 3 -->
-  <rect x="426" y="182" width="170" height="52" fill="#D97757" opacity="0.12" rx="6"/>
-  <rect x="426" y="182" width="3" height="52" fill="#D97757" rx="2"/>
-  <text x="439" y="204" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="11" fill="#D97757" font-weight="600">PART 3</text>
-  <text x="439" y="223" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8">啟動 JARVIS 模式</text>
+  <rect x="786" y="352" width="346" height="92" fill="#D97757" opacity="0.12" rx="6"/>
+  <rect x="786" y="352" width="3" height="92" fill="#D97757" rx="2"/>
+  <text x="801" y="382" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#D97757" font-weight="600">PART 3</text>
+  <text x="801" y="412" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="17" fill="#F5F0E8">啟動 JARVIS 模式</text>
 
-  <!-- Bottom tag line -->
-  <text x="50" y="264" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="13" fill="#F5F0E8" opacity="0.4">Powered by Marp · Claude Code · VS Code</text>
+  <!-- Bottom tagline -->
+  <text x="60" y="595" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="14" fill="#F5F0E8" opacity="0.4">Powered by Marp · Claude Code · VS Code</text>
 </svg>
