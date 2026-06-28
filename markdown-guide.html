@@ -1,633 +1,1400 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Markdown 入門指南</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-         background: #f0f4f8; color: #1a202c; line-height: 1.7; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown 入門指南</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  header { background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
-           border-bottom: 1px solid #bfdbfe; padding: 48px 24px 40px; text-align: center; }
-  header h1 { font-size: 2.2rem; font-weight: 700; color: #1e3a5f; }
-  header p  { margin-top: 10px; color: #4a5568; font-size: 1.05rem;
-              max-width: 600px; margin-inline: auto; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      line-height: 1.7;
+    }
 
-  main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
-  section { margin-bottom: 52px; }
-  h2 { font-size: 1.4rem; font-weight: 600; color: #1e40af;
-       border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 20px; }
-  h3 { font-size: 1.05rem; font-weight: 600; color: #1a202c; margin: 20px 0 8px; }
-  p  { color: #4a5568; margin-bottom: 12px; }
+    header {
+      background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
+      border-bottom: 1px solid #bfdbfe;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
 
-  .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
-    padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
-    overflow-x: auto; margin-top: 14px; line-height: 1.7; white-space: pre; }
-  .kw  { color: #7c3aed; }
-  .fn  { color: #16a34a; }
-  .str { color: #d97706; }
-  .cmt { color: #94a3b8; font-style: italic; }
-  .key { color: #2563eb; }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
 
-  .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 10px;
-    padding: 16px 20px; margin-top: 14px; }
-  .info-box .tag { display: inline-block; background: #3b82f6; color: #fff;
-    font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-    margin-bottom: 10px; letter-spacing: 0.05em; }
-  .info-box p { color: #1e3a5f; font-size: 0.88rem; margin: 0; }
+    header p {
+      margin-top: 10px;
+      color: #4a5568;
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-inline: auto;
+    }
 
-  .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
-    border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
-  .takeaway p { color: #166534; font-size: 0.9rem; margin: 0; }
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
 
-  .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-  .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
-  .field .name { font-family: monospace; font-size: 0.85rem; color: #16a34a; font-weight: 600; }
-  .field .desc { font-size: 0.82rem; color: #4a5568; margin-top: 4px; }
-  .field-preview { font-size: 0.95rem; color: #1a202c; margin-top: 8px;
-    padding-top: 8px; border-top: 1px solid #e2e8f0; }
+    section {
+      margin-bottom: 52px;
+    }
 
-  .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-  .event-item { background: #fff; border: 1px solid #cbd5e0; border-radius: 6px;
-    padding: 9px 14px; display: flex; gap: 14px; align-items: baseline; }
-  .event-name { font-family: monospace; font-size: 0.82rem; color: #16a34a;
-    min-width: 120px; flex-shrink: 0; }
-  .event-desc { font-size: 0.82rem; color: #4a5568; }
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1e40af;
+      border-left: 4px solid #3b82f6;
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
 
-  .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
-    cursor: pointer; border: none; transition: all 0.2s; }
-  .btn-primary { background: #2563eb; color: #fff; }
-  .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
-  .btn-primary:disabled { background: #cbd5e0; color: #9ca3af; cursor: default; }
-  .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
-  .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
-  .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-  .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
-  .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 20px 0 8px;
+    }
 
-  .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-  .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
-    cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-  .stage-tab.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
-  .stage-tab.done   { background: #166534; border-color: #4ade80; color: #dcfce7; }
+    p {
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
 
-  .demo-panel { display: none; }
-  .demo-panel.visible { display: block; animation: fadeIn 0.3s ease; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
+    .code-block {
+      background: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #1a202c;
+      overflow-x: auto;
+      margin-top: 14px;
+      line-height: 1.7;
+      white-space: pre;
+    }
 
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
-  .col-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 16px 18px; }
-  .col-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
-    text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
-  .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
-  .col-card p:last-child { margin-bottom: 0; }
+    .kw {
+      color: #7c3aed;
+    }
 
-  .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
-  .chip-label { font-size: 0.75rem; color: #6b7280; }
-  .chip { padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
-    cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-  .chip.active { background: #dcfce7; border-color: #4ade80; color: #166534; }
+    .fn {
+      color: #16a34a;
+    }
 
-  #themeToggle { position: fixed; top: 16px; right: 16px; z-index: 9999;
-    padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
-    cursor: pointer; border: 1px solid #cbd5e0; background: #fff; color: #1a202c;
-    transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.12); letter-spacing: 0.03em; }
-  #themeToggle:hover { border-color: #2563eb; color: #2563eb; }
+    .str {
+      color: #d97706;
+    }
 
-  /* ── Blockquote visual ── */
-  .blockquote-demo { border-left: 4px solid #3b82f6; padding: 12px 16px;
-    background: #eff6ff; border-radius: 0 8px 8px 0; margin-top: 14px; }
-  .bq-text { color: #1e40af; font-style: italic; font-size: 0.9rem; }
-  .nested-bq { border-left: 4px solid #93c5fd; padding: 8px 12px;
-    background: #dbeafe; border-radius: 0 6px 6px 0; margin-top: 8px; }
-  .nested-bq .bq-text { font-size: 0.85rem; }
+    .cmt {
+      color: #94a3b8;
+      font-style: italic;
+    }
 
-  /* ── Visual table ── */
-  .vis-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.85rem; }
-  .vis-table th { background: #dbeafe; color: #1e3a5f; padding: 8px 14px;
-    text-align: left; border: 1px solid #93c5fd; font-weight: 600; }
-  .vis-table td { padding: 8px 14px; border: 1px solid #cbd5e0; color: #4a5568; }
-  .vis-table tr:nth-child(even) td { background: #f8fafc; }
-  .vis-table th.center, .vis-table td.center { text-align: center; }
-  .vis-table th.right,  .vis-table td.right  { text-align: right; }
+    .key {
+      color: #2563eb;
+    }
 
-  /* ── Visual HR ── */
-  .vis-hr { border: none; border-top: 2px solid #cbd5e0; margin: 20px 0; }
+    .info-box {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 14px;
+    }
 
-  /* ── Interactive task list ── */
-  .task-list { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
-  .task-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-    background: #fff; border: 1px solid #cbd5e0; border-radius: 8px;
-    cursor: pointer; transition: all 0.2s; user-select: none; }
-  .task-item.checked { background: #f0fdf4; border-color: #4ade80; }
-  .task-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer;
-    accent-color: #16a34a; flex-shrink: 0; pointer-events: none; }
-  .task-item span { font-size: 0.87rem; color: #374151; }
-  .task-item.checked span { text-decoration: line-through; color: #9ca3af; }
+    .info-box .tag {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
 
-  /* ── Heading preview ── */
-  .hd-preview { padding: 12px 0 8px; }
-  .hp-h1 { font-size: 1.9rem; font-weight: 700; color: #1e3a5f; margin: 0; }
-  .hp-h2 { font-size: 1.45rem; font-weight: 600; color: #1e40af; margin: 0; }
-  .hp-h3 { font-size: 1.15rem; font-weight: 600; color: #1a202c; margin: 0; }
-  .hp-h4 { font-size: 1rem; font-weight: 600; color: #374151; margin: 0; }
-  .hp-h5 { font-size: 0.9rem; font-weight: 600; color: #4a5568; margin: 0; }
-  .hp-h6 { font-size: 0.82rem; font-weight: 600; color: #6b7280; margin: 0; }
-  .hd-label { font-size: 0.72rem; color: #9ca3af; margin-top: 4px; }
+    .info-box p {
+      color: #1e3a5f;
+      font-size: 0.88rem;
+      margin: 0;
+    }
 
-  /* ── Quick reference grid ── */
-  .qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px; margin-top: 14px; }
-  .qr-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 12px 14px; }
-  .qr-card .qr-syn { font-family: monospace; font-size: 0.82rem; color: #7c3aed; font-weight: 600; }
-  .qr-card .qr-eg  { font-size: 0.75rem; color: #6b7280; margin-top: 2px; }
-  .qr-card .qr-use { font-size: 0.82rem; color: #374151; margin-top: 6px; }
+    .takeaway {
+      background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+      border: 1px solid #4ade80;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
 
-  /* ── Platform panel (section 2) ── */
-  .platform-panel { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
-    padding: 16px 18px; }
-  .platform-panel h4 { font-size: 0.9rem; font-weight: 600; color: #1e40af; margin-bottom: 8px; }
-  .platform-panel p { font-size: 0.84rem; color: #4a5568; margin-bottom: 6px; }
-  .platform-list { list-style: none; padding: 0; margin: 6px 0 0; }
-  .platform-list li { font-size: 0.83rem; color: #374151; padding: 3px 0; }
-  .platform-list li::before { content: "→ "; color: #3b82f6; }
+    .takeaway p {
+      color: #166534;
+      font-size: 0.9rem;
+      margin: 0;
+    }
 
-  @media (max-width: 640px) {
-    .api-fields, .two-col { grid-template-columns: 1fr; }
-    .qr-grid { grid-template-columns: 1fr 1fr; }
-  }
+    .api-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
 
-  /* ── Dark mode ── */
-  body.dark { background: #0f1117; color: #e2e8f0; }
-  body.dark header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom-color: #2d3748; }
-  body.dark header h1 { color: #f7fafc; }
-  body.dark header p  { color: #a0aec0; }
-  body.dark h2 { color: #90cdf4; border-left-color: #4299e1; }
-  body.dark h3 { color: #e2e8f0; }
-  body.dark p  { color: #a0aec0; }
-  body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
-  body.dark .kw  { color: #9f7aea; }
-  body.dark .fn  { color: #68d391; }
-  body.dark .str { color: #f6ad55; }
-  body.dark .cmt { color: #4a5568; }
-  body.dark .key { color: #63b3ed; }
-  body.dark .info-box { background: #1a202c; border-color: #2a4a6a; }
-  body.dark .info-box .tag { background: #2a4a6a; color: #90cdf4; }
-  body.dark .info-box p { color: #a0aec0; }
-  body.dark .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c); border-color: #276749; }
-  body.dark .takeaway p { color: #c6f6d5; }
-  body.dark .field { background: #1a202c; border-color: #2d3748; }
-  body.dark .field .name { color: #68d391; }
-  body.dark .field .desc { color: #718096; }
-  body.dark .field-preview { color: #e2e8f0; border-top-color: #2d3748; }
-  body.dark .event-item { background: #1a202c; border-color: #2d3748; }
-  body.dark .event-name { color: #68d391; }
-  body.dark .event-desc { color: #718096; }
-  body.dark .btn-primary { background: #2b6cb0; }
-  body.dark .btn-primary:hover:not(:disabled) { background: #3182ce; }
-  body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
-  body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
-  body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
-  body.dark .btn-ghost:disabled { opacity: 0.4; }
-  body.dark .step-indicator { color: #718096; }
-  body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
-  body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
-  body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
-  body.dark .col-card { background: #1a202c; border-color: #2d3748; }
-  body.dark .col-card-title { color: #4a5568; }
-  body.dark .col-card p { color: #a0aec0; }
-  body.dark .chip { background: #1a202c; border-color: #2d3748; color: #718096; }
-  body.dark .chip.active { background: #1c3a2a; border-color: #38a169; color: #68d391; }
-  body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-  body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
-  body.dark .blockquote-demo { background: #1a243a; border-left-color: #4299e1; }
-  body.dark .bq-text { color: #90cdf4; }
-  body.dark .nested-bq { background: #1a2a4a; border-left-color: #63b3ed; }
-  body.dark .vis-table th { background: #1a243a; color: #90cdf4; border-color: #2a4a6a; }
-  body.dark .vis-table td { border-color: #2d3748; color: #a0aec0; }
-  body.dark .vis-table tr:nth-child(even) td { background: #141921; }
-  body.dark .vis-hr { border-top-color: #2d3748; }
-  body.dark .task-item { background: #1a202c; border-color: #2d3748; }
-  body.dark .task-item.checked { background: #1c2a1c; border-color: #276749; }
-  body.dark .task-item span { color: #a0aec0; }
-  body.dark .task-item.checked span { color: #4a5568; }
-  body.dark .hp-h1 { color: #f7fafc; }
-  body.dark .hp-h2 { color: #90cdf4; }
-  body.dark .hp-h3 { color: #e2e8f0; }
-  body.dark .hp-h4 { color: #a0aec0; }
-  body.dark .hp-h5 { color: #718096; }
-  body.dark .hp-h6 { color: #4a5568; }
-  body.dark .hd-label { color: #4a5568; }
-  body.dark .qr-card { background: #1a202c; border-color: #2d3748; }
-  body.dark .qr-card .qr-syn { color: #9f7aea; }
-  body.dark .qr-card .qr-eg  { color: #4a5568; }
-  body.dark .qr-card .qr-use { color: #a0aec0; }
-  body.dark .platform-panel { background: #1a202c; border-color: #2d3748; }
-  body.dark .platform-panel h4 { color: #90cdf4; }
-  body.dark .platform-panel p { color: #a0aec0; }
-  body.dark .platform-list li { color: #a0aec0; }
-  body.dark .platform-list li::before { color: #4299e1; }
-</style>
+    .field {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .field .name {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .field .desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+      margin-top: 4px;
+    }
+
+    .field-preview {
+      font-size: 0.95rem;
+      color: #1a202c;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .event-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .event-item {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 9px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .event-name {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #16a34a;
+      min-width: 120px;
+      flex-shrink: 0;
+    }
+
+    .event-desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e0;
+      color: #9ca3af;
+      cursor: default;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: #4a5568;
+      border: 1px solid #cbd5e0;
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      color: #1a202c;
+      border-color: #6b7280;
+    }
+
+    .btn-ghost:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .step-indicator {
+      color: #6b7280;
+      font-size: 0.82rem;
+      margin-left: auto;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stage-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stage-tab {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .stage-tab.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+
+    .stage-tab.done {
+      background: #166534;
+      border-color: #4ade80;
+      color: #dcfce7;
+    }
+
+    .demo-panel {
+      display: none;
+    }
+
+    .demo-panel.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .col-card {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .col-card-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .col-card p {
+      font-size: 0.83rem;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .col-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .chip-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .chip {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .chip.active {
+      background: #dcfce7;
+      border-color: #4ade80;
+      color: #166534;
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #fff;
+      color: #1a202c;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      letter-spacing: 0.03em;
+    }
+
+    #themeToggle:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    /* ── Blockquote visual ── */
+    .blockquote-demo {
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      background: #eff6ff;
+      border-radius: 0 8px 8px 0;
+      margin-top: 14px;
+    }
+
+    .bq-text {
+      color: #1e40af;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .nested-bq {
+      border-left: 4px solid #93c5fd;
+      padding: 8px 12px;
+      background: #dbeafe;
+      border-radius: 0 6px 6px 0;
+      margin-top: 8px;
+    }
+
+    .nested-bq .bq-text {
+      font-size: 0.85rem;
+    }
+
+    /* ── Visual table ── */
+    .vis-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    .vis-table th {
+      background: #dbeafe;
+      color: #1e3a5f;
+      padding: 8px 14px;
+      text-align: left;
+      border: 1px solid #93c5fd;
+      font-weight: 600;
+    }
+
+    .vis-table td {
+      padding: 8px 14px;
+      border: 1px solid #cbd5e0;
+      color: #4a5568;
+    }
+
+    .vis-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .vis-table th.center,
+    .vis-table td.center {
+      text-align: center;
+    }
+
+    .vis-table th.right,
+    .vis-table td.right {
+      text-align: right;
+    }
+
+    /* ── Visual HR ── */
+    .vis-hr {
+      border: none;
+      border-top: 2px solid #cbd5e0;
+      margin: 20px 0;
+    }
+
+    /* ── Interactive task list ── */
+    .task-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .task-item.checked {
+      background: #f0fdf4;
+      border-color: #4ade80;
+    }
+
+    .task-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: #16a34a;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    .task-item span {
+      font-size: 0.87rem;
+      color: #374151;
+    }
+
+    .task-item.checked span {
+      text-decoration: line-through;
+      color: #9ca3af;
+    }
+
+    /* ── Heading preview ── */
+    .hd-preview {
+      padding: 12px 0 8px;
+    }
+
+    .hp-h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin: 0;
+    }
+
+    .hp-h2 {
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #1e40af;
+      margin: 0;
+    }
+
+    .hp-h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 0;
+    }
+
+    .hp-h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #374151;
+      margin: 0;
+    }
+
+    .hp-h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #4a5568;
+      margin: 0;
+    }
+
+    .hp-h6 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .hd-label {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    /* ── Quick reference grid ── */
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .qr-card {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .qr-card .qr-syn {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #7c3aed;
+      font-weight: 600;
+    }
+
+    .qr-card .qr-eg {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .qr-card .qr-use {
+      font-size: 0.82rem;
+      color: #374151;
+      margin-top: 6px;
+    }
+
+    /* ── Platform panel (section 2) ── */
+    .platform-panel {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .platform-panel h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 8px;
+    }
+
+    .platform-panel p {
+      font-size: 0.84rem;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .platform-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+    }
+
+    .platform-list li {
+      font-size: 0.83rem;
+      color: #374151;
+      padding: 3px 0;
+    }
+
+    .platform-list li::before {
+      content: "→ ";
+      color: #3b82f6;
+    }
+
+    @media (max-width: 640px) {
+
+      .api-fields,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .qr-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ── Dark mode ── */
+    body.dark {
+      background: #0f1117;
+      color: #e2e8f0;
+    }
+
+    body.dark header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark header h1 {
+      color: #f7fafc;
+    }
+
+    body.dark header p {
+      color: #a0aec0;
+    }
+
+    body.dark h2 {
+      color: #90cdf4;
+      border-left-color: #4299e1;
+    }
+
+    body.dark h3 {
+      color: #e2e8f0;
+    }
+
+    body.dark p {
+      color: #a0aec0;
+    }
+
+    body.dark .code-block {
+      background: #0d1117;
+      border-color: #2d3748;
+      color: #e2e8f0;
+    }
+
+    body.dark .kw {
+      color: #9f7aea;
+    }
+
+    body.dark .fn {
+      color: #68d391;
+    }
+
+    body.dark .str {
+      color: #f6ad55;
+    }
+
+    body.dark .cmt {
+      color: #4a5568;
+    }
+
+    body.dark .key {
+      color: #63b3ed;
+    }
+
+    body.dark .info-box {
+      background: #1a202c;
+      border-color: #2a4a6a;
+    }
+
+    body.dark .info-box .tag {
+      background: #2a4a6a;
+      color: #90cdf4;
+    }
+
+    body.dark .info-box p {
+      color: #a0aec0;
+    }
+
+    body.dark .takeaway {
+      background: linear-gradient(135deg, #1a2a1a, #1a202c);
+      border-color: #276749;
+    }
+
+    body.dark .takeaway p {
+      color: #c6f6d5;
+    }
+
+    body.dark .field {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .field .name {
+      color: #68d391;
+    }
+
+    body.dark .field .desc {
+      color: #718096;
+    }
+
+    body.dark .field-preview {
+      color: #e2e8f0;
+      border-top-color: #2d3748;
+    }
+
+    body.dark .event-item {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .event-name {
+      color: #68d391;
+    }
+
+    body.dark .event-desc {
+      color: #718096;
+    }
+
+    body.dark .btn-primary {
+      background: #2b6cb0;
+    }
+
+    body.dark .btn-primary:hover:not(:disabled) {
+      background: #3182ce;
+    }
+
+    body.dark .btn-primary:disabled {
+      background: #2d3748;
+      color: #4a5568;
+    }
+
+    body.dark .btn-ghost {
+      background: transparent;
+      color: #718096;
+      border-color: #2d3748;
+    }
+
+    body.dark .btn-ghost:hover:not(:disabled) {
+      color: #e2e8f0;
+      border-color: #4a5568;
+    }
+
+    body.dark .btn-ghost:disabled {
+      opacity: 0.4;
+    }
+
+    body.dark .step-indicator {
+      color: #718096;
+    }
+
+    body.dark .stage-tab {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .stage-tab.active {
+      background: #2b6cb0;
+      border-color: #4299e1;
+      color: #fff;
+    }
+
+    body.dark .stage-tab.done {
+      background: #276749;
+      border-color: #48bb78;
+      color: #c6f6d5;
+    }
+
+    body.dark .col-card {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .col-card-title {
+      color: #4a5568;
+    }
+
+    body.dark .col-card p {
+      color: #a0aec0;
+    }
+
+    body.dark .chip {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .chip.active {
+      background: #1c3a2a;
+      border-color: #38a169;
+      color: #68d391;
+    }
+
+    body.dark #themeToggle {
+      background: #1a202c;
+      color: #e2e8f0;
+      border-color: #4a5568;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark #themeToggle:hover {
+      border-color: #90cdf4;
+      color: #90cdf4;
+    }
+
+    body.dark .blockquote-demo {
+      background: #1a243a;
+      border-left-color: #4299e1;
+    }
+
+    body.dark .bq-text {
+      color: #90cdf4;
+    }
+
+    body.dark .nested-bq {
+      background: #1a2a4a;
+      border-left-color: #63b3ed;
+    }
+
+    body.dark .vis-table th {
+      background: #1a243a;
+      color: #90cdf4;
+      border-color: #2a4a6a;
+    }
+
+    body.dark .vis-table td {
+      border-color: #2d3748;
+      color: #a0aec0;
+    }
+
+    body.dark .vis-table tr:nth-child(even) td {
+      background: #141921;
+    }
+
+    body.dark .vis-hr {
+      border-top-color: #2d3748;
+    }
+
+    body.dark .task-item {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .task-item.checked {
+      background: #1c2a1c;
+      border-color: #276749;
+    }
+
+    body.dark .task-item span {
+      color: #a0aec0;
+    }
+
+    body.dark .task-item.checked span {
+      color: #4a5568;
+    }
+
+    body.dark .hp-h1 {
+      color: #f7fafc;
+    }
+
+    body.dark .hp-h2 {
+      color: #90cdf4;
+    }
+
+    body.dark .hp-h3 {
+      color: #e2e8f0;
+    }
+
+    body.dark .hp-h4 {
+      color: #a0aec0;
+    }
+
+    body.dark .hp-h5 {
+      color: #718096;
+    }
+
+    body.dark .hp-h6 {
+      color: #4a5568;
+    }
+
+    body.dark .hd-label {
+      color: #4a5568;
+    }
+
+    body.dark .qr-card {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .qr-card .qr-syn {
+      color: #9f7aea;
+    }
+
+    body.dark .qr-card .qr-eg {
+      color: #4a5568;
+    }
+
+    body.dark .qr-card .qr-use {
+      color: #a0aec0;
+    }
+
+    body.dark .platform-panel {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .platform-panel h4 {
+      color: #90cdf4;
+    }
+
+    body.dark .platform-panel p {
+      color: #a0aec0;
+    }
+
+    body.dark .platform-list li {
+      color: #a0aec0;
+    }
+
+    body.dark .platform-list li::before {
+      color: #4299e1;
+    }
+  </style>
 </head>
+
 <body>
 
-<button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
+  <button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
 
-<header>
-  <h1>Markdown 入門指南</h1>
-  <p>文件排版標記語言, 給上班族的實用速成課</p>
-</header>
+  <header>
+    <h1>Markdown 入門指南</h1>
+    <p>文件排版標記語言, 給職場工作者的實用速成課</p>
+  </header>
 
-<main>
+  <main>
 
-<!-- ── 1. 前言 ── -->
-<section>
-  <h2>前言</h2>
-  <div class="info-box">
-    <span class="tag">什麼是 Markdown</span>
-    <p>Markdown 是一種輕量級的標記語言, 用最少的符號就能完成排版, 同時保留純文字的可讀性. 對於需要撰寫會議記錄、專案文件、技術筆記或知識庫的上班族來說, 學會 Markdown 可以大幅提升文件產出的效率與一致性.</p>
-  </div>
-  <div class="takeaway">
-    <p>本指南從基礎語法開始, 逐步介紹 Markdown 常用的標記方式, 並提供辦公場景中的實際應用範例. 學完之後, 你就能用純文字符號快速寫出結構清晰的文件.</p>
-  </div>
-</section>
+    <!-- ── 1. 前言 ── -->
+    <section>
+      <h2>前言</h2>
+      <div class="info-box">
+        <span class="tag">什麼是 Markdown</span>
+        <p>Markdown 是一種輕量級的標記語言, 用最少的符號就能完成排版, 同時保留純文字的可讀性. 對於需要撰寫會議記錄、專案文件、技術筆記或知識庫的職場工作者來說, 學會 Markdown
+          可以大幅提升文件產出的效率與一致性.</p>
+      </div>
+      <div class="takeaway">
+        <p>本指南從基礎語法開始, 逐步介紹 Markdown 常用的標記方式, 並提供辦公場景中的實際應用範例. 學完之後, 你就能用純文字符號快速寫出結構清晰的文件.</p>
+      </div>
+    </section>
 
-<!-- ── 2. 什麼是 Markdown ── -->
-<section>
-  <h2>什麼是 Markdown</h2>
-  <p>Markdown 由 John Gruber 於 2004 年提出, 目的是讓人可以用簡單易讀的純文字格式寫作, 再透過轉換工具產生 HTML 或其他格式的文件. 點選下方類別, 了解各場景的使用情況.</p>
-  <div class="chip-row">
-    <span class="chip-label">使用場景:</span>
-    <span class="chip mkd-chip active" onclick="mkdSelect(0)">程式碼平台</span>
-    <span class="chip mkd-chip" onclick="mkdSelect(1)">筆記工具</span>
-    <span class="chip mkd-chip" onclick="mkdSelect(2)">通訊軟體</span>
-    <span class="chip mkd-chip" onclick="mkdSelect(3)">靜態網站</span>
-  </div>
-  <div class="platform-panel demo-panel visible" id="mkd-p0">
-    <h4>程式碼平台 — GitHub / GitLab</h4>
-    <p>這是 Markdown 最普及的使用場景, 幾乎所有開放原始碼專案都用 Markdown 撰寫文件.</p>
-    <ul class="platform-list">
-      <li>README.md — 專案首頁說明文件</li>
-      <li>Issue / Pull Request 描述與留言</li>
-      <li>Wiki 頁面與專案文件站</li>
-    </ul>
-  </div>
-  <div class="platform-panel demo-panel" id="mkd-p1">
-    <h4>筆記工具 — Notion / HackMD / Obsidian</h4>
-    <p>這類工具支援即時預覽, 讓你一邊輸入 Markdown 一邊看到格式化結果, 適合個人筆記與團隊知識庫.</p>
-    <ul class="platform-list">
-      <li>Notion — 支援 Markdown 快捷輸入, 搭配資料庫功能</li>
-      <li>HackMD — 即時多人協作共筆, 適合會議現場</li>
-      <li>Obsidian — 雙向連結筆記, 適合個人知識管理</li>
-    </ul>
-  </div>
-  <div class="platform-panel demo-panel" id="mkd-p2">
-    <h4>通訊軟體 — Slack / Microsoft Teams</h4>
-    <p>訊息中使用 Markdown 格式可以讓重點更清楚, 也更容易閱讀長篇說明.</p>
-    <ul class="platform-list">
-      <li><code>*文字*</code> 在 Slack 中顯示為斜體</li>
-      <li><code>**文字**</code> 在 Teams 中顯示為粗體</li>
-      <li>反引號包住文字可呈現行內程式碼樣式</li>
-    </ul>
-  </div>
-  <div class="platform-panel demo-panel" id="mkd-p3">
-    <h4>靜態網站產生器 — Hugo / Jekyll / Hexo</h4>
-    <p>這類工具讀取 Markdown 檔案並自動轉換為 HTML 頁面, 讓你只需專注寫作, 不需手動維護 HTML.</p>
-    <ul class="platform-list">
-      <li>Hugo — 速度極快, 適合大型文件站</li>
-      <li>Jekyll — GitHub Pages 原生支援, 適合個人部落格</li>
-      <li>Hexo — 以 Node.js 為基礎, 臺灣社群廣泛使用</li>
-    </ul>
-  </div>
-</section>
+    <!-- ── 2. 什麼是 Markdown ── -->
+    <section>
+      <h2>什麼是 Markdown</h2>
+      <p>Markdown 由 John Gruber 於 2004 年提出, 目的是讓人可以用簡單易讀的純文字格式寫作, 再透過轉換工具產生 HTML 或其他格式的文件. 點選下方類別, 了解各場景的使用情況.</p>
+      <div class="chip-row">
+        <span class="chip-label">使用場景:</span>
+        <span class="chip mkd-chip active" onclick="mkdSelect(0)">程式碼平台</span>
+        <span class="chip mkd-chip" onclick="mkdSelect(1)">筆記工具</span>
+        <span class="chip mkd-chip" onclick="mkdSelect(2)">通訊軟體</span>
+        <span class="chip mkd-chip" onclick="mkdSelect(3)">靜態網站</span>
+      </div>
+      <div class="platform-panel demo-panel visible" id="mkd-p0">
+        <h4>程式碼平台 — GitHub / GitLab</h4>
+        <p>這是 Markdown 最普及的使用場景, 幾乎所有開放原始碼專案都用 Markdown 撰寫文件.</p>
+        <ul class="platform-list">
+          <li>README.md — 專案首頁說明文件</li>
+          <li>Issue / Pull Request 描述與留言</li>
+          <li>Wiki 頁面與專案文件站</li>
+        </ul>
+      </div>
+      <div class="platform-panel demo-panel" id="mkd-p1">
+        <h4>筆記工具 — Notion / HackMD / Obsidian</h4>
+        <p>這類工具支援即時預覽, 讓你一邊輸入 Markdown 一邊看到格式化結果, 適合個人筆記與團隊知識庫.</p>
+        <ul class="platform-list">
+          <li>Notion — 支援 Markdown 快捷輸入, 搭配資料庫功能</li>
+          <li>HackMD — 即時多人協作共筆, 適合會議現場</li>
+          <li>Obsidian — 雙向連結筆記, 適合個人知識管理</li>
+        </ul>
+      </div>
+      <div class="platform-panel demo-panel" id="mkd-p2">
+        <h4>通訊軟體 — Slack / Microsoft Teams</h4>
+        <p>訊息中使用 Markdown 格式可以讓重點更清楚, 也更容易閱讀長篇說明.</p>
+        <ul class="platform-list">
+          <li><code>*文字*</code> 在 Slack 中顯示為斜體</li>
+          <li><code>**文字**</code> 在 Teams 中顯示為粗體</li>
+          <li>反引號包住文字可呈現行內程式碼樣式</li>
+        </ul>
+      </div>
+      <div class="platform-panel demo-panel" id="mkd-p3">
+        <h4>靜態網站產生器 — Hugo / Jekyll / Hexo</h4>
+        <p>這類工具讀取 Markdown 檔案並自動轉換為 HTML 頁面, 讓你只需專注寫作, 不需手動維護 HTML.</p>
+        <ul class="platform-list">
+          <li>Hugo — 速度極快, 適合大型文件站</li>
+          <li>Jekyll — GitHub Pages 原生支援, 適合個人部落格</li>
+          <li>Hexo — 以 Node.js 為基礎, 臺灣社群廣泛使用</li>
+        </ul>
+      </div>
+    </section>
 
-<!-- ── 3. 標題 Heading ── -->
-<section>
-  <h2>標題 Heading</h2>
-  <p>使用 <code>#</code> 建立標題, <code>#</code> 的數量代表標題層級. 點選下方步驟, 查看各層級標題的語法與視覺效果.</p>
-  <div class="stage-tabs">
-    <div class="hd-tab stage-tab active" onclick="hdGoTo(0)">H1</div>
-    <div class="hd-tab stage-tab" onclick="hdGoTo(1)">H2</div>
-    <div class="hd-tab stage-tab" onclick="hdGoTo(2)">H3</div>
-    <div class="hd-tab stage-tab" onclick="hdGoTo(3)">H4</div>
-    <div class="hd-tab stage-tab" onclick="hdGoTo(4)">H5</div>
-    <div class="hd-tab stage-tab" onclick="hdGoTo(5)">H6</div>
-  </div>
+    <!-- ── 3. 標題 Heading ── -->
+    <section>
+      <h2>標題 Heading</h2>
+      <p>使用 <code>#</code> 建立標題, <code>#</code> 的數量代表標題層級. 點選下方步驟, 查看各層級標題的語法與視覺效果.</p>
+      <div class="stage-tabs">
+        <div class="hd-tab stage-tab active" onclick="hdGoTo(0)">H1</div>
+        <div class="hd-tab stage-tab" onclick="hdGoTo(1)">H2</div>
+        <div class="hd-tab stage-tab" onclick="hdGoTo(2)">H3</div>
+        <div class="hd-tab stage-tab" onclick="hdGoTo(3)">H4</div>
+        <div class="hd-tab stage-tab" onclick="hdGoTo(4)">H5</div>
+        <div class="hd-tab stage-tab" onclick="hdGoTo(5)">H6</div>
+      </div>
 
-  <div class="hd-panel demo-panel visible" id="hd-p0">
-    <div class="hd-preview"><div class="hp-h1">一級標題</div></div>
-    <div class="hd-label">最大的主標題, 通常一份文件只用一個</div>
-    <pre class="code-block"><span class="kw">#</span> <span class="str">一級標題</span></pre>
-  </div>
-  <div class="hd-panel demo-panel" id="hd-p1">
-    <div class="hd-preview"><div class="hp-h2">二級標題</div></div>
-    <div class="hd-label">章節標題, 最常使用的層級</div>
-    <pre class="code-block"><span class="kw">##</span> <span class="str">二級標題</span></pre>
-  </div>
-  <div class="hd-panel demo-panel" id="hd-p2">
-    <div class="hd-preview"><div class="hp-h3">三級標題</div></div>
-    <div class="hd-label">子章節, 適合在章節內再做細分</div>
-    <pre class="code-block"><span class="kw">###</span> <span class="str">三級標題</span></pre>
-  </div>
-  <div class="hd-panel demo-panel" id="hd-p3">
-    <div class="hd-preview"><div class="hp-h4">四級標題</div></div>
-    <div class="hd-label">小節標題, 適合結構複雜的技術文件</div>
-    <pre class="code-block"><span class="kw">####</span> <span class="str">四級標題</span></pre>
-  </div>
-  <div class="hd-panel demo-panel" id="hd-p4">
-    <div class="hd-preview"><div class="hp-h5">五級標題</div></div>
-    <div class="hd-label">細項標題, 一般文件幾乎不需要用到</div>
-    <pre class="code-block"><span class="kw">#####</span> <span class="str">五級標題</span></pre>
-  </div>
-  <div class="hd-panel demo-panel" id="hd-p5">
-    <div class="hd-preview"><div class="hp-h6">六級標題</div></div>
-    <div class="hd-label">最小層級, 視覺差異已不明顯</div>
-    <pre class="code-block"><span class="kw">######</span> <span class="str">六級標題</span></pre>
-  </div>
+      <div class="hd-panel demo-panel visible" id="hd-p0">
+        <div class="hd-preview">
+          <div class="hp-h1">一級標題</div>
+        </div>
+        <div class="hd-label">最大的主標題, 通常一份文件只用一個</div>
+        <pre class="code-block"><span class="kw">#</span> <span class="str">一級標題</span></pre>
+      </div>
+      <div class="hd-panel demo-panel" id="hd-p1">
+        <div class="hd-preview">
+          <div class="hp-h2">二級標題</div>
+        </div>
+        <div class="hd-label">章節標題, 最常使用的層級</div>
+        <pre class="code-block"><span class="kw">##</span> <span class="str">二級標題</span></pre>
+      </div>
+      <div class="hd-panel demo-panel" id="hd-p2">
+        <div class="hd-preview">
+          <div class="hp-h3">三級標題</div>
+        </div>
+        <div class="hd-label">子章節, 適合在章節內再做細分</div>
+        <pre class="code-block"><span class="kw">###</span> <span class="str">三級標題</span></pre>
+      </div>
+      <div class="hd-panel demo-panel" id="hd-p3">
+        <div class="hd-preview">
+          <div class="hp-h4">四級標題</div>
+        </div>
+        <div class="hd-label">小節標題, 適合結構複雜的技術文件</div>
+        <pre class="code-block"><span class="kw">####</span> <span class="str">四級標題</span></pre>
+      </div>
+      <div class="hd-panel demo-panel" id="hd-p4">
+        <div class="hd-preview">
+          <div class="hp-h5">五級標題</div>
+        </div>
+        <div class="hd-label">細項標題, 一般文件幾乎不需要用到</div>
+        <pre class="code-block"><span class="kw">#####</span> <span class="str">五級標題</span></pre>
+      </div>
+      <div class="hd-panel demo-panel" id="hd-p5">
+        <div class="hd-preview">
+          <div class="hp-h6">六級標題</div>
+        </div>
+        <div class="hd-label">最小層級, 視覺差異已不明顯</div>
+        <pre class="code-block"><span class="kw">######</span> <span class="str">六級標題</span></pre>
+      </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="hdPrev" disabled onclick="hdGoTo(hdStep-1)">← 上一層</button>
-    <button class="btn btn-primary" id="hdNext" onclick="hdGoTo(hdStep+1)">下一層 →</button>
-    <span class="step-indicator" id="hdIndicator">H1 / 共 6 層</span>
-  </div>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="hdPrev" disabled onclick="hdGoTo(hdStep-1)">← 上一層</button>
+        <button class="btn btn-primary" id="hdNext" onclick="hdGoTo(hdStep+1)">下一層 →</button>
+        <span class="step-indicator" id="hdIndicator">H1 / 共 6 層</span>
+      </div>
 
-  <div class="info-box" style="margin-top:20px;">
-    <span class="tag">最佳實踐</span>
-    <p>同一份文件中標題層級不要跳階使用, 例如一級標題後直接接三級標題, 這樣會讓文件結構不清楚. 建議由 H1 依序往下使用.</p>
-  </div>
-</section>
+      <div class="info-box" style="margin-top:20px;">
+        <span class="tag">最佳實踐</span>
+        <p>同一份文件中標題層級不要跳階使用, 例如一級標題後直接接三級標題, 這樣會讓文件結構不清楚. 建議由 H1 依序往下使用.</p>
+      </div>
+    </section>
 
-<!-- ── 4. 段落與換行 ── -->
-<section>
-  <h2>段落與換行</h2>
-  <p>段落之間只要保留一行空白即可分段. 若要在同一段落內強制換行, 有兩種方式可以選擇.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">方法一 — 行尾兩個空白</div>
-      <p>在行尾加上兩個空白字元後按 Enter, 可以在同段落內換行. 純文字編輯器中最常用的方式.</p>
-      <pre class="code-block"><span class="str">這是第一行</span><span class="kw">  </span>
+    <!-- ── 4. 段落與換行 ── -->
+    <section>
+      <h2>段落與換行</h2>
+      <p>段落之間只要保留一行空白即可分段. 若要在同一段落內強制換行, 有兩種方式可以選擇.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">方法一 — 行尾兩個空白</div>
+          <p>在行尾加上兩個空白字元後按 Enter, 可以在同段落內換行. 純文字編輯器中最常用的方式.</p>
+          <pre class="code-block"><span class="str">這是第一行</span><span class="kw">  </span>
 <span class="str">這是第二行</span></pre>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">方法二 — &lt;br&gt; 標籤</div>
-      <p>直接插入 HTML 的 <code>&lt;br&gt;</code> 標籤, 效果與行尾兩個空白相同. 語意更明確, 但可讀性稍差.</p>
-      <pre class="code-block"><span class="str">這是第一行</span><span class="kw">&lt;br&gt;</span>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">方法二 — &lt;br&gt; 標籤</div>
+          <p>直接插入 HTML 的 <code>&lt;br&gt;</code> 標籤, 效果與行尾兩個空白相同. 語意更明確, 但可讀性稍差.</p>
+          <pre class="code-block"><span class="str">這是第一行</span><span class="kw">&lt;br&gt;</span>
 <span class="str">這是第二行</span></pre>
-    </div>
-  </div>
-  <div class="info-box">
-    <span class="tag">注意</span>
-    <p>直接按一次 Enter 換行在大多數 Markdown 渲染器中不會產生換行效果, 仍會連接在同一段落. 要真正分段, 需要空一整行.</p>
-  </div>
-</section>
+        </div>
+      </div>
+      <div class="info-box">
+        <span class="tag">注意</span>
+        <p>直接按一次 Enter 換行在大多數 Markdown 渲染器中不會產生換行效果, 仍會連接在同一段落. 要真正分段, 需要空一整行.</p>
+      </div>
+    </section>
 
-<!-- ── 5. 強調語法 ── -->
-<section>
-  <h2>強調語法</h2>
-  <p>Markdown 提供四種強調方式, 分別對應斜體、粗體、粗斜體與刪除線.</p>
-  <div class="api-fields">
-    <div class="field">
-      <div class="name">*文字* 或 _文字_</div>
-      <div class="desc">斜體 — 文字會以斜體顯示, 適合強調術語或引用</div>
-      <div class="field-preview"><em>示範文字以斜體顯示</em></div>
-    </div>
-    <div class="field">
-      <div class="name">**文字** 或 __文字__</div>
-      <div class="desc">粗體 — 文字會以粗體顯示, 適合強調重點</div>
-      <div class="field-preview"><strong>示範文字以粗體顯示</strong></div>
-    </div>
-    <div class="field">
-      <div class="name">***文字***</div>
-      <div class="desc">粗斜體 — 文字同時呈現粗體與斜體, 用於特別強調</div>
-      <div class="field-preview"><em><strong>示範文字粗體加斜體</strong></em></div>
-    </div>
-    <div class="field">
-      <div class="name">~~文字~~</div>
-      <div class="desc">刪除線 — 文字中間加上一條橫線, 常用於標示已刪除或過時的內容</div>
-      <div class="field-preview"><del>示範文字加上刪除線</del></div>
-    </div>
-  </div>
-</section>
+    <!-- ── 5. 強調語法 ── -->
+    <section>
+      <h2>強調語法</h2>
+      <p>Markdown 提供四種強調方式, 分別對應斜體、粗體、粗斜體與刪除線.</p>
+      <div class="api-fields">
+        <div class="field">
+          <div class="name">*文字* 或 _文字_</div>
+          <div class="desc">斜體 — 文字會以斜體顯示, 適合強調術語或引用</div>
+          <div class="field-preview"><em>示範文字以斜體顯示</em></div>
+        </div>
+        <div class="field">
+          <div class="name">**文字** 或 __文字__</div>
+          <div class="desc">粗體 — 文字會以粗體顯示, 適合強調重點</div>
+          <div class="field-preview"><strong>示範文字以粗體顯示</strong></div>
+        </div>
+        <div class="field">
+          <div class="name">***文字***</div>
+          <div class="desc">粗斜體 — 文字同時呈現粗體與斜體, 用於特別強調</div>
+          <div class="field-preview"><em><strong>示範文字粗體加斜體</strong></em></div>
+        </div>
+        <div class="field">
+          <div class="name">~~文字~~</div>
+          <div class="desc">刪除線 — 文字中間加上一條橫線, 常用於標示已刪除或過時的內容</div>
+          <div class="field-preview"><del>示範文字加上刪除線</del></div>
+        </div>
+      </div>
+    </section>
 
-<!-- ── 6. 清單 ── -->
-<section>
-  <h2>清單</h2>
-  <p>Markdown 支援無序清單與有序清單, 兩者都可以加入子項目, 讓結構更清晰.</p>
-  <div class="stage-tabs">
-    <div class="ls-tab stage-tab active" onclick="lsGoTo(0)">項目清單 (無序)</div>
-    <div class="ls-tab stage-tab" onclick="lsGoTo(1)">編號清單 (有序)</div>
-  </div>
+    <!-- ── 6. 清單 ── -->
+    <section>
+      <h2>清單</h2>
+      <p>Markdown 支援無序清單與有序清單, 兩者都可以加入子項目, 讓結構更清晰.</p>
+      <div class="stage-tabs">
+        <div class="ls-tab stage-tab active" onclick="lsGoTo(0)">項目清單 (無序)</div>
+        <div class="ls-tab stage-tab" onclick="lsGoTo(1)">編號清單 (有序)</div>
+      </div>
 
-  <div class="ls-panel demo-panel visible" id="ls-p0">
-    <p style="margin-bottom:8px;">使用 <code>-</code>、<code>*</code> 或 <code>+</code> 開頭, 後面加一個空白. 子項目用兩個空白縮排.</p>
-    <pre class="code-block"><span class="kw">-</span> <span class="str">第一項</span>
+      <div class="ls-panel demo-panel visible" id="ls-p0">
+        <p style="margin-bottom:8px;">使用 <code>-</code>、<code>*</code> 或 <code>+</code> 開頭, 後面加一個空白. 子項目用兩個空白縮排.</p>
+        <pre class="code-block"><span class="kw">-</span> <span class="str">第一項</span>
 <span class="kw">-</span> <span class="str">第二項</span>
   <span class="kw">-</span> <span class="str">子項目一</span>
   <span class="kw">-</span> <span class="str">子項目二</span>
 <span class="kw">-</span> <span class="str">第三項</span></pre>
-  </div>
-  <div class="ls-panel demo-panel" id="ls-p1">
-    <p style="margin-bottom:8px;">使用數字加句點開頭. Markdown 渲染器會自動排序, 即使全部寫 <code>1.</code> 也會渲染為 1, 2, 3.</p>
-    <pre class="code-block"><span class="kw">1.</span> <span class="str">第一步</span>
+      </div>
+      <div class="ls-panel demo-panel" id="ls-p1">
+        <p style="margin-bottom:8px;">使用數字加句點開頭. Markdown 渲染器會自動排序, 即使全部寫 <code>1.</code> 也會渲染為 1, 2, 3.</p>
+        <pre class="code-block"><span class="kw">1.</span> <span class="str">第一步</span>
 <span class="kw">2.</span> <span class="str">第二步</span>
 <span class="kw">3.</span> <span class="str">第三步</span></pre>
-    <div class="info-box" style="margin-top:14px;">
-      <span class="tag">小技巧</span>
-      <p>有序清單的數字大多會自動排序, 所以可以全部寫成 <code>1.</code>, 渲染後仍會顯示正確的 1, 2, 3. 這樣在插入新項目時不需要重新編號.</p>
-    </div>
-  </div>
+        <div class="info-box" style="margin-top:14px;">
+          <span class="tag">小技巧</span>
+          <p>有序清單的數字大多會自動排序, 所以可以全部寫成 <code>1.</code>, 渲染後仍會顯示正確的 1, 2, 3. 這樣在插入新項目時不需要重新編號.</p>
+        </div>
+      </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="lsPrev" disabled onclick="lsGoTo(lsStep-1)">← 上一個</button>
-    <button class="btn btn-primary" id="lsNext" onclick="lsGoTo(lsStep+1)">下一個 →</button>
-    <span class="step-indicator" id="lsIndicator">1 / 2</span>
-  </div>
-</section>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="lsPrev" disabled onclick="lsGoTo(lsStep-1)">← 上一個</button>
+        <button class="btn btn-primary" id="lsNext" onclick="lsGoTo(lsStep+1)">下一個 →</button>
+        <span class="step-indicator" id="lsIndicator">1 / 2</span>
+      </div>
+    </section>
 
-<!-- ── 7. 連結與圖片 ── -->
-<section>
-  <h2>連結與圖片</h2>
-  <p>連結與圖片的語法相似, 差別只在圖片前面多一個驚嘆號 <code>!</code>.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">超連結</div>
-      <p>方括號放顯示文字, 圓括號放網址. 引號內可加提示文字 (滑鼠停留時顯示).</p>
-      <pre class="code-block"><span class="kw">[</span><span class="str">顯示文字</span><span class="kw">]</span>(<span class="key">網址</span> <span class="str">"提示文字"</span>)
+    <!-- ── 7. 連結與圖片 ── -->
+    <section>
+      <h2>連結與圖片</h2>
+      <p>連結與圖片的語法相似, 差別只在圖片前面多一個驚嘆號 <code>!</code>.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">超連結</div>
+          <p>方括號放顯示文字, 圓括號放網址. 引號內可加提示文字 (滑鼠停留時顯示).</p>
+          <pre
+            class="code-block"><span class="kw">[</span><span class="str">顯示文字</span><span class="kw">]</span>(<span class="key">網址</span> <span class="str">"提示文字"</span>)
 
 <span class="cmt">範例:</span>
 <span class="kw">[</span><span class="str">Anthropic 官網</span><span class="kw">]</span>(<span class="key">https://www.anthropic.com</span>)</pre>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">圖片</div>
-      <p>語法與連結相同, 前面加 <code>!</code>. 方括號內是圖片的替代文字 (alt text), 圖片無法顯示時會出現.</p>
-      <pre class="code-block"><span class="kw">![</span><span class="str">替代文字</span><span class="kw">]</span>(<span class="key">圖片網址</span> <span class="str">"提示文字"</span>)
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">圖片</div>
+          <p>語法與連結相同, 前面加 <code>!</code>. 方括號內是圖片的替代文字 (alt text), 圖片無法顯示時會出現.</p>
+          <pre
+            class="code-block"><span class="kw">![</span><span class="str">替代文字</span><span class="kw">]</span>(<span class="key">圖片網址</span> <span class="str">"提示文字"</span>)
 
 <span class="cmt">範例:</span>
 <span class="kw">![</span><span class="str">公司 Logo</span><span class="kw">]</span>(<span class="key">./images/logo.png</span>)</pre>
-    </div>
-  </div>
-  <div class="info-box" style="margin-top:0;">
-    <span class="tag">注意</span>
-    <p>圖片或連結若使用本機路徑 (例如 <code>C:\Users\...</code>), 換到其他環境後路徑會失效. 建議使用相對路徑或完整的網路網址.</p>
-  </div>
-</section>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:0;">
+        <span class="tag">注意</span>
+        <p>圖片或連結若使用本機路徑 (例如 <code>C:\Users\...</code>), 換到其他環境後路徑會失效. 建議使用相對路徑或完整的網路網址.</p>
+      </div>
+    </section>
 
-<!-- ── 8. 程式碼 ── -->
-<section>
-  <h2>程式碼</h2>
-  <p>Markdown 支援兩種程式碼標示方式: 行內程式碼用於短片段, 區塊程式碼用於多行內容.</p>
-  <div class="stage-tabs">
-    <div class="cd-tab stage-tab active" onclick="cdGoTo(0)">行內程式碼</div>
-    <div class="cd-tab stage-tab" onclick="cdGoTo(1)">區塊程式碼</div>
-  </div>
+    <!-- ── 8. 程式碼 ── -->
+    <section>
+      <h2>程式碼</h2>
+      <p>Markdown 支援兩種程式碼標示方式: 行內程式碼用於短片段, 區塊程式碼用於多行內容.</p>
+      <div class="stage-tabs">
+        <div class="cd-tab stage-tab active" onclick="cdGoTo(0)">行內程式碼</div>
+        <div class="cd-tab stage-tab" onclick="cdGoTo(1)">區塊程式碼</div>
+      </div>
 
-  <div class="cd-panel demo-panel visible" id="cd-p0">
-    <p style="margin-bottom:8px;">用單個反引號 <code>`</code> 包住文字, 適合在段落中標示指令、變數名稱或短片段程式碼.</p>
-    <pre class="code-block"><span class="str">執行</span> <span class="kw">`</span><span class="fn">npm install</span><span class="kw">`</span> <span class="str">來安裝相依套件.</span></pre>
-    <div class="info-box" style="margin-top:14px;">
-      <span class="tag">效果預覽</span>
-      <p>執行 <code>npm install</code> 來安裝相依套件.</p>
-    </div>
-  </div>
-  <div class="cd-panel demo-panel" id="cd-p1">
-    <p style="margin-bottom:8px;">用三個反引號圍住多行內容, 並在開頭反引號後加上語言名稱以啟用語法高亮.</p>
-    <pre class="code-block"><span class="kw">```python</span>
+      <div class="cd-panel demo-panel visible" id="cd-p0">
+        <p style="margin-bottom:8px;">用單個反引號 <code>`</code> 包住文字, 適合在段落中標示指令、變數名稱或短片段程式碼.</p>
+        <pre
+          class="code-block"><span class="str">執行</span> <span class="kw">`</span><span class="fn">npm install</span><span class="kw">`</span> <span class="str">來安裝相依套件.</span></pre>
+        <div class="info-box" style="margin-top:14px;">
+          <span class="tag">效果預覽</span>
+          <p>執行 <code>npm install</code> 來安裝相依套件.</p>
+        </div>
+      </div>
+      <div class="cd-panel demo-panel" id="cd-p1">
+        <p style="margin-bottom:8px;">用三個反引號圍住多行內容, 並在開頭反引號後加上語言名稱以啟用語法高亮.</p>
+        <pre class="code-block"><span class="kw">```python</span>
 <span class="kw">def</span> <span class="fn">hello</span>():
     <span class="fn">print</span>(<span class="str">"Hello, Markdown"</span>)
 <span class="kw">```</span></pre>
-    <div class="info-box" style="margin-top:14px;">
-      <span class="tag">常用語言標籤</span>
-      <p>python / javascript / bash / sql / json / yaml / html / css — 大多數 Markdown 渲染器都支援這些語言的語法高亮.</p>
-    </div>
-  </div>
+        <div class="info-box" style="margin-top:14px;">
+          <span class="tag">常用語言標籤</span>
+          <p>python / javascript / bash / sql / json / yaml / html / css — 大多數 Markdown 渲染器都支援這些語言的語法高亮.</p>
+        </div>
+      </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="cdPrev" disabled onclick="cdGoTo(cdStep-1)">← 行內</button>
-    <button class="btn btn-primary" id="cdNext" onclick="cdGoTo(cdStep+1)">區塊 →</button>
-    <span class="step-indicator" id="cdIndicator">1 / 2</span>
-  </div>
-</section>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="cdPrev" disabled onclick="cdGoTo(cdStep-1)">← 行內</button>
+        <button class="btn btn-primary" id="cdNext" onclick="cdGoTo(cdStep+1)">區塊 →</button>
+        <span class="step-indicator" id="cdIndicator">1 / 2</span>
+      </div>
+    </section>
 
-<!-- ── 9. 引言區塊 Blockquote ── -->
-<section>
-  <h2>引言區塊 Blockquote</h2>
-  <p>使用 <code>&gt;</code> 開頭可以建立引言區塊, 也可以多層巢狀, 常用於引述來源或標示重要備注.</p>
-  <pre class="code-block"><span class="kw">&gt;</span> <span class="str">這是引言.</span>
+    <!-- ── 9. 引言區塊 Blockquote ── -->
+    <section>
+      <h2>引言區塊 Blockquote</h2>
+      <p>使用 <code>&gt;</code> 開頭可以建立引言區塊, 也可以多層巢狀, 常用於引述來源或標示重要備注.</p>
+      <pre class="code-block"><span class="kw">&gt;</span> <span class="str">這是引言.</span>
 <span class="kw">&gt;&gt;</span> <span class="str">這是引言中的引言.</span></pre>
-  <p style="margin-top:16px;">渲染後的效果如下:</p>
-  <div class="blockquote-demo">
-    <div class="bq-text">這是引言.</div>
-    <div class="nested-bq">
-      <div class="bq-text">這是引言中的引言.</div>
-    </div>
-  </div>
-  <div class="takeaway">
-    <p>引言區塊在辦公場景中很適合用來引述客戶回饋、會議決議, 或標示需要特別注意的事項, 讓讀者一眼就能區分引述內容與正文.</p>
-  </div>
-</section>
+      <p style="margin-top:16px;">渲染後的效果如下:</p>
+      <div class="blockquote-demo">
+        <div class="bq-text">這是引言.</div>
+        <div class="nested-bq">
+          <div class="bq-text">這是引言中的引言.</div>
+        </div>
+      </div>
+      <div class="takeaway">
+        <p>引言區塊在辦公場景中很適合用來引述客戶回饋、會議決議, 或標示需要特別注意的事項, 讓讀者一眼就能區分引述內容與正文.</p>
+      </div>
+    </section>
 
-<!-- ── 10. 表格 ── -->
-<section>
-  <h2>表格</h2>
-  <p>使用豎線 <code>|</code> 分隔欄位, 第二列是分隔列, 決定欄位的對齊方式.</p>
-  <pre class="code-block"><span class="kw">|</span> <span class="str">欄位一</span> <span class="kw">|</span> <span class="str">欄位二</span> <span class="kw">|</span> <span class="str">欄位三</span> <span class="kw">|</span>
+    <!-- ── 10. 表格 ── -->
+    <section>
+      <h2>表格</h2>
+      <p>使用豎線 <code>|</code> 分隔欄位, 第二列是分隔列, 決定欄位的對齊方式.</p>
+      <pre
+        class="code-block"><span class="kw">|</span> <span class="str">欄位一</span> <span class="kw">|</span> <span class="str">欄位二</span> <span class="kw">|</span> <span class="str">欄位三</span> <span class="kw">|</span>
 <span class="kw">|</span> <span class="key">---</span> <span class="kw">|</span> <span class="key">:---:</span> <span class="kw">|</span> <span class="key">---:</span> <span class="kw">|</span>
 <span class="kw">|</span> <span class="str">靠左</span> <span class="kw">|</span> <span class="str">置中</span> <span class="kw">|</span> <span class="str">靠右</span> <span class="kw">|</span></pre>
-  <table class="vis-table" style="margin-top:16px;">
-    <thead>
-      <tr>
-        <th>欄位一 (靠左)</th>
-        <th class="center">欄位二 (置中)</th>
-        <th class="right">欄位三 (靠右)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>內容 A</td>
-        <td class="center">內容 B</td>
-        <td class="right">內容 C</td>
-      </tr>
-      <tr>
-        <td>內容 D</td>
-        <td class="center">內容 E</td>
-        <td class="right">內容 F</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="info-box">
-    <span class="tag">對齊語法</span>
-    <p><code>---</code> 預設靠左 / <code>:---:</code> 置中 / <code>---:</code> 靠右. 分隔列的 <code>---</code> 數量必須與欄位數量一致, 否則表格無法正確渲染.</p>
-  </div>
-</section>
+      <table class="vis-table" style="margin-top:16px;">
+        <thead>
+          <tr>
+            <th>欄位一 (靠左)</th>
+            <th class="center">欄位二 (置中)</th>
+            <th class="right">欄位三 (靠右)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>內容 A</td>
+            <td class="center">內容 B</td>
+            <td class="right">內容 C</td>
+          </tr>
+          <tr>
+            <td>內容 D</td>
+            <td class="center">內容 E</td>
+            <td class="right">內容 F</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <span class="tag">對齊語法</span>
+        <p><code>---</code> 預設靠左 / <code>:---:</code> 置中 / <code>---:</code> 靠右. 分隔列的 <code>---</code> 數量必須與欄位數量一致,
+          否則表格無法正確渲染.</p>
+      </div>
+    </section>
 
-<!-- ── 11. 分隔線 ── -->
-<section>
-  <h2>分隔線</h2>
-  <p>連續三個或以上的 <code>-</code>、<code>*</code> 或 <code>_</code> 可以建立一條水平分隔線, 常用於區分章節或視覺分組.</p>
-  <pre class="code-block"><span class="kw">---</span>
+    <!-- ── 11. 分隔線 ── -->
+    <section>
+      <h2>分隔線</h2>
+      <p>連續三個或以上的 <code>-</code>、<code>*</code> 或 <code>_</code> 可以建立一條水平分隔線, 常用於區分章節或視覺分組.</p>
+      <pre class="code-block"><span class="kw">---</span>
 <span class="cmt">或</span>
 <span class="kw">***</span>
 <span class="cmt">或</span>
 <span class="kw">___</span></pre>
-  <p style="margin-top:16px;">渲染後的效果:</p>
-  <hr class="vis-hr" />
-  <div class="info-box">
-    <span class="tag">注意</span>
-    <p>使用 <code>-</code> 作分隔線時, 前面必須留一行空白, 否則可能被解讀為二級標題的底線語法 (Setext 風格標題).</p>
-  </div>
-</section>
+      <p style="margin-top:16px;">渲染後的效果:</p>
+      <hr class="vis-hr" />
+      <div class="info-box">
+        <span class="tag">注意</span>
+        <p>使用 <code>-</code> 作分隔線時, 前面必須留一行空白, 否則可能被解讀為二級標題的底線語法 (Setext 風格標題).</p>
+      </div>
+    </section>
 
-<!-- ── 12. 待辦清單 Task List ── -->
-<section>
-  <h2>待辦清單 Task List</h2>
-  <p>許多平台 (GitHub, Notion, HackMD) 支援待辦清單語法. 試著點擊下方的項目, 切換完成狀態.</p>
-  <pre class="code-block"><span class="kw">- [ ]</span> <span class="str">尚未完成的任務</span>
+    <!-- ── 12. 待辦清單 Task List ── -->
+    <section>
+      <h2>待辦清單 Task List</h2>
+      <p>許多平台 (GitHub, Notion, HackMD) 支援待辦清單語法. 試著點擊下方的項目, 切換完成狀態.</p>
+      <pre class="code-block"><span class="kw">- [ ]</span> <span class="str">尚未完成的任務</span>
 <span class="kw">- [x]</span> <span class="str">已經完成的任務</span></pre>
-  <p style="margin-top:16px;">互動示範 — 點擊項目可切換狀態:</p>
-  <div class="task-list">
-    <div class="task-item" id="t1" onclick="toggleTask('t1')">
-      <input type="checkbox" /><span>完成本週會議記錄</span>
-    </div>
-    <div class="task-item" id="t2" onclick="toggleTask('t2')">
-      <input type="checkbox" /><span>更新專案 README 文件</span>
-    </div>
-    <div class="task-item checked" id="t3" onclick="toggleTask('t3')">
-      <input type="checkbox" checked /><span>建立團隊知識庫資料夾結構</span>
-    </div>
-    <div class="task-item checked" id="t4" onclick="toggleTask('t4')">
-      <input type="checkbox" checked /><span>完成 Markdown 語法學習</span>
-    </div>
-  </div>
-</section>
+      <p style="margin-top:16px;">互動示範 — 點擊項目可切換狀態:</p>
+      <div class="task-list">
+        <div class="task-item" id="t1" onclick="toggleTask('t1')">
+          <input type="checkbox" /><span>完成本週會議記錄</span>
+        </div>
+        <div class="task-item" id="t2" onclick="toggleTask('t2')">
+          <input type="checkbox" /><span>更新專案 README 文件</span>
+        </div>
+        <div class="task-item checked" id="t3" onclick="toggleTask('t3')">
+          <input type="checkbox" checked /><span>建立團隊知識庫資料夾結構</span>
+        </div>
+        <div class="task-item checked" id="t4" onclick="toggleTask('t4')">
+          <input type="checkbox" checked /><span>完成 Markdown 語法學習</span>
+        </div>
+      </div>
+    </section>
 
-<!-- ── 13. 跳脫字元 ── -->
-<section>
-  <h2>跳脫字元</h2>
-  <p>若想顯示 Markdown 語法符號本身而不被解讀為格式, 在符號前加上反斜線 <code>\</code>.</p>
-  <pre class="code-block"><span class="kw">\*</span><span class="str">這段文字不會變成斜體</span><span class="kw">\*</span>
+    <!-- ── 13. 跳脫字元 ── -->
+    <section>
+      <h2>跳脫字元</h2>
+      <p>若想顯示 Markdown 語法符號本身而不被解讀為格式, 在符號前加上反斜線 <code>\</code>.</p>
+      <pre class="code-block"><span class="kw">\*</span><span class="str">這段文字不會變成斜體</span><span class="kw">\*</span>
 <span class="kw">\#</span> <span class="str">這不會被渲染成標題</span>
 <span class="kw">\[</span><span class="str">這不是連結</span><span class="kw">\]</span></pre>
-  <div class="info-box">
-    <span class="tag">可跳脫的符號</span>
-    <p>常見可跳脫的符號: <code>\</code> <code>`</code> <code>*</code> <code>_</code> <code>{}</code> <code>[]</code> <code>()</code> <code>#</code> <code>+</code> <code>-</code> <code>.</code> <code>!</code>. 在這些符號前加上 <code>\</code> 即可讓它們以原始字元顯示.</p>
-  </div>
-</section>
+      <div class="info-box">
+        <span class="tag">可跳脫的符號</span>
+        <p>常見可跳脫的符號: <code>\</code> <code>`</code> <code>*</code> <code>_</code> <code>{}</code> <code>[]</code>
+          <code>()</code> <code>#</code> <code>+</code> <code>-</code> <code>.</code> <code>!</code>. 在這些符號前加上
+          <code>\</code> 即可讓它們以原始字元顯示.</p>
+      </div>
+    </section>
 
-<!-- ── 14. 上班族常見應用情境 ── -->
-<section>
-  <h2>上班族常見應用情境</h2>
-  <p>以下三種是上班族最常用到 Markdown 的場景, 搭配完整範例說明.</p>
-  <div class="stage-tabs">
-    <div class="sc-tab stage-tab active" onclick="scGoTo(0)">會議記錄</div>
-    <div class="sc-tab stage-tab" onclick="scGoTo(1)">專案 README</div>
-    <div class="sc-tab stage-tab" onclick="scGoTo(2)">知識庫筆記</div>
-  </div>
+    <!-- ── 14. 職場工作者常見應用情境 ── -->
+    <section>
+      <h2>職場工作者常見應用情境</h2>
+      <p>以下三種是職場工作者最常用到 Markdown 的場景, 搭配完整範例說明.</p>
+      <div class="stage-tabs">
+        <div class="sc-tab stage-tab active" onclick="scGoTo(0)">會議記錄</div>
+        <div class="sc-tab stage-tab" onclick="scGoTo(1)">專案 README</div>
+        <div class="sc-tab stage-tab" onclick="scGoTo(2)">知識庫筆記</div>
+      </div>
 
-  <div class="sc-panel demo-panel visible" id="sc-p0">
-    <p style="margin-bottom:8px;">用標題區分出席人員、討論事項, 用待辦清單追蹤行動項目, 讓會議記錄結構清晰、責任明確.</p>
-    <pre class="code-block"><span class="kw">#</span> <span class="str">2026-06-21 專案進度會議</span>
+      <div class="sc-panel demo-panel visible" id="sc-p0">
+        <p style="margin-bottom:8px;">用標題區分出席人員、討論事項, 用待辦清單追蹤行動項目, 讓會議記錄結構清晰、責任明確.</p>
+        <pre class="code-block"><span class="kw">#</span> <span class="str">2026-06-21 專案進度會議</span>
 
 <span class="kw">##</span> <span class="str">出席人員</span>
 <span class="kw">-</span> <span class="str">王小明 (主持人)</span>
@@ -641,11 +1408,11 @@
 <span class="kw">##</span> <span class="str">行動項目</span>
 <span class="kw">- [ ]</span> <span class="str">王小明: 完成需求文件</span>
 <span class="kw">- [ ]</span> <span class="str">林小美: 確認供應商報價</span></pre>
-  </div>
+      </div>
 
-  <div class="sc-panel demo-panel" id="sc-p1">
-    <p style="margin-bottom:8px;">專案說明文件 (README) 是別人對你專案的第一印象. 用 Markdown 可以快速建立標準化的文件結構.</p>
-    <pre class="code-block"><span class="kw">#</span> <span class="str">專案名稱</span>
+      <div class="sc-panel demo-panel" id="sc-p1">
+        <p style="margin-bottom:8px;">專案說明文件 (README) 是別人對你專案的第一印象. 用 Markdown 可以快速建立標準化的文件結構.</p>
+        <pre class="code-block"><span class="kw">#</span> <span class="str">專案名稱</span>
 
 <span class="kw">##</span> <span class="str">簡介</span>
 <span class="str">這個專案的目的是...</span>
@@ -660,283 +1427,286 @@
 <span class="kw">1.</span> <span class="str">Fork 此專案</span>
 <span class="kw">2.</span> <span class="str">建立功能分支</span>
 <span class="kw">3.</span> <span class="str">送出 Pull Request</span></pre>
-  </div>
+      </div>
 
-  <div class="sc-panel demo-panel" id="sc-p2">
-    <p style="margin-bottom:8px;">利用標題分層、清單與表格, 可以快速整理 SOP、操作手冊或常見問題集, 方便團隊成員查閱與維護.</p>
-    <div class="info-box">
-      <span class="tag">知識庫建議結構</span>
-      <p>H1: 知識庫主題名稱 → H2: 各大類別 → H3: 子主題 / 個別 SOP → 表格: 快速比較參考 → 待辦清單: 尚未補充的內容</p>
-    </div>
-    <div class="takeaway" style="margin-top:14px;">
-      <p>長期將日常工作轉換為 Markdown 格式記錄, 搭配 HackMD 或 Notion 等工具, 可以累積出可搜尋、可維護的團隊知識資產.</p>
-    </div>
-  </div>
+      <div class="sc-panel demo-panel" id="sc-p2">
+        <p style="margin-bottom:8px;">利用標題分層、清單與表格, 可以快速整理 SOP、操作手冊或常見問題集, 方便團隊成員查閱與維護.</p>
+        <div class="info-box">
+          <span class="tag">知識庫建議結構</span>
+          <p>H1: 知識庫主題名稱 → H2: 各大類別 → H3: 子主題 / 個別 SOP → 表格: 快速比較參考 → 待辦清單: 尚未補充的內容</p>
+        </div>
+        <div class="takeaway" style="margin-top:14px;">
+          <p>長期將日常工作轉換為 Markdown 格式記錄, 搭配 HackMD 或 Notion 等工具, 可以累積出可搜尋、可維護的團隊知識資產.</p>
+        </div>
+      </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="scPrev" disabled onclick="scGoTo(scStep-1)">← 上一個</button>
-    <button class="btn btn-primary" id="scNext" onclick="scGoTo(scStep+1)">下一個 →</button>
-    <span class="step-indicator" id="scIndicator">1 / 3</span>
-  </div>
-</section>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="scPrev" disabled onclick="scGoTo(scStep-1)">← 上一個</button>
+        <button class="btn btn-primary" id="scNext" onclick="scGoTo(scStep+1)">下一個 →</button>
+        <span class="step-indicator" id="scIndicator">1 / 3</span>
+      </div>
+    </section>
 
-<!-- ── 15. 推薦工具 ── -->
-<section>
-  <h2>推薦工具</h2>
-  <p>以下工具各有不同的定位, 可依使用場景選擇最適合的一款.</p>
-  <div class="event-list">
-    <div class="event-item">
-      <span class="event-name">VS Code</span>
-      <span class="event-desc">搭配 Markdown Preview Enhanced 等擴充套件, 適合技術文件撰寫與版本控管</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">Typora</span>
-      <span class="event-desc">即時預覽, 介面簡潔, 所見即所得, 適合一般文件撰寫</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">HackMD</span>
-      <span class="event-desc">支援多人即時協作編輯, 適合會議共筆與團隊筆記</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">Notion</span>
-      <span class="event-desc">結合資料庫與頁面結構, 支援 Markdown 快捷鍵, 適合團隊知識庫</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">Obsidian</span>
-      <span class="event-desc">支援雙向連結與本機儲存, 適合個人長期知識管理</span>
-    </div>
-  </div>
-</section>
+    <!-- ── 15. 推薦工具 ── -->
+    <section>
+      <h2>推薦工具</h2>
+      <p>以下工具各有不同的定位, 可依使用場景選擇最適合的一款.</p>
+      <div class="event-list">
+        <div class="event-item">
+          <span class="event-name">VS Code</span>
+          <span class="event-desc">搭配 Markdown Preview Enhanced 等擴充套件, 適合技術文件撰寫與版本控管</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">Typora</span>
+          <span class="event-desc">即時預覽, 介面簡潔, 所見即所得, 適合一般文件撰寫</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">HackMD</span>
+          <span class="event-desc">支援多人即時協作編輯, 適合會議共筆與團隊筆記</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">Notion</span>
+          <span class="event-desc">結合資料庫與頁面結構, 支援 Markdown 快捷鍵, 適合團隊知識庫</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">Obsidian</span>
+          <span class="event-desc">支援雙向連結與本機儲存, 適合個人長期知識管理</span>
+        </div>
+      </div>
+    </section>
 
-<!-- ── 16. 常見錯誤提醒 ── -->
-<section>
-  <h2>常見錯誤提醒</h2>
-  <p>以下是初學者最常遇到的問題, 在寫文件前先牢記這幾個陷阱, 可以省下不少除錯時間.</p>
-  <div class="event-list">
-    <div class="event-item">
-      <span class="event-name">錯誤 1</span>
-      <span class="event-desc">標題符號 <code>#</code> 後面忘記加空白, 例如 <code>#標題</code> 而非 <code># 標題</code>, 導致無法正確渲染</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">錯誤 2</span>
-      <span class="event-desc">清單項目與上一行之間沒有空白行, 造成清單無法正確顯示, 與上方段落連在一起</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">錯誤 3</span>
-      <span class="event-desc">表格分隔列 <code>---</code> 數量與欄位數量不一致, 導致整個表格排版錯誤</span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">錯誤 4</span>
-      <span class="event-desc">中英文字混排時忘記加空白, 在部分平台會影響排版美觀, 例如 <code>使用Markdown寫作</code> 應改為 <code>使用 Markdown 寫作</code></span>
-    </div>
-    <div class="event-item">
-      <span class="event-name">錯誤 5</span>
-      <span class="event-desc">圖片或連結使用本機絕對路徑 (如 <code>C:\Users\...</code>), 換到其他環境或上傳至網路後路徑會失效</span>
-    </div>
-  </div>
-</section>
+    <!-- ── 16. 常見錯誤提醒 ── -->
+    <section>
+      <h2>常見錯誤提醒</h2>
+      <p>以下是初學者最常遇到的問題, 在寫文件前先牢記這幾個陷阱, 可以省下不少除錯時間.</p>
+      <div class="event-list">
+        <div class="event-item">
+          <span class="event-name">錯誤 1</span>
+          <span class="event-desc">標題符號 <code>#</code> 後面忘記加空白, 例如 <code>#標題</code> 而非 <code># 標題</code>,
+            導致無法正確渲染</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">錯誤 2</span>
+          <span class="event-desc">清單項目與上一行之間沒有空白行, 造成清單無法正確顯示, 與上方段落連在一起</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">錯誤 3</span>
+          <span class="event-desc">表格分隔列 <code>---</code> 數量與欄位數量不一致, 導致整個表格排版錯誤</span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">錯誤 4</span>
+          <span class="event-desc">中英文字混排時忘記加空白, 在部分平台會影響排版美觀, 例如 <code>使用Markdown寫作</code> 應改為
+            <code>使用 Markdown 寫作</code></span>
+        </div>
+        <div class="event-item">
+          <span class="event-name">錯誤 5</span>
+          <span class="event-desc">圖片或連結使用本機絕對路徑 (如 <code>C:\Users\...</code>), 換到其他環境或上傳至網路後路徑會失效</span>
+        </div>
+      </div>
+    </section>
 
-<!-- ── 17. 快速複習表 ── -->
-<section>
-  <h2>快速複習表</h2>
-  <p>依類別篩選, 快速查閱語法.</p>
-  <div class="chip-row">
-    <span class="chip-label">篩選:</span>
-    <span class="chip qr-chip active" data-cat="all" onclick="qrFilter('all')">全部</span>
-    <span class="chip qr-chip" data-cat="emph" onclick="qrFilter('emph')">標題與強調</span>
-    <span class="chip qr-chip" data-cat="list" onclick="qrFilter('list')">清單與區塊</span>
-    <span class="chip qr-chip" data-cat="code" onclick="qrFilter('code')">程式碼</span>
-    <span class="chip qr-chip" data-cat="link" onclick="qrFilter('link')">連結與媒體</span>
-    <span class="chip qr-chip" data-cat="misc" onclick="qrFilter('misc')">其他</span>
-  </div>
-  <div class="qr-grid">
-    <div class="qr-card" data-cat="emph">
-      <div class="qr-syn">#</div>
-      <div class="qr-eg">範例: # 標題</div>
-      <div class="qr-use">建立標題 (H1–H6)</div>
-    </div>
-    <div class="qr-card" data-cat="emph">
-      <div class="qr-syn">**文字**</div>
-      <div class="qr-eg">範例: **粗體語法**</div>
-      <div class="qr-use">文字以粗體顯示</div>
-    </div>
-    <div class="qr-card" data-cat="emph">
-      <div class="qr-syn">*文字*</div>
-      <div class="qr-eg">範例: *斜體語法*</div>
-      <div class="qr-use">文字以斜體顯示</div>
-    </div>
-    <div class="qr-card" data-cat="emph">
-      <div class="qr-syn">~~文字~~</div>
-      <div class="qr-eg">範例: ~~刪除線~~</div>
-      <div class="qr-use">文字加上刪除線</div>
-    </div>
-    <div class="qr-card" data-cat="list">
-      <div class="qr-syn">-</div>
-      <div class="qr-eg">範例: - 項目清單</div>
-      <div class="qr-use">建立無序清單</div>
-    </div>
-    <div class="qr-card" data-cat="list">
-      <div class="qr-syn">1.</div>
-      <div class="qr-eg">範例: 1. 編號清單</div>
-      <div class="qr-use">建立有序清單</div>
-    </div>
-    <div class="qr-card" data-cat="list">
-      <div class="qr-syn">&gt;</div>
-      <div class="qr-eg">範例: &gt; 引言</div>
-      <div class="qr-use">建立引言區塊</div>
-    </div>
-    <div class="qr-card" data-cat="list">
-      <div class="qr-syn">- [ ]</div>
-      <div class="qr-eg">範例: - [ ] 待辦</div>
-      <div class="qr-use">標示任務狀態</div>
-    </div>
-    <div class="qr-card" data-cat="code">
-      <div class="qr-syn">`程式碼`</div>
-      <div class="qr-eg">範例: `npm install`</div>
-      <div class="qr-use">標示行內程式碼片段</div>
-    </div>
-    <div class="qr-card" data-cat="code">
-      <div class="qr-syn">```語言</div>
-      <div class="qr-eg">範例: ```python</div>
-      <div class="qr-use">標示多行程式碼區塊</div>
-    </div>
-    <div class="qr-card" data-cat="link">
-      <div class="qr-syn">[文字](網址)</div>
-      <div class="qr-eg">範例: [首頁](https://...)</div>
-      <div class="qr-use">建立超連結</div>
-    </div>
-    <div class="qr-card" data-cat="link">
-      <div class="qr-syn">![alt](網址)</div>
-      <div class="qr-eg">範例: ![logo](./img.png)</div>
-      <div class="qr-use">嵌入圖片</div>
-    </div>
-    <div class="qr-card" data-cat="misc">
-      <div class="qr-syn">---</div>
-      <div class="qr-eg">範例: ---</div>
-      <div class="qr-use">建立水平分隔線</div>
-    </div>
-  </div>
-</section>
+    <!-- ── 17. 快速複習表 ── -->
+    <section>
+      <h2>快速複習表</h2>
+      <p>依類別篩選, 快速查閱語法.</p>
+      <div class="chip-row">
+        <span class="chip-label">篩選:</span>
+        <span class="chip qr-chip active" data-cat="all" onclick="qrFilter('all')">全部</span>
+        <span class="chip qr-chip" data-cat="emph" onclick="qrFilter('emph')">標題與強調</span>
+        <span class="chip qr-chip" data-cat="list" onclick="qrFilter('list')">清單與區塊</span>
+        <span class="chip qr-chip" data-cat="code" onclick="qrFilter('code')">程式碼</span>
+        <span class="chip qr-chip" data-cat="link" onclick="qrFilter('link')">連結與媒體</span>
+        <span class="chip qr-chip" data-cat="misc" onclick="qrFilter('misc')">其他</span>
+      </div>
+      <div class="qr-grid">
+        <div class="qr-card" data-cat="emph">
+          <div class="qr-syn">#</div>
+          <div class="qr-eg">範例: # 標題</div>
+          <div class="qr-use">建立標題 (H1–H6)</div>
+        </div>
+        <div class="qr-card" data-cat="emph">
+          <div class="qr-syn">**文字**</div>
+          <div class="qr-eg">範例: **粗體語法**</div>
+          <div class="qr-use">文字以粗體顯示</div>
+        </div>
+        <div class="qr-card" data-cat="emph">
+          <div class="qr-syn">*文字*</div>
+          <div class="qr-eg">範例: *斜體語法*</div>
+          <div class="qr-use">文字以斜體顯示</div>
+        </div>
+        <div class="qr-card" data-cat="emph">
+          <div class="qr-syn">~~文字~~</div>
+          <div class="qr-eg">範例: ~~刪除線~~</div>
+          <div class="qr-use">文字加上刪除線</div>
+        </div>
+        <div class="qr-card" data-cat="list">
+          <div class="qr-syn">-</div>
+          <div class="qr-eg">範例: - 項目清單</div>
+          <div class="qr-use">建立無序清單</div>
+        </div>
+        <div class="qr-card" data-cat="list">
+          <div class="qr-syn">1.</div>
+          <div class="qr-eg">範例: 1. 編號清單</div>
+          <div class="qr-use">建立有序清單</div>
+        </div>
+        <div class="qr-card" data-cat="list">
+          <div class="qr-syn">&gt;</div>
+          <div class="qr-eg">範例: &gt; 引言</div>
+          <div class="qr-use">建立引言區塊</div>
+        </div>
+        <div class="qr-card" data-cat="list">
+          <div class="qr-syn">- [ ]</div>
+          <div class="qr-eg">範例: - [ ] 待辦</div>
+          <div class="qr-use">標示任務狀態</div>
+        </div>
+        <div class="qr-card" data-cat="code">
+          <div class="qr-syn">`程式碼`</div>
+          <div class="qr-eg">範例: `npm install`</div>
+          <div class="qr-use">標示行內程式碼片段</div>
+        </div>
+        <div class="qr-card" data-cat="code">
+          <div class="qr-syn">```語言</div>
+          <div class="qr-eg">範例: ```python</div>
+          <div class="qr-use">標示多行程式碼區塊</div>
+        </div>
+        <div class="qr-card" data-cat="link">
+          <div class="qr-syn">[文字](網址)</div>
+          <div class="qr-eg">範例: [首頁](https://...)</div>
+          <div class="qr-use">建立超連結</div>
+        </div>
+        <div class="qr-card" data-cat="link">
+          <div class="qr-syn">![alt](網址)</div>
+          <div class="qr-eg">範例: ![logo](./img.png)</div>
+          <div class="qr-use">嵌入圖片</div>
+        </div>
+        <div class="qr-card" data-cat="misc">
+          <div class="qr-syn">---</div>
+          <div class="qr-eg">範例: ---</div>
+          <div class="qr-use">建立水平分隔線</div>
+        </div>
+      </div>
+    </section>
 
-<!-- ── 18. 結語 ── -->
-<section>
-  <h2>結語</h2>
-  <p>Markdown 的語法不多, 但只要熟練常用的標題、清單、連結、程式碼與表格語法, 就足以應付絕大多數的辦公文件需求.</p>
-  <div class="takeaway">
-    <p>建議在日常工作中多加練習, 逐步將會議記錄、專案文件與知識庫筆記都轉換成 Markdown 格式. 長期下來, 文件管理的效率會大幅提升, 而且格式一致的文件也更容易在團隊間流通與維護.</p>
-  </div>
-</section>
+    <!-- ── 18. 結語 ── -->
+    <section>
+      <h2>結語</h2>
+      <p>Markdown 的語法不多, 但只要熟練常用的標題、清單、連結、程式碼與表格語法, 就足以應付絕大多數的辦公文件需求.</p>
+      <div class="takeaway">
+        <p>建議在日常工作中多加練習, 逐步將會議記錄、專案文件與知識庫筆記都轉換成 Markdown 格式. 長期下來, 文件管理的效率會大幅提升, 而且格式一致的文件也更容易在團隊間流通與維護.</p>
+      </div>
+    </section>
 
-</main>
+  </main>
 
-<script>
-  function toggleTheme() {
-    const isDark = document.body.classList.toggle('dark');
-    document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
-  }
+  <script>
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
+    }
 
-  /* ── Heading navigator (6 steps) ── */
-  let hdStep = 0;
-  function hdGoTo(n) {
-    hdStep = Math.max(0, Math.min(5, n));
-    document.querySelectorAll('.hd-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === hdStep));
-    document.querySelectorAll('.hd-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === hdStep) t.classList.add('active');
-      else if (i < hdStep) t.classList.add('done');
-    });
-    document.getElementById('hdPrev').disabled = hdStep === 0;
-    const hdNext = document.getElementById('hdNext');
-    hdNext.disabled = hdStep === 5;
-    hdNext.textContent = hdStep === 5 ? 'Done ✓' : '下一層 →';
-    document.getElementById('hdIndicator').textContent =
-      'H' + (hdStep + 1) + ' / 共 6 層';
-  }
-  hdGoTo(0);
+    /* ── Heading navigator (6 steps) ── */
+    let hdStep = 0;
+    function hdGoTo(n) {
+      hdStep = Math.max(0, Math.min(5, n));
+      document.querySelectorAll('.hd-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === hdStep));
+      document.querySelectorAll('.hd-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === hdStep) t.classList.add('active');
+        else if (i < hdStep) t.classList.add('done');
+      });
+      document.getElementById('hdPrev').disabled = hdStep === 0;
+      const hdNext = document.getElementById('hdNext');
+      hdNext.disabled = hdStep === 5;
+      hdNext.textContent = hdStep === 5 ? 'Done ✓' : '下一層 →';
+      document.getElementById('hdIndicator').textContent =
+        'H' + (hdStep + 1) + ' / 共 6 層';
+    }
+    hdGoTo(0);
 
-  /* ── List navigator (2 steps) ── */
-  let lsStep = 0;
-  function lsGoTo(n) {
-    lsStep = Math.max(0, Math.min(1, n));
-    document.querySelectorAll('.ls-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === lsStep));
-    document.querySelectorAll('.ls-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === lsStep) t.classList.add('active');
-      else if (i < lsStep) t.classList.add('done');
-    });
-    document.getElementById('lsPrev').disabled = lsStep === 0;
-    const lsNext = document.getElementById('lsNext');
-    lsNext.disabled = lsStep === 1;
-    lsNext.textContent = lsStep === 1 ? 'Done ✓' : '下一個 →';
-    document.getElementById('lsIndicator').textContent = (lsStep + 1) + ' / 2';
-  }
-  lsGoTo(0);
+    /* ── List navigator (2 steps) ── */
+    let lsStep = 0;
+    function lsGoTo(n) {
+      lsStep = Math.max(0, Math.min(1, n));
+      document.querySelectorAll('.ls-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === lsStep));
+      document.querySelectorAll('.ls-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === lsStep) t.classList.add('active');
+        else if (i < lsStep) t.classList.add('done');
+      });
+      document.getElementById('lsPrev').disabled = lsStep === 0;
+      const lsNext = document.getElementById('lsNext');
+      lsNext.disabled = lsStep === 1;
+      lsNext.textContent = lsStep === 1 ? 'Done ✓' : '下一個 →';
+      document.getElementById('lsIndicator').textContent = (lsStep + 1) + ' / 2';
+    }
+    lsGoTo(0);
 
-  /* ── Code navigator (2 steps) ── */
-  let cdStep = 0;
-  function cdGoTo(n) {
-    cdStep = Math.max(0, Math.min(1, n));
-    document.querySelectorAll('.cd-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === cdStep));
-    document.querySelectorAll('.cd-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === cdStep) t.classList.add('active');
-      else if (i < cdStep) t.classList.add('done');
-    });
-    document.getElementById('cdPrev').disabled = cdStep === 0;
-    const cdNext = document.getElementById('cdNext');
-    cdNext.disabled = cdStep === 1;
-    cdNext.textContent = cdStep === 1 ? 'Done ✓' : '區塊 →';
-    document.getElementById('cdIndicator').textContent = (cdStep + 1) + ' / 2';
-  }
-  cdGoTo(0);
+    /* ── Code navigator (2 steps) ── */
+    let cdStep = 0;
+    function cdGoTo(n) {
+      cdStep = Math.max(0, Math.min(1, n));
+      document.querySelectorAll('.cd-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === cdStep));
+      document.querySelectorAll('.cd-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === cdStep) t.classList.add('active');
+        else if (i < cdStep) t.classList.add('done');
+      });
+      document.getElementById('cdPrev').disabled = cdStep === 0;
+      const cdNext = document.getElementById('cdNext');
+      cdNext.disabled = cdStep === 1;
+      cdNext.textContent = cdStep === 1 ? 'Done ✓' : '區塊 →';
+      document.getElementById('cdIndicator').textContent = (cdStep + 1) + ' / 2';
+    }
+    cdGoTo(0);
 
-  /* ── Scenario navigator (3 steps) ── */
-  let scStep = 0;
-  function scGoTo(n) {
-    scStep = Math.max(0, Math.min(2, n));
-    document.querySelectorAll('.sc-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === scStep));
-    document.querySelectorAll('.sc-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === scStep) t.classList.add('active');
-      else if (i < scStep) t.classList.add('done');
-    });
-    document.getElementById('scPrev').disabled = scStep === 0;
-    const scNext = document.getElementById('scNext');
-    scNext.disabled = scStep === 2;
-    scNext.textContent = scStep === 2 ? 'Done ✓' : '下一個 →';
-    document.getElementById('scIndicator').textContent = (scStep + 1) + ' / 3';
-  }
-  scGoTo(0);
+    /* ── Scenario navigator (3 steps) ── */
+    let scStep = 0;
+    function scGoTo(n) {
+      scStep = Math.max(0, Math.min(2, n));
+      document.querySelectorAll('.sc-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === scStep));
+      document.querySelectorAll('.sc-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === scStep) t.classList.add('active');
+        else if (i < scStep) t.classList.add('done');
+      });
+      document.getElementById('scPrev').disabled = scStep === 0;
+      const scNext = document.getElementById('scNext');
+      scNext.disabled = scStep === 2;
+      scNext.textContent = scStep === 2 ? 'Done ✓' : '下一個 →';
+      document.getElementById('scIndicator').textContent = (scStep + 1) + ' / 3';
+    }
+    scGoTo(0);
 
-  /* ── Platform chip selector (section 2) ── */
-  function mkdSelect(idx) {
-    document.querySelectorAll('.mkd-chip').forEach((c, i) =>
-      c.classList.toggle('active', i === idx));
-    document.querySelectorAll('#mkd-p0, #mkd-p1, #mkd-p2, #mkd-p3').forEach((p, i) =>
-      p.classList.toggle('visible', i === idx));
-  }
-  mkdSelect(0);
+    /* ── Platform chip selector (section 2) ── */
+    function mkdSelect(idx) {
+      document.querySelectorAll('.mkd-chip').forEach((c, i) =>
+        c.classList.toggle('active', i === idx));
+      document.querySelectorAll('#mkd-p0, #mkd-p1, #mkd-p2, #mkd-p3').forEach((p, i) =>
+        p.classList.toggle('visible', i === idx));
+    }
+    mkdSelect(0);
 
-  /* ── Quick reference filter ── */
-  function qrFilter(cat) {
-    document.querySelectorAll('.qr-chip').forEach(c =>
-      c.classList.toggle('active', c.dataset.cat === cat));
-    document.querySelectorAll('.qr-card').forEach(c => {
-      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
-    });
-  }
-  qrFilter('all');
+    /* ── Quick reference filter ── */
+    function qrFilter(cat) {
+      document.querySelectorAll('.qr-chip').forEach(c =>
+        c.classList.toggle('active', c.dataset.cat === cat));
+      document.querySelectorAll('.qr-card').forEach(c => {
+        c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+      });
+    }
+    qrFilter('all');
 
-  /* ── Task list toggle ── */
-  function toggleTask(id) {
-    const item = document.getElementById(id);
-    const isChecked = item.classList.toggle('checked');
-    item.querySelector('input[type="checkbox"]').checked = isChecked;
-  }
-</script>
+    /* ── Task list toggle ── */
+    function toggleTask(id) {
+      const item = document.getElementById(id);
+      const isChecked = item.classList.toggle('checked');
+      item.querySelector('input[type="checkbox"]').checked = isChecked;
+    }
+  </script>
 </body>
+
 </html>

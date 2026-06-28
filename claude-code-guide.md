@@ -1,6 +1,6 @@
 # Claude Code
 
-## AI 指令列工具, 給上班族的 Claude Code 入門指南
+## AI 指令列工具, 給職場工作者的 Claude Code 入門指南
 
 ## 前言
 

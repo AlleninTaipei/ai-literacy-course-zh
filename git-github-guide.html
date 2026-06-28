@@ -1,631 +1,1224 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Git &amp; GitHub 入門指南</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-           background: #f0f4f8; color: #1a202c; line-height: 1.7; }
-
-    header { background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
-             border-bottom: 1px solid #bfdbfe; padding: 48px 24px 40px; text-align: center; }
-    header h1 { font-size: 2.2rem; font-weight: 700; color: #1e3a5f; }
-    header p  { margin-top: 10px; color: #4a5568; font-size: 1.05rem;
-                max-width: 600px; margin-inline: auto; }
-
-    main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
-    section { margin-bottom: 52px; }
-    h2 { font-size: 1.4rem; font-weight: 600; color: #1e40af;
-         border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 20px; }
-    h3 { font-size: 1.05rem; font-weight: 600; color: #1a202c; margin: 20px 0 8px; }
-    p  { color: #4a5568; margin-bottom: 12px; }
-    code { font-family: monospace; font-size: 0.85em; background: #e2e8f0;
-           padding: 1px 5px; border-radius: 3px; color: #1a202c; }
-
-    .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
-      padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
-      overflow-x: auto; margin-top: 14px; line-height: 1.7; white-space: pre; }
-    .kw  { color: #7c3aed; }
-    .fn  { color: #16a34a; }
-    .str { color: #d97706; }
-    .cmt { color: #94a3b8; font-style: italic; }
-    .key { color: #2563eb; }
-
-    .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 10px;
-      padding: 16px 20px; margin-top: 14px; }
-    .info-box .tag { display: inline-block; background: #3b82f6; color: #fff;
-      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-      margin-bottom: 10px; letter-spacing: 0.05em; }
-    .info-box p { color: #1e3a5f; font-size: 0.88rem; margin: 0; }
-    .info-box p + p { margin-top: 6px; }
-
-    .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
-      border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
-    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0; }
-
-    .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-    .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
-    .field .name { font-family: monospace; font-size: 0.85rem; color: #16a34a; font-weight: 600; }
-    .field .desc { font-size: 0.82rem; color: #4a5568; margin-top: 4px; }
-
-    .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .event-item { background: #fff; border: 1px solid #cbd5e0; border-radius: 6px;
-      padding: 9px 14px; display: flex; gap: 14px; align-items: baseline; }
-    .event-name { font-family: monospace; font-size: 0.82rem; color: #16a34a;
-      min-width: 160px; flex-shrink: 0; }
-    .event-desc { font-size: 0.82rem; color: #4a5568; }
-
-    .response-box { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
-      padding: 20px; margin-top: 16px; }
-    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
-    .response-field:last-child { border-bottom: none; }
-    .rf-key { font-family: monospace; font-size: 0.82rem; color: #d97706; width: 160px; flex-shrink: 0; }
-    .rf-val { font-size: 0.85rem; color: #374151; }
-
-    .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; border: none; transition: all 0.2s; }
-    .btn-primary { background: #2563eb; color: #fff; }
-    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
-    .btn-primary:disabled { background: #cbd5e0; color: #9ca3af; cursor: default; }
-    .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
-    .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
-    .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
-    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
-
-    .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-    .stage-tab.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
-    .stage-tab.done   { background: #166534; border-color: #4ade80; color: #dcfce7; }
-
-    .demo-panel { display: none; }
-    .demo-panel.visible { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
-
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
-    .col-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 16px 18px; }
-    .col-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
-    .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
-    .col-card p:last-child { margin-bottom: 0; }
-
-    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
-    .chip-label { font-size: 0.75rem; color: #6b7280; }
-    .chip { padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-    .chip.active { background: #dcfce7; border-color: #4ade80; color: #166534; }
-
-    .step-content { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 20px 24px; }
-    .step-content h3 { color: #1e40af; margin-top: 0; margin-bottom: 10px; font-size: 1rem; }
-    .step-content p { font-size: 0.88rem; color: #4a5568; margin-bottom: 8px; }
-    .step-content p:last-child { margin-bottom: 0; }
-
-    .warning-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .warning-item { background: #fff7f7; border: 1px solid #fca5a5;
-      border-left: 4px solid #ef4444; border-radius: 6px;
-      padding: 10px 14px; display: flex; gap: 14px; align-items: baseline; }
-    .warning-num  { font-size: 0.78rem; color: #ef4444; min-width: 26px; flex-shrink: 0; font-weight: 700; }
-    .warning-desc { font-size: 0.82rem; color: #4a5568; }
-    .wkey { font-family: monospace; color: #d97706; }
-
-    @media (max-width: 640px) {
-      .api-fields, .two-col { grid-template-columns: 1fr; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    #themeToggle { position: fixed; top: 16px; right: 16px; z-index: 9999;
-      padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #fff; color: #1a202c;
-      transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.12); letter-spacing: 0.03em; }
-    #themeToggle:hover { border-color: #2563eb; color: #2563eb; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      line-height: 1.7;
+    }
 
-    body.dark { background: #0f1117; color: #e2e8f0; }
-    body.dark header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom-color: #2d3748; }
-    body.dark header h1 { color: #f7fafc; }
-    body.dark header p  { color: #a0aec0; }
-    body.dark h2 { color: #90cdf4; border-left-color: #4299e1; }
-    body.dark h3 { color: #e2e8f0; }
-    body.dark p  { color: #a0aec0; }
-    body.dark code { background: #2d3748; color: #e2e8f0; }
-    body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
-    body.dark .kw  { color: #9f7aea; }
-    body.dark .fn  { color: #68d391; }
-    body.dark .str { color: #f6ad55; }
-    body.dark .cmt { color: #4a5568; }
-    body.dark .key { color: #63b3ed; }
-    body.dark .info-box { background: #1a202c; border-color: #2a4a6a; }
-    body.dark .info-box .tag { background: #2a4a6a; color: #90cdf4; }
-    body.dark .info-box p { color: #a0aec0; }
-    body.dark .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c); border-color: #276749; }
-    body.dark .takeaway p { color: #c6f6d5; }
-    body.dark .field { background: #1a202c; border-color: #2d3748; }
-    body.dark .field .name { color: #68d391; }
-    body.dark .field .desc { color: #718096; }
-    body.dark .event-item { background: #1a202c; border-color: #2d3748; }
-    body.dark .event-name { color: #68d391; }
-    body.dark .event-desc { color: #718096; }
-    body.dark .response-box { background: #1a202c; border-color: #2d3748; }
-    body.dark .response-field { border-bottom-color: #2d3748; }
-    body.dark .rf-key { color: #f6ad55; }
-    body.dark .rf-val { color: #a0aec0; }
-    body.dark .btn-primary { background: #2b6cb0; }
-    body.dark .btn-primary:hover:not(:disabled) { background: #3182ce; }
-    body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
-    body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
-    body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
-    body.dark .step-indicator { color: #718096; }
-    body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
-    body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
-    body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
-    body.dark .col-card { background: #1a202c; border-color: #2d3748; }
-    body.dark .col-card-title { color: #4a5568; }
-    body.dark .col-card p { color: #a0aec0; }
-    body.dark .chip { background: #1a202c; border-color: #2d3748; color: #718096; }
-    body.dark .chip.active { background: #1c3a2a; border-color: #38a169; color: #68d391; }
-    body.dark .step-content { background: #1a202c; border-color: #2d3748; }
-    body.dark .step-content h3 { color: #90cdf4; }
-    body.dark .step-content p { color: #a0aec0; }
-    body.dark .warning-item { background: #1a1010; border-color: #7f1d1d; border-left-color: #ef4444; }
-    body.dark .warning-num { color: #fc8181; }
-    body.dark .warning-desc { color: #a0aec0; }
-    body.dark .wkey { color: #f6ad55; }
-    body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-    body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
+    header {
+      background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
+      border-bottom: 1px solid #bfdbfe;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #4a5568;
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    section {
+      margin-bottom: 52px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1e40af;
+      border-left: 4px solid #3b82f6;
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 20px 0 8px;
+    }
+
+    p {
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
+
+    code {
+      font-family: monospace;
+      font-size: 0.85em;
+      background: #e2e8f0;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #1a202c;
+    }
+
+    .code-block {
+      background: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #1a202c;
+      overflow-x: auto;
+      margin-top: 14px;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .kw {
+      color: #7c3aed;
+    }
+
+    .fn {
+      color: #16a34a;
+    }
+
+    .str {
+      color: #d97706;
+    }
+
+    .cmt {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .key {
+      color: #2563eb;
+    }
+
+    .info-box {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 14px;
+    }
+
+    .info-box .tag {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .info-box p {
+      color: #1e3a5f;
+      font-size: 0.88rem;
+      margin: 0;
+    }
+
+    .info-box p+p {
+      margin-top: 6px;
+    }
+
+    .takeaway {
+      background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+      border: 1px solid #4ade80;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+
+    .takeaway p {
+      color: #166534;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .api-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .field {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .field .name {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .field .desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+      margin-top: 4px;
+    }
+
+    .event-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .event-item {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 9px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .event-name {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #16a34a;
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+
+    .event-desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+    }
+
+    .response-box {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .response-field {
+      display: flex;
+      gap: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .response-field:last-child {
+      border-bottom: none;
+    }
+
+    .rf-key {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #d97706;
+      width: 160px;
+      flex-shrink: 0;
+    }
+
+    .rf-val {
+      font-size: 0.85rem;
+      color: #374151;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e0;
+      color: #9ca3af;
+      cursor: default;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: #4a5568;
+      border: 1px solid #cbd5e0;
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      color: #1a202c;
+      border-color: #6b7280;
+    }
+
+    .btn-ghost:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .step-indicator {
+      color: #6b7280;
+      font-size: 0.82rem;
+      margin-left: auto;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stage-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stage-tab {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .stage-tab.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+
+    .stage-tab.done {
+      background: #166534;
+      border-color: #4ade80;
+      color: #dcfce7;
+    }
+
+    .demo-panel {
+      display: none;
+    }
+
+    .demo-panel.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .col-card {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .col-card-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .col-card p {
+      font-size: 0.83rem;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .col-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .chip-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .chip {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .chip.active {
+      background: #dcfce7;
+      border-color: #4ade80;
+      color: #166534;
+    }
+
+    .step-content {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+
+    .step-content h3 {
+      color: #1e40af;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .step-content p {
+      font-size: 0.88rem;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    .step-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .warning-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .warning-item {
+      background: #fff7f7;
+      border: 1px solid #fca5a5;
+      border-left: 4px solid #ef4444;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .warning-num {
+      font-size: 0.78rem;
+      color: #ef4444;
+      min-width: 26px;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    .warning-desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+    }
+
+    .wkey {
+      font-family: monospace;
+      color: #d97706;
+    }
+
+    @media (max-width: 640px) {
+
+      .api-fields,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #fff;
+      color: #1a202c;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      letter-spacing: 0.03em;
+    }
+
+    #themeToggle:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    body.dark {
+      background: #0f1117;
+      color: #e2e8f0;
+    }
+
+    body.dark header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark header h1 {
+      color: #f7fafc;
+    }
+
+    body.dark header p {
+      color: #a0aec0;
+    }
+
+    body.dark h2 {
+      color: #90cdf4;
+      border-left-color: #4299e1;
+    }
+
+    body.dark h3 {
+      color: #e2e8f0;
+    }
+
+    body.dark p {
+      color: #a0aec0;
+    }
+
+    body.dark code {
+      background: #2d3748;
+      color: #e2e8f0;
+    }
+
+    body.dark .code-block {
+      background: #0d1117;
+      border-color: #2d3748;
+      color: #e2e8f0;
+    }
+
+    body.dark .kw {
+      color: #9f7aea;
+    }
+
+    body.dark .fn {
+      color: #68d391;
+    }
+
+    body.dark .str {
+      color: #f6ad55;
+    }
+
+    body.dark .cmt {
+      color: #4a5568;
+    }
+
+    body.dark .key {
+      color: #63b3ed;
+    }
+
+    body.dark .info-box {
+      background: #1a202c;
+      border-color: #2a4a6a;
+    }
+
+    body.dark .info-box .tag {
+      background: #2a4a6a;
+      color: #90cdf4;
+    }
+
+    body.dark .info-box p {
+      color: #a0aec0;
+    }
+
+    body.dark .takeaway {
+      background: linear-gradient(135deg, #1a2a1a, #1a202c);
+      border-color: #276749;
+    }
+
+    body.dark .takeaway p {
+      color: #c6f6d5;
+    }
+
+    body.dark .field {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .field .name {
+      color: #68d391;
+    }
+
+    body.dark .field .desc {
+      color: #718096;
+    }
+
+    body.dark .event-item {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .event-name {
+      color: #68d391;
+    }
+
+    body.dark .event-desc {
+      color: #718096;
+    }
+
+    body.dark .response-box {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .response-field {
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark .rf-key {
+      color: #f6ad55;
+    }
+
+    body.dark .rf-val {
+      color: #a0aec0;
+    }
+
+    body.dark .btn-primary {
+      background: #2b6cb0;
+    }
+
+    body.dark .btn-primary:hover:not(:disabled) {
+      background: #3182ce;
+    }
+
+    body.dark .btn-primary:disabled {
+      background: #2d3748;
+      color: #4a5568;
+    }
+
+    body.dark .btn-ghost {
+      background: transparent;
+      color: #718096;
+      border-color: #2d3748;
+    }
+
+    body.dark .btn-ghost:hover:not(:disabled) {
+      color: #e2e8f0;
+      border-color: #4a5568;
+    }
+
+    body.dark .step-indicator {
+      color: #718096;
+    }
+
+    body.dark .stage-tab {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .stage-tab.active {
+      background: #2b6cb0;
+      border-color: #4299e1;
+      color: #fff;
+    }
+
+    body.dark .stage-tab.done {
+      background: #276749;
+      border-color: #48bb78;
+      color: #c6f6d5;
+    }
+
+    body.dark .col-card {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .col-card-title {
+      color: #4a5568;
+    }
+
+    body.dark .col-card p {
+      color: #a0aec0;
+    }
+
+    body.dark .chip {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .chip.active {
+      background: #1c3a2a;
+      border-color: #38a169;
+      color: #68d391;
+    }
+
+    body.dark .step-content {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .step-content h3 {
+      color: #90cdf4;
+    }
+
+    body.dark .step-content p {
+      color: #a0aec0;
+    }
+
+    body.dark .warning-item {
+      background: #1a1010;
+      border-color: #7f1d1d;
+      border-left-color: #ef4444;
+    }
+
+    body.dark .warning-num {
+      color: #fc8181;
+    }
+
+    body.dark .warning-desc {
+      color: #a0aec0;
+    }
+
+    body.dark .wkey {
+      color: #f6ad55;
+    }
+
+    body.dark #themeToggle {
+      background: #1a202c;
+      color: #e2e8f0;
+      border-color: #4a5568;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark #themeToggle:hover {
+      border-color: #90cdf4;
+      color: #90cdf4;
+    }
   </style>
 </head>
+
 <body>
 
-<button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
+  <button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
 
-<header>
-  <h1>Git &amp; GitHub 入門指南</h1>
-  <p>版本控制與雲端協作, 給上班族的快速入門</p>
-</header>
+  <header>
+    <h1>Git &amp; GitHub 入門指南</h1>
+    <p>版本控制與雲端協作, 給職場工作者的快速入門</p>
+  </header>
 
-<main>
+  <main>
 
-<!-- 前言 -->
-<section>
-  <h2>前言</h2>
-  <p>無論是程式碼、設計檔案, 還是各類文件, 只要是多人協作或需要保留修改歷史的工作, 都會遇到版本管理的問題. Git 是目前最廣泛使用的版本控制工具, GitHub 則是建立在 Git 之上的雲端平台, 兩者搭配可以讓團隊清楚追蹤每一次修改, 方便回溯、比對與協作.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">沒有版本控制時的問題</div>
-      <p>不知道是誰在什麼時候改了什麼</p>
-      <p>舊版本被覆蓋後難以找回</p>
-      <p>多人同時修改時容易互相覆蓋</p>
-      <p>靠「報告v3_最終版_真的最終版」命名</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">Git + GitHub 的解決方式</div>
-      <p>每次修改都留下時間、作者與說明</p>
-      <p>任何時間點的版本都可以還原</p>
-      <p>透過分支讓多人同時開發不衝突</p>
-      <p>Pull Request 提供合併前的審查機制</p>
-    </div>
-  </div>
-</section>
+    <!-- 前言 -->
+    <section>
+      <h2>前言</h2>
+      <p>無論是程式碼、設計檔案, 還是各類文件, 只要是多人協作或需要保留修改歷史的工作, 都會遇到版本管理的問題. Git 是目前最廣泛使用的版本控制工具, GitHub 則是建立在 Git 之上的雲端平台,
+        兩者搭配可以讓團隊清楚追蹤每一次修改, 方便回溯、比對與協作.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">沒有版本控制時的問題</div>
+          <p>不知道是誰在什麼時候改了什麼</p>
+          <p>舊版本被覆蓋後難以找回</p>
+          <p>多人同時修改時容易互相覆蓋</p>
+          <p>靠「報告v3_最終版_真的最終版」命名</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">Git + GitHub 的解決方式</div>
+          <p>每次修改都留下時間、作者與說明</p>
+          <p>任何時間點的版本都可以還原</p>
+          <p>透過分支讓多人同時開發不衝突</p>
+          <p>Pull Request 提供合併前的審查機制</p>
+        </div>
+      </div>
+    </section>
 
-<!-- 什麼是 Git -->
-<section>
-  <h2>什麼是 Git</h2>
-  <p>Git 是由 Linus Torvalds 於 2005 年開發的分散式版本控制系統. 它的核心概念是把專案內容的每一次變更記錄成一個快照(commit), 並讓使用者可以在不同的時間點之間切換、比對, 或合併.</p>
-  <div class="response-box">
-    <div class="response-field">
-      <div class="rf-key">開發者</div>
-      <div class="rf-val">Linus Torvalds, 2005 年</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">核心概念</div>
-      <div class="rf-val">把每次變更記錄成快照(commit), 可在各時間點之間切換與比對</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">運作方式</div>
-      <div class="rf-val">主要在本機運作, 不需要連網也能查看歷史紀錄與切換版本</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">架構類型</div>
-      <div class="rf-val">分散式, 每個本機 clone 都包含完整的歷史紀錄</div>
-    </div>
-  </div>
-  <div class="info-box">
-    <div class="tag">關鍵區別</div>
-    <p>Git 是一套工具, 可以完全在本機使用, 不依賴任何雲端平台. GitHub 只是選擇之一.</p>
-  </div>
-</section>
+    <!-- 什麼是 Git -->
+    <section>
+      <h2>什麼是 Git</h2>
+      <p>Git 是由 Linus Torvalds 於 2005 年開發的分散式版本控制系統. 它的核心概念是把專案內容的每一次變更記錄成一個快照(commit), 並讓使用者可以在不同的時間點之間切換、比對, 或合併.</p>
+      <div class="response-box">
+        <div class="response-field">
+          <div class="rf-key">開發者</div>
+          <div class="rf-val">Linus Torvalds, 2005 年</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">核心概念</div>
+          <div class="rf-val">把每次變更記錄成快照(commit), 可在各時間點之間切換與比對</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">運作方式</div>
+          <div class="rf-val">主要在本機運作, 不需要連網也能查看歷史紀錄與切換版本</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">架構類型</div>
+          <div class="rf-val">分散式, 每個本機 clone 都包含完整的歷史紀錄</div>
+        </div>
+      </div>
+      <div class="info-box">
+        <div class="tag">關鍵區別</div>
+        <p>Git 是一套工具, 可以完全在本機使用, 不依賴任何雲端平台. GitHub 只是選擇之一.</p>
+      </div>
+    </section>
 
-<!-- 什麼是 GitHub -->
-<section>
-  <h2>什麼是 GitHub</h2>
-  <p>GitHub 是一個基於 Git 的雲端代管平台, 讓使用者可以把本機的 Git 專案(repository, 簡稱 repo)存放到雲端, 並提供以下額外功能:</p>
-  <div class="api-fields">
-    <div class="field">
-      <div class="name">Pull Request</div>
-      <div class="desc">讓團隊成員審查彼此的修改內容後再合併, 是協作品質的核心機制</div>
-    </div>
-    <div class="field">
-      <div class="name">Issue</div>
-      <div class="desc">用來追蹤待辦事項、錯誤回報或需求討論</div>
-    </div>
-    <div class="field">
-      <div class="name">Actions</div>
-      <div class="desc">自動化流程工具, 可用於測試、建置或部署</div>
-    </div>
-    <div class="field">
-      <div class="name">Projects</div>
-      <div class="desc">看板式的專案管理工具, 可連結 Issue 與 Pull Request</div>
-    </div>
-    <div class="field">
-      <div class="name">Wiki</div>
-      <div class="desc">用於存放專案說明文件的獨立空間</div>
-    </div>
-    <div class="field">
-      <div class="name">README</div>
-      <div class="desc">repository 首頁的說明文件, 通常是專案的第一個入口</div>
-    </div>
-  </div>
-</section>
+    <!-- 什麼是 GitHub -->
+    <section>
+      <h2>什麼是 GitHub</h2>
+      <p>GitHub 是一個基於 Git 的雲端代管平台, 讓使用者可以把本機的 Git 專案(repository, 簡稱 repo)存放到雲端, 並提供以下額外功能:</p>
+      <div class="api-fields">
+        <div class="field">
+          <div class="name">Pull Request</div>
+          <div class="desc">讓團隊成員審查彼此的修改內容後再合併, 是協作品質的核心機制</div>
+        </div>
+        <div class="field">
+          <div class="name">Issue</div>
+          <div class="desc">用來追蹤待辦事項、錯誤回報或需求討論</div>
+        </div>
+        <div class="field">
+          <div class="name">Actions</div>
+          <div class="desc">自動化流程工具, 可用於測試、建置或部署</div>
+        </div>
+        <div class="field">
+          <div class="name">Projects</div>
+          <div class="desc">看板式的專案管理工具, 可連結 Issue 與 Pull Request</div>
+        </div>
+        <div class="field">
+          <div class="name">Wiki</div>
+          <div class="desc">用於存放專案說明文件的獨立空間</div>
+        </div>
+        <div class="field">
+          <div class="name">README</div>
+          <div class="desc">repository 首頁的說明文件, 通常是專案的第一個入口</div>
+        </div>
+      </div>
+    </section>
 
-<!-- Git 與 GitHub 的關係 -->
-<section>
-  <h2>Git 與 GitHub 的關係</h2>
-  <p>Git 是版本控制的核心技術, GitHub 是其中一個提供 Git 代管服務的雲端平台, 兩者並非同一件事.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">Git</div>
-      <p>版本控制的底層工具</p>
-      <p>在本機電腦上運作</p>
-      <p>不依賴任何雲端服務</p>
-      <p>開源免費, 跨平台支援</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">GitHub</div>
-      <p>建立在 Git 之上的雲端平台</p>
-      <p>提供 UI 介面與協作功能</p>
-      <p>需要帳號, 有免費與付費方案</p>
-      <p>非唯一選擇, 也可換用 GitLab 或 Bitbucket</p>
-    </div>
-  </div>
-  <div class="info-box" style="margin-top:16px;">
-    <div class="tag">類似服務</div>
-    <p>市場上還有 GitLab, Bitbucket 等類似服務, 都是建立在 Git 之上, 提供類似的雲端協作功能. 即使完全不使用 GitHub, 仍然可以單獨使用 Git 在本機進行版本控制.</p>
-  </div>
-</section>
+    <!-- Git 與 GitHub 的關係 -->
+    <section>
+      <h2>Git 與 GitHub 的關係</h2>
+      <p>Git 是版本控制的核心技術, GitHub 是其中一個提供 Git 代管服務的雲端平台, 兩者並非同一件事.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">Git</div>
+          <p>版本控制的底層工具</p>
+          <p>在本機電腦上運作</p>
+          <p>不依賴任何雲端服務</p>
+          <p>開源免費, 跨平台支援</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">GitHub</div>
+          <p>建立在 Git 之上的雲端平台</p>
+          <p>提供 UI 介面與協作功能</p>
+          <p>需要帳號, 有免費與付費方案</p>
+          <p>非唯一選擇, 也可換用 GitLab 或 Bitbucket</p>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:16px;">
+        <div class="tag">類似服務</div>
+        <p>市場上還有 GitLab, Bitbucket 等類似服務, 都是建立在 Git 之上, 提供類似的雲端協作功能. 即使完全不使用 GitHub, 仍然可以單獨使用 Git 在本機進行版本控制.</p>
+      </div>
+    </section>
 
-<!-- 安裝與初始設定 -->
-<section>
-  <h2>安裝與初始設定</h2>
-  <p>安裝完成後, 建議先設定使用者名稱與信箱. 這些資訊會記錄在每一次的 commit 中, 方便團隊成員識別修改來源.</p>
-  <pre class="code-block"><span class="fn">git</span> <span class="fn">config</span> <span class="key">--global</span> <span class="str">user.name</span> <span class="str">"你的名字"</span>
+    <!-- 安裝與初始設定 -->
+    <section>
+      <h2>安裝與初始設定</h2>
+      <p>安裝完成後, 建議先設定使用者名稱與信箱. 這些資訊會記錄在每一次的 commit 中, 方便團隊成員識別修改來源.</p>
+      <pre
+        class="code-block"><span class="fn">git</span> <span class="fn">config</span> <span class="key">--global</span> <span class="str">user.name</span> <span class="str">"你的名字"</span>
 <span class="fn">git</span> <span class="fn">config</span> <span class="key">--global</span> <span class="str">user.email</span> <span class="str">"you@example.com"</span></pre>
-  <div class="response-box">
-    <div class="response-field">
-      <div class="rf-key">--global</div>
-      <div class="rf-val">套用到這台電腦上所有的 Git 專案. 若省略, 只套用到目前專案.</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">user.name</div>
-      <div class="rf-val">記錄在每次 commit 中的作者姓名, 方便團隊識別修改來源</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">user.email</div>
-      <div class="rf-val">記錄在每次 commit 中的信箱, 建議與 GitHub 帳號信箱一致</div>
-    </div>
-  </div>
-</section>
+      <div class="response-box">
+        <div class="response-field">
+          <div class="rf-key">--global</div>
+          <div class="rf-val">套用到這台電腦上所有的 Git 專案. 若省略, 只套用到目前專案.</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">user.name</div>
+          <div class="rf-val">記錄在每次 commit 中的作者姓名, 方便團隊識別修改來源</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">user.email</div>
+          <div class="rf-val">記錄在每次 commit 中的信箱, 建議與 GitHub 帳號信箱一致</div>
+        </div>
+      </div>
+    </section>
 
-<!-- 基本概念 -->
-<section>
-  <h2>基本概念</h2>
-  <p>在開始使用指令前, 先了解這幾個核心名詞的含義:</p>
-  <div class="event-list">
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">Repository (repo)</div>
-      <div class="event-desc">一個被 Git 追蹤管理的專案資料夾, 包含所有檔案與完整的歷史紀錄</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">Working Directory</div>
-      <div class="event-desc">目前在電腦上看到、正在編輯的檔案內容</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">Staging Area</div>
-      <div class="event-desc">準備要納入下一次 commit 的暫存區. 用 git add 把變更放進來</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">Commit</div>
-      <div class="event-desc">一次內容快照, 記錄當下所有被加入暫存區的變更, 附帶時間與作者</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">Branch</div>
-      <div class="event-desc">一條獨立的開發線, 方便同時進行多項修改而不互相干擾</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">HEAD</div>
-      <div class="event-desc">目前所在的分支或版本位置, 可視為「你現在在哪裡」的指標</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name" style="min-width:185px;">Remote</div>
-      <div class="event-desc">遠端的版本庫位置, 例如 GitHub 上的 repo, 通常命名為 origin</div>
-    </div>
-  </div>
-</section>
+    <!-- 基本概念 -->
+    <section>
+      <h2>基本概念</h2>
+      <p>在開始使用指令前, 先了解這幾個核心名詞的含義:</p>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">Repository (repo)</div>
+          <div class="event-desc">一個被 Git 追蹤管理的專案資料夾, 包含所有檔案與完整的歷史紀錄</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">Working Directory</div>
+          <div class="event-desc">目前在電腦上看到、正在編輯的檔案內容</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">Staging Area</div>
+          <div class="event-desc">準備要納入下一次 commit 的暫存區. 用 git add 把變更放進來</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">Commit</div>
+          <div class="event-desc">一次內容快照, 記錄當下所有被加入暫存區的變更, 附帶時間與作者</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">Branch</div>
+          <div class="event-desc">一條獨立的開發線, 方便同時進行多項修改而不互相干擾</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">HEAD</div>
+          <div class="event-desc">目前所在的分支或版本位置, 可視為「你現在在哪裡」的指標</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name" style="min-width:185px;">Remote</div>
+          <div class="event-desc">遠端的版本庫位置, 例如 GitHub 上的 repo, 通常命名為 origin</div>
+        </div>
+      </div>
+    </section>
 
-<!-- 建立與複製專案 -->
-<section>
-  <h2>建立與複製專案</h2>
-  <p>開始一個新的 Git 工作空間有兩種方式: 從零開始建立, 或把現有的遠端 repo 複製下來.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">git init &nbsp;—&nbsp; 從零開始</div>
-      <p>在現有資料夾中建立新的 Git 專案.</p>
-      <p>適合: 本機已有檔案, 想開始用 Git 追蹤的情況.</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">git clone &nbsp;—&nbsp; 複製遠端</div>
-      <p>把遠端已存在的 repo 完整複製到本機, 含所有歷史紀錄.</p>
-      <p>適合: 加入現有專案, 或下載別人的 repo.</p>
-    </div>
-  </div>
-  <pre class="code-block"><span class="cmt"># 在目前資料夾初始化 Git</span>
+    <!-- 建立與複製專案 -->
+    <section>
+      <h2>建立與複製專案</h2>
+      <p>開始一個新的 Git 工作空間有兩種方式: 從零開始建立, 或把現有的遠端 repo 複製下來.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">git init &nbsp;—&nbsp; 從零開始</div>
+          <p>在現有資料夾中建立新的 Git 專案.</p>
+          <p>適合: 本機已有檔案, 想開始用 Git 追蹤的情況.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">git clone &nbsp;—&nbsp; 複製遠端</div>
+          <p>把遠端已存在的 repo 完整複製到本機, 含所有歷史紀錄.</p>
+          <p>適合: 加入現有專案, 或下載別人的 repo.</p>
+        </div>
+      </div>
+      <pre class="code-block"><span class="cmt"># 在目前資料夾初始化 Git</span>
 <span class="fn">git</span> <span class="fn">init</span>
 
 <span class="cmt"># 複製遠端 repo 到本機</span>
 <span class="fn">git</span> <span class="fn">clone</span> <span class="str">https://github.com/帳號/專案名稱.git</span></pre>
-</section>
+    </section>
 
-<!-- 常用指令一覽 -->
-<section>
-  <h2>常用指令一覽</h2>
-  <p>每天最常用到的六個基本指令:</p>
-  <div class="event-list">
-    <div class="event-item">
-      <div class="event-name">git status</div>
-      <div class="event-desc">查看目前哪些檔案有變更, 哪些已加入暫存區</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git add</div>
-      <div class="event-desc">把指定檔案(或 <code>.</code> 表示所有變更)加入暫存區</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git commit -m</div>
-      <div class="event-desc">建立一次 commit, 並寫明變更內容說明</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git log</div>
-      <div class="event-desc">查看 commit 歷史紀錄, 含時間、作者與說明</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git diff</div>
-      <div class="event-desc">查看尚未加入暫存區的內容差異</div>
-    </div>
-  </div>
-  <pre class="code-block" style="margin-top:16px;"><span class="fn">git</span> <span class="fn">status</span>
+    <!-- 常用指令一覽 -->
+    <section>
+      <h2>常用指令一覽</h2>
+      <p>每天最常用到的六個基本指令:</p>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-name">git status</div>
+          <div class="event-desc">查看目前哪些檔案有變更, 哪些已加入暫存區</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">git add</div>
+          <div class="event-desc">把指定檔案(或 <code>.</code> 表示所有變更)加入暫存區</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">git commit -m</div>
+          <div class="event-desc">建立一次 commit, 並寫明變更內容說明</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">git log</div>
+          <div class="event-desc">查看 commit 歷史紀錄, 含時間、作者與說明</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">git diff</div>
+          <div class="event-desc">查看尚未加入暫存區的內容差異</div>
+        </div>
+      </div>
+      <pre class="code-block" style="margin-top:16px;"><span class="fn">git</span> <span class="fn">status</span>
 <span class="fn">git</span> <span class="fn">add</span> <span class="str">檔案名稱</span>
 <span class="fn">git</span> <span class="fn">add</span> <span class="str">.</span>
 <span class="fn">git</span> <span class="fn">commit</span> <span class="key">-m</span> <span class="str">"說明這次改了什麼"</span>
 <span class="fn">git</span> <span class="fn">log</span>
 <span class="fn">git</span> <span class="fn">diff</span></pre>
-</section>
+    </section>
 
-<!-- 與遠端同步 -->
-<section>
-  <h2>與遠端同步</h2>
-  <p>本機與遠端之間的資料同步有三個方向. 點擊下方指令查看詳細說明:</p>
-  <div class="chip-row">
-    <span class="chip-label">選擇指令:</span>
-    <div class="chip sync-chip active" data-id="sync-remote" onclick="selectSync('sync-remote')">git remote add</div>
-    <div class="chip sync-chip" data-id="sync-push" onclick="selectSync('sync-push')">git push</div>
-    <div class="chip sync-chip" data-id="sync-pull" onclick="selectSync('sync-pull')">git pull</div>
-    <div class="chip sync-chip" data-id="sync-fetch" onclick="selectSync('sync-fetch')">git fetch</div>
-  </div>
+    <!-- 與遠端同步 -->
+    <section>
+      <h2>與遠端同步</h2>
+      <p>本機與遠端之間的資料同步有三個方向. 點擊下方指令查看詳細說明:</p>
+      <div class="chip-row">
+        <span class="chip-label">選擇指令:</span>
+        <div class="chip sync-chip active" data-id="sync-remote" onclick="selectSync('sync-remote')">git remote add
+        </div>
+        <div class="chip sync-chip" data-id="sync-push" onclick="selectSync('sync-push')">git push</div>
+        <div class="chip sync-chip" data-id="sync-pull" onclick="selectSync('sync-pull')">git pull</div>
+        <div class="chip sync-chip" data-id="sync-fetch" onclick="selectSync('sync-fetch')">git fetch</div>
+      </div>
 
-  <div id="sync-remote" class="sync-panel">
-    <pre class="code-block"><span class="fn">git</span> <span class="fn">remote</span> <span class="fn">add</span> <span class="key">origin</span> <span class="str">https://github.com/帳號/專案名稱.git</span></pre>
-    <p style="font-size:0.85rem;margin-top:10px;">把本機的 Git 專案與遠端 repo 建立連結. <code>origin</code> 是遠端位置的慣用名稱, 可以自訂. 通常在 <code>git init</code> 後第一次上傳時執行一次.</p>
-  </div>
-  <div id="sync-push" class="sync-panel" style="display:none">
-    <pre class="code-block"><span class="fn">git</span> <span class="fn">push</span> <span class="key">origin</span> <span class="str">main</span></pre>
-    <p style="font-size:0.85rem;margin-top:10px;">把本機的 commit 上傳到遠端. 方向是「本機 → 遠端」. 通常在完成一批 commit 後執行, 讓團隊成員能看到最新的修改.</p>
-  </div>
-  <div id="sync-pull" class="sync-panel" style="display:none">
-    <pre class="code-block"><span class="fn">git</span> <span class="fn">pull</span> <span class="key">origin</span> <span class="str">main</span></pre>
-    <p style="font-size:0.85rem;margin-top:10px;">把遠端的最新內容下載並自動合併到本機. 方向是「遠端 → 本機」. 等同於 <code>git fetch</code> + <code>git merge</code> 兩步合一.</p>
-  </div>
-  <div id="sync-fetch" class="sync-panel" style="display:none">
-    <pre class="code-block"><span class="fn">git</span> <span class="fn">fetch</span> <span class="key">origin</span></pre>
-    <p style="font-size:0.85rem;margin-top:10px;">只下載遠端資訊, 不會自動合併到本機工作目錄. 可以先看看遠端有什麼更新, 再決定要不要合併.</p>
-  </div>
-</section>
+      <div id="sync-remote" class="sync-panel">
+        <pre
+          class="code-block"><span class="fn">git</span> <span class="fn">remote</span> <span class="fn">add</span> <span class="key">origin</span> <span class="str">https://github.com/帳號/專案名稱.git</span></pre>
+        <p style="font-size:0.85rem;margin-top:10px;">把本機的 Git 專案與遠端 repo 建立連結. <code>origin</code> 是遠端位置的慣用名稱, 可以自訂.
+          通常在 <code>git init</code> 後第一次上傳時執行一次.</p>
+      </div>
+      <div id="sync-push" class="sync-panel" style="display:none">
+        <pre
+          class="code-block"><span class="fn">git</span> <span class="fn">push</span> <span class="key">origin</span> <span class="str">main</span></pre>
+        <p style="font-size:0.85rem;margin-top:10px;">把本機的 commit 上傳到遠端. 方向是「本機 → 遠端」. 通常在完成一批 commit 後執行,
+          讓團隊成員能看到最新的修改.</p>
+      </div>
+      <div id="sync-pull" class="sync-panel" style="display:none">
+        <pre
+          class="code-block"><span class="fn">git</span> <span class="fn">pull</span> <span class="key">origin</span> <span class="str">main</span></pre>
+        <p style="font-size:0.85rem;margin-top:10px;">把遠端的最新內容下載並自動合併到本機. 方向是「遠端 → 本機」. 等同於 <code>git fetch</code> +
+          <code>git merge</code> 兩步合一.</p>
+      </div>
+      <div id="sync-fetch" class="sync-panel" style="display:none">
+        <pre
+          class="code-block"><span class="fn">git</span> <span class="fn">fetch</span> <span class="key">origin</span></pre>
+        <p style="font-size:0.85rem;margin-top:10px;">只下載遠端資訊, 不會自動合併到本機工作目錄. 可以先看看遠端有什麼更新, 再決定要不要合併.</p>
+      </div>
+    </section>
 
-<!-- 分支與合併 -->
-<section>
-  <h2>分支與合併</h2>
-  <p>分支讓不同的修改可以在獨立的軌道上進行, 不互相影響, 完成後再合併回主分支.</p>
-  <div class="event-list">
-    <div class="event-item">
-      <div class="event-name">git branch</div>
-      <div class="event-desc">查看目前所有分支列表, 目前所在分支前方會標示 *</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git branch &lt;名稱&gt;</div>
-      <div class="event-desc">建立一個新的分支, 但不會自動切換過去</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git switch &lt;名稱&gt;</div>
-      <div class="event-desc">切換到指定分支, 工作目錄的檔案內容會跟著更新</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">git merge &lt;名稱&gt;</div>
-      <div class="event-desc">把指定分支的 commit 合併進目前所在的分支</div>
-    </div>
-  </div>
-  <div class="info-box" style="margin-top:16px;">
-    <div class="tag">合併衝突</div>
-    <p>當兩個分支修改了同一個檔案的同一個位置, 合併時會出現衝突(conflict). Git 會在檔案中標記出衝突區塊, 需要手動決定保留哪一部分內容, 再重新 commit 完成合併. 不要隨意刪除衝突標記.</p>
-  </div>
-</section>
-
-<!-- GitHub 基本操作流程 -->
-<section>
-  <h2>GitHub 基本操作流程</h2>
-  <p>從建立 repository 到合併 Pull Request 的完整五步驟:</p>
-  <div class="stage-tabs">
-    <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">1 · 建立 Repo</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(1)">2 · 連結本機</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(2)">3 · 分支開發</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(3)">4 · Push</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(4)">5 · Pull Request</div>
-  </div>
-
-  <div class="wf-panel demo-panel visible" id="wf-p0">
-    <div class="step-content">
-      <h3>在 GitHub 網站建立新的 Repository</h3>
-      <p>登入 GitHub 後點擊右上角的 + 新增 repository. 填寫名稱, 選擇是否公開, 可選擇自動建立 README 與 .gitignore.</p>
-    </div>
-  </div>
-
-  <div class="wf-panel demo-panel" id="wf-p1">
-    <div class="step-content">
-      <h3>把 Repository 連結到本機</h3>
-      <p>方式一: 用 <code>git clone</code> 把這個 repository 完整複製到本機.</p>
-      <p>方式二: 本機已有專案時, 用 <code>git remote add origin &lt;網址&gt;</code> 建立連結.</p>
-    </div>
-  </div>
-
-  <div class="wf-panel demo-panel" id="wf-p2">
-    <div class="step-content">
-      <h3>建立分支、進行修改, 並完成 Commit</h3>
-      <p>在本機建立獨立分支: <code>git branch 功能名稱</code> 再 <code>git switch 功能名稱</code>.</p>
-      <p>完成修改後用 <code>git add</code> 加入暫存區, 再用 <code>git commit -m "說明"</code> 建立 commit.</p>
-    </div>
-  </div>
-
-  <div class="wf-panel demo-panel" id="wf-p3">
-    <div class="step-content">
-      <h3>用 git push 把分支上傳到 GitHub</h3>
-      <p>執行 <code>git push origin 分支名稱</code> 把本機的分支上傳到 GitHub. 此時分支在雲端已可見, 但尚未合併進主分支.</p>
-    </div>
-  </div>
-
-  <div class="wf-panel demo-panel" id="wf-p4">
-    <div class="step-content">
-      <h3>在 GitHub 上開啟 Pull Request</h3>
-      <p>push 後 GitHub 通常會提示開啟 Pull Request. 填寫說明後送出, 讓其他成員審查修改內容. 審查通過後再合併進主分支.</p>
-    </div>
-  </div>
-
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一步</button>
-    <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一步 →</button>
-    <span class="step-indicator" id="wfIndicator">步驟 1 / 5</span>
-  </div>
-</section>
-
-<!-- GitHub CLI -->
-<section>
-  <h2>GitHub CLI, 給熟悉終端機的使用者</h2>
-  <p>GitHub 提供官方指令列工具 <code>gh</code>, 讓使用者不需要切換到瀏覽器, 直接在終端機中操作 GitHub. 這也是 Claude Code 在處理 GitHub 相關任務時實際執行的方式.</p>
-  <div class="stage-tabs">
-    <div class="cli-tab stage-tab active" onclick="cliGoTo(0)">1 · 登入設定</div>
-    <div class="cli-tab stage-tab" onclick="cliGoTo(1)">2 · 常用指令</div>
-    <div class="cli-tab stage-tab" onclick="cliGoTo(2)">3 · 與網頁流程對照</div>
-  </div>
-
-  <div class="cli-panel demo-panel visible" id="cli-p0">
-    <div class="step-content">
-      <h3>登入設定</h3>
-      <pre class="code-block"><span class="fn">gh</span> <span class="fn">auth</span> <span class="fn">login</span></pre>
-      <p style="margin-top:12px;">依照畫面提示選擇登入方式(瀏覽器或權杖). 完成後即可用 <code>gh</code> 指令操作有權限的 repository, 不需要額外設定 SSH 金鑰或權杖.</p>
-    </div>
-  </div>
-
-  <div class="cli-panel demo-panel" id="cli-p1">
-    <div class="step-content">
-      <h3>常用指令</h3>
-      <div class="event-list" style="margin-top:10px;">
+    <!-- 分支與合併 -->
+    <section>
+      <h2>分支與合併</h2>
+      <p>分支讓不同的修改可以在獨立的軌道上進行, 不互相影響, 完成後再合併回主分支.</p>
+      <div class="event-list">
         <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh repo clone</div>
-          <div class="event-desc">複製遠端 repo 到本機</div>
+          <div class="event-name">git branch</div>
+          <div class="event-desc">查看目前所有分支列表, 目前所在分支前方會標示 *</div>
         </div>
         <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh pr create</div>
-          <div class="event-desc">建立一個 Pull Request</div>
+          <div class="event-name">git branch &lt;名稱&gt;</div>
+          <div class="event-desc">建立一個新的分支, 但不會自動切換過去</div>
         </div>
         <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh pr list</div>
-          <div class="event-desc">查看目前 open 的 Pull Request 列表</div>
+          <div class="event-name">git switch &lt;名稱&gt;</div>
+          <div class="event-desc">切換到指定分支, 工作目錄的檔案內容會跟著更新</div>
         </div>
         <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh pr view &lt;編號&gt; --web</div>
-          <div class="event-desc">在瀏覽器中開啟指定的 Pull Request</div>
-        </div>
-        <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh pr checkout &lt;編號&gt;</div>
-          <div class="event-desc">把指定的 Pull Request 切換到本機分支</div>
-        </div>
-        <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh issue create</div>
-          <div class="event-desc">建立一個 Issue</div>
-        </div>
-        <div class="event-item">
-          <div class="event-name" style="min-width:200px;">gh issue list</div>
-          <div class="event-desc">查看目前 open 的 Issue 列表</div>
+          <div class="event-name">git merge &lt;名稱&gt;</div>
+          <div class="event-desc">把指定分支的 commit 合併進目前所在的分支</div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="cli-panel demo-panel" id="cli-p2">
-    <div class="step-content">
-      <h3>與網頁流程的對照</h3>
-      <p>前面「GitHub 基本操作流程」介紹的是在網頁上建立 Pull Request 的方式. 改用 <code>gh pr create</code> 則可以在完成 <code>git push</code> 後, 不離開終端機就直接建立同一個 Pull Request.</p>
-      <div class="info-box" style="margin-top:12px;">
-        <div class="tag">適合對象</div>
-        <p>對於習慣在終端機或 VS Code 內建終端機工作的使用者, GitHub CLI 可以減少在瀏覽器與編輯器之間來回切換的次數.</p>
+      <div class="info-box" style="margin-top:16px;">
+        <div class="tag">合併衝突</div>
+        <p>當兩個分支修改了同一個檔案的同一個位置, 合併時會出現衝突(conflict). Git 會在檔案中標記出衝突區塊, 需要手動決定保留哪一部分內容, 再重新 commit 完成合併. 不要隨意刪除衝突標記.</p>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="cliPrev" disabled onclick="cliGoTo(cliStep-1)">← 上一項</button>
-    <button class="btn btn-primary" id="cliNext" onclick="cliGoTo(cliStep+1)">下一項 →</button>
-    <span class="step-indicator" id="cliIndicator">1 / 3</span>
-  </div>
-</section>
+    <!-- GitHub 基本操作流程 -->
+    <section>
+      <h2>GitHub 基本操作流程</h2>
+      <p>從建立 repository 到合併 Pull Request 的完整五步驟:</p>
+      <div class="stage-tabs">
+        <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">1 · 建立 Repo</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(1)">2 · 連結本機</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(2)">3 · 分支開發</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(3)">4 · Push</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(4)">5 · Pull Request</div>
+      </div>
 
-<!-- 認證方式, HTTPS 與 SSH -->
-<section>
-  <h2>認證方式, HTTPS 與 SSH</h2>
-  <p>連線到 GitHub 時需要認證身份. GitHub 提供兩種主要方式:</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">HTTPS</div>
-      <p>使用個人存取權杖(Personal Access Token)登入.</p>
-      <p>設定較簡單, 適合初學者.</p>
-      <p>每次推送時需要輸入帳號與 token, 或透過 credential helper 儲存.</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">SSH</div>
-      <p>在本機產生金鑰對, 把公開金鑰新增到 GitHub 帳號設定.</p>
-      <p>設定一次後, 之後連線不需要每次輸入密碼.</p>
-      <p>適合需要頻繁 push/pull 的開發工作流程.</p>
-    </div>
-  </div>
-  <pre class="code-block" style="margin-top:16px;"><span class="cmt"># 產生 SSH 金鑰</span>
+      <div class="wf-panel demo-panel visible" id="wf-p0">
+        <div class="step-content">
+          <h3>在 GitHub 網站建立新的 Repository</h3>
+          <p>登入 GitHub 後點擊右上角的 + 新增 repository. 填寫名稱, 選擇是否公開, 可選擇自動建立 README 與 .gitignore.</p>
+        </div>
+      </div>
+
+      <div class="wf-panel demo-panel" id="wf-p1">
+        <div class="step-content">
+          <h3>把 Repository 連結到本機</h3>
+          <p>方式一: 用 <code>git clone</code> 把這個 repository 完整複製到本機.</p>
+          <p>方式二: 本機已有專案時, 用 <code>git remote add origin &lt;網址&gt;</code> 建立連結.</p>
+        </div>
+      </div>
+
+      <div class="wf-panel demo-panel" id="wf-p2">
+        <div class="step-content">
+          <h3>建立分支、進行修改, 並完成 Commit</h3>
+          <p>在本機建立獨立分支: <code>git branch 功能名稱</code> 再 <code>git switch 功能名稱</code>.</p>
+          <p>完成修改後用 <code>git add</code> 加入暫存區, 再用 <code>git commit -m "說明"</code> 建立 commit.</p>
+        </div>
+      </div>
+
+      <div class="wf-panel demo-panel" id="wf-p3">
+        <div class="step-content">
+          <h3>用 git push 把分支上傳到 GitHub</h3>
+          <p>執行 <code>git push origin 分支名稱</code> 把本機的分支上傳到 GitHub. 此時分支在雲端已可見, 但尚未合併進主分支.</p>
+        </div>
+      </div>
+
+      <div class="wf-panel demo-panel" id="wf-p4">
+        <div class="step-content">
+          <h3>在 GitHub 上開啟 Pull Request</h3>
+          <p>push 後 GitHub 通常會提示開啟 Pull Request. 填寫說明後送出, 讓其他成員審查修改內容. 審查通過後再合併進主分支.</p>
+        </div>
+      </div>
+
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一步</button>
+        <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一步 →</button>
+        <span class="step-indicator" id="wfIndicator">步驟 1 / 5</span>
+      </div>
+    </section>
+
+    <!-- GitHub CLI -->
+    <section>
+      <h2>GitHub CLI, 給熟悉終端機的使用者</h2>
+      <p>GitHub 提供官方指令列工具 <code>gh</code>, 讓使用者不需要切換到瀏覽器, 直接在終端機中操作 GitHub. 這也是 Claude Code 在處理 GitHub 相關任務時實際執行的方式.</p>
+      <div class="stage-tabs">
+        <div class="cli-tab stage-tab active" onclick="cliGoTo(0)">1 · 登入設定</div>
+        <div class="cli-tab stage-tab" onclick="cliGoTo(1)">2 · 常用指令</div>
+        <div class="cli-tab stage-tab" onclick="cliGoTo(2)">3 · 與網頁流程對照</div>
+      </div>
+
+      <div class="cli-panel demo-panel visible" id="cli-p0">
+        <div class="step-content">
+          <h3>登入設定</h3>
+          <pre
+            class="code-block"><span class="fn">gh</span> <span class="fn">auth</span> <span class="fn">login</span></pre>
+          <p style="margin-top:12px;">依照畫面提示選擇登入方式(瀏覽器或權杖). 完成後即可用 <code>gh</code> 指令操作有權限的 repository, 不需要額外設定 SSH
+            金鑰或權杖.</p>
+        </div>
+      </div>
+
+      <div class="cli-panel demo-panel" id="cli-p1">
+        <div class="step-content">
+          <h3>常用指令</h3>
+          <div class="event-list" style="margin-top:10px;">
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh repo clone</div>
+              <div class="event-desc">複製遠端 repo 到本機</div>
+            </div>
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh pr create</div>
+              <div class="event-desc">建立一個 Pull Request</div>
+            </div>
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh pr list</div>
+              <div class="event-desc">查看目前 open 的 Pull Request 列表</div>
+            </div>
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh pr view &lt;編號&gt; --web</div>
+              <div class="event-desc">在瀏覽器中開啟指定的 Pull Request</div>
+            </div>
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh pr checkout &lt;編號&gt;</div>
+              <div class="event-desc">把指定的 Pull Request 切換到本機分支</div>
+            </div>
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh issue create</div>
+              <div class="event-desc">建立一個 Issue</div>
+            </div>
+            <div class="event-item">
+              <div class="event-name" style="min-width:200px;">gh issue list</div>
+              <div class="event-desc">查看目前 open 的 Issue 列表</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cli-panel demo-panel" id="cli-p2">
+        <div class="step-content">
+          <h3>與網頁流程的對照</h3>
+          <p>前面「GitHub 基本操作流程」介紹的是在網頁上建立 Pull Request 的方式. 改用 <code>gh pr create</code> 則可以在完成 <code>git push</code> 後,
+            不離開終端機就直接建立同一個 Pull Request.</p>
+          <div class="info-box" style="margin-top:12px;">
+            <div class="tag">適合對象</div>
+            <p>對於習慣在終端機或 VS Code 內建終端機工作的使用者, GitHub CLI 可以減少在瀏覽器與編輯器之間來回切換的次數.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="cliPrev" disabled onclick="cliGoTo(cliStep-1)">← 上一項</button>
+        <button class="btn btn-primary" id="cliNext" onclick="cliGoTo(cliStep+1)">下一項 →</button>
+        <span class="step-indicator" id="cliIndicator">1 / 3</span>
+      </div>
+    </section>
+
+    <!-- 認證方式, HTTPS 與 SSH -->
+    <section>
+      <h2>認證方式, HTTPS 與 SSH</h2>
+      <p>連線到 GitHub 時需要認證身份. GitHub 提供兩種主要方式:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">HTTPS</div>
+          <p>使用個人存取權杖(Personal Access Token)登入.</p>
+          <p>設定較簡單, 適合初學者.</p>
+          <p>每次推送時需要輸入帳號與 token, 或透過 credential helper 儲存.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">SSH</div>
+          <p>在本機產生金鑰對, 把公開金鑰新增到 GitHub 帳號設定.</p>
+          <p>設定一次後, 之後連線不需要每次輸入密碼.</p>
+          <p>適合需要頻繁 push/pull 的開發工作流程.</p>
+        </div>
+      </div>
+      <pre class="code-block" style="margin-top:16px;"><span class="cmt"># 產生 SSH 金鑰</span>
 <span class="fn">ssh-keygen</span> <span class="key">-t</span> <span class="str">ed25519</span> <span class="key">-C</span> <span class="str">"you@example.com"</span>
 
 <span class="cmt"># 接著把 ~/.ssh/id_ed25519.pub 的內容貼到</span>
 <span class="cmt"># GitHub → Settings → SSH and GPG keys</span></pre>
-</section>
+    </section>
 
-<!-- .gitignore -->
-<section>
-  <h2>.gitignore</h2>
-  <p><code>.gitignore</code> 是一個純文字檔案, 放在 repo 根目錄, 用來列出不希望被 Git 追蹤的檔案或資料夾.</p>
-  <pre class="code-block"><span class="cmt"># 相依套件目錄(通常很大, 可重新安裝)</span>
+    <!-- .gitignore -->
+    <section>
+      <h2>.gitignore</h2>
+      <p><code>.gitignore</code> 是一個純文字檔案, 放在 repo 根目錄, 用來列出不希望被 Git 追蹤的檔案或資料夾.</p>
+      <pre class="code-block"><span class="cmt"># 相依套件目錄(通常很大, 可重新安裝)</span>
 <span class="str">node_modules/</span>
 
 <span class="cmt"># 環境變數檔, 通常含密碼與金鑰, 不應上傳</span>
@@ -633,262 +1226,266 @@
 
 <span class="cmt"># 所有 .log 結尾的檔案</span>
 <span class="str">*.log</span></pre>
-  <div class="event-list" style="margin-top:16px;">
-    <div class="event-item">
-      <div class="event-name">相依套件目錄</div>
-      <div class="event-desc"><code>node_modules/</code>, <code>.venv/</code> 等, 體積大且可以重新安裝, 不需要進版本庫</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">敏感資訊檔案</div>
-      <div class="event-desc"><code>.env</code>, <code>config.json</code> 等含有密碼或金鑰的設定檔, 絕對不能上傳</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">編譯與暫存產出</div>
-      <div class="event-desc"><code>*.log</code>, <code>build/</code>, <code>dist/</code> 等, 從原始碼重新產生即可, 不需要追蹤</div>
-    </div>
-  </div>
-</section>
-
-<!-- 上班族常見應用情境 -->
-<section>
-  <h2>上班族常見應用情境</h2>
-  <p>三種辦公環境中最常見的 Git + GitHub 使用場景:</p>
-  <div class="stage-tabs">
-    <div class="sc-tab stage-tab active" onclick="scGoTo(0)">1 · 文件版本控制</div>
-    <div class="sc-tab stage-tab" onclick="scGoTo(1)">2 · 程式碼審查</div>
-    <div class="sc-tab stage-tab" onclick="scGoTo(2)">3 · 知識庫管理</div>
-  </div>
-
-  <div class="sc-panel demo-panel visible" id="sc-p0">
-    <div class="step-content">
-      <h3>多人協作的文件版本控制</h3>
-      <p>把報告、規格書, 或會議記錄 Markdown 檔案放進 Git repo 管理, 每次修改都透過 commit 留下紀錄. 團隊成員可以清楚知道是誰在什麼時候做了什麼修改, 也能隨時回溯到之前的版本.</p>
-      <div class="info-box" style="margin-top:12px;">
-        <div class="tag">適用範圍</div>
-        <p>Git 不只是給程式碼用的. 任何純文字格式的文件(Markdown, CSV, JSON)都能享有完整的版本追蹤.</p>
+      <div class="event-list" style="margin-top:16px;">
+        <div class="event-item">
+          <div class="event-name">相依套件目錄</div>
+          <div class="event-desc"><code>node_modules/</code>, <code>.venv/</code> 等, 體積大且可以重新安裝, 不需要進版本庫</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">敏感資訊檔案</div>
+          <div class="event-desc"><code>.env</code>, <code>config.json</code> 等含有密碼或金鑰的設定檔, 絕對不能上傳</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">編譯與暫存產出</div>
+          <div class="event-desc"><code>*.log</code>, <code>build/</code>, <code>dist/</code> 等, 從原始碼重新產生即可, 不需要追蹤</div>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="sc-panel demo-panel" id="sc-p1">
-    <div class="step-content">
-      <h3>程式碼審查與協作</h3>
-      <p>開發人員透過分支進行開發, 再以 Pull Request 的方式提交修改, 讓其他成員在合併前先進行審查, 確保程式碼品質與一致性. Pull Request 介面可以逐行留言討論.</p>
-      <div class="takeaway" style="margin-top:12px;">
-        <p>Pull Request 不只是技術工具, 也是知識傳遞的機制. 審查過程中的討論留存在 GitHub 上, 成為未來可查閱的決策紀錄.</p>
+    <!-- 職場工作者常見應用情境 -->
+    <section>
+      <h2>職場工作者常見應用情境</h2>
+      <p>三種辦公環境中最常見的 Git + GitHub 使用場景:</p>
+      <div class="stage-tabs">
+        <div class="sc-tab stage-tab active" onclick="scGoTo(0)">1 · 文件版本控制</div>
+        <div class="sc-tab stage-tab" onclick="scGoTo(1)">2 · 程式碼審查</div>
+        <div class="sc-tab stage-tab" onclick="scGoTo(2)">3 · 知識庫管理</div>
       </div>
-    </div>
-  </div>
 
-  <div class="sc-panel demo-panel" id="sc-p2">
-    <div class="step-content">
-      <h3>知識庫與專案文件集中管理</h3>
-      <p>把專案的 README, SOP, 操作手冊都存放在同一個 GitHub repository 中, 搭配 Wiki 或 Markdown 檔案, 方便團隊成員查閱. 透過 commit 歷史可以了解文件的演進過程.</p>
-    </div>
-  </div>
+      <div class="sc-panel demo-panel visible" id="sc-p0">
+        <div class="step-content">
+          <h3>多人協作的文件版本控制</h3>
+          <p>把報告、規格書, 或會議記錄 Markdown 檔案放進 Git repo 管理, 每次修改都透過 commit 留下紀錄. 團隊成員可以清楚知道是誰在什麼時候做了什麼修改, 也能隨時回溯到之前的版本.</p>
+          <div class="info-box" style="margin-top:12px;">
+            <div class="tag">適用範圍</div>
+            <p>Git 不只是給程式碼用的. 任何純文字格式的文件(Markdown, CSV, JSON)都能享有完整的版本追蹤.</p>
+          </div>
+        </div>
+      </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="scPrev" disabled onclick="scGoTo(scStep-1)">← 上一個</button>
-    <button class="btn btn-primary" id="scNext" onclick="scGoTo(scStep+1)">下一個 →</button>
-    <span class="step-indicator" id="scIndicator">情境 1 / 3</span>
-  </div>
-</section>
+      <div class="sc-panel demo-panel" id="sc-p1">
+        <div class="step-content">
+          <h3>程式碼審查與協作</h3>
+          <p>開發人員透過分支進行開發, 再以 Pull Request 的方式提交修改, 讓其他成員在合併前先進行審查, 確保程式碼品質與一致性. Pull Request 介面可以逐行留言討論.</p>
+          <div class="takeaway" style="margin-top:12px;">
+            <p>Pull Request 不只是技術工具, 也是知識傳遞的機制. 審查過程中的討論留存在 GitHub 上, 成為未來可查閱的決策紀錄.</p>
+          </div>
+        </div>
+      </div>
 
-<!-- 常見錯誤提醒 -->
-<section>
-  <h2>常見錯誤提醒</h2>
-  <p>以下是使用 Git 與 GitHub 時最容易踩到的五個坑:</p>
-  <div class="warning-list">
-    <div class="warning-item">
-      <div class="warning-num">01</div>
-      <div class="warning-desc">commit 訊息寫得不清楚, 例如只寫「<span class="wkey">更新</span>」, 之後難以從歷史紀錄判斷修改內容.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">02</div>
-      <div class="warning-desc">直接在 <span class="wkey">main</span> 或 <span class="wkey">master</span> 分支上進行修改, 沒有先建立獨立分支, 增加團隊協作風險.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">03</div>
-      <div class="warning-desc">使用 <span class="wkey">git push --force</span> 強制推送, 可能覆蓋掉其他人已上傳的內容, 使用前務必確認影響範圍.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">04</div>
-      <div class="warning-desc">把含有密碼或金鑰的設定檔誤加入 commit, 上傳到遠端後即使刪除, 歷史紀錄中仍可能留有痕跡.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">05</div>
-      <div class="warning-desc">遇到合併衝突時直接放棄修改或任意刪除衝突標記, 沒有仔細確認保留的內容是否正確.</div>
-    </div>
-  </div>
-</section>
+      <div class="sc-panel demo-panel" id="sc-p2">
+        <div class="step-content">
+          <h3>知識庫與專案文件集中管理</h3>
+          <p>把專案的 README, SOP, 操作手冊都存放在同一個 GitHub repository 中, 搭配 Wiki 或 Markdown 檔案, 方便團隊成員查閱. 透過 commit
+            歷史可以了解文件的演進過程.</p>
+        </div>
+      </div>
 
-<!-- 快速複習表 -->
-<section>
-  <h2>快速複習表</h2>
-  <p>常用指令一覽, 可作為日常操作時的速查參考:</p>
-  <div class="response-box">
-    <div class="response-field">
-      <div class="rf-key">git init</div>
-      <div class="rf-val">建立新的 Git 專案</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git clone</div>
-      <div class="rf-val">複製遠端 repo 到本機</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git status</div>
-      <div class="rf-val">查看目前變更狀態</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git add</div>
-      <div class="rf-val">把變更加入暫存區</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git commit -m</div>
-      <div class="rf-val">建立一次 commit</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git push</div>
-      <div class="rf-val">把本機 commit 上傳到遠端</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git pull</div>
-      <div class="rf-val">下載並合併遠端最新內容</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git branch</div>
-      <div class="rf-val">查看或建立分支</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git switch</div>
-      <div class="rf-val">切換分支</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git merge</div>
-      <div class="rf-val">合併指定分支</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">git log</div>
-      <div class="rf-val">查看 commit 歷史</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">.gitignore</div>
-      <div class="rf-val">設定不被追蹤的檔案清單</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">gh auth login</div>
-      <div class="rf-val">登入 GitHub CLI</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">gh pr create</div>
-      <div class="rf-val">在終端機中建立 Pull Request</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">gh issue create</div>
-      <div class="rf-val">在終端機中建立 Issue</div>
-    </div>
-  </div>
-</section>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="scPrev" disabled onclick="scGoTo(scStep-1)">← 上一個</button>
+        <button class="btn btn-primary" id="scNext" onclick="scGoTo(scStep+1)">下一個 →</button>
+        <span class="step-indicator" id="scIndicator">情境 1 / 3</span>
+      </div>
+    </section>
 
-<!-- 結語 -->
-<section>
-  <h2>結語</h2>
-  <p>Git 提供版本控制的核心能力, GitHub 則在這個基礎上加上雲端備份與團隊協作功能, 兩者搭配學習可以同時掌握本機操作與遠端協作的完整流程.</p>
-  <div class="event-list">
-    <div class="event-item">
-      <div class="event-name">第一步</div>
-      <div class="event-desc">先從個人專案練習 commit 與分支操作, 熟悉 Working Directory → Staging Area → Commit 的三段流程</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">第二步</div>
-      <div class="event-desc">嘗試與團隊成員一起使用 Pull Request 進行協作, 建立 push → PR → review → merge 的工作循環</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">第三步</div>
-      <div class="event-desc">逐步把日常的文件與專案管理工作納入版本控制, 讓 Git 成為工作流程的一部分</div>
-    </div>
-  </div>
-  <div class="takeaway">
-    <p>Git 最大的價值不是指令本身, 而是「每次修改都有紀錄、任何版本都能還原」這個工作習慣. 從第一個 commit 開始, 逐步建立起來.</p>
-  </div>
-</section>
+    <!-- 常見錯誤提醒 -->
+    <section>
+      <h2>常見錯誤提醒</h2>
+      <p>以下是使用 Git 與 GitHub 時最容易踩到的五個坑:</p>
+      <div class="warning-list">
+        <div class="warning-item">
+          <div class="warning-num">01</div>
+          <div class="warning-desc">commit 訊息寫得不清楚, 例如只寫「<span class="wkey">更新</span>」, 之後難以從歷史紀錄判斷修改內容.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">02</div>
+          <div class="warning-desc">直接在 <span class="wkey">main</span> 或 <span class="wkey">master</span> 分支上進行修改,
+            沒有先建立獨立分支, 增加團隊協作風險.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">03</div>
+          <div class="warning-desc">使用 <span class="wkey">git push --force</span> 強制推送, 可能覆蓋掉其他人已上傳的內容, 使用前務必確認影響範圍.
+          </div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">04</div>
+          <div class="warning-desc">把含有密碼或金鑰的設定檔誤加入 commit, 上傳到遠端後即使刪除, 歷史紀錄中仍可能留有痕跡.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">05</div>
+          <div class="warning-desc">遇到合併衝突時直接放棄修改或任意刪除衝突標記, 沒有仔細確認保留的內容是否正確.</div>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <!-- 快速複習表 -->
+    <section>
+      <h2>快速複習表</h2>
+      <p>常用指令一覽, 可作為日常操作時的速查參考:</p>
+      <div class="response-box">
+        <div class="response-field">
+          <div class="rf-key">git init</div>
+          <div class="rf-val">建立新的 Git 專案</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git clone</div>
+          <div class="rf-val">複製遠端 repo 到本機</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git status</div>
+          <div class="rf-val">查看目前變更狀態</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git add</div>
+          <div class="rf-val">把變更加入暫存區</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git commit -m</div>
+          <div class="rf-val">建立一次 commit</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git push</div>
+          <div class="rf-val">把本機 commit 上傳到遠端</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git pull</div>
+          <div class="rf-val">下載並合併遠端最新內容</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git branch</div>
+          <div class="rf-val">查看或建立分支</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git switch</div>
+          <div class="rf-val">切換分支</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git merge</div>
+          <div class="rf-val">合併指定分支</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">git log</div>
+          <div class="rf-val">查看 commit 歷史</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">.gitignore</div>
+          <div class="rf-val">設定不被追蹤的檔案清單</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">gh auth login</div>
+          <div class="rf-val">登入 GitHub CLI</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">gh pr create</div>
+          <div class="rf-val">在終端機中建立 Pull Request</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">gh issue create</div>
+          <div class="rf-val">在終端機中建立 Issue</div>
+        </div>
+      </div>
+    </section>
 
-<script>
-  function toggleTheme() {
-    const isDark = document.body.classList.toggle('dark');
-    document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
-  }
+    <!-- 結語 -->
+    <section>
+      <h2>結語</h2>
+      <p>Git 提供版本控制的核心能力, GitHub 則在這個基礎上加上雲端備份與團隊協作功能, 兩者搭配學習可以同時掌握本機操作與遠端協作的完整流程.</p>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-name">第一步</div>
+          <div class="event-desc">先從個人專案練習 commit 與分支操作, 熟悉 Working Directory → Staging Area → Commit 的三段流程</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">第二步</div>
+          <div class="event-desc">嘗試與團隊成員一起使用 Pull Request 進行協作, 建立 push → PR → review → merge 的工作循環</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">第三步</div>
+          <div class="event-desc">逐步把日常的文件與專案管理工作納入版本控制, 讓 Git 成為工作流程的一部分</div>
+        </div>
+      </div>
+      <div class="takeaway">
+        <p>Git 最大的價值不是指令本身, 而是「每次修改都有紀錄、任何版本都能還原」這個工作習慣. 從第一個 commit 開始, 逐步建立起來.</p>
+      </div>
+    </section>
 
-  function selectSync(id) {
-    document.querySelectorAll('.sync-panel').forEach(el => {
-      el.style.display = el.id === id ? 'block' : 'none';
-    });
-    document.querySelectorAll('.sync-chip').forEach(c => {
-      c.classList.toggle('active', c.dataset.id === id);
-    });
-  }
+  </main>
 
-  let wfStep = 0;
-  const WF_MAX = 4;
-  function wfGoTo(n) {
-    wfStep = Math.max(0, Math.min(WF_MAX, n));
-    document.querySelectorAll('.wf-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === wfStep));
-    document.querySelectorAll('.wf-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === wfStep)     t.classList.add('active');
-      else if (i < wfStep)  t.classList.add('done');
-    });
-    document.getElementById('wfPrev').disabled = wfStep === 0;
-    const wfNext = document.getElementById('wfNext');
-    wfNext.disabled    = wfStep === WF_MAX;
-    wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一步 →';
-    document.getElementById('wfIndicator').textContent =
-      '步驟 ' + (wfStep + 1) + ' / ' + (WF_MAX + 1);
-  }
-  wfGoTo(0);
+  <script>
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
+    }
 
-  let cliStep = 0;
-  const CLI_MAX = 2;
-  function cliGoTo(n) {
-    cliStep = Math.max(0, Math.min(CLI_MAX, n));
-    document.querySelectorAll('.cli-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === cliStep));
-    document.querySelectorAll('.cli-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === cliStep)     t.classList.add('active');
-      else if (i < cliStep)  t.classList.add('done');
-    });
-    document.getElementById('cliPrev').disabled = cliStep === 0;
-    const cliNext = document.getElementById('cliNext');
-    cliNext.disabled    = cliStep === CLI_MAX;
-    cliNext.textContent = cliStep === CLI_MAX ? '完成 ✓' : '下一項 →';
-    document.getElementById('cliIndicator').textContent =
-      (cliStep + 1) + ' / ' + (CLI_MAX + 1);
-  }
-  cliGoTo(0);
+    function selectSync(id) {
+      document.querySelectorAll('.sync-panel').forEach(el => {
+        el.style.display = el.id === id ? 'block' : 'none';
+      });
+      document.querySelectorAll('.sync-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.id === id);
+      });
+    }
 
-  let scStep = 0;
-  const SC_MAX = 2;
-  function scGoTo(n) {
-    scStep = Math.max(0, Math.min(SC_MAX, n));
-    document.querySelectorAll('.sc-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === scStep));
-    document.querySelectorAll('.sc-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === scStep)     t.classList.add('active');
-      else if (i < scStep)  t.classList.add('done');
-    });
-    document.getElementById('scPrev').disabled = scStep === 0;
-    const scNext = document.getElementById('scNext');
-    scNext.disabled    = scStep === SC_MAX;
-    scNext.textContent = scStep === SC_MAX ? '完成 ✓' : '下一個 →';
-    document.getElementById('scIndicator').textContent =
-      '情境 ' + (scStep + 1) + ' / ' + (SC_MAX + 1);
-  }
-  scGoTo(0);
-</script>
+    let wfStep = 0;
+    const WF_MAX = 4;
+    function wfGoTo(n) {
+      wfStep = Math.max(0, Math.min(WF_MAX, n));
+      document.querySelectorAll('.wf-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === wfStep));
+      document.querySelectorAll('.wf-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === wfStep) t.classList.add('active');
+        else if (i < wfStep) t.classList.add('done');
+      });
+      document.getElementById('wfPrev').disabled = wfStep === 0;
+      const wfNext = document.getElementById('wfNext');
+      wfNext.disabled = wfStep === WF_MAX;
+      wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一步 →';
+      document.getElementById('wfIndicator').textContent =
+        '步驟 ' + (wfStep + 1) + ' / ' + (WF_MAX + 1);
+    }
+    wfGoTo(0);
+
+    let cliStep = 0;
+    const CLI_MAX = 2;
+    function cliGoTo(n) {
+      cliStep = Math.max(0, Math.min(CLI_MAX, n));
+      document.querySelectorAll('.cli-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === cliStep));
+      document.querySelectorAll('.cli-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === cliStep) t.classList.add('active');
+        else if (i < cliStep) t.classList.add('done');
+      });
+      document.getElementById('cliPrev').disabled = cliStep === 0;
+      const cliNext = document.getElementById('cliNext');
+      cliNext.disabled = cliStep === CLI_MAX;
+      cliNext.textContent = cliStep === CLI_MAX ? '完成 ✓' : '下一項 →';
+      document.getElementById('cliIndicator').textContent =
+        (cliStep + 1) + ' / ' + (CLI_MAX + 1);
+    }
+    cliGoTo(0);
+
+    let scStep = 0;
+    const SC_MAX = 2;
+    function scGoTo(n) {
+      scStep = Math.max(0, Math.min(SC_MAX, n));
+      document.querySelectorAll('.sc-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === scStep));
+      document.querySelectorAll('.sc-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === scStep) t.classList.add('active');
+        else if (i < scStep) t.classList.add('done');
+      });
+      document.getElementById('scPrev').disabled = scStep === 0;
+      const scNext = document.getElementById('scNext');
+      scNext.disabled = scStep === SC_MAX;
+      scNext.textContent = scStep === SC_MAX ? '完成 ✓' : '下一個 →';
+      document.getElementById('scIndicator').textContent =
+        '情境 ' + (scStep + 1) + ' / ' + (SC_MAX + 1);
+    }
+    scGoTo(0);
+  </script>
 </body>
+
 </html>

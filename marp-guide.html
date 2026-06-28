@@ -1,272 +1,852 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marp 入門指南</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-           background: #f0f4f8; color: #1a202c; line-height: 1.7; }
-
-    header { background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
-             border-bottom: 1px solid #bfdbfe; padding: 48px 24px 40px; text-align: center; }
-    header h1 { font-size: 2.2rem; font-weight: 700; color: #1e3a5f; }
-    header p  { margin-top: 10px; color: #4a5568; font-size: 1.05rem;
-                max-width: 600px; margin-inline: auto; }
-
-    main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
-    section { margin-bottom: 52px; }
-    h2 { font-size: 1.4rem; font-weight: 600; color: #1e40af;
-         border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 20px; }
-    h3 { font-size: 1.05rem; font-weight: 600; color: #1a202c; margin: 20px 0 8px; }
-    p  { color: #4a5568; margin-bottom: 12px; }
-    code { font-family: monospace; font-size: 0.85em; background: #e2e8f0;
-           padding: 1px 5px; border-radius: 3px; color: #1a202c; }
-
-    .code-block { background: #f8fafc; border: 1px solid #cbd5e0; border-radius: 8px;
-      padding: 16px 18px; font-family: monospace; font-size: 0.82rem; color: #1a202c;
-      overflow-x: auto; margin-top: 14px; line-height: 1.7; white-space: pre; }
-    .kw  { color: #7c3aed; }
-    .fn  { color: #16a34a; }
-    .str { color: #d97706; }
-    .cmt { color: #94a3b8; font-style: italic; }
-    .key { color: #2563eb; }
-
-    .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 10px;
-      padding: 16px 20px; margin-top: 14px; }
-    .info-box .tag { display: inline-block; background: #3b82f6; color: #fff;
-      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-      margin-bottom: 10px; letter-spacing: 0.05em; }
-    .info-box p { color: #1e3a5f; font-size: 0.88rem; margin: 0; }
-
-    .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
-      border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
-    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0; }
-
-    .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-    .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
-    .field .name { font-family: monospace; font-size: 0.85rem; color: #16a34a; font-weight: 600; }
-    .field .desc { font-size: 0.82rem; color: #4a5568; margin-top: 4px; }
-
-    .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .event-item { background: #fff; border: 1px solid #cbd5e0; border-radius: 6px;
-      padding: 9px 14px; display: flex; gap: 14px; align-items: baseline; }
-    .event-name { font-family: monospace; font-size: 0.82rem; color: #16a34a;
-      min-width: 140px; flex-shrink: 0; }
-    .event-desc { font-size: 0.82rem; color: #4a5568; }
-
-    .response-box { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
-      padding: 20px; margin-top: 16px; }
-    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
-    .response-field:last-child { border-bottom: none; }
-    .rf-key { font-family: monospace; font-size: 0.82rem; color: #d97706; width: 160px; flex-shrink: 0; }
-    .rf-val { font-size: 0.85rem; color: #374151; }
-
-    .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; border: none; transition: all 0.2s; }
-    .btn-primary { background: #2563eb; color: #fff; }
-    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
-    .btn-primary:disabled { background: #cbd5e0; color: #9ca3af; cursor: default; }
-    .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
-    .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
-    .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
-    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
-
-    .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-    .stage-tab.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
-    .stage-tab.done   { background: #166534; border-color: #4ade80; color: #dcfce7; }
-
-    .demo-panel { display: none; }
-    .demo-panel.visible { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
-
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
-    .col-card { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 16px 18px; }
-    .col-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
-    .col-card p { font-size: 0.83rem; color: #4a5568; margin-bottom: 6px; }
-    .col-card p:last-child { margin-bottom: 0; }
-
-    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
-    .chip-label { font-size: 0.75rem; color: #6b7280; }
-    .chip { padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
-    .chip.active { background: #dcfce7; border-color: #4ade80; color: #166534; }
-
-    .step-content { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px; padding: 20px 24px; }
-    .step-content h3 { color: #1e40af; margin-top: 0; margin-bottom: 10px; font-size: 1rem; }
-    .step-content p { font-size: 0.88rem; color: #4a5568; margin-bottom: 8px; }
-    .step-content p:last-child { margin-bottom: 0; }
-
-    .warning-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .warning-item { background: #fff7f7; border: 1px solid #fca5a5;
-      border-left: 4px solid #ef4444; border-radius: 6px;
-      padding: 10px 14px; display: flex; gap: 14px; align-items: baseline; }
-    .warning-num  { font-size: 0.78rem; color: #ef4444; min-width: 26px; flex-shrink: 0; font-weight: 700; }
-    .warning-desc { font-size: 0.82rem; color: #4a5568; }
-    .wkey { font-family: monospace; color: #d97706; }
-
-    @media (max-width: 640px) {
-      .api-fields, .two-col { grid-template-columns: 1fr; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    #themeToggle { position: fixed; top: 16px; right: 16px; z-index: 9999;
-      padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; border: 1px solid #cbd5e0; background: #fff; color: #1a202c;
-      transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.12); letter-spacing: 0.03em; }
-    #themeToggle:hover { border-color: #2563eb; color: #2563eb; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      line-height: 1.7;
+    }
 
-    body.dark { background: #0f1117; color: #e2e8f0; }
-    body.dark header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom-color: #2d3748; }
-    body.dark header h1 { color: #f7fafc; }
-    body.dark header p  { color: #a0aec0; }
-    body.dark h2 { color: #90cdf4; border-left-color: #4299e1; }
-    body.dark h3 { color: #e2e8f0; }
-    body.dark p  { color: #a0aec0; }
-    body.dark code { background: #2d3748; color: #e2e8f0; }
-    body.dark .code-block { background: #0d1117; border-color: #2d3748; color: #e2e8f0; }
-    body.dark .kw  { color: #9f7aea; }
-    body.dark .fn  { color: #68d391; }
-    body.dark .str { color: #f6ad55; }
-    body.dark .cmt { color: #4a5568; }
-    body.dark .key { color: #63b3ed; }
-    body.dark .info-box { background: #1a202c; border-color: #2a4a6a; }
-    body.dark .info-box .tag { background: #2a4a6a; color: #90cdf4; }
-    body.dark .info-box p { color: #a0aec0; }
-    body.dark .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c); border-color: #276749; }
-    body.dark .takeaway p { color: #c6f6d5; }
-    body.dark .field { background: #1a202c; border-color: #2d3748; }
-    body.dark .field .name { color: #68d391; }
-    body.dark .field .desc { color: #718096; }
-    body.dark .event-item { background: #1a202c; border-color: #2d3748; }
-    body.dark .event-name { color: #68d391; }
-    body.dark .event-desc { color: #718096; }
-    body.dark .response-box { background: #1a202c; border-color: #2d3748; }
-    body.dark .response-field { border-bottom-color: #2d3748; }
-    body.dark .rf-key { color: #f6ad55; }
-    body.dark .rf-val { color: #a0aec0; }
-    body.dark .btn-primary { background: #2b6cb0; }
-    body.dark .btn-primary:hover:not(:disabled) { background: #3182ce; }
-    body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
-    body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
-    body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
-    body.dark .step-indicator { color: #718096; }
-    body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
-    body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
-    body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
-    body.dark .col-card { background: #1a202c; border-color: #2d3748; }
-    body.dark .col-card-title { color: #4a5568; }
-    body.dark .col-card p { color: #a0aec0; }
-    body.dark .chip { background: #1a202c; border-color: #2d3748; color: #718096; }
-    body.dark .chip.active { background: #1c3a2a; border-color: #38a169; color: #68d391; }
-    body.dark .step-content { background: #1a202c; border-color: #2d3748; }
-    body.dark .step-content h3 { color: #90cdf4; }
-    body.dark .step-content p { color: #a0aec0; }
-    body.dark .warning-item { background: #1a1010; border-color: #7f1d1d; border-left-color: #ef4444; }
-    body.dark .warning-num { color: #fc8181; }
-    body.dark .warning-desc { color: #a0aec0; }
-    body.dark .wkey { color: #f6ad55; }
-    body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-    body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
+    header {
+      background: linear-gradient(135deg, #dbeafe 0%, #f0f4f8 100%);
+      border-bottom: 1px solid #bfdbfe;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #4a5568;
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    section {
+      margin-bottom: 52px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1e40af;
+      border-left: 4px solid #3b82f6;
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 20px 0 8px;
+    }
+
+    p {
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
+
+    code {
+      font-family: monospace;
+      font-size: 0.85em;
+      background: #e2e8f0;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #1a202c;
+    }
+
+    .code-block {
+      background: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #1a202c;
+      overflow-x: auto;
+      margin-top: 14px;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .kw {
+      color: #7c3aed;
+    }
+
+    .fn {
+      color: #16a34a;
+    }
+
+    .str {
+      color: #d97706;
+    }
+
+    .cmt {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .key {
+      color: #2563eb;
+    }
+
+    .info-box {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 14px;
+    }
+
+    .info-box .tag {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .info-box p {
+      color: #1e3a5f;
+      font-size: 0.88rem;
+      margin: 0;
+    }
+
+    .takeaway {
+      background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+      border: 1px solid #4ade80;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+
+    .takeaway p {
+      color: #166534;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .api-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .field {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .field .name {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .field .desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+      margin-top: 4px;
+    }
+
+    .event-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .event-item {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 9px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .event-name {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #16a34a;
+      min-width: 140px;
+      flex-shrink: 0;
+    }
+
+    .event-desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+    }
+
+    .response-box {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .response-field {
+      display: flex;
+      gap: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .response-field:last-child {
+      border-bottom: none;
+    }
+
+    .rf-key {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #d97706;
+      width: 160px;
+      flex-shrink: 0;
+    }
+
+    .rf-val {
+      font-size: 0.85rem;
+      color: #374151;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e0;
+      color: #9ca3af;
+      cursor: default;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: #4a5568;
+      border: 1px solid #cbd5e0;
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      color: #1a202c;
+      border-color: #6b7280;
+    }
+
+    .btn-ghost:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .step-indicator {
+      color: #6b7280;
+      font-size: 0.82rem;
+      margin-left: auto;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stage-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stage-tab {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .stage-tab.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+
+    .stage-tab.done {
+      background: #166534;
+      border-color: #4ade80;
+      color: #dcfce7;
+    }
+
+    .demo-panel {
+      display: none;
+    }
+
+    .demo-panel.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .col-card {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .col-card-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .col-card p {
+      font-size: 0.83rem;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .col-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .chip-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .chip {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #e2e8f0;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+
+    .chip.active {
+      background: #dcfce7;
+      border-color: #4ade80;
+      color: #166534;
+    }
+
+    .step-content {
+      background: #fff;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+
+    .step-content h3 {
+      color: #1e40af;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .step-content p {
+      font-size: 0.88rem;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    .step-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .warning-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .warning-item {
+      background: #fff7f7;
+      border: 1px solid #fca5a5;
+      border-left: 4px solid #ef4444;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .warning-num {
+      font-size: 0.78rem;
+      color: #ef4444;
+      min-width: 26px;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    .warning-desc {
+      font-size: 0.82rem;
+      color: #4a5568;
+    }
+
+    .wkey {
+      font-family: monospace;
+      color: #d97706;
+    }
+
+    @media (max-width: 640px) {
+
+      .api-fields,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #cbd5e0;
+      background: #fff;
+      color: #1a202c;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      letter-spacing: 0.03em;
+    }
+
+    #themeToggle:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    body.dark {
+      background: #0f1117;
+      color: #e2e8f0;
+    }
+
+    body.dark header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark header h1 {
+      color: #f7fafc;
+    }
+
+    body.dark header p {
+      color: #a0aec0;
+    }
+
+    body.dark h2 {
+      color: #90cdf4;
+      border-left-color: #4299e1;
+    }
+
+    body.dark h3 {
+      color: #e2e8f0;
+    }
+
+    body.dark p {
+      color: #a0aec0;
+    }
+
+    body.dark code {
+      background: #2d3748;
+      color: #e2e8f0;
+    }
+
+    body.dark .code-block {
+      background: #0d1117;
+      border-color: #2d3748;
+      color: #e2e8f0;
+    }
+
+    body.dark .kw {
+      color: #9f7aea;
+    }
+
+    body.dark .fn {
+      color: #68d391;
+    }
+
+    body.dark .str {
+      color: #f6ad55;
+    }
+
+    body.dark .cmt {
+      color: #4a5568;
+    }
+
+    body.dark .key {
+      color: #63b3ed;
+    }
+
+    body.dark .info-box {
+      background: #1a202c;
+      border-color: #2a4a6a;
+    }
+
+    body.dark .info-box .tag {
+      background: #2a4a6a;
+      color: #90cdf4;
+    }
+
+    body.dark .info-box p {
+      color: #a0aec0;
+    }
+
+    body.dark .takeaway {
+      background: linear-gradient(135deg, #1a2a1a, #1a202c);
+      border-color: #276749;
+    }
+
+    body.dark .takeaway p {
+      color: #c6f6d5;
+    }
+
+    body.dark .field {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .field .name {
+      color: #68d391;
+    }
+
+    body.dark .field .desc {
+      color: #718096;
+    }
+
+    body.dark .event-item {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .event-name {
+      color: #68d391;
+    }
+
+    body.dark .event-desc {
+      color: #718096;
+    }
+
+    body.dark .response-box {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .response-field {
+      border-bottom-color: #2d3748;
+    }
+
+    body.dark .rf-key {
+      color: #f6ad55;
+    }
+
+    body.dark .rf-val {
+      color: #a0aec0;
+    }
+
+    body.dark .btn-primary {
+      background: #2b6cb0;
+    }
+
+    body.dark .btn-primary:hover:not(:disabled) {
+      background: #3182ce;
+    }
+
+    body.dark .btn-primary:disabled {
+      background: #2d3748;
+      color: #4a5568;
+    }
+
+    body.dark .btn-ghost {
+      background: transparent;
+      color: #718096;
+      border-color: #2d3748;
+    }
+
+    body.dark .btn-ghost:hover:not(:disabled) {
+      color: #e2e8f0;
+      border-color: #4a5568;
+    }
+
+    body.dark .step-indicator {
+      color: #718096;
+    }
+
+    body.dark .stage-tab {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .stage-tab.active {
+      background: #2b6cb0;
+      border-color: #4299e1;
+      color: #fff;
+    }
+
+    body.dark .stage-tab.done {
+      background: #276749;
+      border-color: #48bb78;
+      color: #c6f6d5;
+    }
+
+    body.dark .col-card {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .col-card-title {
+      color: #4a5568;
+    }
+
+    body.dark .col-card p {
+      color: #a0aec0;
+    }
+
+    body.dark .chip {
+      background: #1a202c;
+      border-color: #2d3748;
+      color: #718096;
+    }
+
+    body.dark .chip.active {
+      background: #1c3a2a;
+      border-color: #38a169;
+      color: #68d391;
+    }
+
+    body.dark .step-content {
+      background: #1a202c;
+      border-color: #2d3748;
+    }
+
+    body.dark .step-content h3 {
+      color: #90cdf4;
+    }
+
+    body.dark .step-content p {
+      color: #a0aec0;
+    }
+
+    body.dark .warning-item {
+      background: #1a1010;
+      border-color: #7f1d1d;
+      border-left-color: #ef4444;
+    }
+
+    body.dark .warning-num {
+      color: #fc8181;
+    }
+
+    body.dark .warning-desc {
+      color: #a0aec0;
+    }
+
+    body.dark .wkey {
+      color: #f6ad55;
+    }
+
+    body.dark #themeToggle {
+      background: #1a202c;
+      color: #e2e8f0;
+      border-color: #4a5568;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark #themeToggle:hover {
+      border-color: #90cdf4;
+      color: #90cdf4;
+    }
   </style>
 </head>
+
 <body>
 
-<button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
+  <button id="themeToggle" onclick="toggleTheme()">🌙 暗色模式</button>
 
-<header>
-  <h1>Marp 入門指南</h1>
-  <p>用文字撰寫簡報, 給上班族的 Marp 快速入門</p>
-</header>
+  <header>
+    <h1>Marp 入門指南</h1>
+    <p>用文字撰寫簡報, 給職場工作者的 Marp 快速入門</p>
+  </header>
 
-<main>
+  <main>
 
-<!-- 前言 -->
-<section>
-  <h2>前言</h2>
-  <p>Marp 是一套讓使用者用 Markdown 純文字撰寫簡報的工具生態系. 上班族常常需要快速產出會議簡報、教育訓練教材或專案報告, 透過 Marp 可以省去在 PowerPoint 中反覆調整版面的時間, 專注在內容本身, 並能用 Git 等版本控制工具追蹤簡報的修改歷史.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">傳統簡報工具的痛點</div>
-      <p>反覆拖曳文字方塊對齊</p>
-      <p>版面一改全亂, 花時間重排</p>
-      <p>版本比對困難, 不易追蹤修改</p>
-      <p>跨裝置字型與排版不一致</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">Marp 的解決方式</div>
-      <p>純文字定義投影片結構與內容</p>
-      <p>主題樣式與內容完全分離</p>
-      <p>Git 完整追蹤每次修改歷史</p>
-      <p>任何設備皆可正確渲染</p>
-    </div>
-  </div>
-</section>
-
-<!-- 什麼是 Marp -->
-<section>
-  <h2>什麼是 Marp</h2>
-  <p>Marp 全名是 Markdown Presentation Ecosystem, 由 Marp Team 開發與維護. 它讓使用者用一份 Markdown 檔案描述整份簡報, 再透過工具渲染成可投影或可分享的格式. 主要由四個元件組成:</p>
-  <div class="api-fields">
-    <div class="field">
-      <div class="name">Marp Core</div>
-      <div class="desc">核心渲染引擎, 負責把 Markdown 轉換成簡報用的 HTML 與 CSS</div>
-    </div>
-    <div class="field">
-      <div class="name">Marp CLI</div>
-      <div class="desc">命令列工具, 可將 Markdown 輸出成 HTML, PDF, PPTX, PNG 等格式</div>
-    </div>
-    <div class="field">
-      <div class="name">Marp for VS Code</div>
-      <div class="desc">VS Code 擴充套件, 提供即時預覽與匯出功能, 是最常見的入門方式</div>
-    </div>
-    <div class="field">
-      <div class="name">Marp Web</div>
-      <div class="desc">線上編輯器, 不需安裝即可在瀏覽器中使用, 適合快速嘗試</div>
-    </div>
-  </div>
-</section>
-
-<!-- 安裝與啟用方式 -->
-<section>
-  <h2>安裝與啟用方式</h2>
-  <p>Marp 提供三種使用方式, 依照工作習慣選擇最適合的入口:</p>
-  <div class="chip-row">
-    <span class="chip-label">選擇方式:</span>
-    <div class="chip inst-chip active" data-id="inst-vscode" onclick="selectInst('inst-vscode')">VS Code 擴充套件</div>
-    <div class="chip inst-chip" data-id="inst-cli" onclick="selectInst('inst-cli')">Marp CLI</div>
-    <div class="chip inst-chip" data-id="inst-web" onclick="selectInst('inst-web')">Marp Web</div>
-  </div>
-
-  <div id="inst-vscode" class="inst-panel">
-    <div class="event-list">
-      <div class="event-item">
-        <div class="event-name">步驟 1</div>
-        <div class="event-desc">在 VS Code 的擴充套件市集搜尋 <code>Marp for VS Code</code> 並安裝</div>
+    <!-- 前言 -->
+    <section>
+      <h2>前言</h2>
+      <p>Marp 是一套讓使用者用 Markdown 純文字撰寫簡報的工具生態系. 職場工作者常常需要快速產出會議簡報、教育訓練教材或專案報告, 透過 Marp 可以省去在 PowerPoint 中反覆調整版面的時間,
+        專注在內容本身, 並能用 Git 等版本控制工具追蹤簡報的修改歷史.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">傳統簡報工具的痛點</div>
+          <p>反覆拖曳文字方塊對齊</p>
+          <p>版面一改全亂, 花時間重排</p>
+          <p>版本比對困難, 不易追蹤修改</p>
+          <p>跨裝置字型與排版不一致</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">Marp 的解決方式</div>
+          <p>純文字定義投影片結構與內容</p>
+          <p>主題樣式與內容完全分離</p>
+          <p>Git 完整追蹤每次修改歷史</p>
+          <p>任何設備皆可正確渲染</p>
+        </div>
       </div>
-      <div class="event-item">
-        <div class="event-name">步驟 2</div>
-        <div class="event-desc">建立一個 <code>.md</code> 檔案, 在最上方加入 <code>marp: true</code> 以啟用渲染模式</div>
-      </div>
-      <div class="event-item">
-        <div class="event-name">步驟 3</div>
-        <div class="event-desc">點擊編輯器右上角的簡報預覽圖示, 即可即時預覽投影片效果</div>
-      </div>
-      <div class="event-item">
-        <div class="event-name">步驟 4</div>
-        <div class="event-desc">透過命令面板執行 <code>Marp: Export Slide Deck</code>, 可匯出 PDF, PPTX, PNG, HTML</div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <div id="inst-cli" class="inst-panel" style="display:none">
-    <p style="font-size:0.88rem; color:#4a5568; margin-bottom:8px;">適合需要自動化批次匯出的場合. 需先安裝 Node.js.</p>
-    <pre class="code-block"><span class="cmt"># 全域安裝 Marp CLI</span>
+    <!-- 什麼是 Marp -->
+    <section>
+      <h2>什麼是 Marp</h2>
+      <p>Marp 全名是 Markdown Presentation Ecosystem, 由 Marp Team 開發與維護. 它讓使用者用一份 Markdown 檔案描述整份簡報, 再透過工具渲染成可投影或可分享的格式.
+        主要由四個元件組成:</p>
+      <div class="api-fields">
+        <div class="field">
+          <div class="name">Marp Core</div>
+          <div class="desc">核心渲染引擎, 負責把 Markdown 轉換成簡報用的 HTML 與 CSS</div>
+        </div>
+        <div class="field">
+          <div class="name">Marp CLI</div>
+          <div class="desc">命令列工具, 可將 Markdown 輸出成 HTML, PDF, PPTX, PNG 等格式</div>
+        </div>
+        <div class="field">
+          <div class="name">Marp for VS Code</div>
+          <div class="desc">VS Code 擴充套件, 提供即時預覽與匯出功能, 是最常見的入門方式</div>
+        </div>
+        <div class="field">
+          <div class="name">Marp Web</div>
+          <div class="desc">線上編輯器, 不需安裝即可在瀏覽器中使用, 適合快速嘗試</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 安裝與啟用方式 -->
+    <section>
+      <h2>安裝與啟用方式</h2>
+      <p>Marp 提供三種使用方式, 依照工作習慣選擇最適合的入口:</p>
+      <div class="chip-row">
+        <span class="chip-label">選擇方式:</span>
+        <div class="chip inst-chip active" data-id="inst-vscode" onclick="selectInst('inst-vscode')">VS Code 擴充套件</div>
+        <div class="chip inst-chip" data-id="inst-cli" onclick="selectInst('inst-cli')">Marp CLI</div>
+        <div class="chip inst-chip" data-id="inst-web" onclick="selectInst('inst-web')">Marp Web</div>
+      </div>
+
+      <div id="inst-vscode" class="inst-panel">
+        <div class="event-list">
+          <div class="event-item">
+            <div class="event-name">步驟 1</div>
+            <div class="event-desc">在 VS Code 的擴充套件市集搜尋 <code>Marp for VS Code</code> 並安裝</div>
+          </div>
+          <div class="event-item">
+            <div class="event-name">步驟 2</div>
+            <div class="event-desc">建立一個 <code>.md</code> 檔案, 在最上方加入 <code>marp: true</code> 以啟用渲染模式</div>
+          </div>
+          <div class="event-item">
+            <div class="event-name">步驟 3</div>
+            <div class="event-desc">點擊編輯器右上角的簡報預覽圖示, 即可即時預覽投影片效果</div>
+          </div>
+          <div class="event-item">
+            <div class="event-name">步驟 4</div>
+            <div class="event-desc">透過命令面板執行 <code>Marp: Export Slide Deck</code>, 可匯出 PDF, PPTX, PNG, HTML</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="inst-cli" class="inst-panel" style="display:none">
+        <p style="font-size:0.88rem; color:#4a5568; margin-bottom:8px;">適合需要自動化批次匯出的場合. 需先安裝 Node.js.</p>
+        <pre
+          class="code-block"><span class="cmt"># 全域安裝 Marp CLI</span>
 <span class="fn">npm</span> install <span class="key">-g</span> <span class="str">@marp-team/marp-cli</span>
 
 <span class="cmt"># 匯出成 PDF</span>
@@ -277,21 +857,22 @@
 
 <span class="cmt"># 匯出成 PPTX</span>
 <span class="fn">marp</span> <span class="str">slide.md</span> <span class="key">-o</span> <span class="str">slide.pptx</span></pre>
-  </div>
+      </div>
 
-  <div id="inst-web" class="inst-panel" style="display:none">
-    <div class="info-box">
-      <div class="tag">零安裝</div>
-      <p>直接在瀏覽器開啟 Marp Web 線上編輯器, 貼上 Markdown 內容即可預覽與匯出. 適合不方便安裝軟體的場合, 例如公司管理的電腦或短暫借用的工作站. 搜尋 "Marp Web" 即可找到官方線上編輯器.</p>
-    </div>
-  </div>
-</section>
+      <div id="inst-web" class="inst-panel" style="display:none">
+        <div class="info-box">
+          <div class="tag">零安裝</div>
+          <p>直接在瀏覽器開啟 Marp Web 線上編輯器, 貼上 Markdown 內容即可預覽與匯出. 適合不方便安裝軟體的場合, 例如公司管理的電腦或短暫借用的工作站. 搜尋 "Marp Web"
+            即可找到官方線上編輯器.</p>
+        </div>
+      </div>
+    </section>
 
-<!-- 基本架構, 投影片分隔 -->
-<section>
-  <h2>基本架構, 投影片分隔</h2>
-  <p>一份 Marp 簡報由一個 Markdown 檔案組成. 檔案最上方是 YAML 格式的設定區塊(稱為 front matter), 接著用 <code>---</code> 分隔每一張投影片.</p>
-  <pre class="code-block"><span class="kw">---</span>
+    <!-- 基本架構, 投影片分隔 -->
+    <section>
+      <h2>基本架構, 投影片分隔</h2>
+      <p>一份 Marp 簡報由一個 Markdown 檔案組成. 檔案最上方是 YAML 格式的設定區塊(稱為 front matter), 接著用 <code>---</code> 分隔每一張投影片.</p>
+      <pre class="code-block"><span class="kw">---</span>
 <span class="key">marp</span>: <span class="str">true</span>
 <span class="key">theme</span>: <span class="str">default</span>
 <span class="key">paginate</span>: <span class="str">true</span>
@@ -306,69 +887,69 @@
 <span class="kw">#</span> 第二張投影片
 
 這裡是第二張投影片的內容.</pre>
-  <div class="info-box">
-    <div class="tag">注意</div>
-    <p><code>---</code> 上下都需要保留空白行, 否則可能無法被正確判斷為投影片分隔線, 而被誤解為其他 Markdown 語法(例如 setext 式標題底線).</p>
-  </div>
-</section>
+      <div class="info-box">
+        <div class="tag">注意</div>
+        <p><code>---</code> 上下都需要保留空白行, 否則可能無法被正確判斷為投影片分隔線, 而被誤解為其他 Markdown 語法(例如 setext 式標題底線).</p>
+      </div>
+    </section>
 
-<!-- 全域指令, Front Matter -->
-<section>
-  <h2>全域指令, Front Matter</h2>
-  <p>寫在檔案最上方第一個 <code>---</code> 區塊內的設定稱為全域指令, 會套用到整份簡報的每一張投影片.</p>
-  <div class="event-list">
-    <div class="event-item">
-      <div class="event-name">marp: true</div>
-      <div class="event-desc">啟用 Marp 渲染模式, 為必填項目, 缺少此行工具不會處理這份檔案</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">theme:</div>
-      <div class="event-desc">設定主題, 可填入 default, gaia, uncover, 或自訂主題名稱</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">paginate: true</div>
-      <div class="event-desc">在每張投影片右下角顯示頁碼</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">size: 16:9</div>
-      <div class="event-desc">設定投影片比例, 可填 4:3 或 16:9</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">backgroundColor:</div>
-      <div class="event-desc">設定整份簡報的背景色, 填入 CSS 色碼, 例如 #ffffff</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">color:</div>
-      <div class="event-desc">設定整份簡報的文字顏色, 填入 CSS 色碼</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">header:</div>
-      <div class="event-desc">設定每張投影片共用的頁首文字</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">footer:</div>
-      <div class="event-desc">設定每張投影片共用的頁尾文字</div>
-    </div>
-  </div>
-</section>
+    <!-- 全域指令, Front Matter -->
+    <section>
+      <h2>全域指令, Front Matter</h2>
+      <p>寫在檔案最上方第一個 <code>---</code> 區塊內的設定稱為全域指令, 會套用到整份簡報的每一張投影片.</p>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-name">marp: true</div>
+          <div class="event-desc">啟用 Marp 渲染模式, 為必填項目, 缺少此行工具不會處理這份檔案</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">theme:</div>
+          <div class="event-desc">設定主題, 可填入 default, gaia, uncover, 或自訂主題名稱</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">paginate: true</div>
+          <div class="event-desc">在每張投影片右下角顯示頁碼</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">size: 16:9</div>
+          <div class="event-desc">設定投影片比例, 可填 4:3 或 16:9</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">backgroundColor:</div>
+          <div class="event-desc">設定整份簡報的背景色, 填入 CSS 色碼, 例如 #ffffff</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">color:</div>
+          <div class="event-desc">設定整份簡報的文字顏色, 填入 CSS 色碼</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">header:</div>
+          <div class="event-desc">設定每張投影片共用的頁首文字</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">footer:</div>
+          <div class="event-desc">設定每張投影片共用的頁尾文字</div>
+        </div>
+      </div>
+    </section>
 
-<!-- 區域指令, 單張投影片設定 -->
-<section>
-  <h2>區域指令, 單張投影片設定</h2>
-  <p>在某一張投影片內用 HTML 註解格式寫指令, 可以針對單張投影片做客製化設定.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">有底線前綴(只套用當張)</div>
-      <p>指令名稱加上 <code>_</code> 前綴, 例如 <code>_color</code>, <code>_backgroundColor</code></p>
-      <p>效果只套用在這一張投影片, 下一張投影片自動回復原本設定</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">無底線前綴(套用到後面所有張)</div>
-      <p>指令名稱不加前綴, 例如 <code>color</code>, <code>backgroundColor</code></p>
-      <p>從這張投影片開始, 效果一直延續到整份簡報結束</p>
-    </div>
-  </div>
-  <pre class="code-block"><span class="kw">---</span>
+    <!-- 區域指令, 單張投影片設定 -->
+    <section>
+      <h2>區域指令, 單張投影片設定</h2>
+      <p>在某一張投影片內用 HTML 註解格式寫指令, 可以針對單張投影片做客製化設定.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">有底線前綴(只套用當張)</div>
+          <p>指令名稱加上 <code>_</code> 前綴, 例如 <code>_color</code>, <code>_backgroundColor</code></p>
+          <p>效果只套用在這一張投影片, 下一張投影片自動回復原本設定</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">無底線前綴(套用到後面所有張)</div>
+          <p>指令名稱不加前綴, 例如 <code>color</code>, <code>backgroundColor</code></p>
+          <p>從這張投影片開始, 效果一直延續到整份簡報結束</p>
+        </div>
+      </div>
+      <pre class="code-block"><span class="kw">---</span>
 
 <span class="kw">#</span> 一般投影片, 使用預設設定
 
@@ -382,154 +963,159 @@
 <span class="kw">---</span>
 
 <span class="kw">#</span> 這張恢復原本的設定</pre>
-</section>
+    </section>
 
-<!-- 背景圖片與版面切版 -->
-<section>
-  <h2>背景圖片與版面切版</h2>
-  <p>使用 <code>![bg]</code> 語法可以把圖片設為投影片背景. 點擊下方選項查看各種背景模式的語法與效果:</p>
-  <div class="chip-row">
-    <span class="chip-label">背景模式:</span>
-    <div class="chip bg-chip active" data-id="bg-default" onclick="selectBg('bg-default')">預設</div>
-    <div class="chip bg-chip" data-id="bg-fit" onclick="selectBg('bg-fit')">fit</div>
-    <div class="chip bg-chip" data-id="bg-cover" onclick="selectBg('bg-cover')">cover</div>
-    <div class="chip bg-chip" data-id="bg-left" onclick="selectBg('bg-left')">left</div>
-    <div class="chip bg-chip" data-id="bg-right" onclick="selectBg('bg-right')">right:40%</div>
-  </div>
+    <!-- 背景圖片與版面切版 -->
+    <section>
+      <h2>背景圖片與版面切版</h2>
+      <p>使用 <code>![bg]</code> 語法可以把圖片設為投影片背景. 點擊下方選項查看各種背景模式的語法與效果:</p>
+      <div class="chip-row">
+        <span class="chip-label">背景模式:</span>
+        <div class="chip bg-chip active" data-id="bg-default" onclick="selectBg('bg-default')">預設</div>
+        <div class="chip bg-chip" data-id="bg-fit" onclick="selectBg('bg-fit')">fit</div>
+        <div class="chip bg-chip" data-id="bg-cover" onclick="selectBg('bg-cover')">cover</div>
+        <div class="chip bg-chip" data-id="bg-left" onclick="selectBg('bg-left')">left</div>
+        <div class="chip bg-chip" data-id="bg-right" onclick="selectBg('bg-right')">right:40%</div>
+      </div>
 
-  <div id="bg-default" class="bg-panel">
-    <pre class="code-block"><span class="kw">!</span>[<span class="str">bg</span>](<span class="key">image.jpg</span>)</pre>
-    <p style="font-size:0.85rem;margin-top:8px;">圖片填滿整張投影片背景, 依比例裁切超出的部分. 等同於 CSS 的 background-size: cover.</p>
-  </div>
-  <div id="bg-fit" class="bg-panel" style="display:none">
-    <pre class="code-block"><span class="kw">!</span>[<span class="str">bg fit</span>](<span class="key">image.jpg</span>)</pre>
-    <p style="font-size:0.85rem;margin-top:8px;">圖片依原始比例完整顯示, 不裁切. 邊緣可能留有空白.</p>
-  </div>
-  <div id="bg-cover" class="bg-panel" style="display:none">
-    <pre class="code-block"><span class="kw">!</span>[<span class="str">bg cover</span>](<span class="key">image.jpg</span>)</pre>
-    <p style="font-size:0.85rem;margin-top:8px;">圖片填滿整張投影片, 維持比例, 超出部分裁切. 與預設行為相同, 可明確標示意圖.</p>
-  </div>
-  <div id="bg-left" class="bg-panel" style="display:none">
-    <pre class="code-block"><span class="kw">!</span>[<span class="str">bg left</span>](<span class="key">image.jpg</span>)</pre>
-    <p style="font-size:0.85rem;margin-top:8px;">圖片佔左半欄, 右半欄放文字內容. 適合製作圖文對照的說明版面.</p>
-  </div>
-  <div id="bg-right" class="bg-panel" style="display:none">
-    <pre class="code-block"><span class="kw">!</span>[<span class="str">bg right:40%</span>](<span class="key">image.jpg</span>)</pre>
-    <p style="font-size:0.85rem;margin-top:8px;">圖片佔右側 40%, 百分比可自訂. 文字內容放在左側剩餘空間.</p>
-  </div>
-</section>
+      <div id="bg-default" class="bg-panel">
+        <pre
+          class="code-block"><span class="kw">!</span>[<span class="str">bg</span>](<span class="key">image.jpg</span>)</pre>
+        <p style="font-size:0.85rem;margin-top:8px;">圖片填滿整張投影片背景, 依比例裁切超出的部分. 等同於 CSS 的 background-size: cover.</p>
+      </div>
+      <div id="bg-fit" class="bg-panel" style="display:none">
+        <pre
+          class="code-block"><span class="kw">!</span>[<span class="str">bg fit</span>](<span class="key">image.jpg</span>)</pre>
+        <p style="font-size:0.85rem;margin-top:8px;">圖片依原始比例完整顯示, 不裁切. 邊緣可能留有空白.</p>
+      </div>
+      <div id="bg-cover" class="bg-panel" style="display:none">
+        <pre
+          class="code-block"><span class="kw">!</span>[<span class="str">bg cover</span>](<span class="key">image.jpg</span>)</pre>
+        <p style="font-size:0.85rem;margin-top:8px;">圖片填滿整張投影片, 維持比例, 超出部分裁切. 與預設行為相同, 可明確標示意圖.</p>
+      </div>
+      <div id="bg-left" class="bg-panel" style="display:none">
+        <pre
+          class="code-block"><span class="kw">!</span>[<span class="str">bg left</span>](<span class="key">image.jpg</span>)</pre>
+        <p style="font-size:0.85rem;margin-top:8px;">圖片佔左半欄, 右半欄放文字內容. 適合製作圖文對照的說明版面.</p>
+      </div>
+      <div id="bg-right" class="bg-panel" style="display:none">
+        <pre
+          class="code-block"><span class="kw">!</span>[<span class="str">bg right:40%</span>](<span class="key">image.jpg</span>)</pre>
+        <p style="font-size:0.85rem;margin-top:8px;">圖片佔右側 40%, 百分比可自訂. 文字內容放在左側剩餘空間.</p>
+      </div>
+    </section>
 
-<!-- 圖片縮放 -->
-<section>
-  <h2>圖片縮放</h2>
-  <p>一般圖片(非背景圖片)可以用 <code>width</code> 與 <code>height</code> 關鍵字調整大小, 不需要另外撰寫 CSS.</p>
-  <pre class="code-block"><span class="cmt"># 指定寬度</span>
+    <!-- 圖片縮放 -->
+    <section>
+      <h2>圖片縮放</h2>
+      <p>一般圖片(非背景圖片)可以用 <code>width</code> 與 <code>height</code> 關鍵字調整大小, 不需要另外撰寫 CSS.</p>
+      <pre class="code-block"><span class="cmt"># 指定寬度</span>
 <span class="kw">!</span>[<span class="str">width:300px</span>](<span class="key">photo.png</span>)
 
 <span class="cmt"># 同時指定寬高(縮寫)</span>
 <span class="kw">!</span>[<span class="str">w:300 h:200</span>](<span class="key">photo.png</span>)</pre>
-  <div class="response-box">
-    <div class="response-field">
-      <div class="rf-key">width / w</div>
-      <div class="rf-val">設定圖片寬度, 接受 px 或 auto 等 CSS 單位. 可縮寫成 <code>w</code>.</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">height / h</div>
-      <div class="rf-val">設定圖片高度, 接受 px 或 auto 等 CSS 單位. 可縮寫成 <code>h</code>.</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">同時使用</div>
-      <div class="rf-val">可在同一組方括號內同時指定 <code>w</code> 與 <code>h</code>, 以空格分隔.</div>
-    </div>
-  </div>
-</section>
-
-<!-- 主題 Theme -->
-<section>
-  <h2>主題 Theme</h2>
-  <p>Marp Core 內建三種主題. 若公司有固定的視覺規範, 也可以撰寫自訂 CSS 主題.</p>
-  <div class="chip-row">
-    <span class="chip-label">選擇主題:</span>
-    <div class="chip theme-chip active" data-id="theme-default" onclick="selectTheme('theme-default')">default</div>
-    <div class="chip theme-chip" data-id="theme-gaia" onclick="selectTheme('theme-gaia')">gaia</div>
-    <div class="chip theme-chip" data-id="theme-uncover" onclick="selectTheme('theme-uncover')">uncover</div>
-  </div>
-
-  <div id="theme-default" class="theme-panel">
-    <div class="response-box">
-      <div class="response-field">
-        <div class="rf-key">風格</div>
-        <div class="rf-val">簡潔白底, 適合正式商務簡報與教育訓練教材</div>
+      <div class="response-box">
+        <div class="response-field">
+          <div class="rf-key">width / w</div>
+          <div class="rf-val">設定圖片寬度, 接受 px 或 auto 等 CSS 單位. 可縮寫成 <code>w</code>.</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">height / h</div>
+          <div class="rf-val">設定圖片高度, 接受 px 或 auto 等 CSS 單位. 可縮寫成 <code>h</code>.</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">同時使用</div>
+          <div class="rf-val">可在同一組方括號內同時指定 <code>w</code> 與 <code>h</code>, 以空格分隔.</div>
+        </div>
       </div>
-      <div class="response-field">
-        <div class="rf-key">特色</div>
-        <div class="rf-val">中性色調, 不搶眼, 讓內容成為主角</div>
+    </section>
+
+    <!-- 主題 Theme -->
+    <section>
+      <h2>主題 Theme</h2>
+      <p>Marp Core 內建三種主題. 若公司有固定的視覺規範, 也可以撰寫自訂 CSS 主題.</p>
+      <div class="chip-row">
+        <span class="chip-label">選擇主題:</span>
+        <div class="chip theme-chip active" data-id="theme-default" onclick="selectTheme('theme-default')">default</div>
+        <div class="chip theme-chip" data-id="theme-gaia" onclick="selectTheme('theme-gaia')">gaia</div>
+        <div class="chip theme-chip" data-id="theme-uncover" onclick="selectTheme('theme-uncover')">uncover</div>
       </div>
-    </div>
-    <pre class="code-block"><span class="kw">---</span>
+
+      <div id="theme-default" class="theme-panel">
+        <div class="response-box">
+          <div class="response-field">
+            <div class="rf-key">風格</div>
+            <div class="rf-val">簡潔白底, 適合正式商務簡報與教育訓練教材</div>
+          </div>
+          <div class="response-field">
+            <div class="rf-key">特色</div>
+            <div class="rf-val">中性色調, 不搶眼, 讓內容成為主角</div>
+          </div>
+        </div>
+        <pre class="code-block"><span class="kw">---</span>
 <span class="key">marp</span>: <span class="str">true</span>
 <span class="key">theme</span>: <span class="str">default</span>
 <span class="kw">---</span></pre>
-  </div>
+      </div>
 
-  <div id="theme-gaia" class="theme-panel" style="display:none">
-    <div class="response-box">
-      <div class="response-field">
-        <div class="rf-key">風格</div>
-        <div class="rf-val">帶有深色調與強調色, 視覺上較具設計感</div>
-      </div>
-      <div class="response-field">
-        <div class="rf-key">特色</div>
-        <div class="rf-val">支援 <code>class: invert</code> 快速切換深色背景版面</div>
-      </div>
-    </div>
-    <pre class="code-block"><span class="kw">---</span>
+      <div id="theme-gaia" class="theme-panel" style="display:none">
+        <div class="response-box">
+          <div class="response-field">
+            <div class="rf-key">風格</div>
+            <div class="rf-val">帶有深色調與強調色, 視覺上較具設計感</div>
+          </div>
+          <div class="response-field">
+            <div class="rf-key">特色</div>
+            <div class="rf-val">支援 <code>class: invert</code> 快速切換深色背景版面</div>
+          </div>
+        </div>
+        <pre class="code-block"><span class="kw">---</span>
 <span class="key">marp</span>: <span class="str">true</span>
 <span class="key">theme</span>: <span class="str">gaia</span>
 <span class="key">class</span>: <span class="str">invert</span>
 <span class="kw">---</span></pre>
-  </div>
+      </div>
 
-  <div id="theme-uncover" class="theme-panel" style="display:none">
-    <div class="response-box">
-      <div class="response-field">
-        <div class="rf-key">風格</div>
-        <div class="rf-val">極簡白底, 大字排版, 強調重點文字</div>
-      </div>
-      <div class="response-field">
-        <div class="rf-key">特色</div>
-        <div class="rf-val">適合演講或大型會議場合, 讓文字在螢幕上清晰易讀</div>
-      </div>
-    </div>
-    <pre class="code-block"><span class="kw">---</span>
+      <div id="theme-uncover" class="theme-panel" style="display:none">
+        <div class="response-box">
+          <div class="response-field">
+            <div class="rf-key">風格</div>
+            <div class="rf-val">極簡白底, 大字排版, 強調重點文字</div>
+          </div>
+          <div class="response-field">
+            <div class="rf-key">特色</div>
+            <div class="rf-val">適合演講或大型會議場合, 讓文字在螢幕上清晰易讀</div>
+          </div>
+        </div>
+        <pre class="code-block"><span class="kw">---</span>
 <span class="key">marp</span>: <span class="str">true</span>
 <span class="key">theme</span>: <span class="str">uncover</span>
 <span class="kw">---</span></pre>
-  </div>
+      </div>
 
-  <div class="info-box" style="margin-top:16px;">
-    <div class="tag">自訂主題</div>
-    <p>撰寫 CSS 檔案並在開頭加上 <code>/* @theme 主題名稱 */</code> 即可建立自訂主題, 再透過 front matter 的 <code>theme:</code> 指令套用.</p>
-  </div>
-</section>
+      <div class="info-box" style="margin-top:16px;">
+        <div class="tag">自訂主題</div>
+        <p>撰寫 CSS 檔案並在開頭加上 <code>/* @theme 主題名稱 */</code> 即可建立自訂主題, 再透過 front matter 的 <code>theme:</code> 指令套用.</p>
+      </div>
+    </section>
 
-<!-- 程式碼與數學公式 -->
-<section>
-  <h2>程式碼與數學公式</h2>
-  <p>Marp 支援標準 Markdown 程式碼語法(內建語法高亮), 以及 KaTeX 格式的數學公式.</p>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">程式碼</div>
-      <p>行內程式碼: 用單個反引號包住</p>
-      <p>區塊程式碼: 用三個反引號包住, 開頭可指定語言名稱觸發語法高亮</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">數學公式(KaTeX)</div>
-      <p>行內公式: 用單個 <code>$</code> 包住</p>
-      <p>區塊公式: 用兩個 <code>$$</code> 包住, 獨立一行顯示</p>
-    </div>
-  </div>
-  <pre class="code-block"><span class="cmt"># 程式碼區塊</span>
+    <!-- 程式碼與數學公式 -->
+    <section>
+      <h2>程式碼與數學公式</h2>
+      <p>Marp 支援標準 Markdown 程式碼語法(內建語法高亮), 以及 KaTeX 格式的數學公式.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-title">程式碼</div>
+          <p>行內程式碼: 用單個反引號包住</p>
+          <p>區塊程式碼: 用三個反引號包住, 開頭可指定語言名稱觸發語法高亮</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">數學公式(KaTeX)</div>
+          <p>行內公式: 用單個 <code>$</code> 包住</p>
+          <p>區塊公式: 用兩個 <code>$$</code> 包住, 獨立一行顯示</p>
+        </div>
+      </div>
+      <pre class="code-block"><span class="cmt"># 程式碼區塊</span>
 <span class="kw">function</span> <span class="fn">hello</span>() {
   console.<span class="fn">log</span>(<span class="str">"Hello, Marp"</span>)
 }
@@ -541,63 +1127,63 @@
 <span class="str">$$</span>
 \sum_{i=1}^{n} i = \frac{n(n+1)}{2}
 <span class="str">$$</span></pre>
-</section>
+    </section>
 
-<!-- 簡報備忘稿 -->
-<section>
-  <h2>簡報備忘稿</h2>
-  <p>任何不符合指令格式的 HTML 註解, 會被當作演講者備忘稿(presenter notes). 這些文字只在簡報者模式下才會顯示, 不會出現在正式投影片畫面上.</p>
-  <pre class="code-block"><span class="kw">#</span> 投影片標題
+    <!-- 簡報備忘稿 -->
+    <section>
+      <h2>簡報備忘稿</h2>
+      <p>任何不符合指令格式的 HTML 註解, 會被當作演講者備忘稿(presenter notes). 這些文字只在簡報者模式下才會顯示, 不會出現在正式投影片畫面上.</p>
+      <pre class="code-block"><span class="kw">#</span> 投影片標題
 
 這段是投影片上的正式內容, 觀眾可以看到.
 
 <span class="cmt">&lt;!-- 這段文字是演講者的提詞, 觀眾不會看到 --&gt;</span>
 <span class="cmt">&lt;!-- 可以記錄補充說明的細節, 或換場白的提示 --&gt;</span></pre>
-  <div class="info-box">
-    <div class="tag">備忘稿 vs 區域指令</div>
-    <p>HTML 註解如果符合 Marp 指令格式(例如 <code>&lt;!-- paginate: false --&gt;</code>), 會被當作指令處理. 不符合指令格式的普通文字才會成為演講者備忘稿.</p>
-  </div>
-</section>
+      <div class="info-box">
+        <div class="tag">備忘稿 vs 區域指令</div>
+        <p>HTML 註解如果符合 Marp 指令格式(例如 <code>&lt;!-- paginate: false --&gt;</code>), 會被當作指令處理. 不符合指令格式的普通文字才會成為演講者備忘稿.</p>
+      </div>
+    </section>
 
-<!-- 匯出格式 -->
-<section>
-  <h2>匯出格式</h2>
-  <p>Marp 支援多種匯出格式, 依照使用場合選擇最適合的輸出方式:</p>
-  <div class="api-fields">
-    <div class="field">
-      <div class="name">HTML</div>
-      <div class="desc">互動式網頁簡報, 可用瀏覽器開啟並透過鍵盤或滑鼠翻頁. 適合線上分享或會議即時呈現</div>
-    </div>
-    <div class="field">
-      <div class="name">PDF</div>
-      <div class="desc">適合列印, 存檔, 或透過信件寄送. 版面固定, 跨裝置一致</div>
-    </div>
-    <div class="field">
-      <div class="name">PPTX</div>
-      <div class="desc">匯出後可在 PowerPoint 中繼續微調. 適合需要給同事繼續編輯的場合</div>
-    </div>
-    <div class="field">
-      <div class="name">PNG / JPEG</div>
-      <div class="desc">每張投影片輸出為獨立圖片, 適合社群媒體或即時通訊分享</div>
-    </div>
-  </div>
-</section>
+    <!-- 匯出格式 -->
+    <section>
+      <h2>匯出格式</h2>
+      <p>Marp 支援多種匯出格式, 依照使用場合選擇最適合的輸出方式:</p>
+      <div class="api-fields">
+        <div class="field">
+          <div class="name">HTML</div>
+          <div class="desc">互動式網頁簡報, 可用瀏覽器開啟並透過鍵盤或滑鼠翻頁. 適合線上分享或會議即時呈現</div>
+        </div>
+        <div class="field">
+          <div class="name">PDF</div>
+          <div class="desc">適合列印, 存檔, 或透過信件寄送. 版面固定, 跨裝置一致</div>
+        </div>
+        <div class="field">
+          <div class="name">PPTX</div>
+          <div class="desc">匯出後可在 PowerPoint 中繼續微調. 適合需要給同事繼續編輯的場合</div>
+        </div>
+        <div class="field">
+          <div class="name">PNG / JPEG</div>
+          <div class="desc">每張投影片輸出為獨立圖片, 適合社群媒體或即時通訊分享</div>
+        </div>
+      </div>
+    </section>
 
-<!-- 上班族常見應用情境 -->
-<section>
-  <h2>上班族常見應用情境</h2>
-  <p>三種最常見的辦公場景, 展示 Marp 在實際工作中的使用方式:</p>
-  <div class="stage-tabs">
-    <div class="sc-tab stage-tab active" onclick="scGoTo(0)">1 · 內部會議簡報</div>
-    <div class="sc-tab stage-tab" onclick="scGoTo(1)">2 · 教育訓練教材</div>
-    <div class="sc-tab stage-tab" onclick="scGoTo(2)">3 · 制式報告模板</div>
-  </div>
+    <!-- 職場工作者常見應用情境 -->
+    <section>
+      <h2>職場工作者常見應用情境</h2>
+      <p>三種最常見的辦公場景, 展示 Marp 在實際工作中的使用方式:</p>
+      <div class="stage-tabs">
+        <div class="sc-tab stage-tab active" onclick="scGoTo(0)">1 · 內部會議簡報</div>
+        <div class="sc-tab stage-tab" onclick="scGoTo(1)">2 · 教育訓練教材</div>
+        <div class="sc-tab stage-tab" onclick="scGoTo(2)">3 · 制式報告模板</div>
+      </div>
 
-  <div class="sc-panel demo-panel visible" id="sc-p0">
-    <div class="step-content">
-      <h3>內部會議簡報</h3>
-      <p>快速產出部門週會或專案進度報告, 頁首直接加入日期與會議名稱, 讓每張投影片都帶有識別資訊.</p>
-      <pre class="code-block"><span class="kw">---</span>
+      <div class="sc-panel demo-panel visible" id="sc-p0">
+        <div class="step-content">
+          <h3>內部會議簡報</h3>
+          <p>快速產出部門週會或專案進度報告, 頁首直接加入日期與會議名稱, 讓每張投影片都帶有識別資訊.</p>
+          <pre class="code-block"><span class="kw">---</span>
 <span class="key">marp</span>: <span class="str">true</span>
 <span class="key">theme</span>: <span class="str">default</span>
 <span class="key">paginate</span>: <span class="str">true</span>
@@ -609,264 +1195,265 @@
 - 業績達成率
 - 客戶回饋整理
 - 下週行動計畫</pre>
-    </div>
-  </div>
-
-  <div class="sc-panel demo-panel" id="sc-p1">
-    <div class="step-content">
-      <h3>教育訓練教材</h3>
-      <p>利用 <code>---</code> 把整套課程拆成多張投影片, 搭配程式碼區塊、表格與圖片, 快速完成講義與簡報合一的教材, 同時用 Git 保留每次修訂的版本紀錄.</p>
-      <div class="info-box" style="margin-top:12px;">
-        <div class="tag">版本管理優勢</div>
-        <p>每次修訂課程內容都能用 <code>git diff</code> 清楚比對改了什麼, 方便多人協作與追蹤修改原因.</p>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="sc-panel demo-panel" id="sc-p2">
-    <div class="step-content">
-      <h3>制式報告模板</h3>
-      <p>先撰寫一份固定版型的 Markdown 模板, 之後每次只需要替換內容文字, 不需要重新調整版面位置, 可大幅縮短重複性報告的製作時間.</p>
-      <div class="takeaway" style="margin-top:12px;">
-        <p>把模板存入版本庫, 團隊成員 clone 後直接填寫內容, 版面樣式由主題統一控管, 不會因為個人習慣而走版.</p>
+      <div class="sc-panel demo-panel" id="sc-p1">
+        <div class="step-content">
+          <h3>教育訓練教材</h3>
+          <p>利用 <code>---</code> 把整套課程拆成多張投影片, 搭配程式碼區塊、表格與圖片, 快速完成講義與簡報合一的教材, 同時用 Git 保留每次修訂的版本紀錄.</p>
+          <div class="info-box" style="margin-top:12px;">
+            <div class="tag">版本管理優勢</div>
+            <p>每次修訂課程內容都能用 <code>git diff</code> 清楚比對改了什麼, 方便多人協作與追蹤修改原因.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="scPrev" disabled onclick="scGoTo(scStep-1)">← 上一個</button>
-    <button class="btn btn-primary" id="scNext" onclick="scGoTo(scStep+1)">下一個 →</button>
-    <span class="step-indicator" id="scIndicator">情境 1 / 3</span>
-  </div>
-</section>
+      <div class="sc-panel demo-panel" id="sc-p2">
+        <div class="step-content">
+          <h3>制式報告模板</h3>
+          <p>先撰寫一份固定版型的 Markdown 模板, 之後每次只需要替換內容文字, 不需要重新調整版面位置, 可大幅縮短重複性報告的製作時間.</p>
+          <div class="takeaway" style="margin-top:12px;">
+            <p>把模板存入版本庫, 團隊成員 clone 後直接填寫內容, 版面樣式由主題統一控管, 不會因為個人習慣而走版.</p>
+          </div>
+        </div>
+      </div>
 
-<!-- 建議工作流程 -->
-<section>
-  <h2>建議工作流程</h2>
-  <p>從撰寫到發布的四個步驟, 建立可持續維護的 Marp 工作習慣:</p>
-  <div class="stage-tabs">
-    <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">1 · 撰寫</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(1)">2 · 版本控制</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(2)">3 · 匯出</div>
-    <div class="wf-tab stage-tab" onclick="wfGoTo(3)">4 · 呈現</div>
-  </div>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="scPrev" disabled onclick="scGoTo(scStep-1)">← 上一個</button>
+        <button class="btn btn-primary" id="scNext" onclick="scGoTo(scStep+1)">下一個 →</button>
+        <span class="step-indicator" id="scIndicator">情境 1 / 3</span>
+      </div>
+    </section>
 
-  <div class="wf-panel demo-panel visible" id="wf-p0">
-    <div class="step-content">
-      <h3>用 VS Code 撰寫 Markdown 內容</h3>
-      <p>安裝 Marp for VS Code 擴充套件, 開啟即時預覽面板, 邊寫邊確認版面效果. 每張投影片的結構在右側立即呈現, 不需要另外開啟程式.</p>
-    </div>
-  </div>
+    <!-- 建議工作流程 -->
+    <section>
+      <h2>建議工作流程</h2>
+      <p>從撰寫到發布的四個步驟, 建立可持續維護的 Marp 工作習慣:</p>
+      <div class="stage-tabs">
+        <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">1 · 撰寫</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(1)">2 · 版本控制</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(2)">3 · 匯出</div>
+        <div class="wf-tab stage-tab" onclick="wfGoTo(3)">4 · 呈現</div>
+      </div>
 
-  <div class="wf-panel demo-panel" id="wf-p1">
-    <div class="step-content">
-      <h3>用 Git 管理 .md 檔案</h3>
-      <p>把 <code>.md</code> 檔案納入 Git 版本庫, 每次修改都留下 commit 記錄. 方便追蹤每次內容修改的原因, 也方便多人協作.</p>
-    </div>
-  </div>
+      <div class="wf-panel demo-panel visible" id="wf-p0">
+        <div class="step-content">
+          <h3>用 VS Code 撰寫 Markdown 內容</h3>
+          <p>安裝 Marp for VS Code 擴充套件, 開啟即時預覽面板, 邊寫邊確認版面效果. 每張投影片的結構在右側立即呈現, 不需要另外開啟程式.</p>
+        </div>
+      </div>
 
-  <div class="wf-panel demo-panel" id="wf-p2">
-    <div class="step-content">
-      <h3>匯出成 PDF 或 PPTX</h3>
-      <p>完成後用 Marp CLI 或 VS Code 擴充套件匯出. PDF 適合寄件存檔, PPTX 適合需要在 PowerPoint 中繼續微調的場合.</p>
-    </div>
-  </div>
+      <div class="wf-panel demo-panel" id="wf-p1">
+        <div class="step-content">
+          <h3>用 Git 管理 .md 檔案</h3>
+          <p>把 <code>.md</code> 檔案納入 Git 版本庫, 每次修改都留下 commit 記錄. 方便追蹤每次內容修改的原因, 也方便多人協作.</p>
+        </div>
+      </div>
 
-  <div class="wf-panel demo-panel" id="wf-p3">
-    <div class="step-content">
-      <h3>用 HTML 版本在會議中即時呈現</h3>
-      <p>若需要在會議中即時呈現, 可直接使用匯出的 HTML 版本, 透過瀏覽器全螢幕播放. 鍵盤方向鍵或滑鼠點擊即可翻頁, 不需安裝額外軟體.</p>
-    </div>
-  </div>
+      <div class="wf-panel demo-panel" id="wf-p2">
+        <div class="step-content">
+          <h3>匯出成 PDF 或 PPTX</h3>
+          <p>完成後用 Marp CLI 或 VS Code 擴充套件匯出. PDF 適合寄件存檔, PPTX 適合需要在 PowerPoint 中繼續微調的場合.</p>
+        </div>
+      </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一步</button>
-    <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一步 →</button>
-    <span class="step-indicator" id="wfIndicator">步驟 1 / 4</span>
-  </div>
-</section>
+      <div class="wf-panel demo-panel" id="wf-p3">
+        <div class="step-content">
+          <h3>用 HTML 版本在會議中即時呈現</h3>
+          <p>若需要在會議中即時呈現, 可直接使用匯出的 HTML 版本, 透過瀏覽器全螢幕播放. 鍵盤方向鍵或滑鼠點擊即可翻頁, 不需安裝額外軟體.</p>
+        </div>
+      </div>
 
-<!-- 常見錯誤提醒 -->
-<section>
-  <h2>常見錯誤提醒</h2>
-  <p>以下是初學者最容易遇到的五個問題:</p>
-  <div class="warning-list">
-    <div class="warning-item">
-      <div class="warning-num">01</div>
-      <div class="warning-desc">忘記在檔案最上方加入 <span class="wkey">marp: true</span>, 導致工具沒有啟用 Marp 渲染模式.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">02</div>
-      <div class="warning-desc">投影片分隔線 <span class="wkey">---</span> 上下沒有保留空白行, 造成分頁失敗或被誤判為其他語法.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">03</div>
-      <div class="warning-desc">front matter 的 YAML 縮排寫錯, 導致指令未生效. YAML 對空格非常敏感.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">04</div>
-      <div class="warning-desc">區域指令忘記加底線前綴 <span class="wkey">_</span>, 結果設定被套用到後面所有投影片, 而不是只套用在當前這一張.</div>
-    </div>
-    <div class="warning-item">
-      <div class="warning-num">05</div>
-      <div class="warning-desc">圖片使用本機絕對路徑, 換到其他電腦或匯出後路徑失效. 建議統一使用相對路徑.</div>
-    </div>
-  </div>
-</section>
+      <div class="demo-controls">
+        <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一步</button>
+        <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一步 →</button>
+        <span class="step-indicator" id="wfIndicator">步驟 1 / 4</span>
+      </div>
+    </section>
 
-<!-- 快速複習表 -->
-<section>
-  <h2>快速複習表</h2>
-  <p>常用語法與指令一覽, 可作為日常寫作時的速查參考:</p>
-  <div class="response-box">
-    <div class="response-field">
-      <div class="rf-key">marp: true</div>
-      <div class="rf-val">啟用 Marp 渲染模式(必填)</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">---</div>
-      <div class="rf-val">分隔投影片, 或包住 front matter</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">theme:</div>
-      <div class="rf-val">設定主題(default / gaia / uncover)</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">paginate:</div>
-      <div class="rf-val">顯示頁碼</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">size:</div>
-      <div class="rf-val">設定投影片比例(4:3 或 16:9)</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">_color:</div>
-      <div class="rf-val">只套用於當前這一張投影片的文字顏色</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">![bg]()</div>
-      <div class="rf-val">設定投影片背景圖片</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">![w:300]()</div>
-      <div class="rf-val">調整圖片寬度</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">class: invert</div>
-      <div class="rf-val">切換深色版面(部分主題支援)</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">$...$</div>
-      <div class="rf-val">行內數學公式(KaTeX)</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">$$...$$</div>
-      <div class="rf-val">區塊數學公式(KaTeX)</div>
-    </div>
-    <div class="response-field">
-      <div class="rf-key">HTML 註解</div>
-      <div class="rf-val">演講者備忘稿(不符合指令格式的普通文字)</div>
-    </div>
-  </div>
-</section>
+    <!-- 常見錯誤提醒 -->
+    <section>
+      <h2>常見錯誤提醒</h2>
+      <p>以下是初學者最容易遇到的五個問題:</p>
+      <div class="warning-list">
+        <div class="warning-item">
+          <div class="warning-num">01</div>
+          <div class="warning-desc">忘記在檔案最上方加入 <span class="wkey">marp: true</span>, 導致工具沒有啟用 Marp 渲染模式.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">02</div>
+          <div class="warning-desc">投影片分隔線 <span class="wkey">---</span> 上下沒有保留空白行, 造成分頁失敗或被誤判為其他語法.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">03</div>
+          <div class="warning-desc">front matter 的 YAML 縮排寫錯, 導致指令未生效. YAML 對空格非常敏感.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">04</div>
+          <div class="warning-desc">區域指令忘記加底線前綴 <span class="wkey">_</span>, 結果設定被套用到後面所有投影片, 而不是只套用在當前這一張.</div>
+        </div>
+        <div class="warning-item">
+          <div class="warning-num">05</div>
+          <div class="warning-desc">圖片使用本機絕對路徑, 換到其他電腦或匯出後路徑失效. 建議統一使用相對路徑.</div>
+        </div>
+      </div>
+    </section>
 
-<!-- 結語 -->
-<section>
-  <h2>結語</h2>
-  <p>Marp 把寫簡報這件事變成寫一份結構清楚的 Markdown 文件, 對於已經熟悉 Markdown 語法的上班族來說, 學習門檻非常低.</p>
-  <div class="event-list">
-    <div class="event-item">
-      <div class="event-name">第一步</div>
-      <div class="event-desc">先從簡單的會議簡報開始練習, 熟悉投影片分隔、全域指令與區域指令的用法</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">第二步</div>
-      <div class="event-desc">進一步嘗試自訂主題與版面切版, 建立符合公司視覺規範的模板</div>
-    </div>
-    <div class="event-item">
-      <div class="event-name">第三步</div>
-      <div class="event-desc">逐步把日常的簡報製作流程轉移到 Marp 上, 把省下的時間花在內容品質的提升</div>
-    </div>
-  </div>
-  <div class="takeaway">
-    <p>Marp 最大的價值不是讓簡報變得更漂亮, 而是讓你可以專注在「說什麼」而不是「怎麼排」. 寫 Markdown, 交給 Marp 處理版面.</p>
-  </div>
-</section>
+    <!-- 快速複習表 -->
+    <section>
+      <h2>快速複習表</h2>
+      <p>常用語法與指令一覽, 可作為日常寫作時的速查參考:</p>
+      <div class="response-box">
+        <div class="response-field">
+          <div class="rf-key">marp: true</div>
+          <div class="rf-val">啟用 Marp 渲染模式(必填)</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">---</div>
+          <div class="rf-val">分隔投影片, 或包住 front matter</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">theme:</div>
+          <div class="rf-val">設定主題(default / gaia / uncover)</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">paginate:</div>
+          <div class="rf-val">顯示頁碼</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">size:</div>
+          <div class="rf-val">設定投影片比例(4:3 或 16:9)</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">_color:</div>
+          <div class="rf-val">只套用於當前這一張投影片的文字顏色</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">![bg]()</div>
+          <div class="rf-val">設定投影片背景圖片</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">![w:300]()</div>
+          <div class="rf-val">調整圖片寬度</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">class: invert</div>
+          <div class="rf-val">切換深色版面(部分主題支援)</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">$...$</div>
+          <div class="rf-val">行內數學公式(KaTeX)</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">$$...$$</div>
+          <div class="rf-val">區塊數學公式(KaTeX)</div>
+        </div>
+        <div class="response-field">
+          <div class="rf-key">HTML 註解</div>
+          <div class="rf-val">演講者備忘稿(不符合指令格式的普通文字)</div>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <!-- 結語 -->
+    <section>
+      <h2>結語</h2>
+      <p>Marp 把寫簡報這件事變成寫一份結構清楚的 Markdown 文件, 對於已經熟悉 Markdown 語法的職場工作者來說, 學習門檻非常低.</p>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-name">第一步</div>
+          <div class="event-desc">先從簡單的會議簡報開始練習, 熟悉投影片分隔、全域指令與區域指令的用法</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">第二步</div>
+          <div class="event-desc">進一步嘗試自訂主題與版面切版, 建立符合公司視覺規範的模板</div>
+        </div>
+        <div class="event-item">
+          <div class="event-name">第三步</div>
+          <div class="event-desc">逐步把日常的簡報製作流程轉移到 Marp 上, 把省下的時間花在內容品質的提升</div>
+        </div>
+      </div>
+      <div class="takeaway">
+        <p>Marp 最大的價值不是讓簡報變得更漂亮, 而是讓你可以專注在「說什麼」而不是「怎麼排」. 寫 Markdown, 交給 Marp 處理版面.</p>
+      </div>
+    </section>
 
-<script>
-  function toggleTheme() {
-    const isDark = document.body.classList.toggle('dark');
-    document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
-  }
+  </main>
 
-  function selectInst(id) {
-    document.querySelectorAll('.inst-panel').forEach(el => {
-      el.style.display = el.id === id ? 'block' : 'none';
-    });
-    document.querySelectorAll('.inst-chip').forEach(c => {
-      c.classList.toggle('active', c.dataset.id === id);
-    });
-  }
+  <script>
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
+    }
 
-  function selectBg(id) {
-    document.querySelectorAll('.bg-panel').forEach(el => {
-      el.style.display = el.id === id ? 'block' : 'none';
-    });
-    document.querySelectorAll('.bg-chip').forEach(c => {
-      c.classList.toggle('active', c.dataset.id === id);
-    });
-  }
+    function selectInst(id) {
+      document.querySelectorAll('.inst-panel').forEach(el => {
+        el.style.display = el.id === id ? 'block' : 'none';
+      });
+      document.querySelectorAll('.inst-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.id === id);
+      });
+    }
 
-  function selectTheme(id) {
-    document.querySelectorAll('.theme-panel').forEach(el => {
-      el.style.display = el.id === id ? 'block' : 'none';
-    });
-    document.querySelectorAll('.theme-chip').forEach(c => {
-      c.classList.toggle('active', c.dataset.id === id);
-    });
-  }
+    function selectBg(id) {
+      document.querySelectorAll('.bg-panel').forEach(el => {
+        el.style.display = el.id === id ? 'block' : 'none';
+      });
+      document.querySelectorAll('.bg-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.id === id);
+      });
+    }
 
-  let scStep = 0;
-  const SC_MAX = 2;
-  function scGoTo(n) {
-    scStep = Math.max(0, Math.min(SC_MAX, n));
-    document.querySelectorAll('.sc-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === scStep));
-    document.querySelectorAll('.sc-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === scStep)     t.classList.add('active');
-      else if (i < scStep)  t.classList.add('done');
-    });
-    document.getElementById('scPrev').disabled = scStep === 0;
-    const scNext = document.getElementById('scNext');
-    scNext.disabled    = scStep === SC_MAX;
-    scNext.textContent = scStep === SC_MAX ? '完成 ✓' : '下一個 →';
-    document.getElementById('scIndicator').textContent =
-      '情境 ' + (scStep + 1) + ' / ' + (SC_MAX + 1);
-  }
-  scGoTo(0);
+    function selectTheme(id) {
+      document.querySelectorAll('.theme-panel').forEach(el => {
+        el.style.display = el.id === id ? 'block' : 'none';
+      });
+      document.querySelectorAll('.theme-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.id === id);
+      });
+    }
 
-  let wfStep = 0;
-  const WF_MAX = 3;
-  function wfGoTo(n) {
-    wfStep = Math.max(0, Math.min(WF_MAX, n));
-    document.querySelectorAll('.wf-panel').forEach((el, i) =>
-      el.classList.toggle('visible', i === wfStep));
-    document.querySelectorAll('.wf-tab').forEach((t, i) => {
-      t.classList.remove('active', 'done');
-      if (i === wfStep)     t.classList.add('active');
-      else if (i < wfStep)  t.classList.add('done');
-    });
-    document.getElementById('wfPrev').disabled = wfStep === 0;
-    const wfNext = document.getElementById('wfNext');
-    wfNext.disabled    = wfStep === WF_MAX;
-    wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一步 →';
-    document.getElementById('wfIndicator').textContent =
-      '步驟 ' + (wfStep + 1) + ' / ' + (WF_MAX + 1);
-  }
-  wfGoTo(0);
-</script>
+    let scStep = 0;
+    const SC_MAX = 2;
+    function scGoTo(n) {
+      scStep = Math.max(0, Math.min(SC_MAX, n));
+      document.querySelectorAll('.sc-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === scStep));
+      document.querySelectorAll('.sc-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === scStep) t.classList.add('active');
+        else if (i < scStep) t.classList.add('done');
+      });
+      document.getElementById('scPrev').disabled = scStep === 0;
+      const scNext = document.getElementById('scNext');
+      scNext.disabled = scStep === SC_MAX;
+      scNext.textContent = scStep === SC_MAX ? '完成 ✓' : '下一個 →';
+      document.getElementById('scIndicator').textContent =
+        '情境 ' + (scStep + 1) + ' / ' + (SC_MAX + 1);
+    }
+    scGoTo(0);
+
+    let wfStep = 0;
+    const WF_MAX = 3;
+    function wfGoTo(n) {
+      wfStep = Math.max(0, Math.min(WF_MAX, n));
+      document.querySelectorAll('.wf-panel').forEach((el, i) =>
+        el.classList.toggle('visible', i === wfStep));
+      document.querySelectorAll('.wf-tab').forEach((t, i) => {
+        t.classList.remove('active', 'done');
+        if (i === wfStep) t.classList.add('active');
+        else if (i < wfStep) t.classList.add('done');
+      });
+      document.getElementById('wfPrev').disabled = wfStep === 0;
+      const wfNext = document.getElementById('wfNext');
+      wfNext.disabled = wfStep === WF_MAX;
+      wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一步 →';
+      document.getElementById('wfIndicator').textContent =
+        '步驟 ' + (wfStep + 1) + ' / ' + (WF_MAX + 1);
+    }
+    wfGoTo(0);
+  </script>
 </body>
+
 </html>
