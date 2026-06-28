@@ -272,10 +272,10 @@
 
     <div class="mode-switcher" role="group" aria-label="瀏覽模式選擇">
       <div class="mode-buttons">
-        <button type="button" class="mode-btn" data-mode="slide">簡報模式</button>
         <button type="button" class="mode-btn" data-mode="scroll">瀏覽模式</button>
+        <button type="button" class="mode-btn" data-mode="slide">簡報模式</button>
       </div>
-      <p class="mode-hint">簡報模式：逐頁瀏覽；瀏覽模式：整頁捲動</p>
+      <p class="mode-hint">瀏覽模式：整頁捲動; 簡報模式：逐頁瀏覽</p>
     </div>
 
     <h2 class="section-title">課程三部曲</h2>
@@ -296,8 +296,6 @@
         <div class="part-title">啟動 JARVIS 模式</div>
       </a>
     </div>
-
-    <hr class="divider">
 
     <h2 class="section-title">附件 · 規範文件</h2>
     <div class="demos">
@@ -383,7 +381,7 @@
         });
       });
 
-      applyMode(localStorage.getItem(STORAGE_KEY) || 'slide');
+      applyMode(localStorage.getItem(STORAGE_KEY) || 'scroll');
     })();
   </script>
 
