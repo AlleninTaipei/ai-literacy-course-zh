@@ -245,44 +245,11 @@ GitHub 在本課程中扮演兩個角色:
 
 | 工具 | 下載來源 | 備註 |
 |------|---------|------|
-| Node.js | [nodejs.org](https://nodejs.org) | 選 LTS 版本, 用途是安裝 Claude Code |
 | Git | [git-scm.com/downloads](https://git-scm.com/downloads) | 選 Windows / Mac 對應版本 |
 | VS Code | [Visual Studio Code](https://code.visualstudio.com) | 選 Windows / Mac 對應版本 |
 
 ---
 
-#### Step 7: 已有其他供應商訂閱？確認替代工具
+#### Step 7: 已有其他供應商訂閱
 
-如果你已有 ChatGPT Plus 或 Gemini Advanced 的付費訂閱, 不需要另外訂閱 Claude Pro.三家供應商都有對應的 CLI 工具, 功能定位相同:
-
-| 你已有的訂閱 | 對應工具 | 安裝指令 |
-|------------|---------|---------|
-| Claude Pro| Claude Code | `npm install -g @anthropic-ai/claude-code` |
-| ChatGPT Plus| Codex CLI | `npm install -g @openai/codex` |
-| Gemini Advanced | Gemini CLI | `npm install -g @google/gemini-cli` |
-
-> 課堂示範統一使用 Claude Code, 若你使用其他工具, 操作邏輯完全相同.
-
----
-
-#### Step 8: Mac Only
-
-> Homebrew 安裝較花時間, 建議提前在家完成, 上課當天才不會卡在等待安裝.
-
-Xcode Command Line Tools 是後續安裝工具的基礎環境, Homebrew 則是 macOS 的套件管理工具, Part 2 設定 GitHub 驗證時會用到.
-
-```bash
-xcode-select --install
-```
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"' >> ~/.zprofile
-```
-
-```bash
-eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
-```
+如果已有 ChatGPT Plus 或 Gemini Advanced 的付費訂閱, 不需要另外訂閱 Claude Pro, 三家供應商的 CLI 工具功能定位相同, 課堂示範統一使用 Claude Code.
