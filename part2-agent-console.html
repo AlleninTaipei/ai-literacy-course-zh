@@ -54,7 +54,7 @@
     .event-item { background: #fff; border: 1px solid #cbd5e0; border-radius: 6px;
       padding: 9px 14px; display: flex; gap: 14px; align-items: baseline; }
     .event-name { font-family: monospace; font-size: 0.82rem; color: #16a34a;
-      min-width: 140px; flex-shrink: 0; }
+      min-width: 160px; flex-shrink: 0; }
     .event-desc { font-size: 0.82rem; color: #4a5568; }
 
     .response-box { background: #fff; border: 1px solid #cbd5e0; border-radius: 10px;
@@ -96,8 +96,6 @@
     .data-table th { background: #e2e8f0; border: 1px solid #cbd5e0; padding: 9px 12px;
       text-align: left; color: #4a5568; font-weight: 600; }
     .data-table td { border: 1px solid #cbd5e0; padding: 9px 12px; color: #374151; background: #fff; }
-    body.dark .data-table th { background: #1a202c; border-color: #2d3748; color: #718096; }
-    body.dark .data-table td { border-color: #2d3748; color: #a0aec0; background: #0d1117; }
 
     @media (max-width: 640px) {
       .api-fields, .two-col { grid-template-columns: 1fr; }
@@ -151,6 +149,8 @@
     body.dark .col-card { background: #1a202c; border-color: #2d3748; }
     body.dark .col-card-title { color: #4a5568; }
     body.dark .col-card p { color: #a0aec0; }
+    body.dark .data-table th { background: #1a202c; border-color: #2d3748; color: #718096; }
+    body.dark .data-table td { border-color: #2d3748; color: #a0aec0; background: #0d1117; }
     body.dark #themeToggle { background: #1a202c; color: #e2e8f0; border-color: #4a5568; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
     body.dark #themeToggle:hover { border-color: #90cdf4; color: #90cdf4; }
   </style>
@@ -201,54 +201,20 @@
     <span class="tag">Mac 找不到 Claude 的路徑</span>
     <pre class="code-block"><span class="fn">echo</span> <span class="str">'export PATH="$HOME/.local/bin:$PATH"'</span> &gt;&gt; ~/.zshrc &amp;&amp; <span class="fn">source</span> ~/.zshrc</pre>
   </div>
-
-  <h3>Human-in-the-Loop</h3>
-  <p>Claude Code 的運作邏輯:</p>
-  <pre class="code-block">你的指令(Prompt)
-    ↓
-Claude Code 讀取當前專案的上下文(Context Window)
-    ↓
-呼叫工具(Tool Use): 讀檔、搜尋、執行指令
-    ↓
-根據工具回傳結果, 決定下一步行動, 持續循環直到完成
-    ↓
-輸出結果: 修改後的檔案、執行報告、提問確認</pre>
-  <div class="takeaway">
-    <p>Claude Code 的設計哲學是「人始終在決策圈內」. 在做重大決策前會停下來確認, 你設定的信任邊界, 決定了它能自主行動的範圍.</p>
-  </div>
-
-  <h3>Claude Code 能做什麼</h3>
-  <div class="api-fields">
-    <div class="field"><span class="name">讀取整個專案</span><div class="desc">掃描資料夾結構, 理解各檔案的關聯與脈絡.</div></div>
-    <div class="field"><span class="name">讀寫任意檔案</span><div class="desc">直接建立、修改、刪除工作目錄中的文件.</div></div>
-    <div class="field"><span class="name">執行系統指令</span><div class="desc">安裝工具、處理檔案、呼叫外部服務.</div></div>
-    <div class="field"><span class="name">搜尋整個資料夾</span><div class="desc">用關鍵字在所有文件中找到相關內容.</div></div>
-    <div class="field"><span class="name">多步驟任務規劃</span><div class="desc">把複雜任務拆解成子步驟, 逐步執行並回報進度.</div></div>
-    <div class="field"><span class="name">Git 整合</span><div class="desc">讀取差異、撰寫 commit 訊息、管理分支.</div></div>
-  </div>
-  <p style="margin-top:14px">Claude Code 的操作介面是終端機的命令列, 也可以在 VS Code 裡直接呼叫它.</p>
 </section>
 
 <section>
   <h2>2-2 Git</h2>
-  <pre class="code-block">報告_最終版.docx
-報告_最終版_修改後.docx
-報告_最終版_修改後_確認版.docx
-報告_最終版_修改後_確認版_老闆改過.docx</pre>
-  <div class="takeaway">
-    <p>只需要一份檔案, 卻能看到任何歷史版本、隨時回到過去任何一個時間點.</p>
-  </div>
 
   <h3>動手做: 安裝 Git</h3>
-  <div class="response-box">
-    <div class="response-field"><span class="rf-key">Windows</span><span class="rf-val">開啟 <a href="https://git-scm.com" target="_blank">git-scm.com</a> 下載安裝程式, 安裝過程中所有選項保持預設即可</span></div>
-    <div class="response-field"><span class="rf-key">Mac</span><span class="rf-val">在終端機執行 <code>git --version</code>, 若尚未安裝, 系統會自動提示安裝 Xcode Command Line Tools</span></div>
-  </div>
-  <p style="margin-top:14px">安裝完成後, 執行以下指令確認成功:</p>
   <pre class="code-block"><span class="fn">git</span> <span class="key">--version</span></pre>
   <div class="takeaway">
-    <p>有輸出版本號(例如 <code>git version 2.x.x</code>)即代表安裝成功.</p>
+    <p>有輸出版本號（例如 <code>git version 2.x.x</code>）即代表安裝成功.</p>
   </div>
+
+  <h3>動手做: 告訴 Git 你是誰, 這個設定只需要做一次.</h3>
+  <pre class="code-block"><span class="fn">git</span> <span class="key">config</span> <span class="key">--global</span> <span class="key">user.name</span> <span class="str">"Your Name"</span></pre>
+  <pre class="code-block"><span class="fn">git</span> <span class="key">config</span> <span class="key">--global</span> <span class="key">user.email</span> <span class="str">"your.email@example.com"</span></pre>
 
   <h3>Git 和 GitHub 不是同一件事</h3>
   <div class="two-col">
@@ -265,89 +231,28 @@ Claude Code 讀取當前專案的上下文(Context Window)
       <p>把記錄備份到雲端、分享給他人.</p>
     </div>
   </div>
-  <div class="info-box">
-    <span class="tag">關鍵</span>
-    <p>Git 是工具, GitHub 是平台; GitHub 只是讓 Git 的記錄「上雲」.</p>
-  </div>
 
   <h3>核心概念: Repository / Commit / Remote</h3>
   <div class="api-fields">
     <div class="field"><span class="name">Repository</span><div class="desc">簡稱 repo, 是一個有完整歷史記錄的資料夾.</div></div>
-    <div class="field"><span class="name">Commit</span><div class="desc">把當前的變更打包成一個有名字的歷史節點, 附上說明記錄這次改了什麼、為什麼改.</div></div>
-    <div class="field"><span class="name">Remote</span><div class="desc">本機的 repo 只活在你的電腦裡, Remote 是在 GitHub 建立一份備份.</div></div>
+    <div class="field"><span class="name">Commit</span><div class="desc">把當前的變更打包成一個有名字的歷史節點, 附上說明記錄「這次改了什麼、為什麼改」.</div></div>
+    <div class="field"><span class="name">Remote</span><div class="desc">本機的 repo 只活在你的電腦裡. 遠端 repo 是在 GitHub 建立一份備份.</div></div>
   </div>
-  <pre class="code-block">你的電腦(本機 repo)
+  <pre class="code-block">你的電腦（本機 repo）
     ^
-    |  pull: 把雲端的最新變更拉回本機
-    |  push: 把本機的新 commit 上傳到雲端
+    |  <span class="key">pull</span>: 把雲端的最新變更拉回本機
+    |  <span class="key">push</span>: 把本機的新 commit 上傳到雲端
     v
-遠端 repo(GitHub / GitLab)
-    |  pull  ^  push
+遠端 repo（GitHub / GitLab）
+    |  <span class="key">pull</span>  ^  <span class="key">push</span>
     v        |
-同事的電腦(本機 repo)</pre>
-
-  <h3>GitHub 能帶給你什麼</h3>
-  <p>推上 GitHub, 你得到的遠不只是備份:</p>
-  <div class="event-list">
-    <div class="event-item"><span class="event-name">雲端備份</span><span class="event-desc">電腦壞了, 工作還在</span></div>
-    <div class="event-item"><span class="event-name">跨裝置存取</span><span class="event-desc">新電腦用 <code>git clone</code> 複製整個 repo, 之後 <code>git pull</code> 拿最新版本</span></div>
-    <div class="event-item"><span class="event-name">連結即分享</span><span class="event-desc">把 repo 網址給同事, 他們立刻能看到你的工作</span></div>
-    <div class="event-item"><span class="event-name">GitHub Pages</span><span class="event-desc">把 Marp 匯出的 HTML 發布上線, 一個連結就能分享簡報</span></div>
-    <div class="event-item"><span class="event-name">GitHub Actions</span><span class="event-desc">固定時間自動執行腳本, 不需要開電腦</span></div>
-  </div>
-
-  <h3>動手做: 初次使用 Git</h3>
-  <p>告訴 Git 你是誰: 這個設定只需要做一次, 之後所有 repo 都會沿用.</p>
-  <pre class="code-block"><span class="fn">git</span> <span class="key">config</span> <span class="key">--global</span> <span class="key">user.name</span> <span class="str">"Your Name"</span></pre>
-  <pre class="code-block"><span class="fn">git</span> <span class="key">config</span> <span class="key">--global</span> <span class="key">user.email</span> <span class="str">"your.email@example.com"</span></pre>
+同事的電腦（本機 repo）</pre>
 </section>
 
 <section>
   <h2>2-3 VS Code</h2>
 
-  <h3>動手做: 安裝 VS Code 和延伸套件</h3>
-  <p><a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>, 在 VS Code 中點選左側「Extensions」, 搜尋套件名稱, 點選 Install.</p>
-  <div class="api-fields">
-    <div class="field"><span class="name">Chinese (Traditional) Language Pack</span><div class="desc">將 VS Code 介面切換為繁體中文.</div></div>
-    <div class="field"><span class="name">markdownlint</span><div class="desc">自動檢查 Markdown 語法規範, 提示格式錯誤.</div></div>
-    <div class="field"><span class="name">Markdown Preview Enhanced</span><div class="desc">即時預覽 Markdown, 並可匯出整頁捲動式 HTML.</div></div>
-    <div class="field"><span class="name">Marp for VS Code</span><div class="desc">將 Markdown 渲染成投影片, 支援即時預覽與匯出.</div></div>
-    <div class="field"><span class="name">Material Icon Theme</span><div class="desc">以直覺圖示區分不同類型的檔案與資料夾.</div></div>
-  </div>
-
-  <h3>Markdown 和 AI 說同一種語言</h3>
-  <p>如果你的工作筆記本來就是 Markdown, 就等於你和 AI 之間不需要格式翻譯. 提示詞、輸出、儲存, 都在同一個格式生態裡流轉.</p>
-  <pre class="code-block"># 這是標題
-
-這是一段普通文字, *這是斜體*.
-
-- 項目一
-- 項目二
-
-&gt; 這是引言區塊</pre>
-  <div class="takeaway">
-    <p>這份投影片本身, 就是用 Markdown 寫成的.</p>
-  </div>
-
-  <h3>Marp（Markdown Presentation Ecosystem）</h3>
-  <p>在 <code>.md</code> 檔案開頭加上 frontmatter 宣告, 三條橫線 <code>---</code> 就是換頁.</p>
-  <pre class="code-block">---
-marp: true
-theme: default
-paginate: true
----
-
-# 第一張投影片
-
-這是內文
-
----
-
-## 第二張投影片
-
-用三條橫線分隔每一頁</pre>
-
-  <h3>動手做: VS code 基本操作</h3>
+  <h3>動手做: 安裝和基本操作</h3>
   <p>開啟資料夾, 建立新檔案</p>
   <table class="data-table">
     <thead><tr><th>訂閱</th><th>Windows</th><th>Mac</th></tr></thead>
@@ -357,6 +262,9 @@ paginate: true
       <tr><td>Gemini Advanced</td><td><code>C:\Users\&lt;名稱&gt;\.gemini\GEMINI.md</code></td><td><code>~/.gemini/GEMINI.md</code></td></tr>
     </tbody>
   </table>
+
+  <h3>Markdown 和 AI 說同一種語言</h3>
+  <p>如果你的工作筆記本來就是 Markdown, 就等於你和 AI 之間不需要格式翻譯. 提示詞、輸出、儲存, 都在同一個格式生態裡流轉.</p>
   <pre class="code-block"><span class="cmt"># 全域偏好設定</span>
 
 - 在未指定專案目錄的一般對話中（例如當前工作目錄不屬於任何特定專案）, 除非使用者明確要求, 否則只以模型知識為基礎協作, 不主動探索或讀取當前工作目錄以外的任何檔案或專案.
@@ -367,8 +275,11 @@ paginate: true
 - 預設不使用粗體（`**text**`）. 若需強調, 優先改用標題層級、條列結構或程式碼區塊來呈現層次, 而非加粗文字.
 - 預設不使用 emoji.除非使用者明確要求, 否則所有回應與檔案內容均不得包含表情符號.
 - 預設不使用破折號（— 或 --）.若需連接、轉折或補充說明, 優先改用逗號、句號分句.
-- 逗號、句號、分號、冒號統一使用半形（, . ; :）, 其餘標點符號（問號、驚嘆號、括號、引號等）維持全形.
+- 逗號、句號、分號、冒號、斜線、反斜線統一使用半形（, . ; : / \）, 其餘標點符號（問號、驚嘆號、括號、引號等）不在此限制範圍.
 - 半形標點與中文字直接相鄰時, 後方加一個半形空格, 避免視覺擠在一起.</pre>
+  <div class="takeaway">
+    <p>CLAUDE.md 是你給 AI 的全域指令. 寫在這裡的規則, AI 在每次對話開始時都會自動讀取.</p>
+  </div>
 
   <h3>動手做: 拿到一份你自己的副本</h3>
   <div class="two-col">
@@ -381,62 +292,39 @@ paginate: true
     <div class="col-card">
       <div class="col-card-title">Clone</div>
       <p>動作發生在你的電腦.</p>
-      <p>把一份 repo(自己的或別人的)下載到本機.</p>
+      <p>把一份 repo（自己的或別人的）下載到本機.</p>
       <p>結果: 本機資料夾裡有一份可以編輯的副本.</p>
     </div>
   </div>
   <div class="stage-tabs">
-    <div class="fk-tab stage-tab active" onclick="fkGoTo(0)">1 · Fork repo</div>
-    <div class="fk-tab stage-tab" onclick="fkGoTo(1)">2 · 確認網址</div>
-    <div class="fk-tab stage-tab" onclick="fkGoTo(2)">3 · Clone 到本機</div>
+    <div class="fk-tab stage-tab active" onclick="fkGoTo(0)">1 · 建立資料夾</div>
+    <div class="fk-tab stage-tab" onclick="fkGoTo(1)">2 · Fork repo</div>
+    <div class="fk-tab stage-tab" onclick="fkGoTo(2)">3 · 確認網址</div>
+    <div class="fk-tab stage-tab" onclick="fkGoTo(3)">4 · Clone 到本機</div>
   </div>
-  <div class="fk-panel demo-panel visible" id="fk-p0"><div class="col-card"><p>開啟 <a href="https://github.com/AlleninTaipei/ai-literacy-course-zh" target="_blank">本課程的 GitHub repo</a>, 點擊右上角的 Fork.</p></div></div>
-  <div class="fk-panel demo-panel" id="fk-p1"><div class="col-card"><p>Fork 完成後, 網址會變成 <code>github.com/你的帳號/ai-literacy-course-zh</code>, 這是你自己的副本.</p></div></div>
-  <div class="fk-panel demo-panel" id="fk-p2"><div class="col-card"><p>點擊綠色的 Code 按鈕, 複製 HTTPS 網址, 在終端機執行:</p><pre class="code-block"><span class="fn">git</span> <span class="key">clone</span> https://github.com/你的帳號/ai-literacy-course-zh.git</pre></div></div>
+  <div class="fk-panel demo-panel visible" id="fk-p0"><div class="col-card"><p>在 VS Code 建立新資料夾, 作為工作目錄.</p></div></div>
+  <div class="fk-panel demo-panel" id="fk-p1"><div class="col-card"><p>開啟 <a href="https://github.com/AlleninTaipei/one_day_one_ai" target="_blank">一天一AI — 文章摘要索引</a>, 點擊右上角的 Fork.</p></div></div>
+  <div class="fk-panel demo-panel" id="fk-p2"><div class="col-card"><p>Fork 完成後, 網址會變成 <code>github.com/你的帳號/one_day_one_ai</code>, 這是你自己的副本.</p></div></div>
+  <div class="fk-panel demo-panel" id="fk-p3"><div class="col-card"><p>點擊綠色的 Code 按鈕, 複製 HTTPS 網址, 在終端機執行:</p><pre class="code-block"><span class="fn">git</span> <span class="key">clone</span> https://github.com/你的帳號/one_day_one_ai.git</pre></div></div>
   <div class="demo-controls">
     <button class="btn btn-ghost" id="fkPrev" disabled onclick="fkGoTo(fkStep-1)">← 上一步</button>
     <button class="btn btn-primary" id="fkNext" onclick="fkGoTo(fkStep+1)">下一步 →</button>
-    <span class="step-indicator" id="fkIndicator">步驟 1 / 3</span>
-  </div>
-  <div class="takeaway">
-    <p>Clone 下來的 origin, 指向的是你帳號下的副本, 不是原作者的 repo. 之後每一次 commit、push, 都只會進到你自己的 fork, 不會動到原始版本.</p>
-  </div>
-
-  <h3>動手做: markdown file 開啟預覽</h3>
-  <div class="two-col">
-    <div class="col-card">
-      <div class="col-card-title">Markdown Preview Enhanced</div>
-      <p>負責一般文件, 整頁捲動閱讀.</p>
-      <p>預覽畫面: 整頁捲動式.</p>
-    </div>
-    <div class="col-card">
-      <div class="col-card-title">Marp for VS Code</div>
-      <p>負責有 frontmatter（<code>marp: true</code>）的投影片檔.</p>
-      <p>預覽畫面: 逐頁切換式.</p>
-    </div>
-  </div>
-  <div class="info-box">
-    <span class="tag">注意</span>
-    <p>兩個套件都裝的情況下, 開啟一份有 <code>marp: true</code> frontmatter 的 <code>.md</code> 並點擊預覽, VS Code 預設仍會用 Markdown Preview Enhanced 開啟, 同時跳出提示, 問你要不要改用 Marp for VS Code 顯示.</p>
+    <span class="step-indicator" id="fkIndicator">步驟 1 / 4</span>
   </div>
 
   <h3>動手做: 完整工具鏈閉環</h3>
   <div class="event-list">
-    <div class="event-item"><span class="event-name">1. 新資料夾</span><span class="event-desc">建立工作目錄</span></div>
+    <div class="event-item"><span class="event-name">1. VS Code</span><span class="event-desc">開啟資料夾</span></div>
     <div class="event-item"><span class="event-name">2. AI 生成</span><span class="event-desc">用 AI 產生內容</span></div>
     <div class="event-item"><span class="event-name">3. VS Code 編輯</span><span class="event-desc">編輯與調整內容</span></div>
-    <div class="event-item"><span class="event-name">4. New Repo</span><span class="event-desc">建立版本控制專案</span></div>
+    <div class="event-item"><span class="event-name">4. GitHub New Repo</span><span class="event-desc">建立版本控制專案</span></div>
     <div class="event-item"><span class="event-name">5. Git 版控</span><span class="event-desc">記錄每一次變更</span></div>
-    <div class="event-item"><span class="event-name">6. 雲端備份</span><span class="event-desc">推送到 GitHub</span></div>
+    <div class="event-item"><span class="event-name">6. GitHub 雲端備份</span><span class="event-desc">推送到遠端 repo</span></div>
   </div>
-  <div class="info-box">
+  <div class="info-box" style="margin-top:16px">
     <span class="tag">Windows 疑難排解</span>
     <p>VS Code 終端機打不開 Claude Code, 在 PowerShell 執行:</p>
     <pre class="code-block"><span class="fn">Set-ExecutionPolicy</span> <span class="key">-Scope</span> <span class="key">CurrentUser</span> <span class="key">RemoteSigned</span></pre>
-    <p>重新開啟 VS Code 終端機再試一次. 若仍無法解決, 改用備案指令:</p>
-    <pre class="code-block"><span class="fn">npm</span> <span class="key">uninstall</span> <span class="key">-g</span> <span class="str">@anthropic-ai/claude-code</span>
-<span class="fn">npm</span> <span class="key">cache</span> <span class="key">clean</span> <span class="key">--force</span>
-<span class="fn">npm</span> <span class="key">install</span> <span class="key">-g</span> <span class="str">@anthropic-ai/claude-code</span></pre>
   </div>
 </section>
 
@@ -453,22 +341,6 @@ paginate: true
   </div>
 </section>
 
-<section>
-  <h2>補充: Windows 第一次 push</h2>
-  <pre class="code-block"><span class="fn">git</span> <span class="key">remote</span> <span class="key">add</span> <span class="key">origin</span> https://github.com/你的帳號/repo名稱.git</pre>
-  <pre class="code-block"><span class="fn">git</span> <span class="key">push</span> <span class="key">-u</span> <span class="key">origin</span> <span class="key">main</span></pre>
-  <div class="info-box">
-    <span class="tag">提示</span>
-    <p><code>-u</code> 的作用是「記住這條上傳路徑」, 之後直接 <code>git push</code> 就能推到同一個地方.</p>
-  </div>
-</section>
-
-<section>
-  <h2>補充: Mac 第一次 push</h2>
-  <pre class="code-block"><span class="fn">brew</span> <span class="key">install</span> <span class="key">gh</span></pre>
-  <pre class="code-block"><span class="fn">gh</span> <span class="key">auth</span> <span class="key">login</span></pre>
-</section>
-
 </main>
 
 <script>
@@ -478,7 +350,7 @@ function toggleTheme() {
 }
 
 let fkStep = 0;
-const FK_MAX = 2;
+const FK_MAX = 3;
 function fkGoTo(n) {
   fkStep = Math.max(0, Math.min(FK_MAX, n));
   document.querySelectorAll('.fk-panel').forEach((el, i) =>

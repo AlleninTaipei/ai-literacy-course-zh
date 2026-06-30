@@ -669,37 +669,14 @@
 
   <main>
     <section>
-      <h2>3-1 CLAUDE.md</h2>
+      <h2>3-1 掌握你的夥伴正在做什麼</h2>
 
-      <h3>工作資料夾根目錄只影響該專案</h3>
-      <pre class="code-block"># 工作環境說明
+      <h3>動手做: 開啟 Part 2 那個 <code>one_day_one_ai</code> 資料夾</h3>
+      <p><code>CLAUDE.md</code>: OpenAI 用戶請複製一份為 <code>AGENT.md</code>; Gemini 用戶請複製一份為 <code>GEMENI.md</code></p>
+      <p>在終端機啟動 Claude Code</p>
+      <pre class="code-block">請更新</pre>
 
-## 專案背景
-公司週報與客戶簡報的製作資料夾.
-
-## 輸出規範
-- 預設語言: 繁體中文, 專業英文術語 (需要時加括號標注)
-
-## 禁止動作
-- 不要刪除任何檔案</pre>
-      <div class="takeaway">
-        <p>給 AI 的工作說明書, CLAUDE.md 是可以隨時修改的.</p>
-      </div>
-
-      <h3>全域 CLAUDE.md</h3>
-      <div class="response-box">
-        <div class="response-field"><span class="rf-key">Windows</span><span
-            class="rf-val"><code>C:\Users\&lt;使用者名稱&gt;\.claude\CLAUDE.md</code></span></div>
-        <div class="response-field"><span class="rf-key">Mac</span><span
-            class="rf-val"><code>~/.claude/CLAUDE.md</code></span></div>
-      </div>
-      <div class="takeaway">
-        <p>全域設定適合放「不管在哪個專案都成立」的規範. 專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>3-2 掌握你的夥伴正在做什麼</h2>
+      <h3>執行中: 動態指示器</h3>
       <p>任務執行中, 對話區會出現類似這樣的文字, 格式是: 動作 (已花時間 · 消耗的 token 數量)</p>
       <pre class="code-block">⠸ Reading… (8s · ↑2k tokens)</pre>
       <div class="info-box">
@@ -720,10 +697,13 @@
           <div class="desc"><code>⏵⏵ accept edits on</code>, 僅檔案編輯自動執行, 終端指令仍需確認.</div>
         </div>
       </div>
+      <div class="takeaway">
+        <p>Claude Code 的設計哲學是「人始終在決策圈內」. 在做重大決策前會停下來確認, 你設定的信任邊界, 決定了它能自主行動的範圍.</p>
+      </div>
     </section>
 
     <section>
-      <h2>3-3 判斷原則</h2>
+      <h2>3-2 判斷原則</h2>
       <div class="info-box">
         <span class="tag">判斷依據</span>
         <p>時間數字持續增加、spinner 還在轉, 就代表它在跑.</p>
@@ -745,39 +725,55 @@
           <div class="desc">不執行, Claude Code 會尋找替代方案. 適合不確定這個操作是否正確.</div>
         </div>
       </div>
+      <div class="takeaway">
+        <p>你設定的信任邊界, 決定了 AI 能自主行動的範圍.</p>
+      </div>
     </section>
 
     <section>
-      <h2>3-4 Commands and Skills</h2>
+      <h2>3-3 CLAUDE.md, Commands and Skills</h2>
+      <p>CLAUDE.md 是給 AI 的工作手冊; Commands / Skills 是 AI 接受的命令</p>
+
+      <h3>全域 vs 專案級設定</h3>
       <div class="response-box">
-        <div class="response-field"><span class="rf-key">全域（所有專案）</span><span class="rf-val">Windows
-            <code>C:\Users\&lt;名稱&gt;\.claude\commands\</code>, Mac/Linux <code>~/.claude/commands/</code></span></div>
-        <div class="response-field"><span class="rf-key">專案（只限當前）</span><span class="rf-val">Windows
-            <code>&lt;專案根目錄&gt;\.claude\commands\</code>, Mac/Linux <code>.claude/commands/</code></span></div>
+        <div class="response-field"><span class="rf-key">全域設定</span><span class="rf-val">適合放「不管在哪個專案都成立」的規範</span></div>
+        <div class="response-field"><span class="rf-key">專案級設定</span><span class="rf-val">會覆蓋全域設定, 讓每個資料夾可以有自己的例外</span></div>
       </div>
+
+      <h3>Commands and Skills 路徑</h3>
+      <div class="response-box">
+        <div class="response-field"><span class="rf-key">全域（所有專案）</span><span class="rf-val">Windows <code>C:\Users\&lt;名稱&gt;\.claude\commands\</code>, Mac/Linux <code>~/.claude/commands/</code></span></div>
+        <div class="response-field"><span class="rf-key">專案（只限當前）</span><span class="rf-val">Windows <code>&lt;專案根目錄&gt;\.claude\commands\</code>, Mac/Linux <code>.claude/commands/</code></span></div>
+      </div>
+
       <pre class="code-block">/help</pre>
       <div class="takeaway">
         <p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
       </div>
-
-      <h3>動手做: 專案級 CLAUDE.md 範例</h3>
-      <ol>
-        <li>開啟 <a href="https://github.com/AlleninTaipei/one_day_one_ai" target="_blank">一天一AI 文章摘要索引</a>, 點擊右上角的 Fork
-        </li>
-        <li>Fork 完成後, 網址會變成 <code>github.com/你的帳號/one_day_one_ai</code>, 這是你自己的副本</li>
-        <li>點擊綠色的 Code 按鈕, 複製 HTTPS 網址</li>
-        <li>VS Code 開啟資料夾 (你置放專案的資料夾)</li>
-        <li>在終端機執行:</li>
-      </ol>
-      <pre class="code-block">git clone https://github.com/你的帳號/one_day_one_ai.git</pre>
-      <p>再開啟 <code>one_day_one_ai</code> 資料夾</p>
-      <p><code>CLAUDE.md</code>: OpenAI 用戶請複製一份為 <code>AGENT.md</code>; Gemini 用戶請複製一份為 <code>GEMENI.md</code></p>
-      <p>在終端機啟動 Claude Code</p>
-      <pre class="code-block">請更新</pre>
     </section>
 
     <section>
-      <h2>3-5 工作流程範例</h2>
+      <h2>3-4 Claude Code 能做什麼</h2>
+      <div class="api-fields">
+        <div class="field"><span class="name">讀取整個專案</span>
+          <div class="desc">掃描資料夾結構, 理解各檔案的關聯與脈絡.</div>
+        </div>
+        <div class="field"><span class="name">讀寫任意檔案</span>
+          <div class="desc">直接建立、修改、刪除工作目錄中的文件.</div>
+        </div>
+        <div class="field"><span class="name">執行系統指令</span>
+          <div class="desc">安裝工具、處理檔案、呼叫外部服務.</div>
+        </div>
+        <div class="field"><span class="name">搜尋整個資料夾</span>
+          <div class="desc">用關鍵字在所有文件中找到相關內容.</div>
+        </div>
+        <div class="field"><span class="name">多步驟任務規劃</span>
+          <div class="desc">把複雜任務拆解成子步驟, 逐步執行並回報進度.</div>
+        </div>
+        <div class="field"><span class="name">Git 整合</span>
+          <div class="desc">讀取差異、撰寫 commit 訊息、管理分支.</div>
+        </div>
+      </div>
       <div class="two-col">
         <div class="col-card">
           <div class="col-card-title">Claude.ai</div>
@@ -788,117 +784,10 @@
           <p>在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.</p>
         </div>
       </div>
-
-      <div class="stage-tabs">
-        <div class="wf-tab stage-tab active" onclick="wfGoTo(0)">流程一 · 批次掃描命名</div>
-        <div class="wf-tab stage-tab" onclick="wfGoTo(1)">流程二 · 重新命名搬移</div>
-        <div class="wf-tab stage-tab" onclick="wfGoTo(2)">流程三 · 交叉比對生成</div>
-        <div class="wf-tab stage-tab" onclick="wfGoTo(3)">流程四 · 感知狀態輸出</div>
-        <div class="wf-tab stage-tab" onclick="wfGoTo(4)">流程五 · 增量追加更新</div>
-      </div>
-      <div class="wf-panel demo-panel visible" id="wf-p0">
-        <p>批次掃描多檔、自動命名、同步更新彙整索引:</p>
-        <pre class="code-block">掃描 recordings/ 資料夾內所有本週新增的 .txt 通話/會議錄音稿
-對每一份檔案:
-1. 萃取通話日期與對象(客戶名稱或會議出席者)
-2. 整理成: 決議事項(標注負責人)、待辦清單(按優先級)、待確認問題
-3. 以 YYYYMMDD_meeting.md 命名, 存入 minutes/ 資料夾
-4. 在 weekly_summary.md 最後追加一行摘要索引</pre>
-      </div>
-      <div class="wf-panel demo-panel" id="wf-p1">
-        <p>掃描資料夾、重新命名、移動檔案:</p>
-        <pre class="code-block">掃描 receipts/ 資料夾
-把所有 .jpg 和 .pdf 的收據/發票:
-- 依日期重新命名為 YYYYMMDD_店家名稱
-- 移入對應月份子資料夾(例如 2026-06/, 沒有就建立)
-- 把總金額與明細彙整輸出到 monthly_expense.csv, 方便報稅或記帳</pre>
-      </div>
-      <div class="wf-panel demo-panel" id="wf-p2">
-        <p>同時讀取多份本地檔案、交叉比對後生成:</p>
-        <pre class="code-block">同時讀取 data/ 資料夾內的三份檔案:
-- this_month.csv(本月各平台實際收入: 蝦皮、官網、IG)
-- last_month.csv(上月收入, 作對比)
-- target.csv(自己設定的本月目標)
-
-計算: 各平台達成率、與上月相比的成長或衰退幅度
-生成一份 Marp 投影片, 給自己每月檢討用:
-- 6 頁, 每頁不超過 5 個重點, 自動帶入三份數據的對比數字
-- 語氣: 給自己看的檢討報告, 誠實但不需要正式
-- 存為 monthly_review.md</pre>
-      </div>
-      <div class="wf-panel demo-panel" id="wf-p3">
-        <p>感知資料夾狀態、判斷哪些待處理、批次輸出:</p>
-        <pre class="code-block">掃描 quotes/ 資料夾
-找出所有符合以下條件的報價單:
-- 檔案修改時間超過 5 天
-- 同資料夾內尚未存在對應的 follow_up_*.md
-
-為每份報價單起草一封跟進信:
-- 表示理解, 不施壓; 簡要重申方案的兩個核心優勢
-- 繁體中文, 200 字以內
-- 存為 follow_up_YYYYMMDD_客戶名.md, 方便直接複製貼上寄出</pre>
-      </div>
-      <div class="wf-panel demo-panel" id="wf-p4">
-        <p>比對時間戳、只補差異、追加更新現有檔案:</p>
-        <pre class="code-block">讀取 index.md 的最後更新時間
-掃描 notes/ 資料夾, 找出所有在此時間之後新增或修改的讀書/工作筆記 .md 檔案
-對這些檔案:
-1. 萃取主題關鍵字
-2. 將新條目追加至 index.md(不覆蓋現有條目)
-3. 輸出變更摘要: 「本次新增 X 篇、更新 Y 個關鍵字索引」</pre>
-      </div>
-      <div class="demo-controls">
-        <button class="btn btn-ghost" id="wfPrev" disabled onclick="wfGoTo(wfStep-1)">← 上一個</button>
-        <button class="btn btn-primary" id="wfNext" onclick="wfGoTo(wfStep+1)">下一個 →</button>
-        <span class="step-indicator" id="wfIndicator">流程 1 / 5</span>
-      </div>
-
-      <div class="takeaway">
-        <p>讀懂資料夾狀態、跨檔案比對、批次輸出, 這些都是在瀏覽器裡無法完成的動作.</p>
-      </div>
-
-      <h3>真實需求: 多份產品規格 Excel 檔案彙整成一份</h3>
-
-      <div class="info-box">
-        <span class="tag">對話一 · Spec-First</span>
-        <pre class="code-block">只有一個 Worksheet tab 叫 Specifications.
-A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…); C2 往下是對應說明.
-並非每個 B 欄位都有資訊, 例如 B21 是 Memory, C21 到 C26 是它的說明, B22 到 B26 空白, B27 才是下一個規格名稱.
-以上描述你是否了解?</pre>
-        <p>在動手之前, 先把資料結構說清楚, 確保後續每一步都建立在正確的理解上.</p>
-      </div>
-
-      <div class="info-box">
-        <span class="tag">對話二 · Spec-First + Atomic Tasking</span>
-        <pre class="code-block">有一堆這樣的 Excel 檔案, 一個檔案就是一個機種.
-開一個新的 Excel 彙整所有機種: B1 = "Model", C1 = 機種名稱, 後續機種依序放 D、E… 欄.
-困難在於每個舊檔案中, 相同規格佔的列數可能不一樣.
-
-這個用 Python 可以做嗎? 以上描述你是否了解?</pre>
-        <p>把「描述問題」和「請求執行」拆開成兩個步驟.</p>
-      </div>
-
-      <div class="info-box">
-        <span class="tag">對話三 · Scaffold-and-Fill</span>
-        <pre class="code-block">請告訴我該把測試用的 Excel 舊檔案複製到哪個路徑.
-請你檢視一下後, 再整理你的 actions.</pre>
-        <p>讓 AI 說明它需要什麼(測試檔案放哪)、報告它打算怎麼做, 確認方向正確後再執行.</p>
-      </div>
-
-      <div class="info-box">
-        <span class="tag">對話四 · Context Engineering</span>
-        <pre class="code-block">我想做到讓 PM 不需要安裝 Python 或其他任何套件, 只需要 consolidate_specs.exe 即可使用, 有方法嗎?</pre>
-        <p>讓 AI 根據你的實際工作情境思考, 而不是給出通用答案.</p>
-      </div>
-
-      <div class="takeaway">
-        <p>在開始之前定義清楚(Spec-First)、一次只推進一件事(Atomic Tasking)、確認架構再執行(Scaffold-and-Fill)、提供使用者背景讓 AI 給出真正可用的答案(Context
-          Engineering).</p>
-      </div>
     </section>
 
     <section>
-      <h2>3-6 核心工作模式</h2>
+      <h2>3-5 核心工作模式</h2>
       <div class="api-fields">
         <div class="field"><span class="name">Spec-first</span>
           <div class="desc">動手前先把需求寫下來. 管理目標.</div>
@@ -917,12 +806,12 @@ A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…
         </div>
       </div>
       <div class="takeaway">
-        <p>與 AI 協作, 像是帶領一位能力很強但需要明確指引的數位助理.</p>
+        <p>任務性質、技術複雜度、開發動機都不同, 但驅動每一次有效協作的, 始終是同一套溝通節奏.</p>
       </div>
     </section>
 
     <section>
-      <h2>3-7 AI 時代的數位資產</h2>
+      <h2>3-6 AI 時代的數位資產</h2>
       <table class="compare-table">
         <thead>
           <tr>
@@ -969,23 +858,15 @@ A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…
     <section>
       <h2>小結: Part 3 概念關係總覽</h2>
       <div class="response-box">
-        <div class="response-field"><span class="rf-key">CLAUDE.md</span><span class="rf-val">全域 / 專案, 讓 AI 認識你的工作環境;
-            持久化的工作規範與背景說明</span></div>
-        <div class="response-field"><span class="rf-key">執行中</span><span class="rf-val">讀懂動態指示器, 知道 AI 在做什麼; 還在動? 時間正常?
-            需要按鍵回應?</span></div>
-        <div class="response-field"><span class="rf-key">權限系統</span><span class="rf-val">你的信任邊界, 由你決定</span></div>
-        <div class="response-field"><span class="rf-key">Commands and Skills</span><span class="rf-val">控制與擴充 Claude
-            Code 的行為</span></div>
-        <div class="response-field"><span class="rf-key">工作流程範例</span><span class="rf-val">批次掃描自動命名 / 歸檔搬移檔案 / 跨檔比對生成 /
-            感知狀態批次輸出 / 增量比對追加更新; 真實需求: 多份 Excel 彙整成一份</span></div>
-        <div class="response-field"><span class="rf-key">核心工作模式</span><span class="rf-val">Spec-first / Atomic / Context
-            / Scaffold / Review - 任務性質、技術複雜度、開發動機都不同, 但驅動每一次有效協作的, 始終是同一套溝通節奏</span></div>
-        <div class="response-field"><span class="rf-key">AI 時代的數位資產</span><span class="rf-val">AI-Assisted
-            Development（AI 是 Developer）vs AI-Native Assets（AI 是 Agent）; 前者交付可執行工具, 後者交付 Workflow / Agent</span></div>
+        <div class="response-field"><span class="rf-key">執行中</span><span class="rf-val">讀懂動態指示器（⠸ Reading… · 時間 · tokens）; Shift + Tab 切換手動確認 / 自動模式 / 接受編輯</span></div>
+        <div class="response-field"><span class="rf-key">判斷原則</span><span class="rf-val">Yes 本次同意 / Yes, always 永遠同意 / No 拒絕; 你設定的信任邊界, 決定了 AI 能自主行動的範圍</span></div>
+        <div class="response-field"><span class="rf-key">CLAUDE.md / Commands / Skills</span><span class="rf-val">全域設定適合所有專案共用的規範, 專案級設定會覆蓋全域; Commands / Skills 控制與擴充 Claude Code 的行為</span></div>
+        <div class="response-field"><span class="rf-key">Claude Code 能做什麼</span><span class="rf-val">讀取專案、讀寫檔案、執行指令、搜尋資料夾、多步驟任務規劃、Git 整合; 直接在本機檔案系統工作, 不是瀏覽器裡的聊天視窗</span></div>
+        <div class="response-field"><span class="rf-key">核心工作模式</span><span class="rf-val">Spec-first / Atomic tasking / Context engineering / Scaffold-and-fill / Review-and-iterate; 始終是同一套溝通節奏</span></div>
+        <div class="response-field"><span class="rf-key">AI 時代的數位資產</span><span class="rf-val">AI-Assisted Development（AI 是 Developer, 交付可執行工具）vs AI-Native Assets（AI 是 Agent, 交付 Workflow / Agent）</span></div>
       </div>
       <div class="takeaway">
-        <p>恭喜你, 你已經學會了這個時代最重要的能力之一: 把意圖說清楚, 讓 AI 替你完成真實的工作.
-        </p>
+        <p>恭喜你, 你已經學會了這個時代最重要的能力之一: 把意圖說清楚, 讓 AI 替你完成真實的工作.</p>
       </div>
     </section>
   </main>
@@ -995,26 +876,6 @@ A 欄位是空白; B1 是機種名稱; B2 往下是規格名稱(CPU、Chipset…
       const isDark = document.body.classList.toggle('dark');
       document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
     }
-
-    let wfStep = 0;
-    const WF_MAX = 4;
-    function wfGoTo(n) {
-      wfStep = Math.max(0, Math.min(WF_MAX, n));
-      document.querySelectorAll('.wf-panel').forEach((el, i) =>
-        el.classList.toggle('visible', i === wfStep));
-      document.querySelectorAll('.wf-tab').forEach((t, i) => {
-        t.classList.remove('active', 'done');
-        if (i === wfStep) t.classList.add('active');
-        else if (i < wfStep) t.classList.add('done');
-      });
-      document.getElementById('wfPrev').disabled = wfStep === 0;
-      const wfNext = document.getElementById('wfNext');
-      wfNext.disabled = wfStep === WF_MAX;
-      wfNext.textContent = wfStep === WF_MAX ? '完成 ✓' : '下一個 →';
-      document.getElementById('wfIndicator').textContent = `流程 ${wfStep + 1} / ${WF_MAX + 1}`;
-    }
-    wfGoTo(0);
-
   </script>
 </body>
 

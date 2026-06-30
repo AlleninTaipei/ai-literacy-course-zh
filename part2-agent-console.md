@@ -168,12 +168,12 @@ git config --global user.email "your.email@example.com"
 | 結果 | 你的帳號下多了一份完全獨立的 repo | 本機資料夾裡有一份可以編輯的副本 |
 
 1. VS code 建立新資料夾
-2. 開啟 [本課程的 GitHub repo](https://github.com/AlleninTaipei/ai-literacy-course-zh), 點擊右上角的 Fork
-3. Fork 完成後, 網址會變成 `github.com/你的帳號/ai-literacy-course-zh`, 這是你自己的副本
+2. 開啟 [一天一AI — 文章摘要索引](https://github.com/AlleninTaipei/one_day_one_ai), 點擊右上角的 Fork
+3. Fork 完成後, 網址會變成 `github.com/你的帳號/one_day_one_ai`, 這是你自己的副本
 4. 點擊綠色的 Code 按鈕, 複製 HTTPS 網址, 在終端機執行:
 
 ```bash
-git clone https://github.com/你的帳號/ai-literacy-course-zh.git
+git clone https://github.com/你的帳號/one_day_one_ai.git
 ```
 
 ---

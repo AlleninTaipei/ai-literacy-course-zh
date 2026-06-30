@@ -22,18 +22,6 @@
 | **Part 2** | 個人電腦新情境 | 從文書處理機到 Agent 控制台 | `part2-agent-console.md` |
 | **Part 3** | 啟動 JARVIS 模式 | 指揮 AI Agent | `part3-jarvis-mode.md` |
 
-### Part 1 — 認識你的工作夥伴
-
-AI 基礎概念的白話版講解：神經網路、預訓練、對齊、微調、推論、MoE、Token、無狀態與多輪對話、系統提示、工具呼叫、多模態。
-
-### Part 2 — 個人電腦新情境
-
-建立現代 AI 工作環境: Claude Code、Git、GitHub、VS Code、Markdown、CLAUDE.md 設定.
-
-### Part 3 — 啟動 JARVIS 模式
-
-真實工作場景的 AI Agent 執行實作，學會「指揮」而不只是「使用」AI。
-
 ---
 
 ## 其他教材
