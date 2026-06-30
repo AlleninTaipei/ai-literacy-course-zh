@@ -194,24 +194,11 @@
   </div>
 
   <h3>動手做: 安裝 Claude Code</h3>
-  <div class="stage-tabs">
-    <div class="cc-tab stage-tab active" onclick="ccGoTo(0)">1 · 安裝 Node.js</div>
-    <div class="cc-tab stage-tab" onclick="ccGoTo(1)">2 · 確認版本</div>
-    <div class="cc-tab stage-tab" onclick="ccGoTo(2)">3 · 安裝 Claude Code</div>
-    <div class="cc-tab stage-tab" onclick="ccGoTo(3)">4 · 登入授權</div>
+  <div class="col-card">
+    <p><a href="https://code.claude.com/docs/zh-TW/quickstart" target="_blank">Claude Code DOC Quick Start →</a></p>
   </div>
-  <div class="cc-panel demo-panel visible" id="cc-p0"><div class="col-card"><p>開啟 <a href="https://nodejs.org" target="_blank">nodejs.org</a>, 下載並安裝 LTS 版.</p></div></div>
-  <div class="cc-panel demo-panel" id="cc-p1"><div class="col-card"><p>開啟終端機, 確認 <code>node --version</code> 與 <code>npm --version</code> 都有輸出版本號.</p></div></div>
-  <div class="cc-panel demo-panel" id="cc-p2"><div class="col-card"><pre class="code-block"><span class="fn">npm</span> <span class="key">install</span> <span class="key">-g</span> <span class="str">@anthropic-ai/claude-code</span></pre></div></div>
-  <div class="cc-panel demo-panel" id="cc-p3"><div class="col-card"><p>執行 <code>claude</code>, 依提示登入 Anthropic 帳號並授權.</p><p><a href="https://code.claude.com/docs/zh-TW/quickstart" target="_blank">Claude Code DOC Quick Start →</a></p></div></div>
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="ccPrev" disabled onclick="ccGoTo(ccStep-1)">← 上一步</button>
-    <button class="btn btn-primary" id="ccNext" onclick="ccGoTo(ccStep+1)">下一步 →</button>
-    <span class="step-indicator" id="ccIndicator">步驟 1 / 4</span>
-  </div>
-  <div class="info-box">
-    <span class="tag">Mac 疑難排解</span>
-    <p>如果終端機找不到 Claude 的路徑:</p>
+  <div class="info-box" style="margin-top:14px">
+    <span class="tag">Mac 找不到 Claude 的路徑</span>
     <pre class="code-block"><span class="fn">echo</span> <span class="str">'export PATH="$HOME/.local/bin:$PATH"'</span> &gt;&gt; ~/.zshrc &amp;&amp; <span class="fn">source</span> ~/.zshrc</pre>
   </div>
 
@@ -456,10 +443,10 @@ paginate: true
 <section>
   <h2>小結: Part 2 概念關係總覽</h2>
   <div class="response-box">
-    <div class="response-field"><span class="rf-key">Claude Code</span><span class="rf-val">在你電腦裡工作的 AI Agent, Human-in-the-Loop: 人始終在決策圈內</span></div>
+    <div class="response-field"><span class="rf-key">Claude Code</span><span class="rf-val">在你電腦裡工作的 AI Agent, 從給建議的電話顧問, 到能看螢幕、能動鍵盤的同事</span></div>
     <div class="response-field"><span class="rf-key">Git</span><span class="rf-val">版本控制（Repo / Commit / Remote）, 版本記錄讓每一次操作都可以回溯, push 讓工作不綁在單一台電腦上</span></div>
-    <div class="response-field"><span class="rf-key">GitHub</span><span class="rf-val">雲端存放平台, 備份、跨裝置存取、連結分享、網頁發布、定時自動執行</span></div>
-    <div class="response-field"><span class="rf-key">VS Code / Markdown / Marp</span><span class="rf-val">工作環境與文件格式, Agent 的操作空間, 人與 AI 共讀的原生格式</span></div>
+    <div class="response-field"><span class="rf-key">GitHub</span><span class="rf-val">雲端存放平台, 備份、跨裝置存取, Fork 把別人的 repo 複製成自己的副本, Clone 下載到本機</span></div>
+    <div class="response-field"><span class="rf-key">VS Code / Markdown</span><span class="rf-val">工作環境與文件格式, CLAUDE.md 是給 AI 的全域指令, Markdown 讓人與 AI 共讀同一種格式</span></div>
   </div>
   <div class="takeaway">
     <p>恭喜你. 你已經理解新的工作方式. 你安裝了工具、下了指令、把成果推上了 GitHub. 從這一刻起, AI 不再只是你聽說過的東西, 而是坐在你旁邊、等你開口的同事.</p>
@@ -489,25 +476,6 @@ function toggleTheme() {
   const isDark = document.body.classList.toggle('dark');
   document.getElementById('themeToggle').textContent = isDark ? '☀ 亮色模式' : '🌙 暗色模式';
 }
-
-let ccStep = 0;
-const CC_MAX = 3;
-function ccGoTo(n) {
-  ccStep = Math.max(0, Math.min(CC_MAX, n));
-  document.querySelectorAll('.cc-panel').forEach((el, i) =>
-    el.classList.toggle('visible', i === ccStep));
-  document.querySelectorAll('.cc-tab').forEach((t, i) => {
-    t.classList.remove('active', 'done');
-    if (i === ccStep) t.classList.add('active');
-    else if (i < ccStep) t.classList.add('done');
-  });
-  document.getElementById('ccPrev').disabled = ccStep === 0;
-  const ccNext = document.getElementById('ccNext');
-  ccNext.disabled = ccStep === CC_MAX;
-  ccNext.textContent = ccStep === CC_MAX ? '完成 ✓' : '下一步 →';
-  document.getElementById('ccIndicator').textContent = `步驟 ${ccStep + 1} / ${CC_MAX + 1}`;
-}
-ccGoTo(0);
 
 let fkStep = 0;
 const FK_MAX = 2;
