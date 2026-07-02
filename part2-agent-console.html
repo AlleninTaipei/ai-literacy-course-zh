@@ -72,9 +72,6 @@
     .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
     .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
     .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
-    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
-
     .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
     .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
       cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
@@ -142,7 +139,6 @@
     body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
     body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
     body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
-    body.dark .step-indicator { color: #718096; }
     body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
     body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
     body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
@@ -306,12 +302,6 @@
   <div class="fk-panel demo-panel" id="fk-p1"><div class="col-card"><p>開啟 <a href="https://github.com/AlleninTaipei/one_day_one_ai" target="_blank">一天一AI — 文章摘要索引</a>, 點擊右上角的 Fork.</p></div></div>
   <div class="fk-panel demo-panel" id="fk-p2"><div class="col-card"><p>Fork 完成後, 網址會變成 <code>github.com/你的帳號/one_day_one_ai</code>, 這是你自己的副本.</p></div></div>
   <div class="fk-panel demo-panel" id="fk-p3"><div class="col-card"><p>點擊綠色的 Code 按鈕, 複製 HTTPS 網址, 在終端機執行:</p><pre class="code-block"><span class="fn">git</span> <span class="key">clone</span> https://github.com/你的帳號/one_day_one_ai.git</pre></div></div>
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="fkPrev" disabled onclick="fkGoTo(fkStep-1)">← 上一步</button>
-    <button class="btn btn-primary" id="fkNext" onclick="fkGoTo(fkStep+1)">下一步 →</button>
-    <span class="step-indicator" id="fkIndicator">步驟 1 / 4</span>
-  </div>
-
   <h3>動手做: 完整工具鏈閉環</h3>
   <div class="event-list">
     <div class="event-item"><span class="event-name">1. VS Code 開啟資料夾</span></div>
@@ -360,11 +350,6 @@ function fkGoTo(n) {
     if (i === fkStep) t.classList.add('active');
     else if (i < fkStep) t.classList.add('done');
   });
-  document.getElementById('fkPrev').disabled = fkStep === 0;
-  const fkNext = document.getElementById('fkNext');
-  fkNext.disabled = fkStep === FK_MAX;
-  fkNext.textContent = fkStep === FK_MAX ? '完成 ✓' : '下一步 →';
-  document.getElementById('fkIndicator').textContent = `步驟 ${fkStep + 1} / ${FK_MAX + 1}`;
 }
 fkGoTo(0);
 </script>

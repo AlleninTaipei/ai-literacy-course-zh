@@ -71,9 +71,6 @@
     .btn-ghost { background: #fff; color: #4a5568; border: 1px solid #cbd5e0; }
     .btn-ghost:hover:not(:disabled) { color: #1a202c; border-color: #6b7280; }
     .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #6b7280; font-size: 0.82rem; margin-left: auto; }
-    .demo-controls  { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
-
     .stage-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
     .stage-tab  { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
       cursor: pointer; border: 1px solid #cbd5e0; background: #e2e8f0; color: #4a5568; transition: all 0.2s; }
@@ -141,7 +138,6 @@
     body.dark .btn-primary:disabled { background: #2d3748; color: #4a5568; }
     body.dark .btn-ghost { background: transparent; color: #718096; border-color: #2d3748; }
     body.dark .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
-    body.dark .step-indicator { color: #718096; }
     body.dark .stage-tab { background: #1a202c; border-color: #2d3748; color: #718096; }
     body.dark .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
     body.dark .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
@@ -299,12 +295,6 @@
   <div class="tu-panel demo-panel" id="tu-p1"><div class="col-card"><p>推算缺失數據或估值.</p></div></div>
   <div class="tu-panel demo-panel" id="tu-p2"><div class="col-card"><p>計算成長率並繪製圖表.</p></div></div>
   <div class="tu-panel demo-panel" id="tu-p3"><div class="col-card"><p>產生相關示意圖片.</p></div></div>
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="tuPrev" disabled onclick="tuGoTo(tuStep-1)">← 上一步</button>
-    <button class="btn btn-primary" id="tuNext" onclick="tuGoTo(tuStep+1)">下一步 →</button>
-    <span class="step-indicator" id="tuIndicator">步驟 1 / 4</span>
-  </div>
-
   <div class="takeaway">
     <p>使用者只需描述需求, AI 便能自行判斷何時呼叫工具、如何串接結果, 以及何時將成果回傳給使用者.</p>
   </div>
@@ -418,11 +408,6 @@
       </div>
   </div>
 
-  <div class="demo-controls">
-    <button class="btn btn-ghost" id="setupPrev" disabled onclick="setupGoTo(setupStep-1)">← 上一步</button>
-    <button class="btn btn-primary" id="setupNext" onclick="setupGoTo(setupStep+1)">下一步 →</button>
-    <span class="step-indicator" id="setupIndicator">步驟 1 / 7</span>
-  </div>
 </section>
 </main>
 
@@ -450,11 +435,6 @@ function tuGoTo(n) {
     if (i === tuStep) t.classList.add('active');
     else if (i < tuStep) t.classList.add('done');
   });
-  document.getElementById('tuPrev').disabled = tuStep === 0;
-  const tuNext = document.getElementById('tuNext');
-  tuNext.disabled = tuStep === TU_MAX;
-  tuNext.textContent = tuStep === TU_MAX ? '完成 ✓' : '下一步 →';
-  document.getElementById('tuIndicator').textContent = `步驟 ${tuStep + 1} / ${TU_MAX + 1}`;
 }
 tuGoTo(0);
 
@@ -469,11 +449,6 @@ function setupGoTo(n) {
     if (i === setupStep) t.classList.add('active');
     else if (i < setupStep) t.classList.add('done');
   });
-  document.getElementById('setupPrev').disabled = setupStep === 0;
-  const setupNext = document.getElementById('setupNext');
-  setupNext.disabled = setupStep === SETUP_MAX;
-  setupNext.textContent = setupStep === SETUP_MAX ? '完成 ✓' : '下一步 →';
-  document.getElementById('setupIndicator').textContent = `步驟 ${setupStep + 1} / ${SETUP_MAX + 1}`;
 }
 setupGoTo(0);
 </script>
