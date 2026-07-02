@@ -44,7 +44,7 @@ blockquote {
 
 `CLAUDE.md`: OpenAI 用戶請複製一份為 `AGENT.md`; Gemini 用戶請複製一份為 `GEMENI.md`
 
-在終端機啟動 Claue code
+在終端機啟動 Claude Code
 
 ```bash
 請更新

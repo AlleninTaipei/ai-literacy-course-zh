@@ -41,7 +41,8 @@
 
     .takeaway { background: linear-gradient(135deg, #dcfce7, #f0fdf4);
       border: 1px solid #4ade80; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
-    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0; }
+    .takeaway p { color: #166534; font-size: 0.9rem; margin: 0 0 6px; }
+    .takeaway p:last-child { margin-bottom: 0; }
 
     .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
     .field { background: #fff; border: 1px solid #cbd5e0; border-radius: 8px; padding: 14px 16px; }
@@ -213,7 +214,7 @@
   <div class="two-col">
     <div class="col-card">
       <div class="col-card-title">知識更廣</div>
-      <p>各領域各有擅長的專家, 同時涵蓋更多主題.</p>
+      <p>各領域各有擅長的專家.</p>
     </div>
     <div class="col-card">
       <div class="col-card-title">成本更低</div>
@@ -259,7 +260,7 @@
   <h2>1-7 無狀態與多輪對話 (Stateless &amp; Multi-turn Conversation)</h2>
   <div class="info-box">
     <span class="tag">比喻</span>
-    <p>電影《我的失憶女友》(50 First Dates)裡, 女主角 Lucy 因車禍每天醒來都會失去前一天的記憶. 男主角 Henry 為了讓她記得兩人的感情, 每天早上準備一捲影帶, 讓她從頭看完所有的故事, 才能繼續當天的對話.</p>
+    <p>電影《我的失憶女友》(50 First Dates)裡, 女主角 Lucy 因車禍每天醒來都會失去前一天的記憶. 每一天對她來說都是全新的開始. 男主角 Henry 為了讓她記得兩人的感情, 每天早上準備一捲影帶, 讓她從頭看完所有的故事, 才能繼續當天的對話.</p>
   </div>
   <p style="margin-top:14px">模型一次能「看到」的 Token 數量是有上限的, 稱為上下文視窗(Context Window). 超過這個上限, AI 就會「忘記」對話最前面的內容.</p>
   <div class="takeaway">
@@ -362,14 +363,23 @@
   <div class="setup-panel demo-panel visible" id="setup-p0">
     <div class="col-card">
       <p>建議安裝 <a href="https://www.google.com/chrome" target="_blank">Chrome</a> 瀏覽器並設為預設瀏覽器.</p>
-      <p>前往 <a href="https://accounts.google.com/signup" target="_blank">accounts.google.com/signup</a>, 依照指示填寫姓名、使用者名稱、密碼, 完成手機號碼驗證後即可啟用.</p>
-      <p>如果已有 Google 帳戶(Gmail、Google Drive、YouTube 等), 可直接使用現有帳號.</p>
+      <p>前往 <a href="https://accounts.google.com/signup" target="_blank">accounts.google.com/signup</a>, 依照指示填寫姓名、使用者名稱、密碼, 完成手機號碼驗證後即可啟用 Google 帳戶.</p>
+      <p>如果已有 Google 帳戶(Gmail、Google Drive、YouTube 等), 跳過此步驟, 直接使用現有帳號即可.</p>
+    </div>
+    <div class="response-box">
+      <div class="response-field"><span class="rf-key">登入 GitHub</span><span class="rf-val">Step 2 建立 GitHub 帳號時, 可直接以 Google 帳號登入</span></div>
+      <div class="response-field"><span class="rf-key">登入 Anthropic</span><span class="rf-val">Step 3 建立 Claude 帳號時, 可直接以 Google 帳號登入</span></div>
     </div>
   </div>
   <div class="setup-panel demo-panel" id="setup-p1">
     <div class="col-card">
-      <p>前往 <a href="https://github.com/signup" target="_blank">github.com/signup</a>, 填寫使用者名稱、電子郵件與密碼, 完成電子郵件驗證後即可啟用. 推薦以 Google 帳號直接登入.</p>
-      <p>GitHub 在本課程中用來儲存 repo(把工作資料夾推送到雲端), 以及協作與分享(分享連結或共同維護專案).</p>
+      <p>前往 <a href="https://github.com/signup" target="_blank">github.com/signup</a>, 填寫使用者名稱、電子郵件與密碼, 完成電子郵件驗證後即可啟用. 推薦以 Google 帳號直接登入, 省去記一組新密碼.</p>
+      <p>如果已有 GitHub 帳號, 跳過此步驟, 直接使用現有帳號即可.</p>
+      <p>GitHub 在本課程中扮演兩個角色:</p>
+    </div>
+    <div class="response-box">
+      <div class="response-field"><span class="rf-key">儲存 repo</span><span class="rf-val">把你的工作資料夾推送到雲端, 任何時間、任何裝置都能取回</span></div>
+      <div class="response-field"><span class="rf-key">協作與分享</span><span class="rf-val">課程成果可以分享連結, 或與他人共同維護同一份專案</span></div>
     </div>
   </div>
   <div class="setup-panel demo-panel" id="setup-p2">
@@ -379,12 +389,13 @@
   </div>
   <div class="setup-panel demo-panel" id="setup-p3">
     <div class="col-card">
-      <p>1. 登入 Claude 的網頁介面後, 點選左下角的「Upgrade to Pro」.</p>
+      <p>1. 登入 Claude 的網頁介面後, 點選左下角的「Upgrade to Pro」(或「升級方案」).</p>
       <p>2. 選擇「Claude Pro」方案.</p>
       <p>3. 填入信用卡資料, 確認訂閱, 完成付款.</p>
     </div>
     <div class="takeaway">
-      <p>訂閱是月付制, 可隨時在 Settings → Billing → Manage Subscription 取消, 取消後 Pro 資格維持到當月結束, 不會退費已付的月費.</p>
+      <p>訂閱是月付制, 你可以隨時在帳號設定中取消, 不會被鎖死.</p>
+      <p>進入 Settings → Billing → Manage Subscription, 點選取消. 取消後, 你的 Pro 資格會維持到當月結束, 之後自動降為免費版, 不會退費已付的月費.</p>
     </div>
   </div>
   <div class="setup-panel demo-panel" id="setup-p4">
@@ -410,7 +421,7 @@
   <div class="demo-controls">
     <button class="btn btn-ghost" id="setupPrev" disabled onclick="setupGoTo(setupStep-1)">← 上一步</button>
     <button class="btn btn-primary" id="setupNext" onclick="setupGoTo(setupStep+1)">下一步 →</button>
-    <span class="step-indicator" id="setupIndicator">步驟 1 / 8</span>
+    <span class="step-indicator" id="setupIndicator">步驟 1 / 7</span>
   </div>
 </section>
 </main>
@@ -448,7 +459,7 @@ function tuGoTo(n) {
 tuGoTo(0);
 
 let setupStep = 0;
-const SETUP_MAX = 7;
+const SETUP_MAX = 6;
 function setupGoTo(n) {
   setupStep = Math.max(0, Math.min(SETUP_MAX, n));
   document.querySelectorAll('.setup-panel').forEach((el, i) =>

@@ -706,7 +706,7 @@
       <h2>3-2 判斷原則</h2>
       <div class="info-box">
         <span class="tag">判斷依據</span>
-        <p>時間數字持續增加、spinner 還在轉, 就代表它在跑.</p>
+        <p>時間數字持續增加, 就代表它在跑.</p>
       </div>
       <pre class="code-block">Claude Code wants to execute a bash command:
   git push origin main
@@ -732,24 +732,11 @@
 
     <section>
       <h2>3-3 CLAUDE.md, Commands and Skills</h2>
-      <p>CLAUDE.md 是給 AI 的工作手冊; Commands / Skills 是 AI 接受的命令</p>
-
-      <h3>全域 vs 專案級設定</h3>
-      <div class="response-box">
-        <div class="response-field"><span class="rf-key">全域設定</span><span class="rf-val">適合放「不管在哪個專案都成立」的規範</span></div>
-        <div class="response-field"><span class="rf-key">專案級設定</span><span class="rf-val">會覆蓋全域設定, 讓每個資料夾可以有自己的例外</span></div>
-      </div>
-
-      <h3>Commands and Skills 路徑</h3>
-      <div class="response-box">
-        <div class="response-field"><span class="rf-key">全域（所有專案）</span><span class="rf-val">Windows <code>C:\Users\&lt;名稱&gt;\.claude\commands\</code>, Mac/Linux <code>~/.claude/commands/</code></span></div>
-        <div class="response-field"><span class="rf-key">專案（只限當前）</span><span class="rf-val">Windows <code>&lt;專案根目錄&gt;\.claude\commands\</code>, Mac/Linux <code>.claude/commands/</code></span></div>
-      </div>
+      <p>CLAUDE.md 是給 AI 的工作手冊; Commands / Skills 是 AI 接受的命令.</p>
+      <p>全域設定適合放「不管在哪個專案都成立」的規範.</p>
+      <p>專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.</p>
 
       <pre class="code-block">/help</pre>
-      <div class="takeaway">
-        <p>你可以請 Claude Code 把功能確認過的工作流程, 幫你寫成一個指令.</p>
-      </div>
     </section>
 
     <section>
