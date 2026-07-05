@@ -191,13 +191,6 @@
       margin-bottom: 1.5rem;
     }
 
-    .control-group {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-
     .pill {
       position: relative;
       isolation: isolate;
@@ -217,10 +210,6 @@
       background: var(--ember);
       z-index: -1;
       transition: transform 0.25s ease;
-    }
-
-    .mode-buttons:has(.mode-btn[data-mode="slide"].active)::after {
-      transform: translateX(100%);
     }
 
     .theme-buttons:has(.theme-btn[data-theme-btn="dark"].active)::after {
@@ -245,12 +234,6 @@
 
     .pill-btn:hover:not(.active) {
       color: var(--fg);
-    }
-
-    .mode-hint {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--fg-a40);
     }
 
     .notice {
@@ -519,16 +502,7 @@
   </header>
 
   <main>
-    <hr class="divider">
-
     <div class="control-bar">
-      <div class="control-group">
-        <div class="mode-buttons pill" role="group" aria-label="瀏覽模式選擇">
-          <button type="button" class="mode-btn pill-btn" data-mode="scroll">瀏覽模式</button>
-          <button type="button" class="mode-btn pill-btn" data-mode="slide">簡報模式</button>
-        </div>
-        <p class="mode-hint">瀏覽模式: 整頁捲動 · 簡報模式: 逐頁瀏覽</p>
-      </div>
       <div class="theme-buttons pill" role="group" aria-label="外觀模式選擇">
         <button type="button" class="theme-btn pill-btn" data-theme-btn="light">淺色模式</button>
         <button type="button" class="theme-btn pill-btn" data-theme-btn="dark">深色模式</button>
@@ -538,14 +512,13 @@
     <div class="notice">
       <p class="notice-eyebrow">開始前</p>
       <p class="notice-text">使用本課程教材前，建議先閱讀
-        <a href="ai-policy-slide.html" data-slide="ai-policy-slide.html" data-scroll="ai-policy.html">公司 AI 使用政策</a>。
+        <a href="ai-policy.html">公司 AI 使用政策</a>。
       </p>
     </div>
 
     <h2 class="section-title">課程三部曲</h2>
     <div class="parts">
-      <a class="part-card part-1" href="part1-ai-literacy-intro-slide.html"
-        data-slide="part1-ai-literacy-intro-slide.html" data-scroll="part1-ai-literacy-intro.html">
+      <a class="part-card part-1" href="part1-ai-literacy-intro.html">
         <div class="part-head">
           <span class="part-num">PART 1</span>
           <span class="part-role">提問者</span>
@@ -553,8 +526,7 @@
         <div class="part-title">認識你的工作夥伴</div>
         <p class="part-quote">你不需要會寫程式, 也不需要懂技術. 你只需要願意開口問, AI 就能成為你最強的工作夥伴.</p>
       </a>
-      <a class="part-card part-2" href="part2-agent-console-slide.html" data-slide="part2-agent-console-slide.html"
-        data-scroll="part2-agent-console.html">
+      <a class="part-card part-2" href="part2-agent-console.html">
         <div class="part-head">
           <span class="part-num">PART 2</span>
           <span class="part-role">辦公室主人</span>
@@ -562,8 +534,7 @@
         <div class="part-title">個人電腦新情境</div>
         <p class="part-quote">以前, 電腦是你的工具. 現在, 電腦是你的辦公室, 而 AI Agent, 是在裡面替你工作的員工.</p>
       </a>
-      <a class="part-card part-3" href="part3-jarvis-mode-slide.html" data-slide="part3-jarvis-mode-slide.html"
-        data-scroll="part3-jarvis-mode.html">
+      <a class="part-card part-3" href="part3-jarvis-mode.html">
         <div class="part-head">
           <span class="part-num">PART 3</span>
           <span class="part-role">指揮官</span>
@@ -577,8 +548,7 @@
 
     <h2 class="section-title">參考附件</h2>
     <div class="demos">
-      <a class="demo-card" href="anthropic-academy-slide.html" data-slide="anthropic-academy-slide.html"
-        data-scroll="anthropic-academy.html">
+      <a class="demo-card" href="anthropic-academy.html">
         <div class="demo-tag">Official · 免費 · 官方證照</div>
         <h3>Anthropic Academy</h3>
         <p>Anthropic 官方免費學習平台，課程涵蓋 AI 入門到開發者實作，完課頒發官方證照可加進 LinkedIn。</p>
@@ -623,34 +593,6 @@
   </footer>
 
   <script>
-    (function () {
-      var STORAGE_KEY = 'aiCoursesViewMode';
-      var buttons = document.querySelectorAll('.mode-btn');
-      var links = document.querySelectorAll('[data-slide]');
-
-      function applyMode(mode) {
-        links.forEach(function (link) {
-          var url = mode === 'scroll' ? link.dataset.scroll : link.dataset.slide;
-          if (url) link.setAttribute('href', url);
-        });
-        buttons.forEach(function (btn) {
-          var isActive = btn.dataset.mode === mode;
-          btn.classList.toggle('active', isActive);
-          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        });
-      }
-
-      buttons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var mode = btn.dataset.mode;
-          applyMode(mode);
-          localStorage.setItem(STORAGE_KEY, mode);
-        });
-      });
-
-      applyMode(localStorage.getItem(STORAGE_KEY) || 'scroll');
-    })();
-
     (function () {
       var STORAGE_KEY = 'aiCoursesTheme';
       var buttons = document.querySelectorAll('.theme-btn');
