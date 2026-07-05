@@ -86,5 +86,5 @@
   <text x="801" y="412" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="17" fill="#F5F0E8">啟動 JARVIS 模式</text>
 
   <!-- Bottom tagline -->
-  <text x="60" y="595" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="14" fill="#F5F0E8" opacity="0.4">Powered by Marp · Claude Code · VS Code</text>
+  <text x="60" y="595" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" font-size="14" fill="#F5F0E8" opacity="0.4">Powered by Claude Code · VS Code</text>
 </svg>
