@@ -26,6 +26,20 @@
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('aiCoursesTheme') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,6 +75,38 @@
   </script>
 
   <style>
+    :root {
+      --ink: #1A1A1A;
+      --parchment: #F5F0E8;
+      --ember: #D97757;
+      --ember-deep: #9C4322;
+      --ember-muted: #C2836E;
+      --font-display: 'Noto Serif TC', 'Microsoft JhengHei', serif;
+      --font-body: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+      --font-mono: 'DM Mono', 'Consolas', monospace;
+
+      /* light theme (default) */
+      --bg: var(--parchment);
+      --fg: var(--ink);
+      --accent-text: var(--ember-deep);
+      --fg-a70: rgba(26, 26, 26, 0.7);
+      --fg-a55: rgba(26, 26, 26, 0.55);
+      --fg-a40: rgba(26, 26, 26, 0.4);
+      --fg-a30: rgba(26, 26, 26, 0.3);
+      --card-neutral: rgba(26, 26, 26, 0.025);
+    }
+
+    :root[data-theme="dark"] {
+      --bg: var(--ink);
+      --fg: var(--parchment);
+      --accent-text: var(--ember);
+      --fg-a70: rgba(245, 240, 232, 0.7);
+      --fg-a55: rgba(245, 240, 232, 0.55);
+      --fg-a40: rgba(245, 240, 232, 0.4);
+      --fg-a30: rgba(245, 240, 232, 0.3);
+      --card-neutral: rgba(245, 240, 232, 0.03);
+    }
+
     *,
     *::before,
     *::after {
@@ -70,31 +116,53 @@
     }
 
     body {
-      background: #1A1A1A;
-      color: #F5F0E8;
-      font-family: 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent-text);
+      outline-offset: 3px;
+      border-radius: 2px;
     }
 
     header {
-      border-left: 5px solid #D97757;
+      border-left: 6px solid var(--ember);
       padding: 3rem 3rem 2rem;
       max-width: 860px;
       margin: 0 auto;
       width: 100%;
     }
 
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      margin-bottom: 0.9rem;
     }
 
-    header p {
-      margin-top: 0.75rem;
-      color: #D97757;
+    header h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2.6rem;
+      letter-spacing: 0.01em;
+    }
+
+    header .tagline {
+      margin-top: 0.6rem;
+      color: var(--accent-text);
       font-size: 1.05rem;
     }
 
@@ -109,10 +177,10 @@
     .divider {
       border: none;
       border-top: 1px solid rgba(217, 119, 87, 0.3);
-      margin: 1.5rem 0 2rem;
+      margin: 1.75rem 0 2.25rem;
     }
 
-    .mode-switcher {
+    .control-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -121,98 +189,198 @@
       margin-bottom: 1.5rem;
     }
 
-    .mode-buttons {
+    .control-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .pill {
+      position: relative;
+      isolation: isolate;
       display: inline-flex;
       border: 1px solid rgba(217, 119, 87, 0.4);
-      border-radius: 6px;
+      border-radius: 999px;
       overflow: hidden;
     }
 
-    .mode-btn {
+    .pill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: var(--ember);
+      z-index: -1;
+      transition: transform 0.25s ease;
+    }
+
+    .mode-buttons:has(.mode-btn[data-mode="slide"].active)::after {
+      transform: translateX(100%);
+    }
+
+    .theme-buttons:has(.theme-btn[data-theme-btn="dark"].active)::after {
+      transform: translateX(100%);
+    }
+
+    .pill-btn {
       background: transparent;
       border: none;
-      color: rgba(245, 240, 232, 0.6);
-      font-family: inherit;
+      color: var(--fg-a55);
+      font-family: var(--font-body);
       font-size: 0.85rem;
-      padding: 0.5rem 1.1rem;
+      padding: 0.5rem 1.2rem;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: color 0.2s;
     }
 
-    .mode-btn+.mode-btn {
-      border-left: 1px solid rgba(217, 119, 87, 0.4);
-    }
-
-    .mode-btn.active {
-      background: #D97757;
-      color: #1A1A1A;
+    .pill-btn.active {
+      color: var(--ink);
       font-weight: 600;
     }
 
-    .mode-btn:hover:not(.active) {
-      background: rgba(217, 119, 87, 0.12);
-      color: #F5F0E8;
+    .pill-btn:hover:not(.active) {
+      color: var(--fg);
     }
 
     .mode-hint {
-      font-size: 0.78rem;
-      color: rgba(245, 240, 232, 0.45);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--fg-a40);
     }
 
-    .course-notice {
+    .notice {
+      border-left: 2px solid rgba(217, 119, 87, 0.5);
+      background: rgba(217, 119, 87, 0.05);
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .notice-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      margin-bottom: 0.35rem;
+    }
+
+    .notice-text {
       font-size: 0.85rem;
-      color: rgba(245, 240, 232, 0.55);
-      margin-bottom: 1.5rem;
+      color: var(--fg-a70);
     }
 
-    .course-notice a {
-      color: #D97757;
+    .notice-text a {
+      color: var(--accent-text);
       text-decoration: underline;
     }
 
     .section-title {
+      font-family: var(--font-mono);
       font-size: 0.8rem;
       font-weight: 400;
       letter-spacing: 0.12em;
-      color: #D97757;
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 1.2rem;
     }
 
     .parts {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1rem;
       margin-bottom: 2.5rem;
     }
 
     .part-card {
-      background: rgba(217, 119, 87, 0.08);
-      border-left: 3px solid #D97757;
       border-radius: 6px;
-      padding: 1.2rem 1.4rem;
+      padding: 1.3rem 1.4rem;
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: border-color 0.2s, background 0.2s;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
     }
 
     .part-card:hover {
-      border-color: #D97757;
-      background: rgba(217, 119, 87, 0.16);
+      transform: translateY(-2px);
     }
 
-    .part-label {
-      font-size: 0.75rem;
-      color: #D97757;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.4rem;
+    .part-1 {
+      border-left: 2px solid rgba(217, 119, 87, 0.45);
+      background: rgba(217, 119, 87, 0.05);
+    }
+
+    .part-1:hover {
+      border-color: rgba(217, 119, 87, 0.7);
+      background: rgba(217, 119, 87, 0.09);
+    }
+
+    .part-2 {
+      border-left: 4px solid rgba(217, 119, 87, 0.7);
+      background: rgba(217, 119, 87, 0.09);
+    }
+
+    .part-2:hover {
+      border-color: var(--ember);
+      background: rgba(217, 119, 87, 0.13);
+    }
+
+    .part-3 {
+      border-left: 6px solid var(--ember);
+      background: rgba(217, 119, 87, 0.14);
+      box-shadow: 0 0 28px rgba(217, 119, 87, 0.12);
+    }
+
+    .part-3:hover {
+      background: rgba(217, 119, 87, 0.19);
+    }
+
+    .part-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .part-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
+      font-weight: 500;
+    }
+
+    .part-role {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(217, 119, 87, 0.5);
+      color: var(--fg-a70);
+    }
+
+    .part-3 .part-role {
+      background: var(--ember-muted);
+      border-color: var(--ember-muted);
+      color: var(--ink);
     }
 
     .part-title {
-      font-size: 1rem;
-      color: #F5F0E8;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--fg);
+      margin-bottom: 0.6rem;
+    }
+
+    .part-quote {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--fg-a55);
     }
 
     .demos {
@@ -222,60 +390,120 @@
     }
 
     .demo-card {
-      background: rgba(217, 119, 87, 0.06);
+      background: var(--card-neutral);
       border: 1px solid rgba(217, 119, 87, 0.25);
       border-radius: 8px;
       padding: 1.5rem;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
       display: block;
     }
 
     .demo-card:hover {
-      border-color: #D97757;
-      background: rgba(217, 119, 87, 0.12);
+      border-color: var(--ember);
+      background: rgba(217, 119, 87, 0.08);
+      transform: translateY(-2px);
     }
 
     .demo-tag {
-      font-size: 0.72rem;
-      color: #D97757;
-      letter-spacing: 0.1em;
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-text);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      margin-bottom: 0.6rem;
+      border: 1px solid rgba(217, 119, 87, 0.35);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      margin-bottom: 0.7rem;
     }
 
     .demo-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.4rem;
     }
 
     .demo-card p {
       font-size: 0.85rem;
-      color: rgba(245, 240, 232, 0.55);
+      color: var(--fg-a55);
       line-height: 1.5;
-    }
-
-    .section-date {
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0;
-      text-transform: none;
-      color: rgba(245, 240, 232, 0.4);
-      margin-left: 0.6rem;
     }
 
     footer {
       text-align: center;
       padding: 1.5rem;
-      font-size: 0.78rem;
-      color: rgba(245, 240, 232, 0.3);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--fg-a30);
       border-top: 1px solid rgba(217, 119, 87, 0.15);
     }
 
     footer a {
-      color: #D97757;
+      color: var(--accent-text);
       text-decoration: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header,
+      .control-bar,
+      .notice,
+      .parts .part-card {
+        animation: fade-up 0.5s ease both;
+      }
+
+      .parts .part-card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+
+      .parts .part-card:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      .parts .part-card:nth-child(3) {
+        animation-delay: 0.25s;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      body,
+      .pill::after,
+      .part-card,
+      .demo-card {
+        transition: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      header,
+      main {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .control-bar {
+        gap: 1rem;
+      }
     }
   </style>
 </head>
@@ -283,41 +511,63 @@
 <body>
 
   <header>
+    <p class="eyebrow">AI Literacy · 三部曲</p>
     <h1>好好用 AI</h1>
-    <p>帶你一步步上手 AI 的三部曲課程</p>
+    <p class="tagline">帶你一步步上手 AI 的三部曲課程</p>
   </header>
 
   <main>
     <hr class="divider">
 
-    <div class="mode-switcher" role="group" aria-label="瀏覽模式選擇">
-      <div class="mode-buttons">
-        <button type="button" class="mode-btn" data-mode="scroll">瀏覽模式</button>
-        <button type="button" class="mode-btn" data-mode="slide">簡報模式</button>
+    <div class="control-bar">
+      <div class="control-group">
+        <div class="mode-buttons pill" role="group" aria-label="瀏覽模式選擇">
+          <button type="button" class="mode-btn pill-btn" data-mode="scroll">瀏覽模式</button>
+          <button type="button" class="mode-btn pill-btn" data-mode="slide">簡報模式</button>
+        </div>
+        <p class="mode-hint">瀏覽模式: 整頁捲動 · 簡報模式: 逐頁瀏覽</p>
       </div>
-      <p class="mode-hint">瀏覽模式：整頁捲動; 簡報模式：逐頁瀏覽</p>
+      <div class="theme-buttons pill" role="group" aria-label="外觀模式選擇">
+        <button type="button" class="theme-btn pill-btn" data-theme-btn="light">淺色模式</button>
+        <button type="button" class="theme-btn pill-btn" data-theme-btn="dark">深色模式</button>
+      </div>
     </div>
 
-    <p class="course-notice">使用本課程教材前，建議先閱讀
-      <a href="ai-policy-slide.html" data-slide="ai-policy-slide.html" data-scroll="ai-policy.html">公司 AI 使用政策</a>。
-    </p>
+    <div class="notice">
+      <p class="notice-eyebrow">開始前</p>
+      <p class="notice-text">使用本課程教材前，建議先閱讀
+        <a href="ai-policy-slide.html" data-slide="ai-policy-slide.html" data-scroll="ai-policy.html">公司 AI 使用政策</a>。
+      </p>
+    </div>
 
     <h2 class="section-title">課程三部曲</h2>
     <div class="parts">
-      <a class="part-card" href="part1-ai-literacy-intro-slide.html" data-slide="part1-ai-literacy-intro-slide.html"
+      <a class="part-card part-1" href="part1-ai-literacy-intro-slide.html" data-slide="part1-ai-literacy-intro-slide.html"
         data-scroll="part1-ai-literacy-intro.html">
-        <div class="part-label">Part 1</div>
+        <div class="part-head">
+          <span class="part-num">PART 1</span>
+          <span class="part-role">提問者</span>
+        </div>
         <div class="part-title">認識你的工作夥伴</div>
+        <p class="part-quote">你不需要會寫程式, 也不需要懂技術. 你只需要願意開口問, AI 就能成為你最強的工作夥伴.</p>
       </a>
-      <a class="part-card" href="part2-agent-console-slide.html" data-slide="part2-agent-console-slide.html"
+      <a class="part-card part-2" href="part2-agent-console-slide.html" data-slide="part2-agent-console-slide.html"
         data-scroll="part2-agent-console.html">
-        <div class="part-label">Part 2</div>
+        <div class="part-head">
+          <span class="part-num">PART 2</span>
+          <span class="part-role">辦公室主人</span>
+        </div>
         <div class="part-title">個人電腦新情境</div>
+        <p class="part-quote">以前, 電腦是你的工具. 現在, 電腦是你的辦公室, 而 AI Agent, 是在裡面替你工作的員工.</p>
       </a>
-      <a class="part-card" href="part3-jarvis-mode-slide.html" data-slide="part3-jarvis-mode-slide.html"
+      <a class="part-card part-3" href="part3-jarvis-mode-slide.html" data-slide="part3-jarvis-mode-slide.html"
         data-scroll="part3-jarvis-mode.html">
-        <div class="part-label">Part 3</div>
+        <div class="part-head">
+          <span class="part-num">PART 3</span>
+          <span class="part-role">指揮官</span>
+        </div>
         <div class="part-title">啟動 JARVIS 模式</div>
+        <p class="part-quote">不是學如何寫程式, 而是學會「指揮」AI 完成真實工作任務.</p>
       </a>
     </div>
 
@@ -397,6 +647,30 @@
       });
 
       applyMode(localStorage.getItem(STORAGE_KEY) || 'scroll');
+    })();
+
+    (function () {
+      var STORAGE_KEY = 'aiCoursesTheme';
+      var buttons = document.querySelectorAll('.theme-btn');
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        buttons.forEach(function (btn) {
+          var isActive = btn.dataset.themeBtn === theme;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var theme = btn.dataset.themeBtn;
+          applyTheme(theme);
+          localStorage.setItem(STORAGE_KEY, theme);
+        });
+      });
+
+      applyTheme(localStorage.getItem(STORAGE_KEY) || 'light');
     })();
   </script>
 
