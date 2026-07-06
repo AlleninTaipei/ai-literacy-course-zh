@@ -100,12 +100,19 @@ Claude Code wants to execute a bash command:
 
 ### 3-3 CLAUDE.md, Commands and Skills
 
-- CLAUDE.md 是給 AI 的工作手冊; Commands / Skills 是 AI 接受的命令
-- 全域設定適合放「不管在哪個專案都成立」的規範.
-- 專案級設定會覆蓋全域設定, 讓每個資料夾可以有自己的例外.
+- CLAUDE.md 是給 AI 的工作手冊, 每次對話開始都會被讀取
+- Commands 要使用者明確輸入 `/xxx` 才會執行; Skills 預設由 Claude 依任務內容自主判斷是否調用, 也可以用 `/skill-name` 手動觸發
+- 這門課用的 CLAUDE.md 已經把 Skills 的自動調用關掉, 改成一律要靠 slash command 明確發起
+- 全域 CLAUDE.md 適合放「不管在哪個專案都成立」的規範
+- 專案級 CLAUDE.md 會疊加在全域規則之上, 讓每個資料夾可以再補上自己的例外, 不是取代全域規則
 
 ```
 /help
+```
+
+```
+/code-review           ← Command, 要明確輸入才會執行
+"請幫我做資料視覺化"     ← 符合某個 Skill 的描述, Claude 可能自主調用
 ```
 
 ---
@@ -157,7 +164,7 @@ Claude Code wants to execute a bash command:
 |-----|-------|
 | 執行中 | 讀懂動態指示器（⠸ Reading… · 時間 · tokens）; Shift + Tab 切換手動確認 / 自動模式 / 接受編輯 |
 | 判斷原則 | Yes 本次同意 / Yes, always 永遠同意 / No 拒絕; 你設定的信任邊界, 決定了 AI 能自主行動的範圍 |
-| CLAUDE.md / Commands / Skills | 全域設定適合所有專案共用的規範, 專案級設定會覆蓋全域; Commands / Skills 控制與擴充 Claude Code 的行為 |
+| CLAUDE.md / Commands / Skills | 全域 CLAUDE.md 適合所有專案共用的規範, 專案級規則疊加補充而非覆蓋; Commands 要明確輸入才執行, Skills 預設可由 Claude 自主調用 |
 | Claude Code 能做什麼 | 讀取專案、讀寫檔案、執行指令、搜尋資料夾、多步驟任務規劃、Git 整合; 直接在本機檔案系統工作, 不是瀏覽器裡的聊天視窗 |
 | 核心工作模式 | Spec-first / Atomic tasking / Context engineering / Scaffold-and-fill / Review-and-iterate; 始終是同一套溝通節奏 |
 | AI 時代的數位資產 | AI-Assisted Development（AI 是 Developer, 交付可執行工具）vs AI-Native Assets（AI 是 Agent, 交付 Workflow / Agent）|
