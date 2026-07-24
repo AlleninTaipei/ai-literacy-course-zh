@@ -337,44 +337,9 @@
       }
     }
 
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .col-card {
-      background: #fff;
-      border: 1px solid rgba(26, 26, 26, 0.15);
-      border-radius: 10px;
-      padding: 16px 18px;
-    }
-
-    .col-card-title {
-      font-family: 'DM Mono', 'Consolas', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: #6B6459;
-      margin-bottom: 10px;
-    }
-
-    .col-card p {
-      font-size: 0.83rem;
-      color: #4A4540;
-      margin-bottom: 6px;
-    }
-
-    .col-card p:last-child {
-      margin-bottom: 0;
-    }
-
     @media (max-width: 640px) {
 
-      .api-fields,
-      .two-col {
+      .api-fields {
         grid-template-columns: 1fr;
       }
     }
@@ -620,19 +585,6 @@
       color: #c6f6d5;
     }
 
-    body.dark .col-card {
-      background: #232019;
-      border-color: rgba(245, 240, 232, 0.15);
-    }
-
-    body.dark .col-card-title {
-      color: #8A8375;
-    }
-
-    body.dark .col-card p {
-      color: #B0A99C;
-    }
-
     body.dark #themeToggle {
       background: #232019;
       color: #F5F0E8;
@@ -755,16 +707,6 @@
         </div>
         <div class="field"><span class="name">Git 整合</span>
           <div class="desc">讀取差異、撰寫 commit 訊息、管理分支.</div>
-        </div>
-      </div>
-      <div class="two-col">
-        <div class="col-card">
-          <div class="col-card-title">Claude.ai</div>
-          <p>在瀏覽器裡運作, 碰不到你電腦的檔案系統.</p>
-        </div>
-        <div class="col-card">
-          <div class="col-card-title">Claude Code</div>
-          <p>在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.</p>
         </div>
       </div>
     </section>

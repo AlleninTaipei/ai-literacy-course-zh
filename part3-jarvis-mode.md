@@ -128,9 +128,6 @@ Claude Code wants to execute a bash command:
 | 多步驟任務規劃 | 把複雜任務拆解成子步驟, 逐步執行並回報進度 |
 | Git 整合 | 讀取差異、撰寫 commit 訊息、管理分支 |
 
-> Claude.ai 在瀏覽器裡運作, 碰不到你電腦的檔案系統.
-> Claude Code 在你的電腦上運作, 可以讀、寫、移動、執行任何本地檔案.
-
 ---
 
 ### 3-5 核心工作模式
