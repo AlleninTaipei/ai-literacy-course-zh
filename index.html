@@ -27,13 +27,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <script>
-    (function () {
-      try {
-        if (localStorage.getItem('aiCoursesTheme') === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
-      } catch (e) { }
-    })();
+    document.documentElement.setAttribute('data-theme', 'dark');
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -180,60 +174,6 @@
       border: none;
       border-top: 1px solid rgba(217, 119, 87, 0.3);
       margin: 1.75rem 0 2.25rem;
-    }
-
-    .control-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .pill {
-      position: relative;
-      isolation: isolate;
-      display: inline-flex;
-      border: 1px solid rgba(217, 119, 87, 0.4);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .pill::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      background: var(--ember);
-      z-index: -1;
-      transition: transform 0.25s ease;
-    }
-
-    .theme-buttons:has(.theme-btn[data-theme-btn="dark"].active)::after {
-      transform: translateX(100%);
-    }
-
-    .pill-btn {
-      background: transparent;
-      border: none;
-      color: var(--fg-a55);
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      padding: 0.5rem 1.2rem;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .pill-btn.active {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .pill-btn:hover:not(.active) {
-      color: var(--fg);
     }
 
     .notice {
@@ -445,7 +385,6 @@
       }
 
       header,
-      .control-bar,
       .notice,
       .parts .part-card {
         animation: fade-up 0.5s ease both;
@@ -467,7 +406,6 @@
     @media (prefers-reduced-motion: reduce) {
 
       body,
-      .pill::after,
       .part-card,
       .demo-card {
         transition: none;
@@ -485,10 +423,6 @@
       header h1 {
         font-size: 2rem;
       }
-
-      .control-bar {
-        gap: 1rem;
-      }
     }
   </style>
 </head>
@@ -502,13 +436,6 @@
   </header>
 
   <main>
-    <div class="control-bar">
-      <div class="theme-buttons pill" role="group" aria-label="外觀模式選擇">
-        <button type="button" class="theme-btn pill-btn" data-theme-btn="light">淺色模式</button>
-        <button type="button" class="theme-btn pill-btn" data-theme-btn="dark">深色模式</button>
-      </div>
-    </div>
-
     <div class="notice">
       <p class="notice-eyebrow">開始前</p>
       <p class="notice-text">使用本課程教材前，建議先閱讀
@@ -544,42 +471,6 @@
       </a>
     </div>
 
-    <hr class="divider">
-
-    <h2 class="section-title">參考附件</h2>
-    <div class="demos">
-      <a class="demo-card" href="anthropic-academy.html">
-        <div class="demo-tag">Official · 免費 · 官方證照</div>
-        <h3>Anthropic Academy</h3>
-        <p>Anthropic 官方免費學習平台，課程涵蓋 AI 入門到開發者實作，完課頒發官方證照可加進 LinkedIn。</p>
-      </a>
-      <a class="demo-card" href="vscode-guide.html">
-        <div class="demo-tag">Guide</div>
-        <h3>VS Code 入門指南</h3>
-        <p>介面總覽、擴充套件、內建 Git 整合、Markdown 即時預覽。</p>
-      </a>
-      <a class="demo-card" href="markdown-guide.html">
-        <div class="demo-tag">Guide</div>
-        <h3>Markdown 入門指南</h3>
-        <p>基礎語法、常見應用情境、常見錯誤提醒。</p>
-      </a>
-      <a class="demo-card" href="marp-guide.html">
-        <div class="demo-tag">Guide</div>
-        <h3>Marp 入門指南</h3>
-        <p>front matter、投影片分隔、版面切版、匯出格式。</p>
-      </a>
-      <a class="demo-card" href="git-github-guide.html">
-        <div class="demo-tag">Guide</div>
-        <h3>Git &amp; GitHub 入門指南</h3>
-        <p>基本概念、常用指令、GitHub CLI、認證方式。</p>
-      </a>
-      <a class="demo-card" href="claude-code-guide.html">
-        <div class="demo-tag">Guide</div>
-        <h3>Claude Code 入門指南</h3>
-        <p>與聊天機器人的差異、安全機制、辦公應用情境。</p>
-      </a>
-    </div>
-
   </main>
 
   <footer>
@@ -589,32 +480,6 @@
     &nbsp;·&nbsp;
     最後更新：2026-07-06
   </footer>
-
-  <script>
-    (function () {
-      var STORAGE_KEY = 'aiCoursesTheme';
-      var buttons = document.querySelectorAll('.theme-btn');
-
-      function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        buttons.forEach(function (btn) {
-          var isActive = btn.dataset.themeBtn === theme;
-          btn.classList.toggle('active', isActive);
-          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        });
-      }
-
-      buttons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var theme = btn.dataset.themeBtn;
-          applyTheme(theme);
-          localStorage.setItem(STORAGE_KEY, theme);
-        });
-      });
-
-      applyTheme(localStorage.getItem(STORAGE_KEY) || 'light');
-    })();
-  </script>
 
 </body>
 

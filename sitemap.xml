@@ -31,12 +31,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://allenintaipei.github.io/ai-literacy-course-zh/anthropic-academy.html</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://allenintaipei.github.io/ai-literacy-course-zh/llm-agent-stack.html</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
