@@ -102,7 +102,6 @@ Claude Code wants to execute a bash command:
 
 - CLAUDE.md 是給 AI 的工作手冊, 每次對話開始都會被讀取
 - Commands 要使用者明確輸入 `/xxx` 才會執行; Skills 預設由 Claude 依任務內容自主判斷是否調用, 也可以用 `/skill-name` 手動觸發
-- 這門課用的 CLAUDE.md 已經把 Skills 的自動調用關掉, 改成一律要靠 slash command 明確發起
 - 全域 CLAUDE.md 適合放「不管在哪個專案都成立」的規範
 - 專案級 CLAUDE.md 會疊加在全域規則之上, 讓每個資料夾可以再補上自己的例外, 不是取代全域規則
 
