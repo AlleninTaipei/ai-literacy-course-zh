@@ -167,6 +167,8 @@ git config --global user.email "your.email@example.com"
 - 避免堆疊形容詞與重複表達相同意思, 用字力求精煉, 一句話只傳達一個重點.
 ```
 
+> CLAUDE.md 是你給 AI 的全域指令. 寫在這裡的規則, AI 在每次對話開始時都會自動讀取.
+
 ---
 
 #### 動手做: 拿到一份你自己的副本
