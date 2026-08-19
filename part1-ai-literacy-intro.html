@@ -257,13 +257,12 @@
 
 <section>
   <h2>1-7 無狀態與多輪對話 (Stateless &amp; Multi-turn Conversation)</h2>
-  <div class="info-box">
-    <span class="tag">比喻</span>
-    <p>電影《我的失憶女友》(50 First Dates)裡, 女主角 Lucy 因車禍每天醒來都會失去前一天的記憶. 每一天對她來說都是全新的開始. 男主角 Henry 為了讓她記得兩人的感情, 每天早上準備一捲影帶, 讓她從頭看完所有的故事, 才能繼續當天的對話.</p>
-  </div>
-  <p style="margin-top:14px">模型一次能「看到」的 Token 數量是有上限的, 稱為上下文視窗(Context Window). 超過這個上限, AI 就會「忘記」對話最前面的內容.</p>
+  <p style="margin-top:14px">每一次推論都是獨立事件, 模型不會自己保留上一句話的記憶. 你感覺對話「連得起來」, 是因為每次送出新訊息時, 應用程式都把之前的對話紀錄整段重新送給模型.</p>
+  <p style="margin-top:14px">這份重新送出的紀錄, 加上你這次的輸入, 合稱上下文(Context). 模型一次能處理的 Token 數量有上限, 稱為上下文視窗(Context Window).</p>
+  <p style="margin-top:14px">對話越長, 每次重送的紀錄就越長, 越早消耗這個上限. 一旦超過, 較早的內容就會被截斷或摘要.</p>
   <div class="takeaway">
-    <p>開始一段長工作前, 先在對話開頭貼上「背景摘要」.</p>
+    <p>開始一段長工作前, 先在對話開頭貼上「背景摘要」, 減少對早期內容的依賴.</p>
+    <p>部分平台提供的記憶功能(例如 ChatGPT 的 Memory), 其實是把重點另存成一份摘要, 在新對話開始時自動附加進上下文, 模型本身仍然無狀態.</p>
   </div>
 </section>
 
@@ -324,7 +323,7 @@
     <div class="response-field"><span class="rf-key">訓練 · MoE</span><span class="rf-val">按需啟動專家子網路, 效率與廣度兼顧</span></div>
     <div class="response-field"><span class="rf-key">推論 · Token</span><span class="rf-val">AI 閱讀與計費的基本單位</span></div>
     <div class="response-field"><span class="rf-key">推論 · 思維鏈</span><span class="rf-val">引導逐步推理, 複雜任務表現更佳</span></div>
-    <div class="response-field"><span class="rf-key">使用 · 無狀態 + 多輪對話</span><span class="rf-val">Context Window: 模型每次能「看到」的內容上限</span></div>
+    <div class="response-field"><span class="rf-key">使用 · 無狀態 + 多輪對話</span><span class="rf-val">模型不記事, 靠應用程式重送歷史紀錄撐起對話</span></div>
     <div class="response-field"><span class="rf-key">使用 · 系統提示</span><span class="rf-val">隱藏的底稿, 規範 AI 的角色與邊界</span></div>
     <div class="response-field"><span class="rf-key">使用 · 工具呼叫</span><span class="rf-val">串接外部工具, 從文字預測到問題解決</span></div>
     <div class="response-field"><span class="rf-key">使用 · 多模態</span><span class="rf-val">擴展至圖像、語音、影片的輸入與輸出</span></div>
