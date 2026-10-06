@@ -133,7 +133,7 @@ git config --global user.email "your.email@example.com"
 | 訂閱 | Windows | Mac  |
 |:-|:-|:-|
 | Claude Pro| `C:\Users\<名稱>\.claude\CLAUDE.md` | `~/.claude/CLAUDE.md` |
-| ChatGPT Plus| `C:\Users\<名稱>\.codex\AGENT.md` | `~/.codex/AGENT.md` |
+| ChatGPT Plus| `C:\Users\<名稱>\.codex\AGENTS.md` | `~/.codex/AGENTS.md` |
 | Gemini Advanced | `C:\Users\<名稱>\.gemini\GEMINI.md` | `~/.gemini/GEMINI.md` |
 
 #### Markdown 和 AI 說同一種語言

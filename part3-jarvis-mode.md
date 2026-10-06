@@ -42,7 +42,7 @@ blockquote {
 
 #### 動手做: 開啟 Part 2 那個 `one_day_one_ai` 資料夾
 
-`CLAUDE.md`: OpenAI 用戶請複製一份為 `AGENT.md`; Gemini 用戶請複製一份為 `GEMENI.md`
+`CLAUDE.md`: OpenAI 用戶請複製一份為 `AGENTS.md`; Gemini 用戶請複製一份為 `GEMINI.md`
 
 在終端機啟動 Claude Code
 
