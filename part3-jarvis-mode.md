@@ -110,8 +110,8 @@ Claude Code wants to execute a bash command:
 ```
 
 ```
-/code-review           ← Command, 要明確輸入才會執行
-"請幫我做資料視覺化"     ← 符合某個 Skill 的描述, Claude 可能自主調用
+/clear                       ← Command, 要明確輸入才會執行
+"幫我把這份報告做成簡報"       ← 符合某個 Skill 的描述, Claude 可能自主調用
 ```
 
 ---
